@@ -8,7 +8,7 @@ import {
   useCreateCommunity,
   useGetAllCategories,
 } from "~/apis/useFetchCommunity";
-import { useUploadWithValidation } from "~/apis/useFetchUpload";
+import { useUploadMedia } from "~/apis/useFetchUpload";
 import { useGetFollowedById } from "~/apis/useFetchUser";
 import { useDebounce } from "~/hooks/useDebounce";
 import { cn } from "~/lib/utils";
@@ -53,7 +53,7 @@ export function CreateCommunityForm({
 
   //
   const apiCreateCommunity = useCreateCommunity();
-  const apiUploadMedia = useUploadWithValidation();
+  const apiUploadMedia = useUploadMedia();
 
   // Search
   const [searchVal, setSearchVal] = useState("");

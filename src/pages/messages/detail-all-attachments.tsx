@@ -12,7 +12,7 @@ import {
 import { Drawer, DrawerContent, DrawerOverlay } from "~/components/ui/drawer";
 import { WrapIcon } from "~/components/wrapIcon";
 import { EMediaType } from "~/shared/enums/type.enum";
-import type { IMedia } from "~/shared/interfaces/common/media.interface";
+import type { IMedia } from "~/shared/interfaces/schemas/media.interface";
 import { useDetailAttachment } from "~/store/useDetailAttachment";
 
 export function DetailAttachmentDrawer() {

@@ -28,7 +28,7 @@ import { EConversationType, EMediaType } from "~/shared/enums/type.enum";
 import type {
   IMedia,
   PreviewMediaProps,
-} from "~/shared/interfaces/common/media.interface";
+} from "~/shared/interfaces/schemas/media.interface";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { IMessage } from "~/shared/interfaces/schemas/message.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";

@@ -1,4 +1,4 @@
-import type { IMedia } from "../common/media.interface";
+import type { IMedia } from "./media.interface";
 import type { IBase } from "./base.interface";
 import type { IConversation } from "./conversation.interface";
 

@@ -4,10 +4,16 @@ import {
   CONSTANT_MAX_SIZE_IMAGE_UPLOAD,
   CONSTANT_MAX_SIZE_VIDEO_UPLOAD,
 } from "~/shared/constants";
-import type { IMedia } from "~/shared/interfaces/common/media.interface";
+import type {
+  PresignedUrlDto,
+  UploadConfirmDto,
+} from "~/shared/dtos/req/upload.dto";
+import type { ResPresignedUrl } from "~/shared/dtos/res/upload.dto";
+import type { IMedia } from "~/shared/interfaces/schemas/media.interface";
 import { apiCall } from "~/utils/callApi.util";
+import { toastSimple } from "~/utils/toast";
 
-const uploadEndpoint = "/uploads/cloudinary";
+const uploadEndpoint = "/uploads/";
 
 export const allowedImgTypes = ["image/jpeg", "image/jpg", "image/png"];
 
@@ -20,62 +26,37 @@ export const allowedVideoTypes = [
   "video/avi",
 ];
 
-// 📸 POST - Upload single image/video (Dynamic endpoint)
-export const useUploadMedia = () => {
+// 📸 POST - Get presigned URLs for uploading files
+export const usePresignedUrl = () => {
   return useMutation({
-    mutationFn: async (files: File[]): Promise<OkResponse<IMedia[]>> => {
-      // Phân loại files theo type
-      const imageFiles = files.filter((file) => file.type.startsWith("image/"));
-      const videoFiles = files.filter((file) => file.type.startsWith("video/"));
+    mutationFn: async (
+      files: File[]
+    ): Promise<OkResponse<ResPresignedUrl[]>> => {
+      // Tạo payload từ file list
+      const payload: PresignedUrlDto[] = files.map((file) => ({
+        file_name: file.name,
+        file_type: file.type,
+        file_size: file.size,
+      }));
 
-      const uploadPromises: Promise<IMedia[]>[] = [];
-
-      // Upload images nếu có
-      if (imageFiles.length > 0) {
-        const imageFormData = new FormData();
-        imageFiles.forEach((file) => {
-          imageFormData.append("images", file);
-        });
-
-        const imageUpload = apiCall<IMedia[]>(uploadEndpoint, {
-          method: "POST",
-          body: imageFormData,
-        }).then((response) => {
-          if (response.statusCode >= 200 && response.statusCode < 300) {
-            return response.metadata || [];
-          }
-          throw new Error(response.message);
-        });
-
-        uploadPromises.push(imageUpload);
-      }
-
-      // Upload videos nếu có
-      if (videoFiles.length > 0) {
-        const videoFormData = new FormData();
-        videoFiles.forEach((file) => {
-          videoFormData.append("videos", file);
-        });
-
-        const videoUpload = apiCall<IMedia[]>(uploadEndpoint, {
-          method: "POST",
-          body: videoFormData,
-        }).then((response) => {
-          if (response.statusCode >= 200 && response.statusCode < 300) {
-            return response.metadata || [];
-          }
-          throw new Error(response.message);
-        });
-
-        uploadPromises.push(videoUpload);
-      }
-
-      // Chờ tất cả uploads hoàn thành và merge kết quả
-      const results = await Promise.all(uploadPromises);
-      return new OkResponse("Success", results.flat()); // Merge tất cả string[] thành một string[] duy nhất
+      // Gọi API lấy presigned URL
+      const results = await Promise.all(
+        payload.map(async (item) => {
+          const res = await apiCall<ResPresignedUrl>(
+            `${uploadEndpoint}presigned-url`,
+            {
+              method: "POST",
+              body: JSON.stringify(item),
+            }
+          );
+          return res.metadata!;
+        })
+      );
+      return new OkResponse("Success", results);
     },
+
     onSuccess: () => {
-      console.log("Tải lên thành công!");
+      console.log("Lấy presigned URL thành công!");
     },
   });
 };
@@ -100,16 +81,56 @@ export const validateMediaFile = (file: File) => {
 };
 
 // 🎯 Hook tiện ích để upload với validation
-export const useUploadWithValidation = () => {
-  const uploadMutation = useUploadMedia();
+export const useUploadMedia = () => {
+  const presignedUrlMutation = usePresignedUrl();
 
   return useMutation({
     mutationFn: async (files: File[]) => {
-      // Validate trước khi upload
+      // 1. Validate files
       files.forEach((file) => validateMediaFile(file));
 
-      // Thực hiện upload
-      return uploadMutation.mutateAsync(files);
+      // 2. Lấy danh sách Presigned URLs từ Server của bạn
+      const res = await presignedUrlMutation.mutateAsync(files);
+      const presignedData = res.metadata || []; // ResPresignedUrl[]
+
+      // 3. Thực hiện Upload từng file lên S3
+      const keys = await Promise.all(
+        files.map(async (file, index) => {
+          const { presigned_url, key } = presignedData[index];
+
+          const uploadResponse = await fetch(presigned_url, {
+            method: "PUT", // Bắt buộc là PUT cho S3 Presigned URL
+            body: file,
+            headers: {
+              // Gửi kèm các header mà S3 yêu cầu (dựa trên URL lỗi của bạn)
+              "x-amz-checksum-crc32": "AAAAAA==",
+              "x-amz-sdk-checksum-algorithm": "CRC32",
+              "Content-Type": file.type,
+            },
+          });
+
+          if (!uploadResponse.ok) {
+            toastSimple("Tải hình ảnh / video lên thất bại!", "error");
+          }
+
+          return key;
+        })
+      );
+
+      // 4. Gọi API confirm với danh sách keys đã upload thành công
+      const resConfirm = await apiCall<IMedia[]>(`${uploadEndpoint}confirm`, {
+        method: "POST",
+        body: JSON.stringify({ s3_keys: keys } as UploadConfirmDto),
+      });
+
+      // 5. Trả về kết quả
+      return resConfirm;
+    },
+    onSuccess: (data) => {
+      console.log("Tải lên tất cả file lên S3 thành công:", data);
+    },
+    onError: (error: any) => {
+      console.error("Tải lên thất bại:", error.message);
     },
   });
 };
@@ -121,17 +142,6 @@ export const useRemoveImages = () => {
       apiCall(uploadEndpoint, {
         method: "DELETE",
         body: JSON.stringify(credentials),
-      }),
-  });
-};
-
-// 🎯 Hook để signed
-export const useSignedMedia = () => {
-  return useMutation({
-    mutationFn: async (body: string[]) =>
-      apiCall("/uploads/signed", {
-        method: "POST",
-        body: JSON.stringify(body),
       }),
   });
 };

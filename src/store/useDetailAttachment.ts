@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { IMedia } from "~/shared/interfaces/common/media.interface";
+import type { IMedia } from "~/shared/interfaces/schemas/media.interface";
 
 interface State {
   mediaList?: IMedia[];

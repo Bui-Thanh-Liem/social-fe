@@ -23,7 +23,7 @@ import { EMediaType, ETweetType } from "~/shared/enums/type.enum";
 import type {
   IMedia,
   PreviewMediaProps,
-} from "~/shared/interfaces/common/media.interface";
+} from "~/shared/interfaces/schemas/media.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useReloadStore } from "~/store/useReloadStore";

@@ -11,10 +11,7 @@ import { handleResponse } from "~/utils/toast";
 // UI components - theo cách import của bạn
 import { useNavigate } from "react-router-dom";
 import { useUpdateMe } from "~/apis/useFetchAuth";
-import {
-  useRemoveImages,
-  useUploadWithValidation,
-} from "~/apis/useFetchUpload";
+import { useRemoveImages, useUploadMedia } from "~/apis/useFetchUpload";
 import {
   UpdateMeDtoSchema,
   type UpdateMeDto,
@@ -61,7 +58,7 @@ export function UpdateMeForm({
   const [coverPreview, setCoverPreview] = useState<string>(
     currentUser?.cover_photo || ""
   );
-  const apiUploadMedia = useUploadWithValidation();
+  const apiUploadMedia = useUploadMedia();
   const apiRemoteImages = useRemoveImages();
 
   const [isUploading, setIsUploading] = useState(false);
