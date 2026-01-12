@@ -4,13 +4,7 @@ import {
   CONSTANT_REGEX,
 } from "~/shared/constants";
 import { ETweetAudience } from "~/shared/enums/common.enum";
-import { EFeedType, EMediaType, ETweetType } from "~/shared/enums/type.enum";
-
-export const MediaSchema = z.object({
-  url: z.string().url({ message: "Url không hợp lệ" }).optional(),
-  resource_type: z.nativeEnum(EMediaType),
-  public_id: z.string().trim(),
-});
+import { EFeedType, ETweetType } from "~/shared/enums/type.enum";
 
 export const CreateTweetDtoSchema = z.object({
   type: z.nativeEnum(ETweetType),
@@ -44,7 +38,7 @@ export const CreateTweetDtoSchema = z.object({
       })
     )
     .optional(),
-  media: z.array(MediaSchema).optional().nullable(),
+  media: z.array(z.string()).optional().nullable(), // array of s3_key
 });
 
 export const GetOneTweetByIdDtoSchema = z.object({

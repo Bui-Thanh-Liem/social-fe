@@ -102,9 +102,6 @@ export const useUploadMedia = () => {
             method: "PUT", // Bắt buộc là PUT cho S3 Presigned URL
             body: file,
             headers: {
-              // Gửi kèm các header mà S3 yêu cầu (dựa trên URL lỗi của bạn)
-              "x-amz-checksum-crc32": "AAAAAA==",
-              "x-amz-sdk-checksum-algorithm": "CRC32",
               "Content-Type": file.type,
             },
           });

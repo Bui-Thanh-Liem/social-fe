@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDebounce } from "~/hooks/useDebounce";
 import { useCreateConversation } from "~/apis/useFetchConversations";
-import { useUploadWithValidation } from "~/apis/useFetchUpload";
+import { useUploadMedia } from "~/apis/useFetchUpload";
 import { useGetFollowedById } from "~/apis/useFetchUser";
 import { cn } from "~/lib/utils";
 import {
@@ -116,7 +116,7 @@ export function CreateConversationForm({
 
   //
   const apiCreateConversation = useCreateConversation();
-  const apiUploadMedia = useUploadWithValidation();
+  const apiUploadMedia = useUploadMedia();
 
   const { data, isLoading } = useGetFollowedById(user!._id!, {
     page: page.toString(),

@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { useGetCommunityTweets } from "~/apis/useFetchTweet";
 import { ErrorResponse } from "~/components/error";
 import { Card, CardContent } from "~/components/ui/card";
-import { EMediaType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 
@@ -152,7 +151,7 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
                 onClick={() => handleClickMedia(tweet)}
               >
                 <CardContent className="p-0">
-                  {m?.resource_type === EMediaType.Video ? (
+                  {m?.file_type.startsWith("video/") ? (
                     <video
                       src={m?.url}
                       controls

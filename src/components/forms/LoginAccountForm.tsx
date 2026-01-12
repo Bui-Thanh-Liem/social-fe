@@ -44,6 +44,7 @@ export function LoginAccountForm({
 
   //
   const onSubmit = async (data: LoginUserDto) => {
+    console.log(data);
     const res = await apiLogin.mutateAsync(data);
     handleResponse(res, successForm);
   };

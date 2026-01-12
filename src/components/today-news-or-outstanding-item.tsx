@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { cn } from "~/lib/utils";
 import type { IResTodayNewsOrOutstanding } from "~/shared/dtos/res/trending.dto";
-import { EMediaType } from "~/shared/enums/type.enum";
 import { useTrendingStore } from "~/store/useTrendingStore";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { formatTimeAgo } from "~/utils/date-time";
@@ -82,13 +81,13 @@ export function TodayNewsOrOutstandingItem({
       </div>
       {isMedia && (
         <div className="w-32 h-20">
-          {item.media?.resource_type === EMediaType.Video ? (
+          {item.media?.file_type.includes("video/") ? (
             <video
               src={item.media.url}
               controls
               className="w-full h-full object-cover"
             />
-          ) : item.media?.resource_type === EMediaType.Image ? (
+          ) : item.media?.file_type.includes("image/") ? (
             <img
               src={item.media.url}
               alt={item.media.url}

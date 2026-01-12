@@ -14,7 +14,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useGetTweetChildren } from "~/apis/useFetchTweet";
 import { cn } from "~/lib/utils";
 import { ETweetStatus } from "~/shared/enums/status.enum";
-import { EMediaType, ETweetType } from "~/shared/enums/type.enum";
+import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useCommentSocket } from "~/socket/hooks/useCommentSocket";
@@ -279,9 +279,9 @@ export function TweetDetailDrawer() {
                       <CarouselItem key={item.url} className="lg:basis-1/1">
                         <Card className="w-full h-full overflow-hidden flex items-center justify-center border-0 bg-transparent">
                           <CardContent className="w-full h-full p-0 flex items-center justify-center">
-                            {item.resource_type === EMediaType.Video ? (
+                            {item.file_type.includes("video/") ? (
                               <video src={item.url} controls />
-                            ) : item.resource_type === EMediaType.Image ? (
+                            ) : item.file_type.includes("image/") ? (
                               <img
                                 src={item.url}
                                 alt={item.url}

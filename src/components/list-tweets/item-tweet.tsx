@@ -12,7 +12,7 @@ import { useReportTweet } from "~/apis/useFetchReport";
 import { useDeleteTweet, useGetDetailTweet } from "~/apis/useFetchTweet";
 import { cn } from "~/lib/utils";
 import { ETweetStatus } from "~/shared/enums/status.enum";
-import { EMediaType, ETweetType } from "~/shared/enums/type.enum";
+import { ETweetType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
@@ -57,6 +57,8 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
 
   if (!media || !media.length) return <></>;
 
+  console.log("media", media);
+
   return (
     <div
       className={cn("", tweet ? "cursor-pointer" : "")}
@@ -74,13 +76,12 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
             >
               <Card className="w-full h-full overflow-hidden flex items-center justify-center border bg-transparent">
                 <CardContent className="w-full h-full p-0 flex items-center justify-center">
-                  {item.resource_type === EMediaType.Video ? (
-                    // <HLSPlayer src={item.url} />
+                  {item.file_type.includes("video/") ? (
                     <video src={item?.url} controls />
-                  ) : item.resource_type === EMediaType.Image ? (
+                  ) : item.file_type.includes("image/") ? (
                     <img
-                      src={item.url}
-                      alt={item.url}
+                      src={item?.url}
+                      alt={item?.url}
                       className="object-contain"
                       loading="lazy"
                       onError={(e) => {

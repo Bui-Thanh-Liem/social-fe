@@ -11,7 +11,6 @@ import {
 } from "~/components/ui/carousel";
 import { Drawer, DrawerContent, DrawerOverlay } from "~/components/ui/drawer";
 import { WrapIcon } from "~/components/wrapIcon";
-import { EMediaType } from "~/shared/enums/type.enum";
 import type { IMedia } from "~/shared/interfaces/schemas/media.interface";
 import { useDetailAttachment } from "~/store/useDetailAttachment";
 
@@ -60,13 +59,13 @@ export function DetailAttachmentDrawer() {
             </WrapIcon>
 
             <div className="h-[90%] z-[1000]">
-              {mediaSelected.resource_type === EMediaType.Video ? (
+              {mediaSelected.file_type.startsWith("video/") ? (
                 <video
                   src={mediaSelected.url}
                   controls
                   className="w-full h-full object-cover"
                 />
-              ) : mediaSelected.resource_type === EMediaType.Image ? (
+              ) : mediaSelected.file_type.startsWith("image/") ? (
                 <img
                   src={mediaSelected.url}
                   alt={mediaSelected.url}
@@ -103,13 +102,13 @@ export function DetailAttachmentDrawer() {
                 <div className="p-1">
                   <Card onClick={() => onClickMedia(media)}>
                     <CardContent className="flex items-center justify-center p-6">
-                      {media.resource_type === EMediaType.Video ? (
+                      {media.file_type.startsWith("video/") ? (
                         <video
                           src={media.url}
                           controls
                           className="w-full h-full object-cover"
                         />
-                      ) : media.resource_type === EMediaType.Image ? (
+                      ) : media.file_type.startsWith("image/") ? (
                         <img
                           src={media.url}
                           alt={media.url}

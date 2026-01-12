@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateTweet } from "~/apis/useFetchTweet";
-import { useUploadWithValidation } from "~/apis/useFetchUpload";
+import { useUploadMedia } from "~/apis/useFetchUpload";
 import { EmojiSelector } from "~/components/emoji-picker";
 import { CloseIcon } from "~/components/icons/close";
 import { ImageIcon } from "~/components/icons/image";
@@ -19,7 +19,7 @@ import {
 } from "~/shared/dtos/req/tweet.dto";
 import type { ResCreateTweet } from "~/shared/dtos/res/tweet.dto";
 import { ETweetAudience } from "~/shared/enums/common.enum";
-import { EMediaType, ETweetType } from "~/shared/enums/type.enum";
+import { ETweetType } from "~/shared/enums/type.enum";
 import type {
   IMedia,
   PreviewMediaProps,
@@ -61,7 +61,7 @@ export function Tweet({
 }) {
   const { user } = useUserStore();
   const apiCreateTweet = useCreateTweet();
-  const apiUploadMedia = useUploadWithValidation();
+  const apiUploadMedia = useUploadMedia();
 
   //
   const { triggerReload } = useReloadStore();
@@ -296,7 +296,7 @@ export function Tweet({
             community_id: communityId,
             audience: ETweetAudience.Everyone,
           }),
-          media: medias?.length > 0 ? medias : undefined,
+          media: medias?.length > 0 ? medias.map((m) => m.s3_key) : undefined,
         };
 
         const resCreateTweet = await apiCreateTweet.mutateAsync(tweetData);
@@ -488,7 +488,7 @@ export function PreviewMediaMulti({
                 <CloseIcon size={16} color="red" />
               </WrapIcon>
               <CardContent className="w-full h-full p-0 flex items-center justify-center">
-                {item.mediaType === EMediaType.Image ? (
+                {item.file_type.includes("image/") ? (
                   <img
                     src={item.previewUrl}
                     className="object-contain rounded"

@@ -3,7 +3,6 @@ import {
   CONSTANT_MAX_SIZE_IMAGE_UPLOAD,
   CONSTANT_MAX_SIZE_VIDEO_UPLOAD,
 } from "~/shared/constants";
-import { EMediaType } from "~/shared/enums/type.enum";
 import { toastSimple } from "~/utils/toast";
 
 // Custom hook for media preview and upload
@@ -11,14 +10,8 @@ export const useMediaPreview = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [uploadedMediaUrl, setUploadedMediaUrl] = useState<string>("");
-  const [mediaType, setMediaType] = useState<EMediaType | null>(null);
+  const [mediaType, setMediaType] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
-
-  const getMediaType = (file: File): EMediaType | null => {
-    if (file.type.startsWith("image/")) return EMediaType.Image;
-    if (file.type.startsWith("video/")) return EMediaType.Video;
-    return null;
-  };
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return "0 Bytes";
@@ -38,8 +31,6 @@ export const useMediaPreview = () => {
       }
 
       if (file) {
-        const type = getMediaType(file);
-
         // Validate file type
         const validImageTypes = [
           "image/jpeg",
@@ -67,14 +58,17 @@ export const useMediaPreview = () => {
         }
 
         // Validate file size (different limits for image and video)
-        const maxSize =
-          type === EMediaType.Video
-            ? CONSTANT_MAX_SIZE_VIDEO_UPLOAD
-            : CONSTANT_MAX_SIZE_IMAGE_UPLOAD;
+        const maxSize = mediaType?.startsWith("video/")
+          ? CONSTANT_MAX_SIZE_VIDEO_UPLOAD
+          : CONSTANT_MAX_SIZE_IMAGE_UPLOAD;
 
         if (file.size > maxSize) {
-          const type_vn = type === EMediaType.Video ? "Video" : "Hình ảnh";
-          const sizeLimitText = type === EMediaType.Video ? "10MB" : "5MB";
+          const type_vn = mediaType?.startsWith("video/")
+            ? "Video"
+            : "Hình ảnh";
+          const sizeLimitText = mediaType?.startsWith("video/")
+            ? "10MB"
+            : "5MB";
           toastSimple(
             `${type_vn} không được vượt quá ${sizeLimitText}, ${type_vn} bạn định tải lên: ${formatFileSize(
               file.size
@@ -87,7 +81,7 @@ export const useMediaPreview = () => {
         const mediaUrl = URL.createObjectURL(file);
         setSelectedFile(file);
         setPreviewUrl(mediaUrl);
-        setMediaType(type);
+        setMediaType(file.type);
         setUploadedMediaUrl(""); // Reset uploaded URL when new file selected
         setUploadProgress(0);
       } else {

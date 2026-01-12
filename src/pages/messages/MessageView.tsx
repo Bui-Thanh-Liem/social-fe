@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useGetMultiMessages } from "~/apis/useFetchMessages";
-import { useUploadWithValidation } from "~/apis/useFetchUpload";
+import { useUploadMedia } from "~/apis/useFetchUpload";
 import { EmojiSelector } from "~/components/emoji-picker";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { CloseIcon } from "~/components/icons/close";
@@ -24,7 +24,7 @@ import { useMediaPreviewMulti } from "~/hooks/useMediaPreviewMulti";
 import { useTextareaAutoResize } from "~/hooks/useTextareaAutoResize";
 import { cn } from "~/lib/utils";
 import { CONSTANT_MAX_LENGTH_TEXT } from "~/shared/constants";
-import { EConversationType, EMediaType } from "~/shared/enums/type.enum";
+import { EConversationType } from "~/shared/enums/type.enum";
 import type {
   IMedia,
   PreviewMediaProps,
@@ -74,7 +74,7 @@ export function MessageView({
       return [...prev, newDataMessage];
     });
   });
-  const apiUploadMedia = useUploadWithValidation();
+  const apiUploadMedia = useUploadMedia();
 
   //
   const { mediaItems, handleFileChange, removeMedia } = useMediaPreviewMulti();
@@ -202,8 +202,8 @@ export function MessageView({
           if (resUploadMedia.statusCode !== 200 || !resUploadMedia.metadata) {
             handleResponse(resUploadMedia, () => {
               setTimeout(() => {
-                const isVideo = resUploadMedia.metadata!.some(
-                  (i) => i.resource_type === EMediaType.Video
+                const isVideo = resUploadMedia.metadata!.some((i) =>
+                  i.file_type.startsWith("video/")
                 );
                 if (isVideo) {
                   toastSimple(
@@ -223,7 +223,7 @@ export function MessageView({
 
         sendMessage({
           content: data.text,
-          attachments: medias,
+          attachments: medias.map((m) => m.s3_key),
           sender: user?._id || "",
           conversation: conversation?._id || "",
         });
@@ -457,7 +457,7 @@ export function PreviewMediaMulti({
               onClick={() => setOpenCarousel(!openCarousel)}
               className="cursor-pointer h-9 w-12 overflow-hidden rounded shadow"
             >
-              {item.mediaType === EMediaType.Image ? (
+              {item.file_type.startsWith("image/") ? (
                 <img
                   src={item.previewUrl}
                   className="h-full w-full object-cover rounded"
@@ -487,7 +487,7 @@ export function PreviewMediaMulti({
                     <CloseIcon size={16} color="red" />
                   </WrapIcon>
                   <CardContent className="w-full h-full p-0 flex items-center justify-center">
-                    {item.mediaType === EMediaType.Image ? (
+                    {item.file_type.startsWith("image/") ? (
                       <img
                         src={item.previewUrl}
                         className="object-contain rounded"
@@ -584,7 +584,7 @@ export const MessageItem = ({ msg, user }: { msg: IMessage; user: IUser }) => {
             )}
           >
             {attachments.map((a, i) => {
-              if (a.resource_type === EMediaType.Image) {
+              if (a.file_type.startsWith("image/")) {
                 return (
                   <img
                     key={i}
@@ -597,7 +597,7 @@ export const MessageItem = ({ msg, user }: { msg: IMessage; user: IUser }) => {
                 );
               }
 
-              if (a.resource_type === EMediaType.Video) {
+              if (a.file_type.startsWith("video/")) {
                 return (
                   <div
                     key={i}

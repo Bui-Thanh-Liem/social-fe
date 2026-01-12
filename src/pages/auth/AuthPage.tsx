@@ -229,7 +229,7 @@ export function Footer() {
         ))}
       </div>
       <div className="text-center mt-2">
-        © 2025 <strong>Liemdev</strong>.
+        © 2026 <strong>Liemdev</strong>.
       </div>
     </div>
   );

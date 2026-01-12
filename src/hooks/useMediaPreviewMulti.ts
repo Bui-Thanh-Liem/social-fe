@@ -3,7 +3,6 @@ import {
   CONSTANT_MAX_SIZE_IMAGE_UPLOAD,
   CONSTANT_MAX_SIZE_VIDEO_UPLOAD,
 } from "~/shared/constants";
-import { EMediaType } from "~/shared/enums/type.enum";
 import { toastSimple } from "~/utils/toast";
 import { allowedImgTypes, allowedVideoTypes } from "../apis/useFetchUpload";
 
@@ -13,18 +12,12 @@ export interface MediaItem {
   id: string;
   file: File;
   previewUrl: string;
-  mediaType: EMediaType;
+  file_type: string;
   uploadProgress: number;
 }
 
 export const useMediaPreviewMulti = () => {
   const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
-
-  const getMediaType = (file: File): EMediaType | null => {
-    if (file.type.startsWith("image/")) return EMediaType.Image;
-    if (file.type.startsWith("video/")) return EMediaType.Video;
-    return null;
-  };
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return "0 Bytes";
@@ -56,8 +49,6 @@ export const useMediaPreviewMulti = () => {
         let idCounter = 0; // ✅ Counter để đảm bảo ID unique trong cùng batch
 
         for (const file of filesToProcess) {
-          const type = getMediaType(file);
-
           if (
             !allowedImgTypes.includes(file.type) &&
             !allowedVideoTypes.includes(file.type)
@@ -69,14 +60,22 @@ export const useMediaPreviewMulti = () => {
             continue;
           }
 
-          const maxSize =
-            type === EMediaType.Video
-              ? CONSTANT_MAX_SIZE_VIDEO_UPLOAD
-              : CONSTANT_MAX_SIZE_IMAGE_UPLOAD;
+          const maxSize = file.type.startsWith("video/")
+            ? CONSTANT_MAX_SIZE_VIDEO_UPLOAD
+            : CONSTANT_MAX_SIZE_IMAGE_UPLOAD;
 
           if (file.size > maxSize) {
-            const type_vn = type === EMediaType.Video ? "Video" : "Hình ảnh";
-            const sizeLimitText = type === EMediaType.Video ? "10MB" : "5MB";
+            //
+            const type_vn = file.type.startsWith("video/")
+              ? "Video"
+              : "Hình ảnh";
+
+            //
+            const sizeLimitText = file.type.startsWith("video/")
+              ? "10MB"
+              : "5MB";
+
+            //
             toastSimple(
               `${type_vn} không được vượt quá ${sizeLimitText}, ${type_vn} bạn định tải lên: ${formatFileSize(
                 file.size
@@ -95,7 +94,7 @@ export const useMediaPreviewMulti = () => {
             id,
             file,
             previewUrl: URL.createObjectURL(file),
-            mediaType: type!,
+            file_type: file.type,
             uploadProgress: 0,
           });
         }
@@ -143,7 +142,7 @@ export const useMediaPreviewMulti = () => {
     mediaItems,
     selectedFiles: mediaItems.map((item) => item.file),
     previewUrls: mediaItems.map((item) => item.previewUrl),
-    mediaTypes: mediaItems.map((item) => item.mediaType),
+    file_type: mediaItems.map((item) => item.file_type),
     uploadProgress: mediaItems.map((item) => item.uploadProgress),
     handleFileChange,
     removeMedia,

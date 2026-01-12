@@ -3,7 +3,6 @@ import { useSearchParams } from "react-router-dom";
 import { useSearchTweets } from "~/apis/useFetchSearch";
 import { ErrorResponse } from "~/components/error";
 import { Card, CardContent } from "~/components/ui/card";
-import { EMediaType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 
@@ -174,8 +173,7 @@ export function MediaTab() {
                 onClick={() => handleClickMedia(tweet)}
               >
                 <CardContent className="p-0">
-                  {m?.resource_type === EMediaType.Video ? (
-                    // <HLSPlayer src={m?.url} />
+                  {m?.file_type.startsWith("video/") ? (
                     <video
                       src={m?.url}
                       controls

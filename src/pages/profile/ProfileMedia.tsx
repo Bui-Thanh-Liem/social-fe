@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useGetProfileTweets } from "~/apis/useFetchTweet";
 import { ErrorResponse } from "~/components/error";
 import { Card, CardContent } from "~/components/ui/card";
-import { EMediaType, ETweetType } from "~/shared/enums/type.enum";
+import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 
@@ -160,8 +160,7 @@ export function ProfileMedia({
                 onClick={() => handleClickMedia(tweet)}
               >
                 <CardContent className="p-0">
-                  {m?.resource_type === EMediaType.Video ? (
-                    // <HLSPlayer src={m?.url} />
+                  {m?.file_type.startsWith("video/") ? (
                     <video
                       src={m?.url}
                       controls
