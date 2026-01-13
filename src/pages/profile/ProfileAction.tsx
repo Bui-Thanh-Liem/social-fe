@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UpdateMeForm } from "~/components/forms/UpdateMeForm";
+import { UpdateMeForm } from "~/forms/UpdateMeForm";
 import { MessageIcon } from "~/components/icons/messages";
 import { ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";

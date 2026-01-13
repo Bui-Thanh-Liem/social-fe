@@ -184,13 +184,15 @@ export default function ChatBox() {
         {/*  */}
         <CardHeader className="px-4">
           <div className="flex gap-x-4 items-center">
-            {typeof conversation.avatar === "string" ? (
+            {!Array.isArray(conversation.avatar) ? (
               <AvatarMain
-                src={conversation.avatar}
+                src={conversation.avatar?.url}
                 alt={conversation.name || ""}
               />
             ) : (
-              <GroupAvatarMain srcs={conversation.avatar as string[]} />
+              <GroupAvatarMain
+                srcs={conversation.avatar.map((a) => a.url) as string[]}
+              />
             )}
             <div>
               <CardTitle>{conversation?.name}</CardTitle>

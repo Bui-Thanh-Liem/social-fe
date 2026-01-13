@@ -166,7 +166,7 @@ export function MediaTab() {
       {tweets.length > 0 && (
         <div className="grid grid-cols-3 gap-6">
           {tweets.flatMap((tweet) => {
-            return tweet.media?.map((m, index) => (
+            return tweet.medias?.map((m, index) => (
               <Card
                 key={`profile-media-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"

@@ -43,7 +43,7 @@ export function ShortInfoProfile({
       <HoverCardContent className="w-72 p-4 bg-white border rounded-2xl shadow-lg overflow-hidden">
         <div className="flex items-center justify-between">
           <AvatarMain
-            src={profile?.avatar}
+            src={profile?.avatar?.url}
             alt={profile?.name}
             className="mr-3 w-16 h-16"
           />

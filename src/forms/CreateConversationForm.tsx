@@ -17,15 +17,15 @@ import { EConversationType } from "~/shared/enums/type.enum";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { handleResponse } from "~/utils/toast";
-import { CloseIcon } from "../icons/close";
-import { AvatarMain } from "../ui/avatar";
-import { ButtonMain } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
-import { Divider } from "../ui/divider";
-import { InputMain } from "../ui/input";
-import { Label } from "../ui/label";
-import { SearchMain } from "../ui/search";
-import { WrapIcon } from "../wrapIcon";
+import { CloseIcon } from "~/components/icons/close";
+import { AvatarMain } from "~/components/ui/avatar";
+import { ButtonMain } from "~/components/ui/button";
+import { Checkbox } from "~/components/ui/checkbox";
+import { Divider } from "~/components/ui/divider";
+import { InputMain } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { SearchMain } from "~/components/ui/search";
+import { WrapIcon } from "~/components/wrapIcon";
 
 export function UserSelected({
   user,
@@ -36,7 +36,7 @@ export function UserSelected({
 }) {
   return (
     <div className="rounded-2xl p-1 border border-blue-100 bg-blue-50 flex items-center gap-3">
-      <AvatarMain src={user.avatar} alt={user.name} className="w-6 h-6" />
+      <AvatarMain src={user.avatar?.url} alt={user.name} className="w-6 h-6" />
       <p className="text-xs max-w-28 line-clamp-1">{user.name}</p>
 
       <div className="ml-auto p-1 cursor-pointer" onClick={onCancel}>
@@ -68,7 +68,11 @@ export function UserFollower({
           onCheck();
         }}
       />
-      <AvatarMain src={user.avatar} alt={user.name} className="w-10 h-10" />
+      <AvatarMain
+        src={user.avatar?.url}
+        alt={user.name}
+        className="w-10 h-10"
+      />
       <p className="max-w-28 line-clamp-1">{user.name}</p>
     </Label>
   );

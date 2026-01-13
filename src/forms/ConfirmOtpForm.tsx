@@ -3,14 +3,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
-import { TypographyP } from "../elements/p";
+import { TypographyP } from "~/components/elements/p";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "../ui/input-otp";
-import { ButtonMain } from "../ui/button";
+} from "~/components/ui/input-otp";
+import { ButtonMain } from "~/components/ui/button";
 
 const FormSchema = z.object({
   otp: z.string().length(6, "Otp không hợp lệ"),

@@ -6,12 +6,13 @@ import type {
 } from "~/shared/enums/type.enum";
 import { type IBase } from "./base.interface";
 import type { IUser } from "./user.interface";
+import type { IMediaBare } from "../common/media-bare.interface";
 
 export interface ICommunity extends IBase {
   name: string;
   slug: string;
   desc: string;
-  cover: string;
+  cover: IMediaBare;
   bio: string;
   admin: string;
   category: string;

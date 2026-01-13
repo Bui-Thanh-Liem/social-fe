@@ -63,7 +63,7 @@ export function UserToFollowItem({ user }: { user: Partial<IUser> }) {
     <div key={user._id} className="hover:bg-gray-100 px-4 py-3 cursor-pointer">
       <div className="flex justify-between items-center">
         <div className="flex-1 gap-2 flex">
-          <AvatarMain src={user?.avatar} alt={user?.name} />
+          <AvatarMain src={user?.avatar?.url} alt={user?.name} />
           <div className="flex-1">
             <ShortInfoProfile profile={user as IUser} className="inline-block">
               <Link

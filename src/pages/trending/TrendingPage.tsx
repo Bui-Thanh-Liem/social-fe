@@ -87,8 +87,8 @@ export function TrendingPage() {
                     key={`${h.avatar}-${i}`}
                     className="inline-block ml-4 w-5 h-5"
                   >
-                    <AvatarImage src={h.avatar} alt={h.content} />
-                    <AvatarFallback>{h.avatar}</AvatarFallback>
+                    <AvatarImage src={h.avatar?.url} alt={h.content} />
+                    <AvatarFallback>{h.avatar?.url}</AvatarFallback>
                   </Avatar>
                   <span className="text-xs ml-2 text-gray-400">
                     {formatTimeAgo(h.created_at as unknown as string)}

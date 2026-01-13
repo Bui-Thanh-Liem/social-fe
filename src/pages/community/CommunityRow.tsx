@@ -52,8 +52,8 @@ export function CommunityRow({
           <div className="w-32 h-24 rounded-xl overflow-hidden">
             {community?.cover ? (
               <img
-                src={community?.cover}
                 alt="Cover Photo"
+                src={community?.cover?.url || "/favicon.png"}
                 className="w-full h-full object-cover"
               />
             ) : (
@@ -83,7 +83,10 @@ export function CommunityRow({
                 [...members, ...mentors, community?.admin] as unknown as IUser[]
               )?.map((u, i) => (
                 <Avatar key={`${u}-${i}`} className="w-6 h-6">
-                  <AvatarImage src={u.avatar} alt={u.name} />
+                  <AvatarImage
+                    src={u?.avatar?.url || "/favicon.png"}
+                    alt={u?.name}
+                  />
                   <AvatarFallback>{u?.name[0]}</AvatarFallback>
                 </Avatar>
               ))}

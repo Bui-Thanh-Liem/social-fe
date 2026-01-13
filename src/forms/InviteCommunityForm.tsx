@@ -16,8 +16,8 @@ import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { handleResponse } from "~/utils/toast";
 import { toastSimple } from "~/utils/toast";
-import { ButtonMain } from "../ui/button";
-import { SearchMain } from "../ui/search";
+import { ButtonMain } from "~/components/ui/button";
+import { SearchMain } from "~/components/ui/search";
 import {
   UserFollower,
   UserFollowerSkeleton,

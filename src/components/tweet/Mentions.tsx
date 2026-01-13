@@ -85,7 +85,7 @@ export function Mentions({
                 className="cursor-pointer hover:bg-gray-100 p-2 rounded flex items-center gap-1"
                 onClick={() => handleSelect(u)}
               >
-                <AvatarMain src={u.avatar} alt={u.name} className="mr-3" />
+                <AvatarMain src={u.avatar?.url} alt={u.name} className="mr-3" />
                 <div>
                   <span className="flex items-center gap-2">
                     <h3 className="text-md font-semibold">{u.name}</h3>

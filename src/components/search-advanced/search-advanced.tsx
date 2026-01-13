@@ -220,7 +220,7 @@ export function SearchAdvanced({
                       onClick={() => onClickUserItem(u)}
                     >
                       <AvatarMain
-                        src={u.avatar}
+                        src={u.avatar?.url}
                         alt={u.name}
                         className="mr-3"
                       />
@@ -254,7 +254,7 @@ export function SearchAdvanced({
                       <div className="w-16 h-12 rounded-lg overflow-hidden">
                         {c?.cover ? (
                           <img
-                            src={c?.cover}
+                            src={c?.cover?.url}
                             alt="Cover Photo"
                             className="w-full h-full object-cover"
                           />
@@ -326,7 +326,7 @@ export function SearchAdvanced({
                         onClick={() => onClickUserItem(shUser)}
                       >
                         <AvatarMain
-                          src={shUser.avatar}
+                          src={shUser.avatar?.url}
                           alt={shUser.name}
                           className="mr-3"
                         />
@@ -359,7 +359,7 @@ export function SearchAdvanced({
                         <div className="w-16 h-12 rounded-lg overflow-hidden">
                           {shCommunity?.cover ? (
                             <img
-                              src={shCommunity?.cover}
+                              src={shCommunity?.cover?.url}
                               alt="Cover Photo"
                               className="w-full h-full object-cover"
                             />

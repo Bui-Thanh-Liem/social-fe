@@ -47,12 +47,12 @@ export function ProfileMedia({
         // Nếu là trang tiếp theo, append vào cuối
         setTweets((prev) => {
           const existingUrls = new Set(
-            prev.flatMap((p) => p.media?.map((m) => m.url) || [])
+            prev.flatMap((p) => p.medias?.map((m) => m.url) || [])
           );
 
           const filteredNewMedia = newMedia.map((item) => ({
             ...item,
-            media: item.media?.filter((m) => !existingUrls.has(m.url)) || [],
+            medias: item.medias?.filter((m) => !existingUrls.has(m.url)) || [],
           }));
 
           return [...prev, ...filteredNewMedia];
@@ -149,11 +149,11 @@ export function ProfileMedia({
 
   return (
     <div className="px-4">
-      {/* Media grid */}
+      {/* Medias grid */}
       {tweets.length > 0 && (
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
           {tweets.flatMap((tweet) => {
-            return tweet.media?.map((m, index) => (
+            return tweet.medias?.map((m, index) => (
               <Card
                 key={`profile-media-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"

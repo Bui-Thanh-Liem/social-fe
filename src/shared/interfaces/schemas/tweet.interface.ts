@@ -12,7 +12,7 @@ export interface ITweet extends IBase {
   parent_id: null | string; // null khi là tweet gốc
   hashtags: string[];
   mentions: string[]; // nhắc đến
-  media: IMedia[] | null;
+  medias: IMedia[] | null;
   status: ETweetStatus;
   guest_view: number;
   user_view: number;

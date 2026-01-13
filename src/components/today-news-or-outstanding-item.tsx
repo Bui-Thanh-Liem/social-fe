@@ -68,7 +68,10 @@ export function TodayNewsOrOutstandingItem({
           <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">
             {highlight?.map((h, i) => (
               <Avatar key={`${h.avatar}-${i}`} className="w-6 h-6">
-                <AvatarImage src={h.avatar} alt={h.content} />
+                <AvatarImage
+                  alt={h.content}
+                  src={h.avatar?.url || "/favicon.png"}
+                />
                 <AvatarFallback>{item.category[0]}</AvatarFallback>
               </Avatar>
             ))}

@@ -159,7 +159,7 @@ export function InvitedItem({
   return (
     <div className="group flex items-center justify-between hover:bg-gray-100 p-2 rounded-sm cursor-pointer">
       <div className="flex gap-2">
-        <AvatarMain src={user?.avatar} alt={user?.name} />
+        <AvatarMain src={user?.avatar?.url} alt={user?.name} />
         <div>
           <Link to={`/${user?.username}`} className="flex items-center gap-2">
             <p className="text-sm leading-snug font-semibold flex items-center gap-1 hover:underline hover:cursor-pointer">

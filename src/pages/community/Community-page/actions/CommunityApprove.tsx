@@ -160,7 +160,7 @@ export function CommunityApprove({
                 <div>
                   <ItemMedia>
                     <div className="flex gap-2">
-                      <AvatarMain src={user?.avatar} alt={user?.name} />
+                      <AvatarMain src={user?.avatar?.url} alt={user?.name} />
                       <div>
                         <Link
                           to={`/${user?.username}`}

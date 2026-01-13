@@ -94,7 +94,7 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
         {/* Header với thông tin người dùng */}
         <div className="flex mb-3 relative">
           <AvatarMain
-            src={author.avatar}
+            src={author.avatar?.url}
             alt={author.name}
             className="mr-3 mt-1 z-20"
           />

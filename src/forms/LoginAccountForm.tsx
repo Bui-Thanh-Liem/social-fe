@@ -8,12 +8,12 @@ import {
   type LoginUserDto,
 } from "~/shared/dtos/req/auth.dto";
 import { handleResponse } from "~/utils/toast";
-import { AuthFacebook } from "../auth-facebook";
-import { AuthGoogle } from "../auth-google";
-import { TypographyP } from "../elements/p";
-import { Divider } from "../ui/divider";
-import { ButtonMain } from "../ui/button";
-import { InputMain } from "../ui/input";
+import { AuthFacebook } from "~/components/auth-facebook";
+import { AuthGoogle } from "~/components/auth-google";
+import { TypographyP } from "~/components/elements/p";
+import { Divider } from "~/components/ui/divider";
+import { ButtonMain } from "~/components/ui/button";
+import { InputMain } from "~/components/ui/input";
 
 export function LoginAccountForm({
   setOpenForm,

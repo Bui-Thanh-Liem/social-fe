@@ -94,13 +94,12 @@ export function Tweet({
     setValue,
     register,
     handleSubmit,
-    formState: { isValid, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<CreateTweetDto>({
     resolver: zodResolver(CreateTweetDtoSchema),
     defaultValues: DEFAULT_VALUES,
     mode: "onChange", // Enable real-time validation
   });
-  console.log("Tweet - form - isValid:::", isValid);
 
   // Watch content for real-time updates
   const contentValue = watch("content");
@@ -263,6 +262,7 @@ export function Tweet({
             const resUploadMedia = await apiUploadMedia.mutateAsync(
               selectedFiles
             );
+
             if (resUploadMedia.statusCode !== 200 || !resUploadMedia.metadata) {
               handleResponse(resUploadMedia);
               return;
@@ -296,7 +296,11 @@ export function Tweet({
             community_id: communityId,
             audience: ETweetAudience.Everyone,
           }),
-          media: medias?.length > 0 ? medias.map((m) => m.s3_key) : undefined,
+          medias:
+            medias.map((m) => ({
+              s3_key: m.s3_key || "",
+              url: m?.url || "",
+            })) || undefined,
         };
 
         const resCreateTweet = await apiCreateTweet.mutateAsync(tweetData);
@@ -332,7 +336,6 @@ export function Tweet({
   const isContentEmpty = !contentValue?.trim();
   const isFormDisabled = isContentEmpty || isSubmitting || isUploading;
 
-  //
   // Tạo id duy nhất dựa trên instance, ví dụ với nanoid hoặc Math.random()
   const [inputId] = useState(
     () => `image-upload-${tweetType}-${Math.random()}`
@@ -342,7 +345,7 @@ export function Tweet({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex gap-4">
-        <AvatarMain src={user?.avatar} alt={user?.name} />
+        <AvatarMain src={user?.avatar?.url} alt={user?.name} />
         <div className="flex-1 mt-2">
           <textarea
             {...register("content")}

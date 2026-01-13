@@ -1,9 +1,10 @@
 import { EConversationType } from "~/shared/enums/type.enum";
 import type { IBase } from "./base.interface";
+import type { IMediaBare } from "../common/media-bare.interface";
 
 export interface IConversation extends IBase {
   name: string | null; // group - có tên, private - lấy tên của participants (không phải mình)
-  avatar: string[] | string | null; // group - lấy tất cả avatar, private - lấy avatar của participants (không phải mình)
+  avatar: IMediaBare[] | IMediaBare | null; // group - lấy tất cả avatar, private - lấy avatar của participants (không phải mình)
   type: EConversationType;
   mentors: string[];
   participants: string[];

@@ -6,7 +6,6 @@ import { useUserStore } from "~/store/useUserStore";
 export function RedirectIfAuthenticated({ children }: { children: ReactNode }) {
   const user = useUserStore((state) => state.user);
   const { backUrl } = useBackUrlStore();
-  console.log("RedirectIfAuthenticated backUrl:", backUrl);
 
   if (user) {
     if (backUrl) {

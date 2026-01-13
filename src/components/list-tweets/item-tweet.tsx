@@ -40,9 +40,9 @@ import { Content } from "./content";
 import { formatTimeAgo } from "~/utils/date-time";
 import { handleResponse } from "~/utils/toast";
 
-// Component cho Media (Image hoặc Video)
+// Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
-  const { media } = tweet;
+  const { medias } = tweet;
 
   //
   const { open, setTweet } = useDetailTweetStore();
@@ -55,9 +55,7 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
     }
   }
 
-  if (!media || !media.length) return <></>;
-
-  console.log("media", media);
+  if (!medias || !medias.length) return <></>;
 
   return (
     <div
@@ -66,12 +64,12 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
     >
       <Carousel className="w-full">
         <CarouselContent className="h-full cursor-grab">
-          {media?.map((item) => (
+          {medias?.map((item) => (
             <CarouselItem
               key={item.url}
               className={cn(
                 "md:basis-1/2 lg:basis-1/1",
-                media.length >= 2 ? "lg:basis-1/2" : ""
+                medias.length >= 2 ? "lg:basis-1/2" : ""
               )}
             >
               <Card className="w-full h-full overflow-hidden flex items-center justify-center border bg-transparent">
@@ -80,10 +78,10 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
                     <video src={item?.url} controls />
                   ) : item.file_type.includes("image/") ? (
                     <img
-                      src={item?.url}
-                      alt={item?.url}
-                      className="object-contain"
                       loading="lazy"
+                      src={item?.url}
+                      alt={item?.file_name}
+                      className="object-contain"
                       onError={(e) => {
                         e.currentTarget.src = "/placeholder-image.png"; // Fallback image
                       }}
@@ -185,7 +183,11 @@ export const TweetItem = ({
         </div>
       )}
       <div className="flex items-center mb-3">
-        <AvatarMain src={author.avatar} alt={author.name} className="mr-3" />
+        <AvatarMain
+          src={author.avatar?.url}
+          alt={author.name}
+          className="mr-3"
+        />
         <div>
           <ShortInfoProfile profile={tweet.user_id as unknown as IUser}>
             <Link
@@ -238,7 +240,7 @@ export const TweetItem = ({
           </>
         )}
 
-        {/* Media content */}
+        {/* Medias content */}
         {tweet.type !== ETweetType.Retweet && <MediaContent tweet={tweet} />}
 
         {/* QuoteTweet and Retweet */}
@@ -248,7 +250,7 @@ export const TweetItem = ({
             {/* Header với thông tin người dùng */}
             <div className="flex items-center mb-3">
               <AvatarMain
-                src={quoteTweet_user?.avatar}
+                src={quoteTweet_user?.avatar?.url}
                 alt={quoteTweet_user?.name}
                 className="mr-3"
               />
@@ -281,7 +283,7 @@ export const TweetItem = ({
                   />
                 </p>
               )}
-              {/* Media content */}
+              {/* Medias content */}
               <MediaContent tweet={quoteTweet} />
             </div>
           </div>

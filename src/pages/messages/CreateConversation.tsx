@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateConversationForm } from "~/components/forms/CreateConversationForm";
+import { CreateConversationForm } from "~/forms/CreateConversationForm";
 import { CreateGroupIcon } from "~/components/icons/create-group";
 import { DialogMain } from "~/components/ui/dialog";
 import { WrapIcon } from "~/components/wrapIcon";

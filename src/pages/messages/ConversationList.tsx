@@ -122,10 +122,14 @@ function ConversationItem({
         {isOnl && (
           <span className="absolute bottom-0 left-8 z-10 w-3 h-3 bg-green-400 rounded-full border border-white" />
         )}
-        {typeof avatar === "string" ? (
-          <AvatarMain src={avatar} alt={name || ""} className="w-12 h-12" />
+        {!Array.isArray(avatar) ? (
+          <AvatarMain
+            src={avatar?.url}
+            alt={name || ""}
+            className="w-12 h-12"
+          />
         ) : (
-          <GroupAvatarMain srcs={avatar as string[]} />
+          <GroupAvatarMain srcs={avatar.map((a) => a.url) as string[]} />
         )}
         <div>
           <p className="font-medium">

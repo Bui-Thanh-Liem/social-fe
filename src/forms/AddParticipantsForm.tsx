@@ -14,9 +14,9 @@ import {
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
-import { ButtonMain } from "../ui/button";
-import { Divider } from "../ui/divider";
-import { SearchMain } from "../ui/search";
+import { ButtonMain } from "~/components/ui/button";
+import { Divider } from "~/components/ui/divider";
+import { SearchMain } from "~/components/ui/search";
 import {
   UserFollower,
   UserFollowerSkeleton,

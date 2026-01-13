@@ -2,10 +2,11 @@ import { z } from "zod";
 import { CONSTANT_REGEX } from "~/shared/constants";
 import { ETweetStatus } from "~/shared/enums/status.enum";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
+import { MediaBareDtoSchema } from "./common/media-bare.dto";
 
 export const CreateCommunityDtoSchema = z.object({
   name: z.string().trim().max(32),
-  cover: z.string().trim().max(200).optional(),
+  cover: MediaBareDtoSchema.optional(),
   bio: z.string().trim().max(200).optional(),
   category: z.string().trim().max(16),
   visibility_type: z.nativeEnum(EVisibilityType),

@@ -11,7 +11,7 @@ import { handleResponse } from "~/utils/toast";
 // UI components - theo cách import của bạn
 import { useNavigate } from "react-router-dom";
 import { useUpdateMe } from "~/apis/useFetchAuth";
-import { useRemoveImages, useUploadMedia } from "~/apis/useFetchUpload";
+import { useDeleteMedia, useUploadMedia } from "~/apis/useFetchUpload";
 import {
   UpdateMeDtoSchema,
   type UpdateMeDto,
@@ -19,13 +19,13 @@ import {
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimple } from "~/utils/toast";
-import { AvatarMain } from "../ui/avatar";
-import { ButtonMain } from "../ui/button";
-import { CircularProgress } from "../ui/circular-progress";
-import { DatePicker } from "../ui/date-picker";
-import { InputMain } from "../ui/input";
-import { TextareaMain } from "../ui/textarea";
-import { WrapIcon } from "../wrapIcon";
+import { AvatarMain } from "~/components/ui/avatar";
+import { ButtonMain } from "~/components/ui/button";
+import { CircularProgress } from "~/components/ui/circular-progress";
+import { DatePicker } from "~/components/ui/date-picker";
+import { InputMain } from "~/components/ui/input";
+import { TextareaMain } from "~/components/ui/textarea";
+import { WrapIcon } from "~/components/wrapIcon";
 
 interface UpdateUserFormProps {
   setOpenForm: (open: boolean) => void;
@@ -53,13 +53,13 @@ export function UpdateMeForm({
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string>(
-    currentUser?.avatar || ""
+    currentUser?.avatar?.url || ""
   );
   const [coverPreview, setCoverPreview] = useState<string>(
-    currentUser?.cover_photo || ""
+    currentUser?.cover_photo?.url || ""
   );
   const apiUploadMedia = useUploadMedia();
-  const apiRemoteImages = useRemoveImages();
+  const apiDeleteMedia = useDeleteMedia();
 
   const [isUploading, setIsUploading] = useState(false);
 
@@ -77,8 +77,8 @@ export function UpdateMeForm({
     defaultValues: {
       name: currentUser?.name || "",
       bio: currentUser?.bio || "",
-      avatar: currentUser?.avatar || "",
-      cover_photo: currentUser?.cover_photo || "",
+      avatar: currentUser?.avatar || undefined,
+      cover_photo: currentUser?.cover_photo || undefined,
       location: currentUser?.location || "",
       username: currentUser?.username || "",
       website: currentUser?.website || "",
@@ -90,16 +90,15 @@ export function UpdateMeForm({
   const valBio = watch("bio");
   const isFormDisabled = isSubmitting || isUploading;
 
-  //
-  console.log("errors:::", errors);
+  // Handle form submission
   const onSubmit = async (data: UpdateMeDto) => {
     try {
       setIsUploading(true);
 
       //
       if (avatarFile) {
-        const resRemoteImages = await apiRemoteImages.mutateAsync({
-          urls: [getValues("avatar") || ""],
+        const resRemoteImages = await apiDeleteMedia.mutateAsync({
+          s3_keys: [getValues("avatar")?.s3_key || ""],
         });
 
         if (resRemoteImages.statusCode === 200) {
@@ -110,13 +109,16 @@ export function UpdateMeForm({
             handleResponse(resUploadAvatar);
             return;
           }
-          data.avatar = resUploadAvatar?.metadata[0].url;
+          data.avatar = {
+            s3_key: resUploadAvatar?.metadata[0].s3_key,
+            url: resUploadAvatar?.metadata[0].url || "",
+          };
         }
       }
 
       if (coverFile) {
-        const resRemoteImages = await apiRemoteImages.mutateAsync({
-          urls: [getValues("cover_photo") || ""],
+        const resRemoteImages = await apiDeleteMedia.mutateAsync({
+          s3_keys: [getValues("cover_photo")?.s3_key || ""],
         });
 
         if (resRemoteImages.statusCode === 200) {
@@ -125,7 +127,10 @@ export function UpdateMeForm({
             handleResponse(resUploadCover);
             return;
           }
-          data.cover_photo = resUploadCover?.metadata[0].url;
+          data.cover_photo = {
+            s3_key: resUploadCover?.metadata[0].s3_key,
+            url: resUploadCover?.metadata[0].url || "",
+          };
         }
       }
 

@@ -97,7 +97,11 @@ export function ParticipantList({
                 to={`/${u.username}`}
                 className="flex items-center gap-3 cursor-pointer relative"
               >
-                <AvatarMain src={u.avatar} alt={u.name} className="w-10 h-10" />
+                <AvatarMain
+                  src={u.avatar?.url}
+                  alt={u.name}
+                  className="w-10 h-10"
+                />
                 <p className="max-w-40 line-clamp-1 hover:underline">
                   {u.name}
                 </p>

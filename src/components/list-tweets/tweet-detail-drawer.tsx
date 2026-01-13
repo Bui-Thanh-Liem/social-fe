@@ -214,7 +214,7 @@ export function TweetDetailDrawer() {
   const {
     content,
     user_id,
-    media,
+    medias,
     created_at,
     mentions,
     comments_count,
@@ -272,10 +272,10 @@ export function TweetDetailDrawer() {
             </WrapIcon>
 
             <div className="h-[92%] flex items-center">
-              {media ? (
+              {medias ? (
                 <Carousel className="w-full">
                   <CarouselContent className="h-[80vh] cursor-grab">
-                    {media?.map((item) => (
+                    {medias?.map((item) => (
                       <CarouselItem key={item.url} className="lg:basis-1/1">
                         <Card className="w-full h-full overflow-hidden flex items-center justify-center border-0 bg-transparent">
                           <CardContent className="w-full h-full p-0 flex items-center justify-center">
@@ -304,7 +304,7 @@ export function TweetDetailDrawer() {
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  {media?.length > 2 && (
+                  {medias?.length > 2 && (
                     <>
                       <CarouselPrevious className="left-8 text-white hover:bg-gray-400" />
                       <CarouselNext className="right-8 text-white hover:bg-gray-400" />
@@ -351,7 +351,7 @@ export function TweetDetailDrawer() {
             <DrawerTitle className="flex items-center space-x-2">
               <div className="flex items-center mb-3">
                 <AvatarMain
-                  src={author.avatar}
+                  src={author.avatar?.url}
                   alt={author.name}
                   className="mr-3"
                 />

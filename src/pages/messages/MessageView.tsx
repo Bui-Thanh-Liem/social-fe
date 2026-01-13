@@ -277,13 +277,15 @@ export function MessageView({
           >
             <ArrowLeftIcon color="#000" />
           </WrapIcon>
-          {typeof conversation.avatar === "string" ? (
+          {!Array.isArray(conversation.avatar) ? (
             <AvatarMain
-              src={conversation.avatar}
+              src={conversation.avatar?.url}
               alt={conversation.name || ""}
             />
           ) : (
-            <GroupAvatarMain srcs={conversation.avatar as string[]} />
+            <GroupAvatarMain
+              srcs={conversation.avatar.map((a) => a.url) as string[]}
+            />
           )}
           <div>
             <p>{conversation?.name}</p>
@@ -547,7 +549,7 @@ export const MessageItem = ({ msg, user }: { msg: IMessage; user: IUser }) => {
         <span className="cursor-pointer" onClick={onPreviewProfile}>
           <AvatarMain
             className="w-8 h-8"
-            src={sender.avatar as string}
+            src={sender.avatar?.url}
             alt={sender.name as string}
           />
         </span>

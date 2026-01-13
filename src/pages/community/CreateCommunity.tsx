@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateCommunityForm } from "~/components/forms/CreateCommunityForm";
+import { CreateCommunityForm } from "~/forms/CreateCommunityForm";
 import { CreateGroupIcon } from "~/components/icons/create-group";
 import { DialogMain } from "~/components/ui/dialog";
 import { WrapIcon } from "~/components/wrapIcon";

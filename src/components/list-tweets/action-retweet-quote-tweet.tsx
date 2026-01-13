@@ -57,7 +57,9 @@ export function ActionRetweetQuoteTweet({ tweet }: { tweet: ITweet }) {
       hashtags: hashtags?.map((hashtag) => hashtag.name),
       audience: tweet.audience,
       type: ETweetType.Retweet,
-      media: tweet.media ? tweet.media : undefined,
+      medias: tweet.medias
+        ? tweet.medias.map((media) => media.s3_key)
+        : undefined,
       mentions: mentions?.map((mention) => mention._id),
     };
     const resCreateTweet = await apiCreateTweet.mutateAsync(tweetData);

@@ -5,7 +5,7 @@ import {
 } from "~/shared/constants";
 import { toastSimple } from "~/utils/toast";
 
-// Custom hook for media preview and upload
+// Custom hook for medias preview and upload
 export const useMediaPreview = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");

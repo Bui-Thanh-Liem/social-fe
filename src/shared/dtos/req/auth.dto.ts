@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CONSTANT_REGEX } from "~/shared/constants";
+import { MediaBareDtoSchema } from "./common/media-bare.dto";
 
 export const RegisterUserDtoSchema = z
   .object({
@@ -76,8 +77,8 @@ export const UpdateMeDtoSchema = z.object({
       message: "Tên người dùng không hợp lệ (@liem_dev)",
     })
     .optional(),
-  avatar: z.string().max(400, "Tối đa 400 kí tự").trim().optional(),
-  cover_photo: z.string().max(400, "Tối đa 400 kí tự").trim().optional(),
+  avatar: MediaBareDtoSchema.optional(),
+  cover_photo: MediaBareDtoSchema.optional(),
 });
 
 export type RegisterUserDto = z.infer<typeof RegisterUserDtoSchema>;

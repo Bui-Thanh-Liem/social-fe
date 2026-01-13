@@ -246,7 +246,7 @@ export function SidebarLeft() {
 
         <div className="absolute w-full bottom-6 lg:bottom-3 p-2 px-3 rounded-4xl hover:bg-gray-100 cursor-pointer flex items-center gap-3">
           <AvatarMain
-            src={user?.avatar}
+            src={user?.avatar?.url}
             alt={user?.name}
             className="hidden lg:block"
           />
@@ -263,7 +263,7 @@ export function SidebarLeft() {
                     <DotIcon />
                   </WrapIcon>
                   <AvatarMain
-                    src={user?.avatar}
+                    src={user?.avatar?.url}
                     alt={user?.name}
                     className="lg:hidden"
                   />

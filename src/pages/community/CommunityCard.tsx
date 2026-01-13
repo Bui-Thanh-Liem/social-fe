@@ -38,7 +38,7 @@ export function CommunityCard({
             <img
               alt={community.name}
               className="h-full w-full object-cover"
-              src={community.cover}
+              src={community.cover?.url || "/favicon.png"}
             />
           ) : (
             <div className="bg-gray-300 w-full h-full"></div>

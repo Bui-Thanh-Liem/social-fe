@@ -112,7 +112,7 @@ function NotiItem({ noti, onClick, onDelete }: Props) {
 
       {/* Avatar */}
       <div className="flex-shrink-0">
-        <AvatarMain src={sender?.avatar} alt={sender?.name || "avatar"} />
+        <AvatarMain src={sender?.avatar?.url} alt={sender?.name || "avatar"} />
       </div>
 
       {/* Body */}

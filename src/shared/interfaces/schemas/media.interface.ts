@@ -1,10 +1,10 @@
 import type { MediaItem } from "~/hooks/useMediaPreviewMulti";
-import type { EMediaStatus } from "~/shared/enums/status.enum";
+import { EMediaStatus } from "~/shared/enums/status.enum";
 
 export interface IMedia {
-  file_size: number;
   file_type: string;
-  file_name: string;
+  file_size: number;
+  file_name?: string;
 
   url?: string | undefined;
   s3_key: string;
@@ -12,6 +12,8 @@ export interface IMedia {
   user_id?: string;
   status: EMediaStatus;
 }
+
+export type IMediaBare = Pick<IMedia, "s3_key" | "url">;
 
 export interface PreviewMediaProps {
   mediaItems: MediaItem[];

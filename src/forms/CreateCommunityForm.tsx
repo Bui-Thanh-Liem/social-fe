@@ -21,15 +21,15 @@ import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { handleResponse } from "~/utils/toast";
 import { toastSimple } from "~/utils/toast";
-import { ButtonMain } from "../ui/button";
-import { CircularProgress } from "../ui/circular-progress";
-import { Divider } from "../ui/divider";
-import { Input, InputMain } from "../ui/input";
-import { Label } from "../ui/label";
-import { SearchMain } from "../ui/search";
-import { SelectMain } from "../ui/select";
-import { TextareaMain } from "../ui/textarea";
-import { WrapIcon } from "../wrapIcon";
+import { ButtonMain } from "~/components/ui/button";
+import { CircularProgress } from "~/components/ui/circular-progress";
+import { Divider } from "~/components/ui/divider";
+import { Input, InputMain } from "~/components/ui/input";
+import { Label } from "~/components/ui/label";
+import { SearchMain } from "~/components/ui/search";
+import { SelectMain } from "~/components/ui/select";
+import { TextareaMain } from "~/components/ui/textarea";
+import { WrapIcon } from "~/components/wrapIcon";
 import {
   UserFollower,
   UserFollowerSkeleton,
@@ -117,8 +117,8 @@ export function CreateCommunityForm({
     defaultValues: {
       name: "",
       bio: "",
-      cover: "",
       category: "",
+      cover: undefined,
       membership_type: EMembershipType.Open,
       visibility_type: EVisibilityType.Public,
     },
@@ -177,7 +177,10 @@ export function CreateCommunityForm({
           handleResponse(resUploadCover);
           return;
         }
-        data.cover = resUploadCover?.metadata[0].url;
+        data.cover = {
+          s3_key: resUploadCover?.metadata[0].s3_key,
+          url: resUploadCover?.metadata[0].url || "",
+        };
       }
 
       const res = await apiCreateCommunity.mutateAsync({

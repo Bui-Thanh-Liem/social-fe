@@ -118,15 +118,11 @@ export function ProfilePage() {
         {/* Photo cover */}
         <div className="relative w-full">
           <div className="w-full h-52">
-            {profile?.cover_photo ? (
-              <img
-                src={profile?.cover_photo}
-                alt="Cover Photo"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <div className="bg-gray-300 w-full h-full" />
-            )}
+            <img
+              alt="Cover Photo"
+              className="w-full h-full object-cover"
+              src={profile?.cover_photo?.url || "/favicon.png"}
+            />
           </div>
         </div>
 
@@ -135,7 +131,7 @@ export function ProfilePage() {
           {/* Avatar and Edit Button */}
           <div className="flex justify-between items-start -mt-16 mb-3">
             <AvatarMain
-              src={profile?.avatar}
+              src={profile?.avatar?.url}
               alt={profile?.name}
               className="w-32 h-32 border-4 border-white"
             />

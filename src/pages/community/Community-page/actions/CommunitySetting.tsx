@@ -464,7 +464,11 @@ function MemberItem({
       htmlFor={user._id}
       className="flex items-center gap-3 hover:bg-gray-100 py-1 px-2 rounded-sm cursor-pointer group"
     >
-      <AvatarMain src={user.avatar} alt={user.name} className="w-10 h-10" />
+      <AvatarMain
+        alt={user.name}
+        className="w-10 h-10"
+        src={user.avatar?.url}
+      />
       <ShortInfoProfile profile={user as IUser} className="inline-block">
         <Link to={`/${user?.username}`} className="flex items-center gap-2">
           <p className="text-sm max-w-28 line-clamp-1 leading-snug font-semibold flex items-center gap-1 hover:underline hover:cursor-pointer">
@@ -493,7 +497,11 @@ function MentorItem({ user, onClick }: { user: IUser; onClick: () => void }) {
       <WrapIcon className="p-1.5" onClick={onClick}>
         <ChevronLeft color="#666" />
       </WrapIcon>
-      <AvatarMain src={user.avatar} alt={user.name} className="w-10 h-10" />
+      <AvatarMain
+        src={user.avatar?.url}
+        alt={user.name}
+        className="w-10 h-10"
+      />
       <ShortInfoProfile profile={user as IUser} className="inline-block">
         <Link to={`/${user?.username}`} className="flex items-center gap-2">
           <p className="text-sm max-w-28 line-clamp-1 leading-snug font-semibold flex items-center gap-1 hover:underline hover:cursor-pointer">

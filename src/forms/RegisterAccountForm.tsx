@@ -9,9 +9,9 @@ import {
   type RegisterUserDto,
 } from "~/shared/dtos/req/auth.dto";
 import { handleResponse } from "~/utils/toast";
-import { ButtonMain } from "../ui/button";
-import { DatePicker } from "../ui/date-picker";
-import { InputMain } from "../ui/input";
+import { ButtonMain } from "~/components/ui/button";
+import { DatePicker } from "~/components/ui/date-picker";
+import { InputMain } from "~/components/ui/input";
 
 export function RegisterAccountForm({
   setOpenForm,

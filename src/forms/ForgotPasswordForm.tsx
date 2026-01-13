@@ -8,8 +8,8 @@ import {
   type ForgotPasswordDto,
 } from "~/shared/dtos/req/auth.dto";
 import { handleResponse } from "~/utils/toast";
-import { ButtonMain } from "../ui/button";
-import { InputMain } from "../ui/input";
+import { ButtonMain } from "~/components/ui/button";
+import { InputMain } from "~/components/ui/input";
 
 export function ForgotPasswordForm({
   setOpenForm,

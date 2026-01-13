@@ -5,6 +5,7 @@ import {
   CONSTANT_MAX_SIZE_VIDEO_UPLOAD,
 } from "~/shared/constants";
 import type {
+  DeleteMediaDto,
   PresignedUrlDto,
   UploadConfirmDto,
 } from "~/shared/dtos/req/upload.dto";
@@ -132,13 +133,13 @@ export const useUploadMedia = () => {
   });
 };
 
-// 🎯 Hook để xóa nhiều ảnh từ media
-export const useRemoveImages = () => {
+// 🎯 Hook để xóa nhiều ảnh/ video từ medias
+export const useDeleteMedia = () => {
   return useMutation({
-    mutationFn: async (credentials: { urls: string[] }) =>
+    mutationFn: async (body: DeleteMediaDto) =>
       apiCall(uploadEndpoint, {
         method: "DELETE",
-        body: JSON.stringify(credentials),
+        body: JSON.stringify(body),
       }),
   });
 };

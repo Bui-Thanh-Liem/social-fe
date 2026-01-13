@@ -94,7 +94,7 @@ export function CommunityPage() {
         <div className="w-full h-60">
           {community?.cover ? (
             <img
-              src={community?.cover}
+              src={community?.cover.url || "/favicon.png"}
               alt="Cover Photo"
               className="w-full h-full object-cover"
             />
@@ -174,7 +174,7 @@ export function CommunityPage() {
           </div>
         </div>
 
-        {/* Tweets and media*/}
+        {/* Tweets and medias*/}
         {community.visibility_type === EVisibilityType.Public ||
         community.is_joined ? (
           <Tabs defaultValue={ETweetType.Tweet.toString()} className="mb-12">
