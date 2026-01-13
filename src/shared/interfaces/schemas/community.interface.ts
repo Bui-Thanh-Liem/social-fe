@@ -6,7 +6,7 @@ import type {
 } from "~/shared/enums/type.enum";
 import { type IBase } from "./base.interface";
 import type { IUser } from "./user.interface";
-import type { IMediaBare } from "../common/media-bare.interface";
+import type { IMediaBare } from "./media.interface";
 
 export interface ICommunity extends IBase {
   name: string;

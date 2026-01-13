@@ -1,6 +1,6 @@
 import { EConversationType } from "~/shared/enums/type.enum";
 import type { IBase } from "./base.interface";
-import type { IMediaBare } from "../common/media-bare.interface";
+import type { IMediaBare } from "./media.interface";
 
 export interface IConversation extends IBase {
   name: string | null; // group - có tên, private - lấy tên của participants (không phải mình)

@@ -58,7 +58,10 @@ export function ActionRetweetQuoteTweet({ tweet }: { tweet: ITweet }) {
       audience: tweet.audience,
       type: ETweetType.Retweet,
       medias: tweet.medias
-        ? tweet.medias.map((media) => media.s3_key)
+        ? tweet.medias.map((media) => ({
+            url: media.url || "",
+            s3_key: media.s3_key,
+          }))
         : undefined,
       mentions: mentions?.map((mention) => mention._id),
     };
