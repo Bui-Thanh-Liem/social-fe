@@ -186,7 +186,7 @@ export function CreateConversationForm({
     resolver: zodResolver(CreateConversationDtoSchema),
     defaultValues: {
       name: "",
-      avatar: "",
+      avatar: undefined,
       type: EConversationType.Group,
       participants: [],
     },
@@ -234,7 +234,10 @@ export function CreateConversationForm({
         return;
       }
 
-      data.avatar = resUploadAvatar?.metadata[0].url;
+      data.avatar = {
+        s3_key: resUploadAvatar?.metadata[0].s3_key,
+        url: resUploadAvatar?.metadata[0].url || "",
+      };
     }
 
     const res = await apiCreateConversation.mutateAsync(data);

@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useVerifyEmail } from "~/apis/useFetchUser";
-import { handleResponse } from "~/utils/toast";
+import { toastSimple } from "~/utils/toast";
 
 export function VerifyEmail() {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const token = params.get("token") || "";
   const apiVerifyEmail = useVerifyEmail();
 
@@ -14,8 +15,14 @@ export function VerifyEmail() {
         const res = await apiVerifyEmail.mutateAsync({
           email_verify_token: token,
         });
-        console.log("VerifyEmail - res:::", res);
-        handleResponse(res);
+
+        if (res.statusCode !== 200) {
+          toastSimple(
+            "Xác minh email không thành công. Vui lòng thử lại.",
+            "error"
+          );
+          navigate("/home");
+        }
       })();
     }
   }, []);

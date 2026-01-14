@@ -51,7 +51,7 @@ export function NotificationPage() {
               >
                 <span>Cộng đồng</span>
                 {unreadNoti && unreadNoti[ENotificationType.Community] && (
-                  <p className="flex items-center justify-center w-4 h-4 text-[10px] text-white bg-sky-400 rounded-full">
+                  <p className="flex items-center justify-center text-sky-400 bg-transparent text-[10px] font-bold">
                     {unreadNoti[ENotificationType.Community]}
                   </p>
                 )}
@@ -63,7 +63,7 @@ export function NotificationPage() {
               >
                 <span>Nhắc đến / Thích</span>
                 {unreadNoti && unreadNoti[ENotificationType.Mention_like] && (
-                  <p className="flex items-center justify-center w-4 h-4 text-[10px] text-white bg-sky-400 rounded-full">
+                  <p className="flex items-center justify-center text-sky-400 bg-transparent text-[10px] font-bold">
                     {unreadNoti[ENotificationType.Mention_like]}
                   </p>
                 )}
@@ -75,7 +75,7 @@ export function NotificationPage() {
               >
                 <span>Theo dõi</span>
                 {unreadNoti && unreadNoti[ENotificationType.Follow] && (
-                  <div className="flex items-center justify-center w-4 h-4 text-[10px] text-white bg-sky-400 rounded-full">
+                  <div className="flex items-center justify-center text-sky-400 bg-transparent text-[10px] font-bold">
                     {unreadNoti[ENotificationType.Follow]}
                   </div>
                 )}
@@ -87,7 +87,7 @@ export function NotificationPage() {
               >
                 <span>Khác</span>
                 {unreadNoti && unreadNoti[ENotificationType.Other] && (
-                  <div className="flex items-center justify-center w-4 h-4 text-[10px] text-white bg-sky-400 rounded-full">
+                  <div className="flex items-center justify-center text-sky-400 bg-transparent text-[10px] font-bold">
                     {unreadNoti[ENotificationType.Other]}
                   </div>
                 )}

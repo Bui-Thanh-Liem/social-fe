@@ -60,9 +60,6 @@ function NotiItem({ noti, onClick, onDelete }: Props) {
     if (onClick) onClick(noti);
     setRead(true);
 
-    //
-    console.log("noti?.ref_id:::", noti);
-
     if (!noti?.ref_id) return;
 
     //

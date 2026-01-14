@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useGetMe } from "~/apis/useFetchAuth";
-import { AuthFacebook } from "~/components/auth-facebook";
 import { AuthGoogle } from "~/components/auth-google";
 import { TypographyH1 } from "~/components/elements/h1";
 import { TypographyH2 } from "~/components/elements/h2";
@@ -72,7 +71,7 @@ export function AuthPage() {
   }, [hash]);
 
   return (
-    <div className="md:w-[800px] lg:w-[1200px]">
+    <div>
       <div className="flex justify-between items-center">
         <div className="flex-1 hidden lg:flex">
           <Logo size={332} className="w-[240px] lg:w-auto" />
@@ -88,7 +87,7 @@ export function AuthPage() {
           </TypographyH2>
           <div className="space-y-2 w-80">
             <AuthGoogle />
-            <AuthFacebook />
+            {/* <AuthFacebook /> */}
           </div>
           <Divider className="w-80 my-4" />
           <ButtonMain
@@ -214,8 +213,8 @@ export function Footer() {
   ];
 
   return (
-    <div className="text-sm text-gray-600 bottom-0 px-4 py-2">
-      <div className="flex flex-wrap justify-center text-center gap-x-1 gap-y-1">
+    <div className="text-sm text-gray-600 fixed bottom-0 py-2 right-1/2 translate-x-1/2 w-full md:w-[800px] lg:w-[1200px]">
+      <div className="flex flex-wrap justify-center text-center gap-x-1 gap-y-1 ">
         {links.map((label, idx) => (
           <React.Fragment key={idx}>
             <a

@@ -29,6 +29,8 @@ import { useConversationActiveStore } from "~/store/useConversationActiveStore";
 import { useUserStore } from "~/store/useUserStore";
 import { formatTimeAgo } from "~/utils/date-time";
 import { ErrorResponse } from "~/components/error";
+import { useOnlStore } from "~/store/useOnlStore";
+import { checkOnl } from "~/utils/checkOnl.util";
 
 //
 function ConversationItemSkeleton() {
@@ -61,17 +63,26 @@ function ConversationItem({
 }) {
   //
   const navigate = useNavigate();
+  const { onlUserIds, setOnlUserIds } = useOnlStore();
   const [isOnl, setOnl] = useState(false);
   const apiDelConversation = useDeleteConversation();
   const apiTogglePinConversation = useTogglePinConversation();
 
-  //
-  useStatusSocket((val) => {
-    if (val._id === conversation._id) setOnl(val.hasOnline);
-  });
+  // Destructuring conversation
+  const { avatar, lastMessage, name, _id, type, participants } = conversation;
+  const participantIds = (participants as unknown as IUser[])?.map(
+    (u) => u._id
+  );
 
-  //
-  const { avatar, lastMessage, name, _id, type } = conversation;
+  // Online status socket
+  useStatusSocket((val) => {
+    if (val.hasOnline === false) {
+      setOnlUserIds(onlUserIds.filter((id) => id !== val._id));
+    } else {
+      setOnlUserIds([...onlUserIds, val._id]);
+    }
+    setOnl(val.hasOnline);
+  });
 
   //
   let messageLastContent = "Chưa có tin nhắn";
@@ -119,7 +130,7 @@ function ConversationItem({
       onClick={onclick}
     >
       <div className="relative flex items-center gap-3">
-        {isOnl && (
+        {(isOnl || checkOnl(onlUserIds, participantIds)) && (
           <span className="absolute bottom-0 left-8 z-10 w-3 h-3 bg-green-400 rounded-full border border-white" />
         )}
         {!Array.isArray(avatar) ? (
@@ -129,7 +140,7 @@ function ConversationItem({
             className="w-12 h-12"
           />
         ) : (
-          <GroupAvatarMain srcs={avatar.map((a) => a.url) as string[]} />
+          <GroupAvatarMain srcs={avatar.map((a) => a?.url) as string[]} />
         )}
         <div>
           <p className="font-medium">
@@ -261,7 +272,6 @@ export function ConversationList({
     },
     () => {},
     (changed) => {
-      console.log("changed:::", changed);
       setAllConversations((prev) => {
         const exists = prev.some(
           (c) => c._id.toString() === changed._id.toString()

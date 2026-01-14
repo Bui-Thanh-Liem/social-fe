@@ -223,7 +223,7 @@ export function SidebarLeft() {
                       {x.name}{" "}
                     </span>
                     {!!x?.countNoti && (
-                      <span className="absolute top-2 left-6 flex items-center justify-center w-5 h-5 bg-sky-400 text-white rounded-full text-[10px] border-2 border-white">
+                      <span className="absolute top-1 left-6 flex items-center justify-center text-sky-400 bg-transparent text-[10px] font-bold">
                         {x?.countNoti}
                       </span>
                     )}

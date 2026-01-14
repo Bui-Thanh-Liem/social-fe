@@ -8,6 +8,7 @@ import type { ResMultiType } from "~/shared/types/response.type";
 import { useUserStore } from "~/store/useUserStore";
 import { buildQueryString } from "~/utils/buildQueryString";
 import { apiCall } from "~/utils/callApi.util";
+import { handleResponse } from "~/utils/toast";
 
 // 🚪 GET - Get User By username
 export const useGetOneByUsername = (username: string, enabled = true) => {
@@ -57,6 +58,7 @@ export const useVerifyEmail = () => {
     onSuccess: (res) => {
       if (res.statusCode === 200 && res.metadata) {
         setUser({ ...user, verify: res.metadata } as IUser);
+        handleResponse(res);
         navigate("/home");
       }
     },

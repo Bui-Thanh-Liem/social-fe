@@ -33,6 +33,8 @@ import { useChatBoxStore } from "~/store/useChatBoxStore";
 import { useUserStore } from "~/store/useUserStore";
 import { CreateConversation } from "./CreateConversation";
 import { MessageItem, PreviewMediaMulti } from "./MessageView";
+import { useOnlStore } from "~/store/useOnlStore";
+import { checkOnl } from "~/utils/checkOnl.util";
 
 export default function ChatBox() {
   //
@@ -44,7 +46,13 @@ export default function ChatBox() {
   const { pathname } = useLocation();
   const { close, conversation } = useChatBoxStore();
   const { user } = useUserStore();
+  const { onlUserIds, setOnlUserIds } = useOnlStore();
   const [isOnl, setOnl] = useState(false);
+
+  //
+  const participantIds = (
+    conversation?.participants as unknown as IUser[]
+  )?.map((u) => u._id);
 
   //
   useEffect(() => {
@@ -61,9 +69,15 @@ export default function ChatBox() {
     };
   }, [conversation?._id]);
 
-  //
+  // Online status socket
   useStatusSocket((val) => {
-    if (val._id === conversation?._id) setOnl(val.hasOnline);
+    setOnl(val.hasOnline);
+    if (val.hasOnline === false) {
+      const userOlIds = onlUserIds.filter((id) => id !== val._id);
+      setOnlUserIds(userOlIds);
+    } else {
+      setOnlUserIds([...onlUserIds, val._id]);
+    }
   });
 
   //
@@ -198,11 +212,16 @@ export default function ChatBox() {
               <CardTitle>{conversation?.name}</CardTitle>
               <CardDescription
                 className={cn(
-                  "text-gray-400 text-sm mt-1",
-                  isOnl ? "text-green-500" : ""
+                  "text-gray-300 text-xs mt-1",
+                  isOnl || checkOnl(onlUserIds, participantIds)
+                    ? "text-green-400"
+                    : ""
                 )}
               >
-                {!isOnl ? "Không" : "Đang"} hoạt động
+                {!isOnl && !checkOnl(onlUserIds, participantIds)
+                  ? "Không"
+                  : "Đang"}{" "}
+                hoạt động
               </CardDescription>
             </div>
           </div>

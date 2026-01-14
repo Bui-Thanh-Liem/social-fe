@@ -50,7 +50,7 @@ export function OutstandingThisWeek() {
   //
   useEffect(() => {
     if (countWarning.current >= 3) {
-      toastSimple("Đã tìm kiếm tất cả tin tức hôm nay.");
+      toastSimple("Đã tìm kiếm hết tất cả tin tức hôm nay.");
     }
   }, [countWarning.current]);
 

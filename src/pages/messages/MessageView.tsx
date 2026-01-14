@@ -33,7 +33,6 @@ import type { IConversation } from "~/shared/interfaces/schemas/conversation.int
 import type { IMessage } from "~/shared/interfaces/schemas/message.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useChatSocket } from "~/socket/hooks/useChatSocket";
-import { useStatusSocket } from "~/socket/hooks/useStatusSocket";
 import { useConversationActiveStore } from "~/store/useConversationActiveStore";
 import { useDetailAttachment } from "~/store/useDetailAttachment";
 import { useUserStore } from "~/store/useUserStore";
@@ -41,6 +40,8 @@ import { handleResponse, toastSimple } from "~/utils/toast";
 import { AddParticipants } from "./AddParticipants";
 import { CreateConversation } from "./CreateConversation";
 import { ParticipantList } from "./ParticipantList";
+import { useOnlStore } from "~/store/useOnlStore";
+import { checkOnl } from "~/utils/checkOnl.util";
 
 //
 export function MessageView({
@@ -52,11 +53,9 @@ export function MessageView({
 }) {
   //
   const { user } = useUserStore();
+  const { onlUserIds } = useOnlStore();
   const { activeId } = useConversationActiveStore();
   const [isPending, startTransition] = useTransition();
-
-  //
-  const [isOnl, setOnl] = useState(false);
   const [messages, setMessages] = useState<IMessage[]>([]);
 
   //
@@ -64,10 +63,11 @@ export function MessageView({
   const total_page_ref = useRef(0);
 
   //
-  useStatusSocket((val) => {
-    if (val._id === conversation?._id) setOnl(val.hasOnline);
-  });
+  const participantIds = (
+    conversation?.participants as unknown as IUser[]
+  )?.map((u) => u._id);
 
+  //
   const { sendMessage } = useChatSocket((newDataMessage) => {
     console.log("new message socket:::");
     setMessages((prev) => {
@@ -194,38 +194,31 @@ export function MessageView({
 
         try {
           //
-          const resUploadMedia = await apiUploadMedia.mutateAsync(
-            selectedFiles
-          );
-          console.log("resUploadMedia:::", resUploadMedia);
+          if (selectedFiles.length > 0) {
+            const resUploadMedia = await apiUploadMedia.mutateAsync(
+              selectedFiles
+            );
 
-          if (resUploadMedia.statusCode !== 200 || !resUploadMedia.metadata) {
-            handleResponse(resUploadMedia, () => {
-              setTimeout(() => {
-                const isVideo = resUploadMedia.metadata!.some((i) =>
-                  i.file_type.startsWith("video/")
-                );
-                if (isVideo) {
-                  toastSimple(
-                    "Video của bạn đang được kiểm duyệt, nhận thông tin tại phần thông báo."
-                  );
-                }
-              }, 3000);
-            });
-            return;
+            if (resUploadMedia.statusCode !== 200 || !resUploadMedia.metadata) {
+              handleResponse(resUploadMedia);
+              return;
+            }
+
+            medias = resUploadMedia.metadata;
           }
-
-          medias = resUploadMedia.metadata;
         } catch (uploadError) {
-          console.error("Error submitting uploadMedia:", uploadError);
           toastSimple((uploadError as { message: string }).message);
         }
 
         sendMessage({
           content: data.text,
-          attachments: medias.map((m) => m.s3_key),
           sender: user?._id || "",
           conversation: conversation?._id || "",
+          attachments:
+            medias.map((m) => ({
+              s3_key: m.s3_key || "",
+              url: m?.url || "",
+            })) || undefined,
         });
 
         removeMedia();
@@ -251,7 +244,7 @@ export function MessageView({
   //
   if (!conversation || !activeId)
     return (
-      <div className="h-[calc(100vh-120px)] col-span-8 flex gap-5 flex-col items-center justify-center">
+      <div className="h-[100vh] col-span-8 flex gap-5 flex-col items-center justify-center">
         <div className="flex items-center gap-x-2">
           <p className="text-2xl font-bold">Chào mừng đến với</p>
           <Logo size={40} />
@@ -292,10 +285,11 @@ export function MessageView({
             <p
               className={cn(
                 "text-gray-400 text-[12px]",
-                isOnl ? "text-green-500" : ""
+                checkOnl(onlUserIds, participantIds) ? "text-green-500" : ""
               )}
             >
-              {!isOnl ? "Không" : "Đang"} hoạt động
+              {!checkOnl(onlUserIds, participantIds) ? "Không" : "Đang"} hoạt
+              động
             </p>
           </div>
         </div>
@@ -591,10 +585,10 @@ export const MessageItem = ({ msg, user }: { msg: IMessage; user: IUser }) => {
                   <img
                     key={i}
                     src={a.url}
-                    alt={`attachment-${i}`}
-                    className="w-full object-contain rounded-lg"
                     loading="lazy"
+                    alt={a.file_name}
                     onClick={() => onClickMedia(a)}
+                    className="w-full object-contain rounded-lg"
                   />
                 );
               }
