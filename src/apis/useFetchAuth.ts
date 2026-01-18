@@ -32,7 +32,7 @@ export const useRegister = () => {
         localStorage.setItem("access_token", data.metadata?.access_token || "");
         localStorage.setItem(
           "refresh_token",
-          data.metadata?.refresh_token || ""
+          data.metadata?.refresh_token || "",
         );
 
         // Invalidate user data để refetch
@@ -84,7 +84,7 @@ export const useLogin = () => {
         })();
 
         //
-        navigate("/home");
+        navigate("/home", { replace: true });
       }
     },
   });

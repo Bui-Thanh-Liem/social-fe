@@ -111,10 +111,8 @@ export function TweetDetailDrawer() {
 
   //
   useEffect(() => {
-    console.log("joinComment");
     if (tweet?._id) joinComment(tweet._id);
     return () => {
-      console.log("leaveComment");
       if (tweet?._id) leaveComment(tweet._id);
     };
   }, [tweet?._id]);
@@ -171,7 +169,7 @@ export function TweetDetailDrawer() {
         setPage((prev) => prev + 1);
       }
     },
-    [hasMore, isLoadingCmm, isLoadingMore, tweetComments.length]
+    [hasMore, isLoadingCmm, isLoadingMore, tweetComments.length],
   );
 
   // Setup observer
@@ -379,7 +377,7 @@ export function TweetDetailDrawer() {
                 <p
                   className={cn(
                     "text-gray-800 mb-3 leading-relaxed whitespace-break-spaces",
-                    isExpanded ? "" : "line-clamp-10"
+                    isExpanded ? "" : "line-clamp-10",
                   )}
                 >
                   <Content content={content} mentions={mentions as any} />
@@ -410,7 +408,7 @@ export function TweetDetailDrawer() {
               "p-4 sticky -top-4 bg-white z-50",
               tweet.status !== ETweetStatus.Ready
                 ? "cursor-not-allowed pointer-events-none"
-                : ""
+                : "",
             )}
           >
             <div className="flex items-center justify-between text-gray-500 border-y border-gray-100 py-3">

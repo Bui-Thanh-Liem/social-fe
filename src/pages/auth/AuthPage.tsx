@@ -24,6 +24,8 @@ export function AuthPage() {
   const [params] = useSearchParams();
   const { hash } = useLocation();
   const status = params.get("s") || "";
+
+  // Handle OAuth login/signup
   useEffect(() => {
     async function onLoginOAuthSuccess() {
       const access_token = params.get("access_token") || "";
@@ -34,8 +36,8 @@ export function AuthPage() {
 
       // Nếu đăng nhập thành công thì gọi api getMe lưu vào Store global
       const resGetMe = await getMe.mutateAsync();
-      console.log("resGetMe::", resGetMe);
 
+      //
       if (resGetMe.statusCode === 200 && resGetMe?.metadata) {
         setUser(resGetMe.metadata);
       }

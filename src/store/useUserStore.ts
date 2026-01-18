@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 
 interface State {
@@ -16,8 +16,8 @@ export const useUserStore = create<State>()(
       clearUser: () => set({ user: null }),
     }),
     {
-      name: "user_storage", // tên key trong localStorage
-      partialize: (state) => ({ user: state.user }), // chỉ lưu user, không lưu hàm
-    }
-  )
+      name: "user_storage",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
 );

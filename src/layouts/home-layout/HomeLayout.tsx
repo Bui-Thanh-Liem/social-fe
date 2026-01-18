@@ -24,14 +24,10 @@ export function HomeLayout() {
   // Một kết nối socket duy nhất cho toàn ứng dụng
   useEffect(() => {
     socket.connect();
-    console.log("mounted HomeLayout");
-
     socket.emit(CONSTANT_EVENT_NAMES.JOIN_CONVERSATION, user?._id);
-    console.log("Join the room to receive notifications");
 
     return () => {
       socket.disconnect();
-      console.log("unmounted HomeLayout");
     };
   }, []);
 
@@ -49,7 +45,7 @@ export function HomeLayout() {
         <main
           className={cn(
             "w-[100%] lg:w-[50%] col-span-6 border-r border-l border-gray-200",
-            isMessage && "w-full lg:w-[90%]"
+            isMessage && "w-full lg:w-[90%]",
           )}
         >
           <Outlet />
