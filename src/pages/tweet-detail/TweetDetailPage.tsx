@@ -63,6 +63,8 @@ export function TweetDetailPage() {
     if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
     // Sau 2s, tắt typing và thêm comment
+    console.log("newComment:::", newComment );
+
     typingTimeoutRef.current = setTimeout(() => {
       setNewAuthorCmt("");
       addCommentIfNotExists(newComment);
@@ -130,7 +132,7 @@ export function TweetDetailPage() {
         setPage((prev) => prev + 1);
       }
     },
-    [hasMore, isLoadingCmm, isLoadingMore, tweetComments.length]
+    [hasMore, isLoadingCmm, isLoadingMore, tweetComments.length],
   );
 
   // Setup observer
@@ -245,6 +247,7 @@ export function TweetDetailPage() {
         </div>
 
         <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
+
         {/* COMMENTS */}
         <div className="ml-14">
           {tweetComments?.length ? (
