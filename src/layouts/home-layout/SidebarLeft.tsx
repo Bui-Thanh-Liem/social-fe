@@ -92,7 +92,7 @@ export function SidebarLeft() {
         : CONSTANT_DEFAULT_TITLE_DOCUMENT;
 
     const oldLinks = document.querySelectorAll(
-      'link[rel="icon"], link[rel="shortcut icon"]'
+      'link[rel="icon"], link[rel="shortcut icon"]',
     );
 
     oldLinks.forEach((link) => link.remove());
@@ -122,7 +122,7 @@ export function SidebarLeft() {
           : CONSTANT_DEFAULT_TITLE_DOCUMENT;
 
       const oldLinks = document.querySelectorAll(
-        'link[rel="icon"], link[rel="shortcut icon"]'
+        'link[rel="icon"], link[rel="shortcut icon"]',
       );
       oldLinks.forEach((link) => link.remove());
 
@@ -134,7 +134,7 @@ export function SidebarLeft() {
       document.head.appendChild(link);
       setUnreadCountConv(_unread);
     },
-    () => {}
+    () => {},
   );
 
   const navs: NavItem[] = [
@@ -211,7 +211,7 @@ export function SidebarLeft() {
                   <TypographyP
                     className={cn(
                       "text-[22px] p-3 group-hover:bg-gray-100 rounded-3xl flex items-center gap-3",
-                      isActive ? "font-semibold" : ""
+                      isActive ? "font-semibold" : "",
                     )}
                   >
                     {React.isValidElement(x.icon) &&
@@ -223,7 +223,7 @@ export function SidebarLeft() {
                       {x.name}{" "}
                     </span>
                     {!!x?.countNoti && (
-                      <span className="absolute top-1 left-6 flex items-center justify-center text-sky-400 bg-transparent text-[10px] font-bold">
+                      <span className="absolute top-1 left-6 flex items-center justify-center text-sky-400 bg-transparent text-[12px] font-bold animate-bounce">
                         {x?.countNoti}
                       </span>
                     )}

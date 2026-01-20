@@ -277,9 +277,9 @@ export function TweetDetailDrawer() {
                       <CarouselItem key={item.url} className="lg:basis-1/1">
                         <Card className="w-full h-full overflow-hidden flex items-center justify-center border-0 bg-transparent">
                           <CardContent className="w-full h-full p-0 flex items-center justify-center">
-                            {item.file_type.includes("video/") ? (
+                            {item.file_type?.includes("video/") ? (
                               <video src={item.url} controls />
-                            ) : item.file_type.includes("image/") ? (
+                            ) : item.file_type?.includes("image/") ? (
                               <img
                                 src={item.url}
                                 alt={item.url}

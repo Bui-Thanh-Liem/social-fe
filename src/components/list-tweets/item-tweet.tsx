@@ -43,6 +43,7 @@ import { handleResponse } from "~/utils/toast";
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
   const { medias } = tweet;
+  console.log("MediaContent - medias:", medias);
 
   //
   const { open, setTweet } = useDetailTweetStore();
@@ -69,14 +70,14 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
               key={item.url}
               className={cn(
                 "md:basis-1/2 lg:basis-1/1",
-                medias.length >= 2 ? "lg:basis-1/2" : ""
+                medias.length >= 2 ? "lg:basis-1/2" : "",
               )}
             >
               <Card className="w-full h-full overflow-hidden flex items-center justify-center border bg-transparent">
                 <CardContent className="w-full h-full p-0 flex items-center justify-center">
-                  {item.file_type.includes("video/") ? (
+                  {item.file_type?.includes("video/") ? (
                     <video src={item?.url} controls />
-                  ) : item.file_type.includes("image/") ? (
+                  ) : item.file_type?.includes("image/") ? (
                     <img
                       loading="lazy"
                       src={item?.url}
@@ -155,7 +156,7 @@ export const TweetItem = ({
   const author = user_id as unknown as IUser;
   const community = community_id as unknown as ICommunity;
   const pathname = window.location.pathname;
-  const isComment = !pathname.includes("/tweet/");
+  const isComment = !pathname?.includes("/tweet/");
 
   //
   const [isExpanded, setIsExpanded] = useState(false);
@@ -216,7 +217,7 @@ export const TweetItem = ({
             <p
               className={cn(
                 "text-gray-800 mb-3 leading-relaxed whitespace-break-spaces",
-                isExpanded ? "" : "line-clamp-10"
+                isExpanded ? "" : "line-clamp-10",
               )}
             >
               <Content content={content} mentions={mentions as any} />
@@ -296,7 +297,7 @@ export const TweetItem = ({
               "flex items-center justify-between text-gray-500 border-t border-gray-100 pt-3",
               tweet.status !== ETweetStatus.Ready
                 ? "cursor-not-allowed pointer-events-none"
-                : ""
+                : "",
             )}
           >
             {/* Comment */}
