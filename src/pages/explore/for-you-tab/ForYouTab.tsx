@@ -6,7 +6,7 @@ import { WhoToFollows } from "./WhoToFollows";
 export function ForYouTab() {
   return (
     <TabsContent
-      value=""
+      value="for-you"
       className="px-4 pb-4 overflow-y-auto h-[calc(100vh-140px)]"
     >
       <TodayNews />

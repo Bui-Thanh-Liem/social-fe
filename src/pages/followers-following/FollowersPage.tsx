@@ -54,7 +54,7 @@ export function FollowersPage() {
   const loading = isLoading || isFetching;
 
   return (
-    <div className="max-h-[calc(100vh-80px)] overflow-y-auto">
+    <div className="max-h-[calc(100vh-120px)] overflow-y-auto px-4">
       <div>
         {users.map((u) => (
           <UserToFollowItem key={u?._id} user={u} />
@@ -73,7 +73,7 @@ export function FollowersPage() {
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >
