@@ -28,6 +28,7 @@ import { SearchPage } from "./pages/search/SearchPage";
 import { TrendingPage } from "./pages/trending/TrendingPage";
 import { TweetDetailPage } from "./pages/tweet-detail/TweetDetailPage";
 import { ProtectTweetDetail } from "./components/protect-tweet-detail";
+import NotFound from "./components/not-found";
 
 // Router config
 const router = createBrowserRouter([
@@ -88,6 +89,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "*", element: <NotFound /> },
 ]);
 
 // Tạo Query Client

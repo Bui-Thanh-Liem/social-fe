@@ -8,9 +8,9 @@ export function ActionShared({ tweet }: { tweet: ITweet }) {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(`${apiUrl}/tweet/${tweet._id}`);
-      toastSimple("Đã sao chép bài viết", "success");
+      toastSimple("Đã sao chép liên kết bài viết", "success");
     } catch {
-      toastSimple("Sao chép bài viết thất bại", "error");
+      toastSimple("Sao chép liên kết bài viết thất bại", "error");
     }
   };
 

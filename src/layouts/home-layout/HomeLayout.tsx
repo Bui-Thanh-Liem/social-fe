@@ -12,7 +12,7 @@ import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
 import { SidebarLeft } from "./SidebarLeft";
 import { SidebarRight } from "./SidebarRight";
-import { NavForMobile } from "~/components/nav-for-mobile";
+import { NavForMobile } from "~/layouts/home-layout/NavForMobile";
 
 export function HomeLayout() {
   const { isOpen } = useChatBoxStore();

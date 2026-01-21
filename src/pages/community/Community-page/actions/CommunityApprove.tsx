@@ -77,7 +77,7 @@ export function CommunityApprove({
       limit: "10",
       community_id: community._id,
     },
-    isOpen
+    isOpen,
   );
   const apiChangeStatusTweet = useChangeStatusTweet();
 
@@ -93,7 +93,7 @@ export function CommunityApprove({
       setTweets((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...prev, ...newItems];
       });
@@ -119,13 +119,17 @@ export function CommunityApprove({
   //
   async function handleChangeStatusTweet(
     tweet_id: string,
-    status: ETweetStatus
+    status: ETweetStatus,
   ) {
-    await apiChangeStatusTweet.mutateAsync({
+    const res = await apiChangeStatusTweet.mutateAsync({
       status,
       tweet_id,
       community_id: community._id,
     });
+    if (res.statusCode === 200) {
+      // Xoá tweet khỏi list
+      setTweets((prev) => prev.filter((t) => t._id !== tweet_id));
+    }
   }
 
   //
@@ -221,7 +225,7 @@ export function CommunityApprove({
                       "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                       total_page_ref.current <= page
                         ? "text-gray-300 pointer-events-none cursor-default"
-                        : ""
+                        : "",
                     )}
                     onClick={onSeeMore}
                   >

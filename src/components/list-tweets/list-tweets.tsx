@@ -13,6 +13,8 @@ import { ErrorResponse } from "../error";
 import { cn } from "~/lib/utils";
 
 export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
+  console.log("ListTweets render with feedType:", feedType);
+
   const { user } = useUserStore();
 
   // State để quản lý pagination và data
@@ -49,7 +51,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
           // Loại bỏ duplicate tweets dựa trên _id
           const existingIds = new Set(prev.map((tweet) => tweet._id));
           const filteredNewTweets = newTweets.filter(
-            (tweet) => !existingIds.has(tweet._id)
+            (tweet) => !existingIds.has(tweet._id),
           );
           return [...prev, _newCommunities, ...filteredNewTweets];
         });
@@ -82,7 +84,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
         setPage((prev) => prev + 1);
       }
     },
-    [feeds?.length, hasMore, isLoading, isLoadingMore]
+    [feeds?.length, hasMore, isLoading, isLoadingMore],
   );
 
   // Setup Intersection Observer
@@ -203,7 +205,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
                   </p>
                   <div
                     className={cn(
-                      "m-4 mt-2 grid grid-cols-3 items-center gap-x-3"
+                      "m-4 mt-2 grid grid-cols-3 items-center gap-x-3",
                     )}
                   >
                     {communities.map((com) => (

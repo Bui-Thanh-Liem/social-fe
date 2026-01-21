@@ -74,12 +74,12 @@ export function AuthPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center min-h-screen">
         <div className="flex-1 hidden lg:flex">
           <Logo size={332} className="w-[240px] lg:w-auto" />
         </div>
         <div className="flex-1 flex flex-col justify-center items-center text-center py-20">
-          <Logo className="w-[60px] m-auto mb-6 h-[60px] md:hidden" />
+          <Logo size={100} className="m-auto mb-6 md:hidden" />
 
           <TypographyH1 className="text-7xl lg:text-5xl hidden lg:block">
             Đang diễn ra ngay bây giờ

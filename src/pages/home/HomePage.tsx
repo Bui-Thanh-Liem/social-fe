@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { TypographyP } from "~/components/elements/p";
 import { cn } from "~/lib/utils";
 import { EFeedType } from "~/shared/enums/type.enum";
 import { useReloadStore } from "~/store/useReloadStore";
 import { ListTweets } from "../../components/list-tweets/list-tweets";
 import { Tweet } from "../../components/tweet/Tweet";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function HomePage() {
+  const { pathname, hash } = useLocation();
+  const navigate = useNavigate();
   const { triggerReload, reloadKey } = useReloadStore();
-
-  // State để quản lý tab hiện tại
-  const [activeTab, setActiveTab] = useState<EFeedType>(EFeedType.All);
 
   const classNav =
     "flex-1 h-full flex items-center justify-center text-gray-500 cursor-pointer hover:bg-gray-100 font-semibold transition-colors relative";
@@ -25,29 +25,33 @@ export function HomePage() {
     }
   }, [reloadKey]);
 
+  function handleClickTabForYou() {
+    triggerReload();
+    navigate(`${pathname}`);
+  }
+
+  function handleClickTabFollowing() {
+    triggerReload();
+    navigate(`${pathname}#${EFeedType.Following}`);
+  }
+
   return (
     <main className="relative h-screen flex flex-col">
       {/* Fixed Navigation Bar */}
       <div className="h-14 bg-white/50 backdrop-blur-md z-30 flex border-b border-gray-200 flex-shrink-0">
         <div className="flex w-full h-full">
           <TypographyP
-            className={cn(classNav, activeTab === EFeedType.All && classActive)}
-            onClick={() => {
-              triggerReload();
-              setActiveTab(EFeedType.All);
-            }}
+            className={cn(classNav, hash === "" && classActive)}
+            onClick={handleClickTabForYou}
           >
             Dành Cho Bạn
           </TypographyP>
           <TypographyP
             className={cn(
               classNav,
-              activeTab === EFeedType.Following && classActive
+              hash === `#${EFeedType.Following}` && classActive,
             )}
-            onClick={() => {
-              triggerReload();
-              setActiveTab(EFeedType.Following);
-            }}
+            onClick={handleClickTabFollowing}
           >
             Đã Theo Dõi
           </TypographyP>
@@ -60,8 +64,19 @@ export function HomePage() {
           <Tweet />
         </div>
         <div className="border-b border-gray-100" />
-        <ListTweets feedType={activeTab} />
+        <ListTweets feedType={formatTypeText(hash)} />
       </div>
     </main>
   );
+}
+
+function formatTypeText(type: any) {
+  switch (type) {
+    case `#${EFeedType.Everyone}`:
+      return EFeedType.Everyone;
+    case `#${EFeedType.Following}`:
+      return EFeedType.Following;
+    default:
+      return EFeedType.All;
+  }
 }

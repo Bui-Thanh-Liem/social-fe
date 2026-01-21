@@ -63,7 +63,7 @@ export function TweetDetailPage() {
     if (typingTimeoutRef.current) clearTimeout(typingTimeoutRef.current);
 
     // Sau 2s, tắt typing và thêm comment
-    console.log("newComment:::", newComment );
+    console.log("newComment:::", newComment);
 
     typingTimeoutRef.current = setTimeout(() => {
       setNewAuthorCmt("");
@@ -233,7 +233,7 @@ export function TweetDetailPage() {
         )}
       </div>
 
-      <div className="max-h-[calc(100vh-50px)] overflow-y-auto pb-6">
+      <div className="h-[calc(100vh-50px)] max-h-[calc(100vh-50px)] overflow-y-auto pb-6">
         <TweetItem tweet={tweet} onSuccessDel={() => {}} />
 
         {/*  */}

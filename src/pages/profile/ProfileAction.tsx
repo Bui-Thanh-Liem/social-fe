@@ -12,6 +12,7 @@ import { useChatBoxStore } from "~/store/useChatBoxStore";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimpleVerify } from "~/utils/toast";
 import { LogOut } from "lucide-react";
+import { useLogout } from "~/apis/useFetchAuth";
 
 interface IProfileActiveProps {
   isOwnProfile: boolean;
@@ -49,6 +50,9 @@ export function ProfileEdit({ currentUser }: { currentUser: IUser }) {
 //
 export function ProfileAction({ profile, isOwnProfile }: IProfileActiveProps) {
   const { user } = useUserStore();
+
+  //
+  const logout = useLogout();
 
   //
   const { open, setConversation } = useChatBoxStore();
@@ -93,12 +97,17 @@ export function ProfileAction({ profile, isOwnProfile }: IProfileActiveProps) {
     setIsFollow(!isFollow);
   }
 
+  //
+  async function onLogout() {
+    await logout.mutateAsync();
+  }
+
   return (
     <>
       {isOwnProfile ? (
         <div className="flex items-center gap-2 ">
           <ProfileEdit currentUser={profile as IUser} />
-          <WrapIcon className="mt-20 border lg:hidden">
+          <WrapIcon className="mt-20 border lg:hidden" onClick={onLogout}>
             <LogOut size={20} color="red" />
           </WrapIcon>
         </div>

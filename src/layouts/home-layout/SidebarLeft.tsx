@@ -29,7 +29,7 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { cn } from "~/lib/utils";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
-import { ETweetType } from "~/shared/enums/type.enum";
+import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
 import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
@@ -156,7 +156,7 @@ export function SidebarLeft() {
     {
       name: "Thông báo",
       icon: <NotificationIcon />,
-      path: "/notifications",
+      path: `/notifications#${ENotificationType.Community}`,
       countNoti: unreadCountNoti,
     },
     {
@@ -223,8 +223,8 @@ export function SidebarLeft() {
                       {x.name}{" "}
                     </span>
                     {!!x?.countNoti && (
-                      <span className="absolute top-1 left-6 flex items-center justify-center text-sky-400 bg-transparent text-[12px] font-bold animate-bounce">
-                        {x?.countNoti}
+                      <span className="absolute top-3 left-6 w-4 h-4 rounded-full flex items-center justify-center bg-sky-400 text-[10px] font-bold text-white animate-bounce">
+                        {x?.countNoti > 9 ? "9+" : x?.countNoti}
                       </span>
                     )}
                   </TypographyP>

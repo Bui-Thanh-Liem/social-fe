@@ -5,9 +5,17 @@ import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WrapIcon } from "~/components/wrapIcon";
 import { ForYouTab } from "./for-you-tab/ForYouTab";
 import { TrendingTab } from "./trending-tab/TrendingTab";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function ExplorePage() {
+  const navigate = useNavigate();
+  const { pathname, hash } = useLocation();
   const [searchVal, setSearchVal] = useState("");
+
+  // ✅ Khi người dùng đổi tab → điều hướng sang route tương ứng
+  const handleTabChange = (value: string) => {
+    navigate(`${pathname}${value}`);
+  };
 
   return (
     <div>
@@ -26,13 +34,18 @@ export function ExplorePage() {
       </div>
 
       <div>
-        <Tabs defaultValue="for-you" className="mb-12">
+        <Tabs
+          defaultValue=""
+          className="mb-12"
+          value={hash}
+          onValueChange={handleTabChange}
+        >
           <div className="pt-2 mb-2 sticky top-0 z-50">
             <TabsList className="w-full">
-              <TabsTrigger className="cursor-pointer" value="for-you">
+              <TabsTrigger className="cursor-pointer" value="">
                 Dành cho bạn
               </TabsTrigger>
-              <TabsTrigger className="cursor-pointer" value="trending">
+              <TabsTrigger className="cursor-pointer" value="#trending">
                 Xu hướng
               </TabsTrigger>
             </TabsList>

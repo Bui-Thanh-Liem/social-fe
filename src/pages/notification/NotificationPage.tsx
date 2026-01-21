@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WrapIcon } from "~/components/wrapIcon";
@@ -9,11 +9,11 @@ import { TabContent } from "./TabContent";
 
 export function NotificationPage() {
   //
+  const { pathname, hash } = useLocation();
   const navigate = useNavigate();
 
   //
   const { unreadByType } = useUnreadNotiStore();
-
   const [unreadNoti, setUnreadNoti] = useState<Record<
     ENotificationType,
     number
@@ -23,6 +23,11 @@ export function NotificationPage() {
   useEffect(() => {
     setUnreadNoti(unreadByType);
   }, [unreadByType]);
+
+  // ✅ Khi người dùng đổi tab → điều hướng sang route tương ứng
+  const handleTabChange = (value: string) => {
+    navigate(`${pathname}${value}`);
+  };
 
   return (
     <div>
@@ -42,12 +47,17 @@ export function NotificationPage() {
 
       {/*  */}
       <div>
-        <Tabs defaultValue={ENotificationType.Community} className="mb-12">
+        <Tabs
+          value={hash}
+          className="mb-12"
+          onValueChange={handleTabChange}
+          defaultValue={`#${ENotificationType.Community}`}
+        >
           <div className="bg-white sticky top-0 z-50">
             <TabsList className="w-full">
               <TabsTrigger
                 className="cursor-pointer flex items-center"
-                value={ENotificationType.Community}
+                value={`#${ENotificationType.Community}`}
               >
                 <span>Cộng đồng</span>
                 {unreadNoti && unreadNoti[ENotificationType.Community] && (
@@ -59,7 +69,7 @@ export function NotificationPage() {
 
               <TabsTrigger
                 className="cursor-pointer flex items-center"
-                value={ENotificationType.Mention_like}
+                value={`#${ENotificationType.Mention_like}`}
               >
                 <span>Nhắc đến / Thích</span>
                 {unreadNoti && unreadNoti[ENotificationType.Mention_like] && (
@@ -71,7 +81,7 @@ export function NotificationPage() {
 
               <TabsTrigger
                 className="cursor-pointer flex items-center"
-                value={ENotificationType.Follow}
+                value={`#${ENotificationType.Follow}`}
               >
                 <span>Theo dõi</span>
                 {unreadNoti && unreadNoti[ENotificationType.Follow] && (
@@ -83,7 +93,7 @@ export function NotificationPage() {
 
               <TabsTrigger
                 className="cursor-pointer flex items-center"
-                value={ENotificationType.Other}
+                value={`#${ENotificationType.Other}`}
               >
                 <span>Khác</span>
                 {unreadNoti && unreadNoti[ENotificationType.Other] && (
@@ -98,7 +108,7 @@ export function NotificationPage() {
           {/* Tab Content */}
           <div className="p-4 pt-0 overflow-y-auto h-[calc(100vh-110px)]">
             <TabsContent
-              value={ENotificationType.Community}
+              value={`#${ENotificationType.Community}`}
               className="px-0 py-4"
             >
               <TabContent
@@ -109,7 +119,7 @@ export function NotificationPage() {
             </TabsContent>
 
             <TabsContent
-              value={ENotificationType.Mention_like}
+              value={`#${ENotificationType.Mention_like}`}
               className="px-0 py-4"
             >
               <TabContent
@@ -118,7 +128,10 @@ export function NotificationPage() {
                 emptyText="Từ lượt thích đến lượt đăng lại và nhiều hơn thế nữa, đây chính là nơi diễn ra mọi hoạt động."
               />
             </TabsContent>
-            <TabsContent value={ENotificationType.Follow} className="px-0 py-4">
+            <TabsContent
+              value={`#${ENotificationType.Follow}`}
+              className="px-0 py-4"
+            >
               <TabContent
                 type={ENotificationType.Follow}
                 key={ENotificationType.Follow}
@@ -126,7 +139,10 @@ export function NotificationPage() {
               />
             </TabsContent>
 
-            <TabsContent value={ENotificationType.Other} className="px-0 py-4">
+            <TabsContent
+              value={`#${ENotificationType.Other}`}
+              className="px-0 py-4"
+            >
               <TabContent
                 type={ENotificationType.Other}
                 key={ENotificationType.Other}

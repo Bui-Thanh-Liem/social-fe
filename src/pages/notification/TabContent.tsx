@@ -185,7 +185,7 @@ export function TabContent({
       }
     },
     () => {},
-    () => {}
+    () => {},
   );
 
   // Mỗi lần fetch xong thì append thêm vào state
@@ -225,7 +225,7 @@ export function TabContent({
   //
   async function onDel(noti: INotification) {
     const resDeleted = await apiDeleteNoti.mutateAsync(noti._id);
-    handleResponse(resDeleted);
+    if (resDeleted.statusCode !== 200) handleResponse(resDeleted);
     setNotis((prev) => prev.filter((n) => n._id !== noti._id));
   }
 
@@ -275,7 +275,7 @@ export function TabContent({
               "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
               total_page_ref.current <= page
                 ? "text-gray-300 pointer-events-none cursor-default"
-                : ""
+                : "",
             )}
             onClick={onSeeMore}
           >

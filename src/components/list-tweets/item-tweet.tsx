@@ -43,7 +43,6 @@ import { handleResponse } from "~/utils/toast";
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
   const { medias } = tweet;
-  console.log("MediaContent - medias:", medias);
 
   //
   const { open, setTweet } = useDetailTweetStore();

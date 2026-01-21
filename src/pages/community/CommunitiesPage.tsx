@@ -27,8 +27,8 @@ export function CommunitiesPage() {
   const type = location.pathname.endsWith(joined_tab)
     ? joined_tab
     : location.pathname.endsWith(explore_tab)
-    ? explore_tab
-    : "/";
+      ? explore_tab
+      : "/";
 
   // ✅ Khi người dùng đổi tab → điều hướng sang route tương ứng
   const handleTabChange = (value: string) => {
