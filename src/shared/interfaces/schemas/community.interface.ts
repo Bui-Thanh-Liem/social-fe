@@ -36,6 +36,8 @@ export interface ICommunity extends IBase {
 
   members?: IUser[];
   mentors?: IUser[];
+
+  invited?: [{ user_id: string }];
 }
 
 export interface ICommunityInvitation extends IBase {

@@ -59,7 +59,7 @@ export function TodayNewsOrOutstandingItem({
         <p
           className={cn(
             "text-sm leading-snug font-semibold",
-            !isMedia ? "line-clamp-1" : "line-clamp-3"
+            !isMedia ? "line-clamp-1" : "line-clamp-3",
           )}
         >
           {highlight[0].content}
@@ -82,31 +82,32 @@ export function TodayNewsOrOutstandingItem({
           </p>
         </div>
       </div>
-      {isMedia && (
-        <div className="w-32 h-20">
-          {item.media?.file_type.includes("video/") ? (
-            <video
-              src={item.media.url}
-              controls
-              className="w-full h-full object-cover"
-            />
-          ) : item.media?.file_type.includes("image/") ? (
-            <img
-              src={item.media.url}
-              alt={item.media.url}
-              className="object-contain w-full h-full"
-              loading="lazy"
-              onError={(e) => {
-                e.currentTarget.src = "/placeholder-image.png"; // Fallback image
-              }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <p className="text-gray-400">Định dạng không hỗ trợ</p>
-            </div>
-          )}
-        </div>
-      )}
+      {isMedia &&
+        (item.media?.url ? (
+          <div className="w-32 h-20">
+            {item.media?.file_type.includes("video/") ? (
+              <video
+                src={item.media?.url}
+                controls
+                className="w-full h-full object-cover"
+              />
+            ) : item.media?.file_type.includes("image/") ? (
+              <img
+                src={item.media?.url}
+                alt={item.media?.url}
+                className="object-contain w-full h-full"
+                loading="lazy"
+                onError={(e) => {
+                  e.currentTarget.src = "/placeholder-image.png"; // Fallback image
+                }}
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <p className="text-gray-400">Định dạng không hỗ trợ</p>
+              </div>
+            )}
+          </div>
+        ) : null)}
     </div>
   );
 }

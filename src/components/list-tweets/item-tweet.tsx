@@ -159,6 +159,7 @@ export const TweetItem = ({
 
   //
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isRetwExpanded, setIsRetwExpanded] = useState(false);
 
   // Gọi api detail để lấy các retweet/quoteTweet
   const { data } = useGetDetailTweet(parent_id || "");
@@ -276,12 +277,36 @@ export const TweetItem = ({
             {/* Nội dung tweet */}
             <div className="ml-14">
               {quoteTweet?.content && (
-                <p className="text-gray-800 mb-3 leading-relaxed">
-                  <Content
-                    content={quoteTweet?.content}
-                    mentions={quoteTweet?.mentions as unknown as IUser[]}
-                  />
-                </p>
+                <>
+                  <p
+                    className={cn(
+                      "text-gray-800 mb-3 leading-relaxed whitespace-break-spaces",
+                      isRetwExpanded ? "" : "line-clamp-10",
+                    )}
+                  >
+                    <Content
+                      content={quoteTweet?.content}
+                      mentions={quoteTweet?.mentions as unknown as IUser[]}
+                    />
+                  </p>
+                  {(quoteTweet?.content?.split("\n").length > 10 ||
+                    quoteTweet?.content?.length > 500) && (
+                    <div className="flex my-1">
+                      <button
+                        onClick={() => setIsRetwExpanded(!isRetwExpanded)}
+                        className="m-auto outline-none"
+                      >
+                        <WrapIcon className="bg-gray-100">
+                          {isRetwExpanded ? (
+                            <ArrowUp size={20} className="text-blue-400" />
+                          ) : (
+                            <ArrowDown size={20} className="text-blue-400" />
+                          )}
+                        </WrapIcon>
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
               {/* Medias content */}
               <MediaContent tweet={quoteTweet} />

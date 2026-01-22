@@ -47,7 +47,7 @@ export function TrendingPage() {
         });
       }
     },
-    [isFetching, relevant_ids.length]
+    [isFetching, relevant_ids.length],
   );
 
   useEffect(() => {
@@ -81,8 +81,9 @@ export function TrendingPage() {
             {highlight?.map((h, i) => (
               <li key={h._id}>
                 <p>
-                  <Content content={h.content} mentions={[]} />
-                  {h.content}
+                  <p className="leading-relaxed whitespace-break-spaces">
+                    <Content content={h.content} mentions={[]} />
+                  </p>
                   <Avatar
                     key={`${h.avatar}-${i}`}
                     className="inline-block ml-4 w-5 h-5"

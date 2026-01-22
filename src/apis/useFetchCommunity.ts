@@ -74,7 +74,7 @@ export const useGetOneCommunityBySlug = (slug: string, enabled = true) => {
 export const useGetMultiMMCommunityById = (
   id: string,
   queries: IQuery<ICommunity>,
-  enabled = true
+  enabled = true,
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
   const queryString = queries ? buildQueryString(queries) : "";
@@ -83,7 +83,7 @@ export const useGetMultiMMCommunityById = (
     queryKey: ["community", "mm", id, queries.q, normalizedQueries],
     queryFn: () =>
       apiCall<ICommunity>(
-        `/communities/mm/${id}${queryString ? `?${queryString}` : ""}`
+        `/communities/mm/${id}${queryString ? `?${queryString}` : ""}`,
       ),
     enabled: enabled && !!id,
   });
@@ -93,7 +93,7 @@ export const useGetMultiMMCommunityById = (
 export const useGetMultiActivities = (
   id: string,
   queries: IQuery<ICommunity>,
-  enabled = true
+  enabled = true,
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
   const queryString = queries ? buildQueryString(queries) : "";
@@ -102,7 +102,7 @@ export const useGetMultiActivities = (
     queryKey: ["community", "activity", id, queries.q, normalizedQueries],
     queryFn: () =>
       apiCall<ResMultiType<ICommunityActivity>>(
-        `/communities/activity/${id}${queryString ? `?${queryString}` : ""}`
+        `/communities/activity/${id}${queryString ? `?${queryString}` : ""}`,
       ),
     enabled: enabled && !!id,
   });
@@ -112,7 +112,7 @@ export const useGetMultiActivities = (
 export const useGetMultiInvitations = (
   community_id: string,
   queries?: IQuery<ICommunity>,
-  enabled = true
+  enabled = true,
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
@@ -149,7 +149,7 @@ export const useDeleteInvitation = () => {
         `/communities/invite/${payload.invitation_id}/${payload.community_id}`,
         {
           method: "DELETE",
-        }
+        },
       ),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["invited"] });
@@ -281,6 +281,9 @@ export const useInviteCommunity = () => {
       }),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ["invited"] });
+      await queryClient.invalidateQueries({
+        queryKey: ["communities", "bare"],
+      });
       await queryClient.invalidateQueries({
         queryKey: ["communities", "activities"],
       });
