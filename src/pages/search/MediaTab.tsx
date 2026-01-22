@@ -55,7 +55,7 @@ export function MediaTab() {
           // Loại bỏ duplicate tweets dựa trên _id
           const existingIds = new Set(prev.map((tweet) => tweet._id));
           const filteredNewTweets = newTweets.filter(
-            (tweet) => !existingIds.has(tweet._id)
+            (tweet) => !existingIds.has(tweet._id),
           );
           return [...prev, ...filteredNewTweets];
         });
@@ -86,7 +86,7 @@ export function MediaTab() {
         setPage((prev) => prev + 1);
       }
     },
-    [tweets.length, hasMore, isLoading, isLoadingMore]
+    [tweets.length, hasMore, isLoading, isLoadingMore],
   );
 
   // Setup Intersection Observer
@@ -147,7 +147,7 @@ export function MediaTab() {
   const loading = isLoading || isFetching;
 
   return (
-    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto px-4">
+    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
       {/* Loading state cho lần load đầu tiên */}
       {loading && page === 1 && (
         <div className="py-4">

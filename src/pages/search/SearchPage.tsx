@@ -32,7 +32,7 @@ export function SearchPage() {
 
       <div className="mt-1">
         <Tabs defaultValue="top" className="mb-12">
-          <div className="bg-white p-2 pt-5 px-4 sticky top-0 z-50">
+          <div className="bg-white py-2 pt-5 sticky top-0 z-50">
             <TabsList className="w-full">
               <TabsTrigger
                 className="cursor-pointer"

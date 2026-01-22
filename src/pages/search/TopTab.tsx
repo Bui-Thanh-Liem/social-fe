@@ -84,7 +84,7 @@ export function TopTab() {
         // Loại bỏ duplicate tweets dựa trên _id
         const existingIds = new Set(prev.map((u) => u._id));
         const filteredNewUsers = items.filter(
-          (tweet) => !existingIds.has(tweet._id)
+          (tweet) => !existingIds.has(tweet._id),
         );
         return [...prev, ...filteredNewUsers];
       });
@@ -102,7 +102,7 @@ export function TopTab() {
         const existingIds = new Set(prev.map((tweet) => tweet._id));
 
         const filteredNewTweets = items.filter(
-          (tweet) => !existingIds.has(tweet._id)
+          (tweet) => !existingIds.has(tweet._id),
         );
 
         return [...prev, ...filteredNewTweets];
@@ -121,7 +121,7 @@ export function TopTab() {
         const existingIds = new Set(prev.map((com) => com._id));
 
         const filteredNewCommunities = items.filter(
-          (com) => !existingIds.has(com._id)
+          (com) => !existingIds.has(com._id),
         );
 
         return [...prev, ...filteredNewCommunities];
@@ -161,7 +161,7 @@ export function TopTab() {
   const loadingTweet = isFetchingTweets || isLoadingTweets;
 
   return (
-    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto px-4">
+    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
       <div>
         {/*  */}
         <div>
@@ -182,7 +182,7 @@ export function TopTab() {
                     "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                     total_page_user_ref.current <= pageUser
                       ? "text-gray-300 pointer-events-none cursor-default"
-                      : ""
+                      : "",
                   )}
                   onClick={onSeeMoreUser}
                 >
@@ -228,7 +228,7 @@ export function TopTab() {
                     "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                     total_page_tweet_ref.current <= pageTweet
                       ? "text-gray-300 pointer-events-none cursor-default"
-                      : ""
+                      : "",
                   )}
                   onClick={onSeeMoreTweet}
                 >
@@ -274,7 +274,7 @@ export function TopTab() {
                     "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                     total_page_community_ref.current <= pageCommunity
                       ? "text-gray-300 pointer-events-none cursor-default"
-                      : ""
+                      : "",
                   )}
                   onClick={onSeeMoreCommunity}
                 >

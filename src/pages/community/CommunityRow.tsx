@@ -10,6 +10,7 @@ import type { ICommunity } from "~/shared/interfaces/schemas/community.interface
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimpleVerify } from "~/utils/toast";
+import { EMembershipType } from "~/shared/enums/type.enum";
 
 export function CommunityRow({
   community,
@@ -18,6 +19,8 @@ export function CommunityRow({
 }) {
   const members = community?.members || [];
   const mentors = community?.mentors || [];
+  const isOnlyInvite =
+    community?.membership_type === EMembershipType.Invite_only;
 
   //
   const { user: userActive } = useUserStore();
@@ -103,9 +106,20 @@ export function CommunityRow({
             size="sm"
             onClick={handleToggleFollow}
             variant="outline"
-            className={cn("", !joined ? "" : "text-red-400 border-red-200")}
+            className={cn(
+              "",
+              !joined
+                ? isOnlyInvite
+                  ? "pointer-events-none cursor-not-allowed text-gray-300 border-gray-200"
+                  : ""
+                : "text-red-400 border-red-200",
+            )}
           >
-            {!joined ? "Tham gia" : "Rời khỏi"}
+            {!joined
+              ? isOnlyInvite
+                ? EMembershipType.Invite_only
+                : "Tham gia"
+              : "Rời khỏi"}
           </ButtonMain>
         )}
       </div>

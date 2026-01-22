@@ -59,7 +59,7 @@ export function PeopleTab() {
   const loading = isLoading || isFetching;
 
   return (
-    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto px-4">
+    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
       {/*  */}
       <div>
         {users.map((item) => (
@@ -79,7 +79,7 @@ export function PeopleTab() {
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >
