@@ -334,8 +334,8 @@ export const TweetItem = ({
             <ActionLikeTweet tweet={tweet} />
 
             {/* Views */}
-            <button className="flex items-center space-x-2 hover:text-blue-500 transition-colors group">
-              <div className="p-2 rounded-full group-hover:bg-blue-50 transition-colors">
+            <button className="flex items-center space-x-2 hover:text-orange-500 transition-colors group">
+              <div className="p-2 rounded-full group-hover:bg-orange-50 transition-colors">
                 <BarChart3 size={18} />
               </div>
               <span className="text-sm">{user_view + guest_view}</span>

@@ -1,6 +1,9 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import type { CreateTweetDto } from "~/shared/dtos/req/tweet.dto";
-import type { ResCreateTweet } from "~/shared/dtos/res/tweet.dto";
+import type {
+  ResCountViewLinkBookmarkInWeek,
+  ResCreateTweet,
+} from "~/shared/dtos/res/tweet.dto";
 import type { EFeedType, ETweetType } from "~/shared/enums/type.enum";
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
@@ -33,7 +36,7 @@ export const useDeleteTweet = () => {
 // 📄 GET - Lấy tweets mới nhất theo type feed: all - everyone - following
 export const useGetNewFeeds = (
   feed_type: EFeedType,
-  queries?: IQuery<ITweet>
+  queries?: IQuery<ITweet>,
 ) => {
   const { reloadKey } = useReloadStore();
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
@@ -77,7 +80,7 @@ export const useGetProfileTweets = (
   tweet_type: ETweetType,
   queries?: IQuery<ITweet> & {
     ishl?: "0" | "1";
-  }
+  },
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
@@ -113,7 +116,7 @@ export const useGetProfileTweets = (
 export const useGetCommunityTweets = (
   queries?: IQuery<ITweet> & {
     ishl?: "0" | "1";
-  }
+  },
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
@@ -140,7 +143,7 @@ export const useGetCommunityTweets = (
 // 📄 GET - Lấy tweets bằng community_id và status = pending
 export const useGetTweetsPendingByCommunityId = (
   queries?: IQuery<ITweet>,
-  enabled = true
+  enabled = true,
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
@@ -246,6 +249,24 @@ export const useGetTweetBookmarked = (queries?: IQuery<ITweet>) => {
 
       return apiCall<ResMultiType<ITweet>>(url);
     },
+
+    // Lên getNewFeeds đọc giải thích
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: "always",
+    refetchOnReconnect: false,
+    refetchInterval: false,
+    networkMode: "online",
+  });
+};
+
+// 📄 GET - Thống kê lượt xem, thích, lưu trong tuần
+export const useCountViewLinkBookmarkInWeek = () => {
+  return useQuery({
+    queryKey: ["tweets", "count-view-like-bookmark-week"],
+    queryFn: () =>
+      apiCall<ResCountViewLinkBookmarkInWeek>(`/tweets/view-like-bookmark`),
 
     // Lên getNewFeeds đọc giải thích
     staleTime: 5 * 60 * 1000,

@@ -1,6 +1,6 @@
 import { Search, X } from "lucide-react";
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchPending } from "~/apis/useFetchSearch";
 import {
   useCreateSearchHistory,
@@ -45,13 +45,14 @@ export function SearchAdvanced({
 
   //
   const navigate = useNavigate();
+  const { hash } = useLocation();
   const [searchParams] = useSearchParams();
-  const q = searchParams.get("q");
+  const q = searchParams.get("q") || hash;
 
   //
   const [open, setOpen] = useState(false);
   const [searchVal, setSearchVal] = useState(q ?? "");
-  const debouncedValue = useDebounce(searchVal, 500);
+  const debouncedValue = useDebounce(searchVal, 400);
 
   //
   const apiCreateHistory = useCreateSearchHistory();
@@ -64,7 +65,7 @@ export function SearchAdvanced({
       limit: "10",
       q: debouncedValue,
     },
-    !!debouncedValue && debouncedValue.length > 0
+    !!debouncedValue && debouncedValue.length > 0,
   );
 
   const { data: resSearchHistory } = useGetMultiSearchHistory({
@@ -108,6 +109,13 @@ export function SearchAdvanced({
       navigate(`/search?q=${tr?.topic}`);
     }
     setSearchVal(tr.topic!);
+    setOpen(false);
+  }
+
+  function onClickShItem(tr: string) {
+    if (!handleCheckPermission()) return;
+    navigate(`/search?q=${tr}`);
+    setSearchVal(tr);
     setOpen(false);
   }
 
@@ -183,7 +191,7 @@ export function SearchAdvanced({
       <PopoverContent
         className={cn(
           "bg-white border rounded-2xl shadow-lg z-[4000]",
-          className
+          className,
         )}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
@@ -307,13 +315,11 @@ export function SearchAdvanced({
                         <h3 className="ml-4 text-md line-clamp-1 max-w-[90%] font-semibold">
                           {shTrending.topic}
                         </h3>
-                        <div>
-                          <X
-                            size={18}
-                            className="hidden group-hover:flex ml-auto text-gray-400"
-                            onClick={(e) => handleDeleteHistory(e, sh._id)}
-                          />
-                        </div>
+                        <X
+                          size={18}
+                          className="hidden group-hover:flex ml-auto text-gray-400"
+                          onClick={(e) => handleDeleteHistory(e, sh._id)}
+                        />
                       </li>
                     );
                   }
@@ -399,9 +405,7 @@ export function SearchAdvanced({
                     <li
                       key={sh._id}
                       className="group cursor-pointer hover:bg-gray-100 p-2 rounded flex items-center gap-1"
-                      onClick={() => {
-                        navigate(`/search?q=${sh.text}`);
-                      }}
+                      onClick={() => onClickShItem(sh.text!)}
                     >
                       <div>
                         <Search className="h-4 w-4 text-muted-foreground" />
