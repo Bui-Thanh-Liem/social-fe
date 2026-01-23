@@ -155,7 +155,7 @@ export function ChartProfileAction() {
 
   return (
     <Drawer>
-      <DrawerTrigger asChild>
+      <DrawerTrigger asChild className="hidden md:block">
         <WrapIcon className="mt-20 border">
           {isLoading ? (
             <LoaderCircle size={22} className="animate-spin" />
