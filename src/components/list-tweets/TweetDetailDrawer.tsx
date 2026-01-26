@@ -43,13 +43,13 @@ import {
   DrawerTitle,
 } from "../ui/drawer";
 import { WrapIcon } from "../WrapIcon";
-import { ActionBookmarkTweet } from "./action-bookmark-tweet";
-import { ActionCommentTweet } from "./action-comment-tweet";
-import { ActionLikeTweet } from "./action-like-tweet";
-import { ActionRetweetQuoteTweet } from "./action-retweet-quote-tweet";
-import { ActionShared } from "./action-shared";
-import { Content } from "./content";
-import { SkeletonTweet, StatusTag, TweetItem } from "./item-tweet";
+import { ActionBookmarkTweet } from "./ActionBookmarkTweet";
+import { ActionCommentTweet } from "./ActionCommentTweet";
+import { ActionLikeTweet } from "./ActionLikeTweet";
+import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
+import { ActionShared } from "./ActionShared";
+import { Content } from "./Content";
+import { SkeletonTweet, StatusTag, TweetItem } from "./ItemTweet";
 import { formatTimeAgo } from "~/utils/date-time";
 
 export function TweetDetailDrawer() {

@@ -28,7 +28,7 @@ import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
-import { TweetItem } from "../list-tweets/item-tweet";
+import { TweetItem } from "../list-tweets/ItemTweet";
 import { AvatarMain } from "../ui/avatar";
 import { ButtonMain } from "../ui/button";
 import { Card, CardContent } from "../ui/card";

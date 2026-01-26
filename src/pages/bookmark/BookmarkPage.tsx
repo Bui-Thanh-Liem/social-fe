@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
 import { SearchMain } from "~/components/ui/search";
 import { WrapIcon } from "~/components/WrapIcon";
 import { useDebounce } from "~/hooks/useDebounce";

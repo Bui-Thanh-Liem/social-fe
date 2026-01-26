@@ -8,7 +8,7 @@ import type { ICommunity } from "~/shared/interfaces/schemas/community.interface
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { ButtonMain } from "../ui/button";
-import { SkeletonTweet, TweetItem } from "./item-tweet";
+import { SkeletonTweet, TweetItem } from "./ItemTweet";
 import { ErrorResponse } from "../Error";
 import { cn } from "~/lib/utils";
 

@@ -15,7 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Content } from "./content";
+import { Content, ContentExpanded } from "./Content";
 import { formatTimeAgo } from "~/utils/date-time";
 import { WrapIcon } from "../WrapIcon";
 
@@ -124,32 +124,10 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
 
             {/* Nội dung tweet */}
             {content && (
-              <>
-                <div
-                  className={`my-3 leading-relaxed whitespace-break-spaces ${isExpanded ? "" : "line-clamp-10"}`}
-                >
-                  <Content
-                    content={content}
-                    mentions={mentions as unknown as IUser[]}
-                  />
-                </div>
-                {(content.split("\n").length > 10 || content.length > 500) && (
-                  <div className="flex my-1">
-                    <button
-                      onClick={() => setIsExpanded(!isExpanded)}
-                      className="m-auto outline-none"
-                    >
-                      <WrapIcon className="bg-gray-100">
-                        {isExpanded ? (
-                          <ArrowUp size={20} className="text-blue-400" />
-                        ) : (
-                          <ArrowDown size={20} className="text-blue-400" />
-                        )}
-                      </WrapIcon>
-                    </button>
-                  </div>
-                )}
-              </>
+              <ContentExpanded
+                content={content}
+                mentions={mentions as unknown as IUser[]}
+              />
             )}
           </div>
           <div className="w-0.5 h-[calc(100%-48px)] bg-gray-300 absolute bottom-0 left-5 z-10" />

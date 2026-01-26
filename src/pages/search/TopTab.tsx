@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,

@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useJoinCommunity, useLeaveCommunity } from "~/apis/useFetchCommunity";
 import { VerifyIcon } from "~/components/icons/verify";
 import { Logo } from "~/components/Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
-import { useJoinCommunity } from "~/apis/useFetchCommunity";
 import { cn } from "~/lib/utils";
+import { EMembershipType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimpleVerify } from "~/utils/toast";
-import { EMembershipType } from "~/shared/enums/type.enum";
 import { CommunityTag } from "./CommunityCard";
 
 export function CommunityRow({
@@ -28,24 +28,34 @@ export function CommunityRow({
   const [joined, setJoined] = useState(community?.is_joined);
 
   //
-  const { mutate, isError } = useJoinCommunity();
+  const { mutate: joinMutate, isError: joinError } = useJoinCommunity();
+  const { mutate: leaveMutate, isError: leaveError } = useLeaveCommunity();
 
   //
   useEffect(() => {
-    if (isError) setJoined(!joined);
-  }, [isError]);
+    if (joinError || leaveError) setJoined(!joined);
+  }, [joinError, leaveError]);
 
   //
-  function handleToggleFollow() {
+  function handleToggleJoin() {
     if (userActive && !userActive?.verify) {
       toastSimpleVerify();
       return;
     }
 
-    setJoined(!joined);
-    mutate({
-      community_id: community._id || "",
-    });
+    if (joined) {
+      // Đang là thành viên, bấm rời khỏi
+      setJoined(!joined);
+      leaveMutate({
+        community_id: community._id || "",
+      });
+    } else {
+      // Chưa là thành viên, bấm tham gia
+      setJoined(!joined);
+      joinMutate({
+        community_id: community._id || "",
+      });
+    }
   }
 
   //
@@ -109,7 +119,7 @@ export function CommunityRow({
         ) : (
           <ButtonMain
             size="sm"
-            onClick={handleToggleFollow}
+            onClick={handleToggleJoin}
             variant="outline"
             className={cn(
               "",

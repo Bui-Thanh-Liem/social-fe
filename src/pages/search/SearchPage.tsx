@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
-import { SearchAdvanced } from "~/components/search-advanced/search-advanced";
+import { SearchAdvanced } from "~/components/search-advanced/SearchAdvanced";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WrapIcon } from "~/components/WrapIcon";
 import { useUpdateQuery } from "~/hooks/useUpdateQuery";

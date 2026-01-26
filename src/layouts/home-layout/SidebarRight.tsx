@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
-import { OutstandingThisWeekCard } from "~/components/outstanding-this-week/outstanding-this-week-card";
-import { RelatedWhoCard } from "~/components/related-who-card/related-who-card";
-import { SearchAdvanced } from "~/components/search-advanced/search-advanced";
-import { SearchFilterCard } from "~/components/search-advanced/search-filter-card";
-import { TodayNewsCard } from "~/components/today-news/today-news-card";
+import { OutstandingThisWeekCard } from "~/components/outstanding-this-week/OutstandingThisWeekCard";
+import { RelatedWhoCard } from "~/components/related-who-card/RelatedWhoCard";
+import { SearchAdvanced } from "~/components/search-advanced/SearchAdvanced";
+import { SearchFilterCard } from "~/components/search-advanced/SearchFilterCard";
+import { TodayNewsCard } from "~/components/today-news/TodayNewsCard";
 import { Card, CardHeader, CardTitle } from "~/components/ui/card";
 import { WhoToFollowCard } from "~/components/who-to-follow/WhoToFollowCard";
 

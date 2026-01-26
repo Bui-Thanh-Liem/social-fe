@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { WrapIcon } from "~/components/WrapIcon";
 import { useGetTweetsByIds } from "~/apis/useFetchTrending";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useTrendingStore } from "~/store/useTrendingStore";
-import { Content } from "~/components/list-tweets/content";
+import { Content } from "~/components/list-tweets/Content";
 import { formatTimeAgo } from "~/utils/date-time";
 
 export function TrendingPage() {

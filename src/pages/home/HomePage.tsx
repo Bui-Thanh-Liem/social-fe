@@ -3,7 +3,7 @@ import { TypographyP } from "~/components/elements/p";
 import { cn } from "~/lib/utils";
 import { EFeedType } from "~/shared/enums/type.enum";
 import { useReloadStore } from "~/store/useReloadStore";
-import { ListTweets } from "../../components/list-tweets/list-tweets";
+import { ListTweets } from "../../components/list-tweets/ListTweets";
 import { Tweet } from "../../components/tweet/Tweet";
 import { useLocation, useNavigate } from "react-router-dom";
 

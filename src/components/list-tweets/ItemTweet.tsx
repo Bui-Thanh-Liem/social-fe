@@ -31,14 +31,14 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { WrapIcon } from "../WrapIcon";
-import { ActionBookmarkTweet } from "./action-bookmark-tweet";
-import { ActionCommentTweet } from "./action-comment-tweet";
-import { ActionLikeTweet } from "./action-like-tweet";
-import { ActionRetweetQuoteTweet } from "./action-retweet-quote-tweet";
-import { ActionShared } from "./action-shared";
-import { Content } from "./content";
+import { ActionBookmarkTweet } from "./ActionBookmarkTweet";
+import { ActionCommentTweet } from "./ActionCommentTweet";
+import { ActionLikeTweet } from "./ActionLikeTweet";
+import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
+import { ActionShared } from "./ActionShared";
 import { formatTimeAgo } from "~/utils/date-time";
 import { handleResponse } from "~/utils/toast";
+import { Content } from "./Content";
 
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {

@@ -1,6 +1,9 @@
+import { ArrowDown, ArrowUp } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { ShortInfoProfile } from "../ShortInfoProfile";
+import { WrapIcon } from "../WrapIcon";
 
 export function Content({
   content,
@@ -49,4 +52,40 @@ export function Content({
     // text thường
     return part;
   });
+}
+
+export function ContentExpanded({
+  content,
+  mentions,
+}: {
+  content: string;
+  mentions: IUser[];
+}) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  return (
+    <>
+      <div
+        className={`my-3 leading-relaxed whitespace-break-spaces ${isExpanded ? "" : "line-clamp-10"}`}
+      >
+        <Content content={content} mentions={mentions as unknown as IUser[]} />
+      </div>
+      {(content.split("\n").length > 10 || content.length > 500) && (
+        <div className="flex my-1">
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="m-auto outline-none"
+          >
+            <WrapIcon className="bg-gray-100">
+              {isExpanded ? (
+                <ArrowUp size={20} className="text-blue-400" />
+              ) : (
+                <ArrowDown size={20} className="text-blue-400" />
+              )}
+            </WrapIcon>
+          </button>
+        </div>
+      )}
+    </>
+  );
 }

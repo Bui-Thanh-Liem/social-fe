@@ -2,7 +2,7 @@ import { Check, ListCheck, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { VerifyIcon } from "~/components/icons/verify";
-import { MediaContent } from "~/components/list-tweets/item-tweet";
+import { MediaContent } from "~/components/list-tweets/ItemTweet";
 import { AvatarMain } from "~/components/ui/avatar";
 import { DialogMain } from "~/components/ui/dialog";
 import {
