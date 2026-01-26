@@ -19,7 +19,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useDebounce } from "~/hooks/useDebounce";
 import {
   useDemoteMentor,
@@ -43,17 +43,17 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
 
   //
   const [invite_expire_days, setInviteExpireDays] = useState(
-    community.invite_expire_days
+    community.invite_expire_days,
   );
   const debounceDays = useDebounce(invite_expire_days, 1000);
 
   const [isLogMentor, setIsLogMentor] = useState(community.show_log_for_mentor);
   const [isLogMember, setIsLogMember] = useState(community.show_log_for_member);
   const [isInviteMentor, setIsInviteMentor] = useState(
-    community.show_invite_list_for_mentor
+    community.show_invite_list_for_mentor,
   );
   const [isInviteMember, setIsInviteMember] = useState(
-    community.show_invite_list_for_mentor
+    community.show_invite_list_for_mentor,
   );
 
   // Search
@@ -67,7 +67,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
   const { data } = useGetMultiMMCommunityById(
     community._id!,
     { page: "1", limit: "20", q: debouncedSearchVal }, // mentor sẽ max 20 và không phân trang (phân trang chỉ ảnh hưởng tới members)
-    isOpen
+    isOpen,
   );
   const communityMM = data?.metadata;
 
@@ -222,7 +222,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
   //
   async function handleChangeShowInvite(
     valMentor: boolean,
-    valMember: boolean
+    valMember: boolean,
   ) {
     // Lưu lại giá trị cũ phòng khi cần rollback
     const prevMentor = isInviteMentor;
@@ -535,7 +535,7 @@ export function RadioGroupSetting({
             "border border-gray-100 rounded-lg p-2 px-3 cursor-pointer transition-all",
             "hover:border-primary/10 hover:shadow",
             "flex flex-col gap-1",
-            "data-[state=checked]:border-primary data-[state=checked]:bg-primary/5"
+            "data-[state=checked]:border-primary data-[state=checked]:bg-primary/5",
           )}
         >
           <div className="flex items-start gap-3">

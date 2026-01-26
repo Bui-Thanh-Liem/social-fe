@@ -5,7 +5,7 @@ import { cn } from "~/lib/utils";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
-} from "../today-news-or-outstanding-item";
+} from "../TodayNewsOrOutstanding-item";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export function OutstandingThisWeekCard() {
@@ -20,7 +20,7 @@ export function OutstandingThisWeekCard() {
 
   const outstanding = useMemo(
     () => data?.metadata?.slice(0, 3) || [],
-    [data?.metadata]
+    [data?.metadata],
   );
 
   //
@@ -33,7 +33,7 @@ export function OutstandingThisWeekCard() {
     <Card
       className={cn(
         "w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2",
-        open ? "" : "hidden"
+        open ? "" : "hidden",
       )}
     >
       <CardHeader className="flex flex-row items-center justify-between px-4 mb-0">

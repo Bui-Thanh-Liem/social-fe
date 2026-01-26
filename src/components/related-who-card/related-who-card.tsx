@@ -4,7 +4,7 @@ import { cn } from "~/lib/utils";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useTrendingStore } from "~/store/useTrendingStore";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { UserToFollowItem } from "../who-to-follow/who-to-follow-item";
+import { UserToFollowItem } from "../who-to-follow/WhoToFollowItem";
 
 export function RelatedWhoCard() {
   const { trendingItem } = useTrendingStore();
@@ -23,7 +23,7 @@ export function RelatedWhoCard() {
     <Card
       className={cn(
         "w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2",
-        open ? "" : "hidden"
+        open ? "" : "hidden",
       )}
     >
       <CardHeader className="flex flex-row items-center justify-between px-4 mb-0">

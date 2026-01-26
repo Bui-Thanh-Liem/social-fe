@@ -2,7 +2,7 @@ import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { InviteCommunityForm } from "~/forms/InviteCommunityForm";
 import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { EMembershipType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 

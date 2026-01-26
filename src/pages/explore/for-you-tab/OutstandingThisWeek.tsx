@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
-} from "~/components/today-news-or-outstanding-item";
+} from "~/components/TodayNewsOrOutstanding-item";
 import { useGetOutstandingThisWeek } from "~/apis/useFetchTrending";
 import { cn } from "~/lib/utils";
 import type { IResTodayNewsOrOutstanding } from "~/shared/dtos/res/trending.dto";
@@ -14,7 +14,7 @@ export function OutstandingThisWeek() {
   const [limit, setLimit] = useState(4);
 
   const [outstanding, setOutstanding] = useState<IResTodayNewsOrOutstanding[]>(
-    []
+    [],
   );
   const countWarning = useRef(0);
 
@@ -24,7 +24,7 @@ export function OutstandingThisWeek() {
       page: "1",
       limit: limit.toString(),
     },
-    countWarning.current <= 3
+    countWarning.current <= 3,
   );
 
   // Mỗi lần fetch xong thì append thêm vào state
@@ -125,7 +125,7 @@ export function OutstandingThisWeek() {
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   countWarning.current <= 3
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >

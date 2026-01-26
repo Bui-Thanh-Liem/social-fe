@@ -1,4 +1,4 @@
-import { Eye, MessageCircle } from "lucide-react";
+import { ArrowDown, ArrowUp, Eye, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ETweetType } from "~/shared/enums/type.enum";
@@ -17,10 +17,14 @@ import {
 } from "../ui/dropdown-menu";
 import { Content } from "./content";
 import { formatTimeAgo } from "~/utils/date-time";
+import { WrapIcon } from "../WrapIcon";
 
 export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
   //
   const { setTweet, open } = useDetailTweetStore();
+
+  //
+  const [isExpanded, setIsExpanded] = useState(false);
 
   //
   const { content, user_id, created_at, mentions, comments_count } = tweet;
@@ -90,7 +94,12 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <DialogMain isLogo={false} open={isOpen} onOpenChange={setIsOpen}>
+      <DialogMain
+        width="2xl"
+        isLogo={false}
+        open={isOpen}
+        onOpenChange={setIsOpen}
+      >
         {/* Header với thông tin người dùng */}
         <div className="flex mb-3 relative">
           <AvatarMain
@@ -115,15 +124,35 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
 
             {/* Nội dung tweet */}
             {content && (
-              <div className="my-3">
-                <Content
-                  content={content}
-                  mentions={mentions as unknown as IUser[]}
-                />
-              </div>
+              <>
+                <div
+                  className={`my-3 leading-relaxed whitespace-break-spaces ${isExpanded ? "" : "line-clamp-10"}`}
+                >
+                  <Content
+                    content={content}
+                    mentions={mentions as unknown as IUser[]}
+                  />
+                </div>
+                {(content.split("\n").length > 10 || content.length > 500) && (
+                  <div className="flex my-1">
+                    <button
+                      onClick={() => setIsExpanded(!isExpanded)}
+                      className="m-auto outline-none"
+                    >
+                      <WrapIcon className="bg-gray-100">
+                        {isExpanded ? (
+                          <ArrowUp size={20} className="text-blue-400" />
+                        ) : (
+                          <ArrowDown size={20} className="text-blue-400" />
+                        )}
+                      </WrapIcon>
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
-          <div className="w-0.5 h-20 bg-gray-300 absolute bottom-0 left-5 z-10" />
+          <div className="w-0.5 h-[calc(100%-48px)] bg-gray-300 absolute bottom-0 left-5 z-10" />
         </div>
 
         <Tweet

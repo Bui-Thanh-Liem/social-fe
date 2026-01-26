@@ -4,11 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import { useGetTodayNews } from "~/apis/useFetchTrending";
 import { cn } from "~/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { WrapIcon } from "../wrapIcon";
+import { WrapIcon } from "../WrapIcon";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
-} from "../today-news-or-outstanding-item";
+} from "../TodayNewsOrOutstanding-item";
 
 export function TodayNewsCard() {
   //
@@ -22,7 +22,7 @@ export function TodayNewsCard() {
 
   const news = useMemo(
     () => data?.metadata?.slice(0, 3) || [],
-    [data?.metadata]
+    [data?.metadata],
   );
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export function TodayNewsCard() {
     <Card
       className={cn(
         "w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2",
-        open ? "" : "hidden"
+        open ? "" : "hidden",
       )}
     >
       <CardHeader className="flex flex-row items-center justify-between px-4 mb-0">

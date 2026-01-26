@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
-} from "~/components/who-to-follow/who-to-follow-item";
+} from "~/components/who-to-follow/WhoToFollowItem";
 import { useSearchUsers } from "~/apis/useFetchSearch";
 import { cn } from "~/lib/utils";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";

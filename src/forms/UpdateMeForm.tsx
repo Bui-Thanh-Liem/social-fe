@@ -25,7 +25,7 @@ import { CircularProgress } from "~/components/ui/circular-progress";
 import { DatePicker } from "~/components/ui/date-picker";
 import { InputMain } from "~/components/ui/input";
 import { TextareaMain } from "~/components/ui/textarea";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 
 interface UpdateUserFormProps {
   setOpenForm: (open: boolean) => void;
@@ -53,10 +53,10 @@ export function UpdateMeForm({
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string>(
-    currentUser?.avatar?.url || ""
+    currentUser?.avatar?.url || "",
   );
   const [coverPreview, setCoverPreview] = useState<string>(
-    currentUser?.cover_photo?.url || ""
+    currentUser?.cover_photo?.url || "",
   );
   const apiUploadMedia = useUploadMedia();
   const apiDeleteMedia = useDeleteMedia();

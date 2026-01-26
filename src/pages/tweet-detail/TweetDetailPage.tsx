@@ -3,15 +3,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
 import { Tweet } from "~/components/tweet/Tweet";
-import { TypingIndicator } from "~/components/typing-indicator";
-import { WrapIcon } from "~/components/wrapIcon";
+import { TypingIndicator } from "~/components/TypingIndicator";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useGetDetailTweet, useGetTweetChildren } from "~/apis/useFetchTweet";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useCommentSocket } from "~/socket/hooks/useCommentSocket";
 import { useUserStore } from "~/store/useUserStore";
-import { Logo } from "~/components/logo";
+import { Logo } from "~/components/Logo";
 import { ButtonMain } from "~/components/ui/button";
 import { useBackUrlStore } from "~/store/useBackUrlStore";
 

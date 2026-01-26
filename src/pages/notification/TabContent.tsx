@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CloseIcon } from "~/components/icons/close";
 import { AvatarMain } from "~/components/ui/avatar";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import {
   useDeleteNotification,
   useGetMultiByType,

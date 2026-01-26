@@ -9,7 +9,7 @@ import { ProfileIcon } from "~/components/icons/profile";
 import type { NavItem } from "~/layouts/home-layout/SidebarLeft";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
-import { WrapIcon } from "../../components/wrapIcon";
+import { WrapIcon } from "../../components/WrapIcon";
 import React, { useEffect, useState } from "react";
 import { ENotificationType } from "~/shared/enums/type.enum";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";

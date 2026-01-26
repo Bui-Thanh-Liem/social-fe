@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useGetMultiMessages } from "~/apis/useFetchMessages";
 import { useUploadMedia } from "~/apis/useFetchUpload";
-import { EmojiSelector } from "~/components/emoji-picker";
+import { EmojiSelector } from "~/components/EmojiPicker";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { CloseIcon } from "~/components/icons/close";
 import { ImageIcon } from "~/components/icons/image";
-import { Logo } from "~/components/logo";
+import { Logo } from "~/components/Logo";
 import { AvatarMain, GroupAvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
@@ -18,7 +18,7 @@ import {
   CarouselItem,
 } from "~/components/ui/carousel";
 import { CircularProgress } from "~/components/ui/circular-progress";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useEmojiInsertion } from "~/hooks/useEmojiInsertion";
 import { useMediaPreviewMulti } from "~/hooks/useMediaPreviewMulti";
 import { useTextareaAutoResize } from "~/hooks/useTextareaAutoResize";
@@ -97,7 +97,7 @@ export function MessageView({
       setMessages((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...prev, ...newItems];
       });
@@ -130,7 +130,7 @@ export function MessageView({
       const newContent = insertEmoji(emoji, contentValue);
       setValue("text", newContent);
     },
-    [contentValue, insertEmoji, setValue]
+    [contentValue, insertEmoji, setValue],
   );
 
   //
@@ -141,7 +141,7 @@ export function MessageView({
         setValue("text", newValue);
       }
     },
-    [autoResize, setValue, contentValue]
+    [autoResize, setValue, contentValue],
   );
 
   //
@@ -151,7 +151,7 @@ export function MessageView({
 
       handleFileChange(e);
     },
-    [handleFileChange]
+    [handleFileChange],
   );
 
   //
@@ -177,7 +177,7 @@ export function MessageView({
       //
       handleFileSelect({ target: { files } } as any);
     },
-    []
+    [],
   );
 
   //
@@ -195,9 +195,8 @@ export function MessageView({
         try {
           //
           if (selectedFiles.length > 0) {
-            const resUploadMedia = await apiUploadMedia.mutateAsync(
-              selectedFiles
-            );
+            const resUploadMedia =
+              await apiUploadMedia.mutateAsync(selectedFiles);
 
             if (resUploadMedia.statusCode !== 200 || !resUploadMedia.metadata) {
               handleResponse(resUploadMedia);
@@ -233,7 +232,7 @@ export function MessageView({
       sendMessage,
       apiUploadMedia,
       conversation?._id,
-    ]
+    ],
   );
 
   //
@@ -285,7 +284,7 @@ export function MessageView({
             <p
               className={cn(
                 "text-gray-400 text-[12px]",
-                checkOnl(onlUserIds, participantIds) ? "text-green-500" : ""
+                checkOnl(onlUserIds, participantIds) ? "text-green-500" : "",
               )}
             >
               {!checkOnl(onlUserIds, participantIds) ? "Không" : "Đang"} hoạt
@@ -304,7 +303,7 @@ export function MessageView({
           ) : (
             <CreateConversation
               initialUserIds={(conversation?.participants as any).map(
-                (user: { _id: any }) => user._id
+                (user: { _id: any }) => user._id,
               )}
             />
           )}
@@ -326,7 +325,7 @@ export function MessageView({
                 <p
                   className={cn(
                     "m-auto inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
-                    total_page_ref.current <= page ? "hidden" : ""
+                    total_page_ref.current <= page ? "hidden" : "",
                   )}
                   onClick={onSeeMore}
                 >
@@ -374,7 +373,7 @@ export function MessageView({
                     htmlFor="image-upload-in-chat"
                     className={cn(
                       "cursor-pointer",
-                      isPending ? "pointer-events-none" : ""
+                      isPending ? "pointer-events-none" : "",
                     )}
                     title="Thêm ảnh hoặc video"
                   >
@@ -552,7 +551,7 @@ export const MessageItem = ({ msg, user }: { msg: IMessage; user: IUser }) => {
       <div
         className={cn(
           "flex flex-col w-full",
-          isMe ? "items-end" : "items-start"
+          isMe ? "items-end" : "items-start",
         )}
       >
         {/* Bong bóng text */}
@@ -562,7 +561,7 @@ export const MessageItem = ({ msg, user }: { msg: IMessage; user: IUser }) => {
               "px-2 py-1 rounded-xl text-[15px] leading-relaxed shadow-sm max-w-[70%]",
               isMe
                 ? "bg-blue-500 text-white rounded-br-none"
-                : "bg-gray-100 text-gray-800 rounded-bl-none"
+                : "bg-gray-100 text-gray-800 rounded-bl-none",
             )}
           >
             <p className="whitespace-pre-line break-words overflow-hidden">
@@ -576,7 +575,7 @@ export const MessageItem = ({ msg, user }: { msg: IMessage; user: IUser }) => {
           <div
             className={cn(
               `mt-2 max-w-[70%] flex flex-col gap-y-2`,
-              isMe ? "justify-end" : "justify-start"
+              isMe ? "justify-end" : "justify-start",
             )}
           >
             {attachments.map((a, i) => {

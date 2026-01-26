@@ -2,10 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "~/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import {
-  UserToFollowItem,
-  UserToFollowItemSkeleton,
-} from "./who-to-follow-item";
+import { UserToFollowItem, UserToFollowItemSkeleton } from "./WhoToFollowItem";
 import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
 
 export function WhoToFollowCard() {
@@ -18,7 +15,7 @@ export function WhoToFollowCard() {
 
   const whoToFollows = useMemo(
     () => data?.metadata?.items || [],
-    [data?.metadata?.items]
+    [data?.metadata?.items],
   );
 
   useEffect(() => {
@@ -30,7 +27,7 @@ export function WhoToFollowCard() {
     <Card
       className={cn(
         "w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2",
-        open ? "" : "hidden"
+        open ? "" : "hidden",
       )}
     >
       <CardHeader className="flex flex-row items-center justify-between px-4 mb-0">

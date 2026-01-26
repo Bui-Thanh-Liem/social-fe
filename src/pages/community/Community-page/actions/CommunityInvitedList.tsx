@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { VerifyIcon } from "~/components/icons/verify";
 import { AvatarMain } from "~/components/ui/avatar";
 import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import {
   useDeleteInvitation,
   useGetMultiInvitations,
@@ -34,7 +34,7 @@ export function CommunityInvitedList({ community }: { community: ICommunity }) {
       page: page.toString(),
       limit: "10",
     },
-    isOpen
+    isOpen,
   );
 
   // Mỗi lần fetch xong thì append thêm vào state
@@ -49,7 +49,7 @@ export function CommunityInvitedList({ community }: { community: ICommunity }) {
       setInvited((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...prev, ...newItems];
       });
@@ -125,7 +125,7 @@ export function CommunityInvitedList({ community }: { community: ICommunity }) {
                       "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                       total_page_ref.current <= page
                         ? "text-gray-300 pointer-events-none cursor-default"
-                        : ""
+                        : "",
                     )}
                     onClick={onSeeMore}
                   >

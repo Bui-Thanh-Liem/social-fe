@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AddParticipantsForm } from "~/forms/AddParticipantsForm";
 import { CreateGroupIcon } from "~/components/icons/create-group";
 import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 
 export function AddParticipants({

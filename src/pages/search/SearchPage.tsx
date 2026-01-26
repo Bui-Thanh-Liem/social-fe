@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
 import { SearchAdvanced } from "~/components/search-advanced/search-advanced";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useUpdateQuery } from "~/hooks/useUpdateQuery";
 import { MediaTab } from "./MediaTab";
 import { PeopleTab } from "./PeopleTab";

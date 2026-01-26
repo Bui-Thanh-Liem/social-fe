@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
-} from "~/components/who-to-follow/who-to-follow-item";
+} from "~/components/who-to-follow/WhoToFollowItem";
 import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
 import { cn } from "~/lib/utils";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
@@ -94,7 +94,7 @@ export function WhoToFollows() {
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >

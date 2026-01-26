@@ -3,7 +3,7 @@ import { UpdateMeForm } from "~/forms/UpdateMeForm";
 import { MessageIcon } from "~/components/icons/messages";
 import { ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useCreateConversation } from "~/apis/useFetchConversations";
 import { useFollowUser } from "~/apis/useFetchFollow";
 import { EConversationType } from "~/shared/enums/type.enum";

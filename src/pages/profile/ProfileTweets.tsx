@@ -4,7 +4,7 @@ import { NotFoundTweet } from "~/components/list-tweets/not-found-tweet";
 import { useGetProfileTweets } from "~/apis/useFetchTweet";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 
 export function ProfileTweets({
   ishl = "0",
@@ -34,7 +34,7 @@ export function ProfileTweets({
       ishl: ishl,
       user_id: profile_id,
       page: page.toString(),
-    }
+    },
   );
 
   // Effect để xử lý khi có data mới
@@ -50,7 +50,7 @@ export function ProfileTweets({
           // Loại bỏ duplicate tweets dựa trên _id
           const existingIds = new Set(prev.map((tweet) => tweet._id));
           const filteredNewTweets = newTweets.filter(
-            (tweet) => !existingIds.has(tweet._id)
+            (tweet) => !existingIds.has(tweet._id),
           );
           return [...prev, ...filteredNewTweets];
         });

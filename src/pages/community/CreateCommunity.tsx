@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CreateCommunityForm } from "~/forms/CreateCommunityForm";
 import { CreateGroupIcon } from "~/components/icons/create-group";
 import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 
 export function CreateCommunity() {
   const [isOpen, setIsOpen] = useState(false);

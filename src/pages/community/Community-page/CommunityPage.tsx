@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { VerifyIcon } from "~/components/icons/verify";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useGetOneCommunityBySlug } from "~/apis/useFetchCommunity";
 import { ETweetType, EVisibilityType } from "~/shared/enums/type.enum";
 import { formatDateToDateVN } from "~/utils/date-time";
@@ -20,7 +20,7 @@ import { CommunityApprove } from "./actions/CommunityApprove";
 import { useCommunitySocket } from "~/socket/hooks/useCommunitySocket";
 import { playNotificationSound } from "~/utils/notificationSound";
 import { useEffect, useState } from "react";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 
 export function CommunityPage() {
   const { slug } = useParams();

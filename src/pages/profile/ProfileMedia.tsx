@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useGetProfileTweets } from "~/apis/useFetchTweet";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
@@ -47,7 +47,7 @@ export function ProfileMedia({
         // Nếu là trang tiếp theo, append vào cuối
         setTweets((prev) => {
           const existingUrls = new Set(
-            prev.flatMap((p) => p.medias?.map((m) => m.url) || [])
+            prev.flatMap((p) => p.medias?.map((m) => m.url) || []),
           );
 
           const filteredNewMedia = newMedia.map((item) => ({

@@ -22,9 +22,9 @@ import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 import { useUserStore } from "~/store/useUserStore";
 import { ArrowLeftIcon } from "../icons/arrow-left";
 import { VerifyIcon } from "../icons/verify";
-import { Logo } from "../logo";
+import { Logo } from "../Logo";
 import { ShortInfoProfile } from "../ShortInfoProfile";
-import { TypingIndicator } from "../typing-indicator";
+import { TypingIndicator } from "../TypingIndicator";
 import { AvatarMain } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
 import {
@@ -42,7 +42,7 @@ import {
   DrawerOverlay,
   DrawerTitle,
 } from "../ui/drawer";
-import { WrapIcon } from "../wrapIcon";
+import { WrapIcon } from "../WrapIcon";
 import { ActionBookmarkTweet } from "./action-bookmark-tweet";
 import { ActionCommentTweet } from "./action-comment-tweet";
 import { ActionLikeTweet } from "./action-like-tweet";

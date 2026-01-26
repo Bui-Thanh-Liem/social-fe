@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SearchMain } from "~/components/ui/search";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { CreateCommunity } from "./CreateCommunity";
 import { ExploreTab } from "./explore-tab/ExploreTab";
 import { JoinedTab } from "./joined-tab/JoinedTab";

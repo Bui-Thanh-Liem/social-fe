@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
 import { useGetTweetLiked } from "~/apis/useFetchTweet";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 
 export function ProfileLiked({ profile_id }: { profile_id: string }) {
   // State để quản lý pagination và data
@@ -36,7 +36,7 @@ export function ProfileLiked({ profile_id }: { profile_id: string }) {
           // Loại bỏ duplicate tweets dựa trên _id
           const existingIds = new Set(prev.map((tweet) => tweet._id));
           const filteredNewTweets = newTweets.filter(
-            (tweet) => !existingIds.has(tweet._id)
+            (tweet) => !existingIds.has(tweet._id),
           );
           return [...prev, ...filteredNewTweets];
         });

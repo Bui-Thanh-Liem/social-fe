@@ -4,7 +4,7 @@ import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
-} from "~/components/who-to-follow/who-to-follow-item";
+} from "~/components/who-to-follow/WhoToFollowItem";
 import { useGetMultiCommunities } from "~/apis/useFetchCommunity";
 import { useSearchTweets, useSearchUsers } from "~/apis/useFetchSearch";
 import { cn } from "~/lib/utils";

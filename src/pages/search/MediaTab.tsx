@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSearchTweets } from "~/apis/useFetchSearch";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useDetailTweetStore } from "~/store/useDetailTweetStore";

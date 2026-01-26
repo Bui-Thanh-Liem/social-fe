@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useGetCommunityTweets } from "~/apis/useFetchTweet";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useDetailTweetStore } from "~/store/useDetailTweetStore";
@@ -38,7 +38,7 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
         // Nếu là trang tiếp theo, append vào cuối
         setTweets((prev) => {
           const existingUrls = new Set(
-            prev.flatMap((p) => p.medias?.map((m) => m.url) || [])
+            prev.flatMap((p) => p.medias?.map((m) => m.url) || []),
           );
 
           const filteredNewMedia = newMedia.map((item) => ({

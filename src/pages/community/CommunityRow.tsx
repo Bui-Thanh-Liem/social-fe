@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { VerifyIcon } from "~/components/icons/verify";
-import { Logo } from "~/components/logo";
+import { Logo } from "~/components/Logo";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { useJoinCommunity } from "~/apis/useFetchCommunity";
@@ -11,6 +11,7 @@ import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimpleVerify } from "~/utils/toast";
 import { EMembershipType } from "~/shared/enums/type.enum";
+import { CommunityTag } from "./CommunityCard";
 
 export function CommunityRow({
   community,
@@ -77,10 +78,14 @@ export function CommunityRow({
               </p>
             </Link>
             {community.bio && (
-              <p className="line-clamp-2 max-w-[95%] text-xs text-muted-foreground mb-3.5">
+              <p className="line-clamp-1 max-w-[95%] text-xs text-muted-foreground">
                 {community.bio}
               </p>
             )}
+            <div className="mb-1 space-x-1">
+              <CommunityTag text={community.visibility_type!} />
+              <CommunityTag text={community.membership_type!} />
+            </div>
             <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">
               {(
                 [...members, ...mentors, community?.admin] as unknown as IUser[]

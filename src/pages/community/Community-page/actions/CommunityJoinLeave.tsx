@@ -1,7 +1,7 @@
 import { LogOut } from "lucide-react";
 import { useState } from "react";
 import { ButtonMain } from "~/components/ui/button";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useJoinCommunity, useLeaveCommunity } from "~/apis/useFetchCommunity";
 import { EMembershipType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";

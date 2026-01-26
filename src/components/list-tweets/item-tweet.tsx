@@ -30,7 +30,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { WrapIcon } from "../wrapIcon";
+import { WrapIcon } from "../WrapIcon";
 import { ActionBookmarkTweet } from "./action-bookmark-tweet";
 import { ActionCommentTweet } from "./action-comment-tweet";
 import { ActionLikeTweet } from "./action-like-tweet";

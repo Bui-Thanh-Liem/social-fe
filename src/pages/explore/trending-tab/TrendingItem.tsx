@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useReportTrending } from "~/apis/useFetchTrending";
 import { cn } from "~/lib/utils";
 import type { IHashtag } from "~/shared/interfaces/schemas/hashtag.interface";
@@ -94,7 +94,7 @@ export function TrendingItem({ item, idx }: { item: ITrending; idx: number }) {
             <DropdownMenuItem
               className={cn(
                 "cursor-pointer px-4 font-semibold",
-                isReport ? "pointer-events-none" : ""
+                isReport ? "pointer-events-none" : "",
               )}
               onClick={handleReport}
             >

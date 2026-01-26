@@ -3,7 +3,7 @@ import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
 import { NotFoundTweet } from "~/components/list-tweets/not-found-tweet";
 import { useGetCommunityTweets } from "~/apis/useFetchTweet";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 
 export function CommunityTweets({
   ishl = "0",
@@ -42,7 +42,7 @@ export function CommunityTweets({
           // Loại bỏ duplicate tweets dựa trên _id
           const existingIds = new Set(prev.map((tweet) => tweet._id));
           const filteredNewTweets = newTweets.filter(
-            (tweet) => !existingIds.has(tweet._id)
+            (tweet) => !existingIds.has(tweet._id),
           );
           return [...prev, ...filteredNewTweets];
         });

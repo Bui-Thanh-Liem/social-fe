@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { UserToFollowItemSkeleton } from "~/components/who-to-follow/who-to-follow-item";
+import { UserToFollowItemSkeleton } from "~/components/who-to-follow/WhoToFollowItem";
 import { useGetMultiCommunities } from "~/apis/useFetchCommunity";
 import { cn } from "~/lib/utils";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";

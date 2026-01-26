@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useGetTweetsByIds } from "~/apis/useFetchTrending";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useTrendingStore } from "~/store/useTrendingStore";

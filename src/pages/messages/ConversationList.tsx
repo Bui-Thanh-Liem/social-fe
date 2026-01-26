@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
 import { SearchMain } from "~/components/ui/search";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import {
   useDeleteConversation,
   useGetMultiConversations,
@@ -28,7 +28,7 @@ import { useStatusSocket } from "~/socket/hooks/useStatusSocket";
 import { useConversationActiveStore } from "~/store/useConversationActiveStore";
 import { useUserStore } from "~/store/useUserStore";
 import { formatTimeAgo } from "~/utils/date-time";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 import { useOnlStore } from "~/store/useOnlStore";
 import { checkOnl } from "~/utils/checkOnl.util";
 
@@ -71,7 +71,7 @@ function ConversationItem({
   // Destructuring conversation
   const { avatar, lastMessage, name, _id, type, participants } = conversation;
   const participantIds = (participants as unknown as IUser[])?.map(
-    (u) => u._id
+    (u) => u._id,
   );
 
   // Online status socket
@@ -96,7 +96,7 @@ function ConversationItem({
 
   const isUnread = conversation.readStatus?.includes(currentUser?._id || "");
   const pinned = conversation.pinned.find(
-    (i) => i.user_id === currentUser?._id
+    (i) => i.user_id === currentUser?._id,
   );
 
   //
@@ -125,7 +125,7 @@ function ConversationItem({
     <div
       className={cn(
         "relative p-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer group",
-        isActive && "bg-blue-50"
+        isActive && "bg-blue-50",
       )}
       onClick={onclick}
     >
@@ -266,15 +266,15 @@ export function ConversationList({
       console.log("_new:::", _new);
       setAllConversations((prev) =>
         prev.map((c) =>
-          c._id.toString() === _new._id.toString() ? { ...c, ..._new } : c
-        )
+          c._id.toString() === _new._id.toString() ? { ...c, ..._new } : c,
+        ),
       );
     },
     () => {},
     (changed) => {
       setAllConversations((prev) => {
         const exists = prev.some(
-          (c) => c._id.toString() === changed._id.toString()
+          (c) => c._id.toString() === changed._id.toString(),
         );
 
         if (exists) {
@@ -282,14 +282,14 @@ export function ConversationList({
           return prev.map((c) =>
             c._id.toString() === changed._id.toString()
               ? { ...c, ...changed }
-              : c
+              : c,
           );
         } else {
           // Thêm mới lên đầu
           return [changed, ...prev];
         }
       });
-    }
+    },
   );
 
   // Join/leave socket rooms
@@ -318,7 +318,7 @@ export function ConversationList({
       setAllConversations((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...prev, ...newItems];
       });
@@ -365,14 +365,14 @@ export function ConversationList({
       prev.map((item: any) => {
         if (item._id === id) {
           const alreadyPinned = item.pinned?.some(
-            (p: { user_id: string | undefined }) => p.user_id === user?._id
+            (p: { user_id: string | undefined }) => p.user_id === user?._id,
           );
 
           let newPinned;
           if (alreadyPinned) {
             // unpin
             newPinned = item.pinned.filter(
-              (p: { user_id: string | undefined }) => p.user_id !== user?._id
+              (p: { user_id: string | undefined }) => p.user_id !== user?._id,
             );
           } else {
             // pin
@@ -385,7 +385,7 @@ export function ConversationList({
           return { ...item, pinned: newPinned };
         }
         return item;
-      })
+      }),
     );
   }
 
@@ -433,7 +433,7 @@ export function ConversationList({
                   isActive={activeId === conversation._id}
                   onclick={() => handleClickConversation(conversation)}
                 />
-              )
+              ),
             )}
           </div>
         )}
@@ -453,7 +453,7 @@ export function ConversationList({
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >

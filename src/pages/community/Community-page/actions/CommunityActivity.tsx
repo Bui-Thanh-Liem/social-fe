@@ -14,7 +14,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "~/components/ui/item";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useGetMultiActivities } from "~/apis/useFetchCommunity";
 import { EActivityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
@@ -36,7 +36,7 @@ export function CommunityActivity({ community }: { community: ICommunity }) {
       page: "1",
       limit: "50",
     },
-    isOpen
+    isOpen,
   );
   const activities = data?.metadata?.items || [];
 

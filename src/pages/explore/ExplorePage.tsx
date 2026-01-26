@@ -2,7 +2,7 @@ import { ArrowLeftIcon } from "lucide-react";
 import { useState } from "react";
 import { SearchAdvanced } from "~/components/search-advanced/search-advanced";
 import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { ForYouTab } from "./for-you-tab/ForYouTab";
 import { TrendingTab } from "./trending-tab/TrendingTab";
 

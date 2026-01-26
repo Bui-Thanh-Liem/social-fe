@@ -25,7 +25,7 @@ import { Divider } from "~/components/ui/divider";
 import { InputMain } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { SearchMain } from "~/components/ui/search";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 
 export function UserSelected({
   user,
@@ -140,7 +140,7 @@ export function CreateConversationForm({
       setFollowers((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...prev, ...newItems];
       });
@@ -164,7 +164,7 @@ export function CreateConversationForm({
   useEffect(() => {
     if (initialUserIds?.length) {
       const initSelected = followers.filter((user) =>
-        initialUserIds.includes(user._id)
+        initialUserIds.includes(user._id),
       );
 
       setUserSelected((prev) => [...prev, ...initSelected]);
@@ -218,7 +218,7 @@ export function CreateConversationForm({
 
       setValue(
         "participants",
-        res.map((user) => user._id)
+        res.map((user) => user._id),
       );
       return res;
     });
@@ -342,7 +342,7 @@ export function CreateConversationForm({
                         "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                         total_page_ref.current <= page
                           ? "text-gray-300 pointer-events-none cursor-default"
-                          : ""
+                          : "",
                       )}
                       onClick={onSeeMore}
                     >

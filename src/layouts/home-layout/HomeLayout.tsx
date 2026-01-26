@@ -45,7 +45,7 @@ export function HomeLayout() {
         <main
           className={cn(
             "w-[100%] lg:w-[50%] col-span-6 border-r border-l border-gray-200",
-            isMessage && "w-full lg:w-[90%]",
+            isMessage && "w-full lg:w-[76%]",
           )}
         >
           <Outlet />

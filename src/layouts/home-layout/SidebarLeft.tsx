@@ -35,8 +35,8 @@ import { useReloadStore } from "~/store/useReloadStore";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
 import { playNotificationSound } from "~/utils/notificationSound";
-import { Logo } from "../../components/logo";
-import { WrapIcon } from "../../components/wrapIcon";
+import { Logo } from "../../components/Logo";
+import { WrapIcon } from "../../components/WrapIcon";
 
 export type NavItem = {
   name: string;
@@ -204,7 +204,9 @@ export function SidebarLeft() {
         </h2>
         <ul className="space-y-3 text-sm text-gray-700">
           {navs.map((x) => {
-            const isActive = pathname.startsWith(x?.path || "");
+            const cleanPath = x.path?.replace(/#.*$/, "") || "";
+            const isActive = pathname.startsWith(cleanPath);
+
             return (
               <li key={x.name} className="cursor-pointer group relative">
                 <div onClick={() => onClickNav(x.path || "", x.name)}>

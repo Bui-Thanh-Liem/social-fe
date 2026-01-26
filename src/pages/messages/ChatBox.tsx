@@ -2,9 +2,9 @@ import { Send, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
-import { EmojiSelector } from "~/components/emoji-picker";
+import { EmojiSelector } from "~/components/EmojiPicker";
 import { ImageIcon } from "~/components/icons/image";
-import { Logo } from "~/components/logo";
+import { Logo } from "~/components/Logo";
 import { AvatarMain, GroupAvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import {
@@ -17,7 +17,7 @@ import {
 } from "~/components/ui/card";
 import { CircularProgress } from "~/components/ui/circular-progress";
 import { ScrollArea } from "~/components/ui/scroll-area";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useEmojiInsertion } from "~/hooks/useEmojiInsertion";
 import { useGetMultiMessages } from "~/apis/useFetchMessages";
 import { useMediaPreviewMulti } from "~/hooks/useMediaPreviewMulti";
@@ -41,7 +41,7 @@ export default function ChatBox() {
   const { leaveConversation, joinConversation } = useConversationSocket(
     () => {},
     () => {},
-    () => {}
+    () => {},
   );
   const { pathname } = useLocation();
   const { close, conversation } = useChatBoxStore();
@@ -130,7 +130,7 @@ export default function ChatBox() {
     (e: React.ChangeEvent<HTMLInputElement>) => {
       handleFileChange(e);
     },
-    [handleFileChange]
+    [handleFileChange],
   );
 
   //
@@ -148,7 +148,7 @@ export default function ChatBox() {
       //
       handleFileSelect({ target: { files } } as any);
     },
-    []
+    [],
   );
 
   // Memoized handlers
@@ -157,7 +157,7 @@ export default function ChatBox() {
       const newContent = insertEmoji(emoji, contentValue);
       setValue("text", newContent);
     },
-    [contentValue, insertEmoji, setValue]
+    [contentValue, insertEmoji, setValue],
   );
 
   //
@@ -168,7 +168,7 @@ export default function ChatBox() {
         setValue("text", newValue);
       }
     },
-    [autoResize, setValue, contentValue]
+    [autoResize, setValue, contentValue],
   );
 
   //
@@ -182,7 +182,7 @@ export default function ChatBox() {
 
       reset();
     },
-    [conversation?._id, reset, sendMessage, user?._id]
+    [conversation?._id, reset, sendMessage, user?._id],
   );
 
   //
@@ -215,7 +215,7 @@ export default function ChatBox() {
                   "text-gray-300 text-xs mt-1",
                   isOnl || checkOnl(onlUserIds, participantIds)
                     ? "text-green-400"
-                    : ""
+                    : "",
                 )}
               >
                 {!isOnl && !checkOnl(onlUserIds, participantIds)

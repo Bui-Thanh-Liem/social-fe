@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
-} from "~/components/who-to-follow/who-to-follow-item";
+} from "~/components/who-to-follow/WhoToFollowItem";
 import { useGetFollowedById, useGetOneByUsername } from "~/apis/useFetchUser";
 import { cn } from "~/lib/utils";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";

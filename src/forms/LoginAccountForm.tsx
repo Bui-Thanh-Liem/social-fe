@@ -8,7 +8,7 @@ import {
   type LoginUserDto,
 } from "~/shared/dtos/req/auth.dto";
 import { handleResponse } from "~/utils/toast";
-import { AuthGoogle } from "~/components/auth-google";
+import { AuthGoogle } from "~/components/AuthGoogle";
 import { TypographyP } from "~/components/elements/p";
 import { Divider } from "~/components/ui/divider";
 import { ButtonMain } from "~/components/ui/button";

@@ -9,7 +9,7 @@ import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { ButtonMain } from "../ui/button";
 import { SkeletonTweet, TweetItem } from "./item-tweet";
-import { ErrorResponse } from "../error";
+import { ErrorResponse } from "../Error";
 import { cn } from "~/lib/utils";
 
 export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {

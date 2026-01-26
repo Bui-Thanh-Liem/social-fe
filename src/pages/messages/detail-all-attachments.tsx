@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel";
 import { Drawer, DrawerContent, DrawerOverlay } from "~/components/ui/drawer";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import type { IMedia } from "~/shared/interfaces/schemas/media.interface";
 import { useDetailAttachment } from "~/store/useDetailAttachment";
 

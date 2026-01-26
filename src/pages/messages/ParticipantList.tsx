@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { AvatarMain } from "~/components/ui/avatar";
 import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import {
   usePromoteMentor,
   useRemoveParticipants,
@@ -23,17 +23,17 @@ export function ParticipantList({
   const { setActiveId } = useConversationActiveStore();
   const { participants, mentors } = conversation;
   const [_participants, setParticipants] = useState<IUser[]>(
-    participants as unknown as IUser[]
+    participants as unknown as IUser[],
   );
   const [_mentors, setMentors] = useState<string[]>(
-    mentors as unknown as string[]
+    mentors as unknown as string[],
   );
   const [isOpen, setIsOpen] = useState(false);
 
   //
   const is_mentor = useCallback(
     (_user: IUser) => _mentors.includes(_user._id),
-    [_mentors]
+    [_mentors],
   );
 
   //

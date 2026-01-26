@@ -29,7 +29,7 @@ import { Label } from "~/components/ui/label";
 import { SearchMain } from "~/components/ui/search";
 import { SelectMain } from "~/components/ui/select";
 import { TextareaMain } from "~/components/ui/textarea";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import {
   UserFollower,
   UserFollowerSkeleton,
@@ -84,7 +84,7 @@ export function CreateCommunityForm({
       setFollowers((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...prev, ...newItems];
       });
@@ -161,7 +161,7 @@ export function CreateCommunityForm({
       if (!data.category && !categoryText) {
         toastSimple(
           "Danh mục / dịch vụ không được để trống, bạn có thể tạo mới hoặc chọn mục đã có sẵn.",
-          "error"
+          "error",
         );
         return;
       }
@@ -297,7 +297,7 @@ export function CreateCommunityForm({
             label="Cộng đồng khác đã dùng"
             classname={cn(
               "mt-1",
-              categories?.length > 0 ? "" : "pointer-events-none"
+              categories?.length > 0 ? "" : "pointer-events-none",
             )}
           />
         </div>
@@ -376,7 +376,7 @@ export function CreateCommunityForm({
                         "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                         total_page_ref.current <= page
                           ? "text-gray-300 pointer-events-none cursor-default"
-                          : ""
+                          : "",
                       )}
                       onClick={onSeeMore}
                     >

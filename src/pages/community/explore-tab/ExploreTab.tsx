@@ -52,7 +52,7 @@ export function ExploreTab() {
       setAllCommunities((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...newItems, ...prev];
       });
@@ -88,7 +88,7 @@ export function ExploreTab() {
                 <Card
                   className={cn(
                     "py-1 rounded-2xl border border-gray-200 cursor-pointer",
-                    _ === cate ? "border-sky-400" : ""
+                    _ === cate ? "border-sky-400" : "",
                   )}
                   onClick={() => setCate(_ === cate ? "" : _)}
                 >
@@ -145,7 +145,7 @@ export function ExploreTab() {
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >

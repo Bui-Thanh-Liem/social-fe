@@ -2,7 +2,7 @@ import { Pin, PinOff } from "lucide-react";
 import { Link } from "react-router-dom";
 import { VerifyIcon } from "~/components/icons/verify";
 import { Card, CardHeader, CardTitle } from "~/components/ui/card";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useTogglePinCommunity } from "~/apis/useFetchCommunity";
 import { cn } from "~/lib/utils";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
@@ -148,14 +148,14 @@ export function CommunityTag({
       className={cn(
         "px-1 bg-gray-50/85 border inline-block rounded-2xl",
         _private ? "border-orange-400" : "border-green-400",
-        classNameWrap
+        classNameWrap,
       )}
     >
       <p
         className={cn(
           "text-[10px] font-medium",
           _private ? "text-orange-400" : "text-green-400",
-          classNameText
+          classNameText,
         )}
       >
         {text}

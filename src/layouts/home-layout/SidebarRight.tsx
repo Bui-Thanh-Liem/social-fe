@@ -5,7 +5,7 @@ import { SearchAdvanced } from "~/components/search-advanced/search-advanced";
 import { SearchFilterCard } from "~/components/search-advanced/search-filter-card";
 import { TodayNewsCard } from "~/components/today-news/today-news-card";
 import { Card, CardHeader, CardTitle } from "~/components/ui/card";
-import { WhoToFollowCard } from "~/components/who-to-follow/who-to-follow-card";
+import { WhoToFollowCard } from "~/components/who-to-follow/WhoToFollowCard";
 
 export function SidebarRight() {
   const { pathname } = useLocation();

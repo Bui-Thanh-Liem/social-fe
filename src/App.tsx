@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RedirectIfAuthenticated } from "./components/redirectIf-authenticated";
-import { RedirectIfNotAuthenticated } from "./components/redirectIf-not-authenticated";
+import { RedirectIfAuthenticated } from "./components/RedirectIfAuthenticated";
+import { RedirectIfNotAuthenticated } from "./components/RedirectIfNotAuthenticated";
 import { HomeLayout } from "./layouts/home-layout/HomeLayout";
 import RootLayout from "./layouts/root-layout/RootLayout";
 import { AuthPage } from "./pages/auth/AuthPage";
@@ -27,8 +27,8 @@ import { ProfilePage } from "./pages/profile/ProfilePage";
 import { SearchPage } from "./pages/search/SearchPage";
 import { TrendingPage } from "./pages/trending/TrendingPage";
 import { TweetDetailPage } from "./pages/tweet-detail/TweetDetailPage";
-import { ProtectTweetDetail } from "./components/protect-tweet-detail";
-import NotFound from "./components/not-found";
+import { ProtectTweetDetail } from "./components/ProtectTweetDetail";
+import NotFound from "./components/NotFound";
 
 // Router config
 const router = createBrowserRouter([

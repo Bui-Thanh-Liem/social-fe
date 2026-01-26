@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { useGetMe } from "~/apis/useFetchAuth";
-import { AuthGoogle } from "~/components/auth-google";
+import { AuthGoogle } from "~/components/AuthGoogle";
 import { TypographyH1 } from "~/components/elements/h1";
 import { TypographyH2 } from "~/components/elements/h2";
 import { TypographyP } from "~/components/elements/p";
@@ -14,7 +14,7 @@ import { ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";
 import { Divider } from "~/components/ui/divider";
 import { useUserStore } from "~/store/useUserStore";
-import { Logo } from "../../components/logo";
+import { Logo } from "../../components/Logo";
 
 export function AuthPage() {
   const getMe = useGetMe();

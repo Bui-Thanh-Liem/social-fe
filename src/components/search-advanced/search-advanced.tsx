@@ -15,7 +15,7 @@ import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimpleVerify } from "~/utils/toast";
 import { VerifyIcon } from "../icons/verify";
-import { Logo } from "../logo";
+import { Logo } from "../Logo";
 import { AvatarMain } from "../ui/avatar";
 import { Input } from "../ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";

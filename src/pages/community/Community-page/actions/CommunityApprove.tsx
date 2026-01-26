@@ -12,7 +12,7 @@ import {
   ItemDescription,
   ItemMedia,
 } from "~/components/ui/item";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useChangeStatusTweet } from "~/apis/useFetchCommunity";
 import { useGetTweetsPendingByCommunityId } from "~/apis/useFetchTweet";
 import { cn } from "~/lib/utils";

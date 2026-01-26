@@ -4,8 +4,8 @@ import { DialogMain } from "~/components/ui/dialog";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
-} from "~/components/who-to-follow/who-to-follow-item";
-import { WrapIcon } from "~/components/wrapIcon";
+} from "~/components/who-to-follow/WhoToFollowItem";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useGetMultiMMCommunityById } from "~/apis/useFetchCommunity";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
@@ -30,7 +30,7 @@ export function CommunityInfo({ community }: { community: ICommunity }) {
   const { data, isLoading } = useGetMultiMMCommunityById(
     community._id!,
     { page: "1", limit: "20" }, // mentor sẽ max 20 và không phân trang (phân trang chỉ ảnh hưởng tới members)
-    isOpen
+    isOpen,
   );
   const communityDetail = data?.metadata;
 
@@ -84,7 +84,7 @@ export function CommunityInfo({ community }: { community: ICommunity }) {
                       {infoMap[type]}
                     </p>
                   </div>
-                )
+                ),
               )}
             </div>
           </section>

@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/item-tweet";
 import { SearchMain } from "~/components/ui/search";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useDebounce } from "~/hooks/useDebounce";
 import { useGetTweetBookmarked } from "~/apis/useFetchTweet";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 
 export function BookmarkPage() {
   // State để quản lý pagination và data
@@ -46,7 +46,7 @@ export function BookmarkPage() {
           // Loại bỏ duplicate tweets dựa trên _id
           const existingIds = new Set(prev.map((tweet) => tweet._id));
           const filteredNewTweets = newTweets.filter(
-            (tweet) => !existingIds.has(tweet._id)
+            (tweet) => !existingIds.has(tweet._id),
           );
           return [...prev, ...filteredNewTweets];
         });
@@ -77,7 +77,7 @@ export function BookmarkPage() {
         setPage((prev) => prev + 1);
       }
     },
-    [allTweets.length, hasMore, isLoading, isLoadingMore]
+    [allTweets.length, hasMore, isLoading, isLoadingMore],
   );
   // Setup Intersection Observer
   useEffect(() => {

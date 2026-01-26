@@ -7,7 +7,7 @@ import { VerifyIcon } from "~/components/icons/verify";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useGetOneByUsername, useResendVerifyEmail } from "~/apis/useFetchUser";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
 import { ETweetType } from "~/shared/enums/type.enum";
@@ -18,7 +18,7 @@ import { ProfileMedia } from "./ProfileMedia";
 import { ProfileTweets } from "./ProfileTweets";
 import { handleResponse } from "~/utils/toast";
 import { formatDateToDateVN } from "~/utils/date-time";
-import { ErrorResponse } from "~/components/error";
+import { ErrorResponse } from "~/components/Error";
 
 export function ProfilePage() {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export function ProfilePage() {
   // Check if current user is viewing their own profile
   const isOwnProfile = useMemo(
     () => user?._id === profile?._id,
-    [user?._id, profile?._id]
+    [user?._id, profile?._id],
   );
 
   //

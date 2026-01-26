@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import { ConversationList } from "./ConversationList";
 import { MessageView } from "./MessageView";

@@ -3,11 +3,11 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateTweet } from "~/apis/useFetchTweet";
 import { useUploadMedia } from "~/apis/useFetchUpload";
-import { EmojiSelector } from "~/components/emoji-picker";
+import { EmojiSelector } from "~/components/EmojiPicker";
 import { CloseIcon } from "~/components/icons/close";
 import { ImageIcon } from "~/components/icons/image";
 import { TweetAudience } from "~/components/tweet/TweetAudience";
-import { WrapIcon } from "~/components/wrapIcon";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useEmojiInsertion } from "~/hooks/useEmojiInsertion";
 import { useMediaPreviewMulti } from "~/hooks/useMediaPreviewMulti";
 import { useTextareaAutoResize } from "~/hooks/useTextareaAutoResize";
@@ -77,7 +77,7 @@ export function Tweet({
 
   const { textareaRef, autoResize } = useTextareaAutoResize();
   const [audience, setAudience] = useState<ETweetAudience>(
-    ETweetAudience.Everyone
+    ETweetAudience.Everyone,
   );
   const [communityId, setCommunityId] = useState("");
 
@@ -110,7 +110,7 @@ export function Tweet({
       const newContent = insertEmoji(emoji, contentValue);
       setValue("content", newContent);
     },
-    [insertEmoji, contentValue, setValue]
+    [insertEmoji, contentValue, setValue],
   );
 
   //
@@ -143,7 +143,7 @@ export function Tweet({
         setOpenHashtag(false);
       }
     },
-    [autoResize, setValue, contentValue]
+    [autoResize, setValue, contentValue],
   );
 
   //
@@ -151,7 +151,7 @@ export function Tweet({
     (e: React.ChangeEvent<HTMLInputElement>) => {
       handleFileChange(e);
     },
-    [handleFileChange]
+    [handleFileChange],
   );
 
   //
@@ -169,7 +169,7 @@ export function Tweet({
       //
       handleFileSelect({ target: { files } } as any);
     },
-    []
+    [],
   );
 
   // Thực hiện khi gọi api thành cong từ onSubmit
@@ -187,7 +187,7 @@ export function Tweet({
 
       if (onSuccess) onSuccess(res); // Sử dụng cho bên ngoài component cha (VD: đống modal)
     },
-    [removeMedia, reset, onSuccess]
+    [removeMedia, reset, onSuccess],
   );
 
   // Select hashtag
@@ -216,7 +216,7 @@ export function Tweet({
 
   // Select mentions
   function handleSelectMentions(
-    user: Pick<IUser, "_id" | "name" | "username">
+    user: Pick<IUser, "_id" | "name" | "username">,
   ) {
     if (!textareaRef.current) return;
 
@@ -259,9 +259,8 @@ export function Tweet({
         // Upload media first if file is selected and not already uploaded
         if (selectedFiles.length > 0) {
           try {
-            const resUploadMedia = await apiUploadMedia.mutateAsync(
-              selectedFiles
-            );
+            const resUploadMedia =
+              await apiUploadMedia.mutateAsync(selectedFiles);
 
             if (resUploadMedia.statusCode !== 200 || !resUploadMedia.metadata) {
               handleResponse(resUploadMedia);
@@ -329,7 +328,7 @@ export function Tweet({
       apiCreateTweet,
       apiUploadMedia,
       successForm,
-    ]
+    ],
   );
 
   // Computed values
@@ -338,7 +337,7 @@ export function Tweet({
 
   // Tạo id duy nhất dựa trên instance, ví dụ với nanoid hoặc Math.random()
   const [inputId] = useState(
-    () => `image-upload-${tweetType}-${Math.random()}`
+    () => `image-upload-${tweetType}-${Math.random()}`,
   );
 
   //
@@ -416,7 +415,7 @@ export function Tweet({
           <div
             className={cn(
               "flex justify-between items-center -ml-2 my-2 bg-white",
-              tweetType === ETweetType.QuoteTweet ? "" : ""
+              tweetType === ETweetType.QuoteTweet ? "" : "",
             )}
           >
             <div className="flex items-center gap-1">
