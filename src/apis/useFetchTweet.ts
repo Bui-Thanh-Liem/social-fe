@@ -117,6 +117,7 @@ export const useGetProfileTweets = (
 export const useGetCommunityTweets = (
   queries?: IQuery<ITweet> & {
     ishl?: "0" | "1";
+    isMedia?: "1" | "0";
   },
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";

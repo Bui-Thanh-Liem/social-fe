@@ -21,6 +21,7 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
 
   const { data, isLoading, error } = useGetCommunityTweets({
     limit: "10",
+    isMedia: "1",
     page: page.toString(),
     community_id: community_id,
   });

@@ -61,6 +61,26 @@ export const useGetAllBareCommunities = () => {
   });
 };
 
+// 📄 GET
+export const useGetAllPinnedBareCommunities = () => {
+  return useQuery({
+    queryKey: ["communities", "pinned-bare"],
+    queryFn: () => {
+      const url = `/communities/pinned-bare`;
+      return apiCall<ICommunity[]>(url);
+    },
+
+    // Lên getNewFeeds đọc giải thích
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: "always",
+    refetchOnReconnect: false,
+    refetchInterval: false,
+    networkMode: "online",
+  });
+};
+
 // 🚪 GET - Get bare Community By slug
 export const useGetOneCommunityBySlug = (slug: string, enabled = true) => {
   return useQuery({
@@ -424,6 +444,9 @@ export const useTogglePinCommunity = () => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["communities"] }),
         queryClient.invalidateQueries({ queryKey: ["community"] }),
+        queryClient.invalidateQueries({
+          queryKey: ["communities", "pinned-bare"],
+        }),
       ]);
     },
   });

@@ -13,8 +13,6 @@ import { ErrorResponse } from "../Error";
 import { cn } from "~/lib/utils";
 
 export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
-  console.log("ListTweets render with feedType:", feedType);
-
   const { user } = useUserStore();
 
   // State để quản lý pagination và data
