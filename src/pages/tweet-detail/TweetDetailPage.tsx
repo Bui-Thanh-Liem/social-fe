@@ -82,7 +82,9 @@ export function TweetDetailPage() {
   }, [joinComment, leaveComment, tweet_id]);
 
   //
-  const { data, isLoading: isLoadingDetail } = useGetDetailTweet(tweet_id!);
+  const { data: tweetDetail, isLoading: isLoadingDetail } = useGetDetailTweet(
+    tweet_id!,
+  );
 
   // API comments (theo page)
   const { data: comments, isLoading: isLoadingCmm } = useGetTweetChildren({
@@ -192,8 +194,8 @@ export function TweetDetailPage() {
   }
 
   // Not found
-  const tweet = data?.metadata || null;
-  if (data?.statusCode === 404 || !tweet) {
+  const tweet = tweetDetail?.metadata || null;
+  if (tweetDetail?.statusCode === 404 || !tweet) {
     return (
       <div className="flex flex-col items-center justify-center h-screen space-y-10">
         <Logo size={64} className="mb-4" />
@@ -201,7 +203,9 @@ export function TweetDetailPage() {
         <h2 className="text-xl font-bold text-gray-600 mb-2">
           Không tìm thấy bài viết
         </h2>
-        <p className="text-gray-500">Bài viết không tồn tại hoặc đã bị xóa</p>
+        <p className="text-gray-500 text-center">
+          {tweetDetail?.message || "Bài viết không tồn tại hoặc đã bị xóa"}
+        </p>
 
         <div className="space-x-4">
           <ButtonMain onClick={() => navigate("/")}>Trang Chủ</ButtonMain>

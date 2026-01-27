@@ -201,7 +201,12 @@ export const TweetItem = ({
       <div className="ml-14">
         {/* Nội dung tweet */}
         {content && tweet.type !== ETweetType.Retweet && (
-          <ContentExpanded content={content} mentions={mentions as any} />
+          <ContentExpanded
+            content={content}
+            bg={tweet.bgColor}
+            text={tweet.textColor}
+            mentions={mentions as any}
+          />
         )}
 
         {/* Medias content */}
@@ -241,6 +246,8 @@ export const TweetItem = ({
             <div className="ml-14">
               {quoteTweet?.content && (
                 <ContentExpanded
+                  bg={quoteTweet?.bgColor}
+                  text={quoteTweet?.textColor}
                   content={quoteTweet?.content}
                   mentions={quoteTweet?.mentions as unknown as IUser[]}
                 />
@@ -255,12 +262,14 @@ export const TweetItem = ({
         {isAction && (
           <div
             className={cn(
-              "flex items-center justify-between text-gray-500 border-t border-gray-100 pt-3",
+              "flex items-center justify-between text-gray-500 pt-3 relative",
               tweet.status !== ETweetStatus.Ready
                 ? "cursor-not-allowed pointer-events-none"
                 : "",
             )}
           >
+            <div className="absolute top-0 w-64 h-[1px] bg-gray-100 right-1/2 translate-x-1/2"></div>
+
             {/* Comment */}
             {isComment && <ActionCommentTweet tweet={tweet} />}
 

@@ -122,6 +122,8 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
             {content && (
               <ContentExpanded
                 content={content}
+                bg={tweet.bgColor}
+                text={tweet.textColor}
                 mentions={mentions as unknown as IUser[]}
               />
             )}

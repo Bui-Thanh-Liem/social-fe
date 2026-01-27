@@ -38,6 +38,8 @@ import { HashtagSuggest } from "./HashtagSuggest";
 import { Mentions } from "./Mentions";
 import { TweetCommunity } from "./TweetCommunity";
 import { handleResponse, toastSimpleVerify } from "~/utils/toast";
+import { BgColorTweet } from "../BgColorTweet";
+import { TextColorTweet } from "../TextColorTweet";
 
 // Constants
 const DEFAULT_VALUES: CreateTweetDto = {
@@ -69,6 +71,8 @@ export function Tweet({
   // Hashtag
   const [openHashtag, setOpenHashtag] = useState(false);
   const [searchHashtag, setSearchHashtag] = useState("");
+  const [bgColor, setBgColor] = useState("");
+  const [textColor, setTextColor] = useState("");
 
   // Mentions
   const [mentionIds, setMentionIds] = useState<string[]>([]);
@@ -112,6 +116,15 @@ export function Tweet({
     },
     [insertEmoji, contentValue, setValue],
   );
+
+  //
+  function onChoseBackground(bg: string) {
+    setBgColor(bg);
+  }
+
+  function onChoseTextColor(text: string) {
+    setTextColor(text);
+  }
 
   //
   const handleTextareaInput = useCallback(
@@ -179,6 +192,8 @@ export function Tweet({
       removeMedia(); // Clear media after successful submission
       setMentionIds([]);
       triggerReload();
+      setTextColor("");
+      setBgColor("");
 
       // ⭐ Reset chiều cao textarea
       if (textareaRef.current) {
@@ -187,7 +202,7 @@ export function Tweet({
 
       if (onSuccess) onSuccess(res); // Sử dụng cho bên ngoài component cha (VD: đống modal)
     },
-    [removeMedia, reset, onSuccess],
+    [removeMedia, reset, onSuccess, setTextColor, setBgColor],
   );
 
   // Select hashtag
@@ -288,6 +303,8 @@ export function Tweet({
           ...(tweet?._id && { parent_id: tweet?._id }), // Nếu có giá trị thì không phải tweet chính
           audience,
           hashtags,
+          bgColor,
+          textColor,
           type: tweetType,
           content: data.content,
           mentions: mentionIds,
@@ -322,6 +339,8 @@ export function Tweet({
       mediaItems,
       tweet?._id,
       audience,
+      bgColor,
+      textColor,
       tweetType,
       mentionIds,
       communityId,
@@ -353,7 +372,8 @@ export function Tweet({
             value={contentValue}
             autoCorrect="off"
             spellCheck="false"
-            className="border-0 outline-0 w-full text-lg placeholder:text-gray-500 bg-transparent resize-none"
+            className="w-full min-h-[40px] max-h-96 resize-none outline-none text-lg bg-transparent placeholder-gray-500 rounded-2xl px-3 py-1"
+            style={{ color: textColor, background: bgColor }}
             placeholder={placeholder}
             maxLength={CONSTANT_MAX_LENGTH_CONTENT}
             onInput={handleTextareaInput}
@@ -440,6 +460,14 @@ export function Tweet({
 
               <WrapIcon className="hover:bg-blue-100/60">
                 <EmojiSelector onEmojiClick={handleEmojiClick} />
+              </WrapIcon>
+
+              <WrapIcon className="hover:bg-blue-100/60">
+                <BgColorTweet onChose={onChoseBackground} />
+              </WrapIcon>
+
+              <WrapIcon className="hover:bg-blue-100/60">
+                <TextColorTweet onChose={onChoseTextColor} />
               </WrapIcon>
             </div>
 

@@ -85,7 +85,9 @@ export function ProfilePage() {
         <h2 className="text-xl font-bold text-gray-600 mb-2">
           Không tìm thấy người dùng
         </h2>
-        <p className="text-gray-500">{username} không tồn tại hoặc đã bị xóa</p>
+        <p className="text-gray-500">
+          "{username}" không tồn tại hoặc đã bị xóa
+        </p>
       </div>
     );
   }

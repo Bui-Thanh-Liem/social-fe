@@ -28,7 +28,7 @@ export const CreateTweetDtoSchema = z.object({
     .string()
     .max(
       CONSTANT_MAX_LENGTH_CONTENT,
-      `Nội dung tối đa ${CONSTANT_MAX_LENGTH_CONTENT} kí tự`
+      `Nội dung tối đa ${CONSTANT_MAX_LENGTH_CONTENT} kí tự`,
     )
     .trim(),
   hashtags: z.array(z.string().trim()).optional(), // client gửi lên name
@@ -36,10 +36,12 @@ export const CreateTweetDtoSchema = z.object({
     .array(
       z.string().trim().regex(CONSTANT_REGEX.ID_MONGO, {
         message: "ObjectId không hợp lệ",
-      })
+      }),
     )
     .optional(),
   medias: z.array(MediaBareDtoSchema).optional(),
+  textColor: z.string().trim().optional(),
+  bgColor: z.string().trim().optional(),
 });
 
 export const GetOneTweetByIdDtoSchema = z.object({
@@ -77,7 +79,7 @@ export const getProfileTweetDtoSchema = z.object({
       .nativeEnum(ETweetType)
       .refine((val) => Object.values(ETweetType).includes(val), {
         message: "Invalid Tweet Type",
-      })
+      }),
   ),
 });
 

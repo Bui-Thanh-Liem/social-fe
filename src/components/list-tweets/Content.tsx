@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { ShortInfoProfile } from "../ShortInfoProfile";
 import { WrapIcon } from "../WrapIcon";
+import { cn } from "~/lib/utils";
 
 export function Content({
   content,
@@ -57,14 +58,21 @@ export function Content({
 export function ContentExpanded({
   content,
   mentions,
+  text,
+  bg,
 }: {
   content: string;
   mentions: IUser[];
+  text: string;
+  bg: string;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <>
+    <div
+      className={cn("relative rounded-xl", bg ? "px-3 py-0.5" : "")}
+      style={{ background: bg || "transparent", color: text || "inherit" }}
+    >
       {/*  */}
       <div
         className={`my-3 leading-relaxed whitespace-break-spaces ${isExpanded ? "" : "line-clamp-10"}`}
@@ -73,12 +81,12 @@ export function ContentExpanded({
       </div>
 
       {/* Gradient mờ phía dưới */}
-      {!isExpanded && content.length > 500 && (
+      {/* {!isExpanded && content.length > 500 && (
         <div className="pointer-events-none absolute bottom-28 left-0 h-16 w-full bg-gradient-to-t from-white to-transparent group-hover:hidden" />
-      )}
+      )} */}
 
       {/*  */}
-      {(content.split("\n").length > 10 || content.length > 500) && (
+      {(`content`.split("\n").length > 10 || content.length > 500) && (
         <div className="flex my-1">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
@@ -94,6 +102,6 @@ export function ContentExpanded({
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }

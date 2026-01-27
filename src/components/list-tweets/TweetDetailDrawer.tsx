@@ -366,6 +366,8 @@ export function TweetDetailDrawer() {
             <DrawerDescription className="text-gray-700 text-base whitespace-break-spaces">
               <ContentExpanded
                 content={content}
+                bg={tweet.bgColor}
+                text={tweet.textColor}
                 mentions={mentions as unknown as IUser[]}
               />
             </DrawerDescription>

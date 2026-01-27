@@ -16,6 +16,8 @@ export interface ITweet extends IBase {
   status: ETweetStatus;
   guest_view: number;
   user_view: number;
+  textColor: string; // màu chữ
+  bgColor: string; // màu nềns
 
   //
   community_id: null | string;

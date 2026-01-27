@@ -14,14 +14,10 @@ import { CommunityTag } from "../../CommunityCard";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const infoMap = {
-  [EMembershipType.Open]:
-    "Tất cả người dùng đều có thể tự tham gia vào cộng đồng.",
-  [EMembershipType.Invite_only]:
-    "Chỉ những người được điều hành viên mời mới có thể tham gia.",
-  [EVisibilityType.Public]:
-    "Tất cả người dùng đều có thể xem nội dung trong cộng đồng.",
-  [EVisibilityType.Private]:
-    "Chỉ thành viên mới có thể xem nội dung trong cộng đồng.",
+  [EMembershipType.Open]: "Ai cũng có thể tham gia vào cộng đồng.",
+  [EMembershipType.Invite_only]: "Chỉ những người được mời có thể tham gia.",
+  [EVisibilityType.Public]: "Ai cũng có thể xem nội dung trong cộng đồng.",
+  [EVisibilityType.Private]: "Chỉ thành viên có thể xem nội dung (bài viết).",
 } as const;
 
 export function CommunityInfo({ community }: { community: ICommunity }) {
