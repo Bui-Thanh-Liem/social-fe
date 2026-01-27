@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  ArrowDown,
-  ArrowUp,
-  BarChart3,
-  Heart,
-  MessageCircle,
-  Repeat2,
-  X,
-} from "lucide-react";
+import { BarChart3, Heart, MessageCircle, Repeat2, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useGetTweetChildren } from "~/apis/useFetchTweet";
@@ -48,7 +40,7 @@ import { ActionCommentTweet } from "./ActionCommentTweet";
 import { ActionLikeTweet } from "./ActionLikeTweet";
 import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
 import { ActionShared } from "./ActionShared";
-import { Content } from "./Content";
+import { ContentExpanded } from "./Content";
 import { SkeletonTweet, StatusTag, TweetItem } from "./ItemTweet";
 import { formatTimeAgo } from "~/utils/date-time";
 
@@ -67,7 +59,6 @@ export function TweetDetailDrawer() {
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [newAuthorCmt, setNewAuthorCmt] = useState("");
-  const [isExpanded, setIsExpanded] = useState(false);
 
   // Ref for infinite scroll
   const observerRef = useRef<HTMLDivElement>(null);
@@ -373,32 +364,10 @@ export function TweetDetailDrawer() {
               </div>
             </DrawerTitle>
             <DrawerDescription className="text-gray-700 text-base whitespace-break-spaces">
-              <>
-                <p
-                  className={cn(
-                    "text-gray-800 mb-3 leading-relaxed whitespace-break-spaces",
-                    isExpanded ? "" : "line-clamp-10",
-                  )}
-                >
-                  <Content content={content} mentions={mentions as any} />
-                </p>
-                {(content.split("\n").length > 10 || content.length > 500) && (
-                  <div className="flex my-1">
-                    <button
-                      onClick={() => setIsExpanded(!isExpanded)}
-                      className="m-auto outline-none"
-                    >
-                      <WrapIcon className="bg-gray-100">
-                        {isExpanded ? (
-                          <ArrowUp size={20} className="text-blue-400" />
-                        ) : (
-                          <ArrowDown size={20} className="text-blue-400" />
-                        )}
-                      </WrapIcon>
-                    </button>
-                  </div>
-                )}
-              </>
+              <ContentExpanded
+                content={content}
+                mentions={mentions as unknown as IUser[]}
+              />
             </DrawerDescription>
           </DrawerHeader>
 

@@ -65,11 +65,19 @@ export function ContentExpanded({
 
   return (
     <>
+      {/*  */}
       <div
         className={`my-3 leading-relaxed whitespace-break-spaces ${isExpanded ? "" : "line-clamp-10"}`}
       >
         <Content content={content} mentions={mentions as unknown as IUser[]} />
       </div>
+
+      {/* Gradient mờ phía dưới */}
+      {!isExpanded && content.length > 500 && (
+        <div className="pointer-events-none absolute bottom-28 left-0 h-16 w-full bg-gradient-to-t from-white to-transparent group-hover:hidden" />
+      )}
+
+      {/*  */}
       {(content.split("\n").length > 10 || content.length > 500) && (
         <div className="flex my-1">
           <button

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useGetProfileTweets } from "~/apis/useFetchTweet";
 import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
@@ -28,9 +28,12 @@ export function ProfileMedia({
 
   const { data, isLoading, error } = useGetProfileTweets(ETweetType.Tweet, {
     limit: "10",
+    isMedia: "1",
     user_id: profile_id,
     page: page.toString(),
   });
+
+  console.log("ProfileMedia data:", data);
 
   // Effect để xử lý khi có data mới
   useEffect(() => {
@@ -70,20 +73,23 @@ export function ProfileMedia({
   }, [data, page, profile_id]);
 
   // Callback khi element cuối cùng xuất hiện trên viewport
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleObserver = (entries: IntersectionObserverEntry[]) => {
-    const [entry] = entries;
-    if (
-      entry.isIntersecting &&
-      hasMore &&
-      !isLoading &&
-      !isLoadingMore &&
-      tweets.length > 0
-    ) {
-      setIsLoadingMore(true);
-      setPage((prev) => prev + 1);
-    }
-  };
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+
+      if (
+        entry.isIntersecting &&
+        hasMore &&
+        !isLoading &&
+        !isLoadingMore &&
+        tweets.length > 0
+      ) {
+        setIsLoadingMore(true);
+        setPage((prev) => prev + 1);
+      }
+    },
+    [hasMore, isLoading, isLoadingMore, tweets.length],
+  );
 
   // Setup Intersection Observer
   useEffect(() => {
@@ -155,7 +161,7 @@ export function ProfileMedia({
           {tweets.flatMap((tweet) => {
             return tweet.medias?.map((m, index) => (
               <Card
-                key={`profile-media-${index}`}
+                key={`profile-media-${tweet._id}-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"
                 onClick={() => handleClickMedia(tweet)}
               >

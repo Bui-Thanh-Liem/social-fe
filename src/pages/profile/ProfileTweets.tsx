@@ -37,6 +37,8 @@ export function ProfileTweets({
     },
   );
 
+  console.log("ProfileTweets data:", data);
+
   // Effect để xử lý khi có data mới
   useEffect(() => {
     if (data?.metadata?.items) {

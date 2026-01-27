@@ -59,7 +59,7 @@ export function HomePage() {
       </div>
 
       {/* Scrollable Content */}
-      <div ref={containerRef} className="flex-1 overflow-y-auto">
+      <div ref={containerRef} className="flex-1 overflow-y-auto scrollbar-hide">
         <div className="px-4 pt-4">
           <Tweet />
         </div>

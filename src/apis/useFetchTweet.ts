@@ -80,6 +80,7 @@ export const useGetProfileTweets = (
   tweet_type: ETweetType,
   queries?: IQuery<ITweet> & {
     ishl?: "0" | "1";
+    isMedia?: "1" | "0";
   },
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";

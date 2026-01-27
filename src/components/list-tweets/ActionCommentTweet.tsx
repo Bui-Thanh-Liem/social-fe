@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp, Eye, MessageCircle } from "lucide-react";
+import { Eye, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ETweetType } from "~/shared/enums/type.enum";
@@ -15,16 +15,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { Content, ContentExpanded } from "./Content";
+import { ContentExpanded } from "./Content";
 import { formatTimeAgo } from "~/utils/date-time";
-import { WrapIcon } from "../WrapIcon";
 
 export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
   //
   const { setTweet, open } = useDetailTweetStore();
-
-  //
-  const [isExpanded, setIsExpanded] = useState(false);
 
   //
   const { content, user_id, created_at, mentions, comments_count } = tweet;

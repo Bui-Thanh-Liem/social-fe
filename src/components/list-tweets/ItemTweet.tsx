@@ -1,12 +1,4 @@
-import {
-  ArrowDown,
-  ArrowUp,
-  BarChart3,
-  CornerRightDown,
-  Flag,
-  Trash,
-} from "lucide-react";
-import { useState } from "react";
+import { BarChart3, CornerRightDown, Flag, Trash } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useReportTweet } from "~/apis/useFetchReport";
 import { useDeleteTweet, useGetDetailTweet } from "~/apis/useFetchTweet";
@@ -38,7 +30,7 @@ import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
 import { ActionShared } from "./ActionShared";
 import { formatTimeAgo } from "~/utils/date-time";
 import { handleResponse } from "~/utils/toast";
-import { Content } from "./Content";
+import { ContentExpanded } from "./Content";
 
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
@@ -157,10 +149,6 @@ export const TweetItem = ({
   const pathname = window.location.pathname;
   const isComment = !pathname?.includes("/tweet/");
 
-  //
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isRetwExpanded, setIsRetwExpanded] = useState(false);
-
   // Gọi api detail để lấy các retweet/quoteTweet
   const { data } = useGetDetailTweet(parent_id || "");
 
@@ -169,7 +157,7 @@ export const TweetItem = ({
   const quoteTweet_user = quoteTweet.user_id as unknown as IUser;
 
   return (
-    <div key={_id} className="px-4 py-2 group hover:bg-gray-50 relative">
+    <div key={_id} className="px-4 py-2 group hover:bg-gray-50 relative group">
       {/* Header với thông tin người dùng */}
       {community?.name && (
         <div>
@@ -213,32 +201,7 @@ export const TweetItem = ({
       <div className="ml-14">
         {/* Nội dung tweet */}
         {content && tweet.type !== ETweetType.Retweet && (
-          <>
-            <p
-              className={cn(
-                "text-gray-800 mb-3 leading-relaxed whitespace-break-spaces",
-                isExpanded ? "" : "line-clamp-10",
-              )}
-            >
-              <Content content={content} mentions={mentions as any} />
-            </p>
-            {(content.split("\n").length > 10 || content.length > 500) && (
-              <div className="flex my-1">
-                <button
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  className="m-auto outline-none"
-                >
-                  <WrapIcon className="bg-gray-100">
-                    {isExpanded ? (
-                      <ArrowUp size={20} className="text-blue-400" />
-                    ) : (
-                      <ArrowDown size={20} className="text-blue-400" />
-                    )}
-                  </WrapIcon>
-                </button>
-              </div>
-            )}
-          </>
+          <ContentExpanded content={content} mentions={mentions as any} />
         )}
 
         {/* Medias content */}
@@ -277,36 +240,10 @@ export const TweetItem = ({
             {/* Nội dung tweet */}
             <div className="ml-14">
               {quoteTweet?.content && (
-                <>
-                  <p
-                    className={cn(
-                      "text-gray-800 mb-3 leading-relaxed whitespace-break-spaces",
-                      isRetwExpanded ? "" : "line-clamp-10",
-                    )}
-                  >
-                    <Content
-                      content={quoteTweet?.content}
-                      mentions={quoteTweet?.mentions as unknown as IUser[]}
-                    />
-                  </p>
-                  {(quoteTweet?.content?.split("\n").length > 10 ||
-                    quoteTweet?.content?.length > 500) && (
-                    <div className="flex my-1">
-                      <button
-                        onClick={() => setIsRetwExpanded(!isRetwExpanded)}
-                        className="m-auto outline-none"
-                      >
-                        <WrapIcon className="bg-gray-100">
-                          {isRetwExpanded ? (
-                            <ArrowUp size={20} className="text-blue-400" />
-                          ) : (
-                            <ArrowDown size={20} className="text-blue-400" />
-                          )}
-                        </WrapIcon>
-                      </button>
-                    </div>
-                  )}
-                </>
+                <ContentExpanded
+                  content={quoteTweet?.content}
+                  mentions={quoteTweet?.mentions as unknown as IUser[]}
+                />
               )}
               {/* Medias content */}
               <MediaContent tweet={quoteTweet} />
