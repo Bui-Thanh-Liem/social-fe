@@ -30,6 +30,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
+import { toastSimple } from "~/utils/toast";
 
 export function CommunityPage() {
   const { slug } = useParams();
@@ -70,6 +71,11 @@ export function CommunityPage() {
   //
   function handleOpenPost() {
     setIsOpenPost(true);
+  }
+
+  //
+  function handleClickEditBio() {
+    toastSimple("Chức năng đang phát triển", "info");
   }
 
   //
@@ -189,14 +195,16 @@ export function CommunityPage() {
               {community.is_admin && (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={handleClickEditBio}>
                       <WrapIcon>
                         <Pencil size={14} />
                       </WrapIcon>
                     </Button>
                   </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Add to library</p>
+                  <TooltipContent side="top">
+                    <p>
+                      Cập nhật thông tin để tối ưu tìm kiếm cộng đồng của bạn
+                    </p>
                   </TooltipContent>
                 </Tooltip>
               )}
