@@ -98,7 +98,8 @@ export function NavForMobile() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between bg-white border-t border-gray-200 px-4 lg:hidden">
       {navs.map((nav) => {
-        const isActive = pathname.startsWith(nav?.path || "");
+        const cleanPath = nav.path?.replace(/#.*$/, "") || "";
+        const isActive = pathname.startsWith(cleanPath);
         return (
           <WrapIcon
             key={nav.name}

@@ -215,7 +215,7 @@ export function Footer() {
   ];
 
   return (
-    <div className="text-sm text-gray-600 fixed bottom-0 py-2 right-1/2 translate-x-1/2 w-full md:w-[800px] lg:w-[1200px]">
+    <div className="text-sm text-gray-600  w-full md:w-[800px] lg:w-[1200px]">
       <div className="flex flex-wrap justify-center text-center gap-x-1 gap-y-1 ">
         {links.map((label, idx) => (
           <React.Fragment key={idx}>

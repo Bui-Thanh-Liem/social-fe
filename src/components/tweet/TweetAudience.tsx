@@ -37,7 +37,7 @@ export function TweetAudience({
   onChangeAudience: (audience: ETweetAudience) => void;
 }) {
   const [selectedOption, setSelectedOption] = useState<ETweetAudience>(
-    ETweetAudience.Everyone
+    ETweetAudience.Everyone,
   );
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export function TweetAudience({
   }, [onChangeAudience, selectedOption]);
 
   const selectedOptionData = replyOptions.find(
-    (opt) => opt.id === selectedOption
+    (opt) => opt.id === selectedOption,
   );
 
   return (
@@ -66,7 +66,7 @@ export function TweetAudience({
       <DropdownMenuContent
         side="bottom"
         align="start"
-        className="rounded-2xl w-80 px-0 py-2"
+        className="rounded-2xl w-72 px-0 py-2"
       >
         {/* Header */}
         <div className="px-4 py-3 border-b border-gray-100">

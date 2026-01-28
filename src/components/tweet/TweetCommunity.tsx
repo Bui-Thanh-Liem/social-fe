@@ -63,7 +63,7 @@ export function TweetCommunity({
       <DropdownMenuContent
         side="bottom"
         align="start"
-        className="rounded-2xl w-80 px-0 py-2"
+        className="rounded-2xl w-72 px-0 py-2"
       >
         {/* Header */}
         <div className="px-4 py-3 border-b border-gray-100">

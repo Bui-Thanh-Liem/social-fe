@@ -35,7 +35,7 @@ export function JoinedTab() {
   const [current, setCurrent] = useState(0);
   const debouncedCarouselVal = useDebounce(
     carouselItems[current] === "Tất cả" ? "" : carouselItems[current],
-    1000
+    1000,
   );
 
   //
@@ -70,7 +70,7 @@ export function JoinedTab() {
       setAllCommunities((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...newItems, ...prev];
       });
@@ -93,7 +93,7 @@ export function JoinedTab() {
           return { ...item, pinned: !item.pinned };
         }
         return item;
-      })
+      }),
     );
   }
 
@@ -108,7 +108,7 @@ export function JoinedTab() {
       <div className="mb-4 px-4 flex items-center justify-between">
         <div className="lg:w-[40%]">
           <SearchMain
-            size="md"
+            size="sm"
             value={searchVal}
             onClear={() => setSearchVal("")}
             onChange={setSearchVal}
@@ -134,7 +134,7 @@ export function JoinedTab() {
         </div>
       </div>
 
-      <div className="overflow-y-auto h-[calc(100vh-180px)] px-4">
+      <div className="overflow-y-auto h-[calc(100vh-250px)] lg:h-[calc(100vh-180px)] px-4">
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">
@@ -179,7 +179,7 @@ export function JoinedTab() {
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >

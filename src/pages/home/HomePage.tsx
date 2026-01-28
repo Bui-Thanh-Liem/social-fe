@@ -151,7 +151,7 @@ export function HomePage() {
               <TypographyP
                 key={community._id}
                 className={cn(
-                  `${classNav}`,
+                  `${classNav} text-center`,
                   hash === `#${community.slug}` && classActive,
                 )}
                 onClick={() =>

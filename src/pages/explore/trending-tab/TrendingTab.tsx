@@ -66,7 +66,7 @@ export function TrendingTab() {
   return (
     <TabsContent
       value="trending"
-      className="px-4 pb-4 overflow-y-auto h-[calc(100vh-140px)]"
+      className="px-4 pb-4 overflow-y-auto h-[calc(100vh-160px)] lg:h-[calc(100vh-140px)]"
     >
       {/*  */}
       <div>
@@ -87,7 +87,7 @@ export function TrendingTab() {
                   "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
-                    : ""
+                    : "",
                 )}
                 onClick={onSeeMore}
               >

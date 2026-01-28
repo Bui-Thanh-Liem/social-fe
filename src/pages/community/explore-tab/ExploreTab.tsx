@@ -104,7 +104,7 @@ export function ExploreTab() {
         </Carousel>
       </div>
 
-      <div className="overflow-y-auto h-[calc(100vh-180px)]">
+      <div className="overflow-y-auto h-[calc(100vh-210px)] lg:h-[calc(100vh-160px)]">
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">

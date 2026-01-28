@@ -190,7 +190,7 @@ export function SearchAdvanced({
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          "bg-white border rounded-2xl shadow-lg z-[4000]",
+          "bg-white border rounded-2xl shadow-lg z-[4000] lg:w-auto",
           className,
         )}
         onOpenAutoFocus={(e) => e.preventDefault()}

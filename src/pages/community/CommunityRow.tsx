@@ -156,7 +156,7 @@ export function CommunityRowSkeleton() {
           <div className="flex-1">
             {/* title + verify placeholder */}
             <div className="flex items-center gap-2 mb-2">
-              <div className="h-4 w-40 rounded-md bg-gray-200 animate-pulse" />
+              <div className="h-4 w-20 lg:w-40 rounded-md bg-gray-200 animate-pulse" />
               <div className="h-4 w-6 rounded-md bg-gray-200 animate-pulse" />
             </div>
 

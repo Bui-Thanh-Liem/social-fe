@@ -128,7 +128,7 @@ function NotiItem({ noti, onClick, onDelete }: Props) {
           </div>
         </div>
 
-        <div className="mt-1 text-sm text-slate-700 truncate">
+        <div className="mt-1 text-sm text-slate-700 truncate line-clamp-1 max-w-64 lg:max-w-screen">
           {noti.content}
         </div>
 
