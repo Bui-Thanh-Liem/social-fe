@@ -54,7 +54,7 @@ export function Tweet({
   onSuccess,
   contentBtn = "Đăng Bài",
   tweetType = ETweetType.Tweet,
-  placeholder = "Có chuyện gì thế ? @bui_thanh_liem, #developer",
+  placeholder = "Có chuyện gì thế ? @liemdev, #developer",
 }: {
   tweet?: ITweet;
   placeholder?: string;

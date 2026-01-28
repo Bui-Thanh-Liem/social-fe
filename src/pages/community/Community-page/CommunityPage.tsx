@@ -1,4 +1,4 @@
-import { Calendar } from "lucide-react";
+import { Calendar, Pencil } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { VerifyIcon } from "~/components/icons/verify";
@@ -21,10 +21,15 @@ import { useCommunitySocket } from "~/socket/hooks/useCommunitySocket";
 import { playNotificationSound } from "~/utils/notificationSound";
 import { useEffect, useState } from "react";
 import { ErrorResponse } from "~/components/Error";
-import { ButtonMain } from "~/components/ui/button";
+import { Button, ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";
 import { Tweet } from "~/components/tweet/Tweet";
 import { useReloadStore } from "~/store/useReloadStore";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 export function CommunityPage() {
   const { slug } = useParams();
@@ -177,12 +182,24 @@ export function CommunityPage() {
             </div>
 
             {/* <!-- Bio --> */}
-            <div className="mb-3">
-              {community?.bio?.split("\\n").map((p) => (
-                <p className="leading-relaxed whitespace-break-spaces" key={p}>
-                  {p}
-                </p>
-              ))}
+            <div className="mb-3 flex items-center gap-x-1">
+              <p className="leading-relaxed whitespace-break-spaces">
+                {community?.bio}
+              </p>
+              {community.is_admin && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline">
+                      <WrapIcon>
+                        <Pencil size={14} />
+                      </WrapIcon>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Add to library</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
             </div>
 
             {/* <!-- Join Date --> */}

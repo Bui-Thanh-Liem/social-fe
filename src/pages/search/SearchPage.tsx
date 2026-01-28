@@ -26,7 +26,7 @@ export function SearchPage() {
           size="lg"
           onChange={setSearchVal}
           className="w-[580px]"
-          placeholder="bui_thanh_liem, #developer, devops engineer"
+          placeholder="liemdev, #developer"
         />
       </div>
 

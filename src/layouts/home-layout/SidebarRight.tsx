@@ -23,7 +23,7 @@ export function SidebarRight() {
           <SearchAdvanced
             size="lg"
             className="w-[300px]"
-            placeholder="bui_thanh_liem, #developer"
+            placeholder="liemdev, #developer"
           />
         )}
 

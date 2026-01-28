@@ -33,8 +33,6 @@ export function ProfileMedia({
     page: page.toString(),
   });
 
-  console.log("ProfileMedia data:", data);
-
   // Effect để xử lý khi có data mới
   useEffect(() => {
     if (data?.metadata?.items) {
@@ -42,8 +40,6 @@ export function ProfileMedia({
       if (page === 1) {
         // Nếu là trang đầu tiên, replace toàn bộ
         setTweets(() => {
-          console.log("Setting initial media for profile:", profile_id);
-          console.log("New media:", newMedia);
           return newMedia;
         });
       } else {

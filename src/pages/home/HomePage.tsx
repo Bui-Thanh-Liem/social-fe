@@ -168,7 +168,7 @@ export function HomePage() {
       {/* Scrollable Content */}
       <div ref={containerRef} className="flex-1 overflow-y-auto scrollbar-hide">
         <div className="px-4 pt-4">
-          <Tweet />
+          <Tweet community={communityId || ""} />
         </div>
         <div className="border-b border-gray-100" />
         {Object.values(EFeedType).includes(formatTypeText(hash)) ? (

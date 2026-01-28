@@ -303,7 +303,7 @@ export function SidebarLeft() {
           contentBtn="Đăng bài"
           onSuccess={onSuccessPost}
           tweetType={ETweetType.Tweet}
-          placeholder="Có chuyện gì thế ?"
+          placeholder="Có chuyện gì thế ? @liemdev, #developer"
         />
       </DialogMain>
 
