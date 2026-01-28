@@ -1,5 +1,12 @@
 import { LoaderCircle, Send } from "lucide-react";
-import { useCallback, useEffect, useRef, useState, useTransition } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useGetMultiMessages } from "~/apis/useFetchMessages";
@@ -52,6 +59,7 @@ export function MessageView({
   onBack: () => void;
 }) {
   //
+  const uploadId = useId();
   const { user } = useUserStore();
   const { onlUserIds } = useOnlStore();
   const { activeId } = useConversationActiveStore();
@@ -311,7 +319,7 @@ export function MessageView({
       </div>
 
       <div className="flex-1 flex flex-col">
-        <div className="px-4 pt-2 h-[calc(100vh-260px)] overflow-y-auto overflow-x-hidden">
+        <div className="px-4 pt-2 h-[calc(100vh-300px)] lg:h-[calc(100vh-260px)] overflow-y-auto overflow-x-hidden">
           {/* Loading khi load thêm */}
           {isLoading ? (
             <div className="p-3">
@@ -370,7 +378,7 @@ export function MessageView({
                 </WrapIcon>
                 <WrapIcon className="hover:bg-blue-100/60">
                   <label
-                    htmlFor="image-upload-in-chat"
+                    htmlFor={uploadId}
                     className={cn(
                       "cursor-pointer",
                       isPending ? "pointer-events-none" : "",
@@ -382,7 +390,7 @@ export function MessageView({
                       multiple
                       type="file"
                       className="hidden"
-                      id="image-upload-in-chat"
+                      id={uploadId}
                       onChange={handleFileSelect}
                       accept="image/jpeg,image/png,image/gif,image/webp,video/mp4,video/webm,video/mov,video/avi,video/quicktime"
                     />
@@ -467,7 +475,7 @@ export function PreviewMediaMulti({
         })}
 
       {openCarousel && mediaItems?.length > 0 && (
-        <Carousel className="w-[25vw] h-[240px] bg-sky-100 p-4 rounded-2xl absolute bottom-16 right-1/2 translate-x-1/2">
+        <Carousel className="w-[25vw] h-[240px] bg-sky-100 p-4 rounded-2xl absolute bottom-16 right-1/2 translate-x-1/2 hidden md:flex">
           <CarouselContent className="h-full">
             {mediaItems.map((item, i) => (
               <CarouselItem
@@ -500,8 +508,6 @@ export function PreviewMediaMulti({
               </CarouselItem>
             ))}
           </CarouselContent>
-          {/* <CarouselPrevious />
-          <CarouselNext /> */}
         </Carousel>
       )}
     </>

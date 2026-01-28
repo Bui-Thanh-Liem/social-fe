@@ -135,7 +135,7 @@ export function OwnerTab() {
         </div>
       </div>
 
-      <div className="overflow-y-auto h-[calc(100vh-250px)] lg:h-[calc(100vh-180px)] px-4">
+      <div className="overflow-y-auto h-[calc(100vh-250px)] lg:h-[calc(100vh-160px)] px-4">
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">

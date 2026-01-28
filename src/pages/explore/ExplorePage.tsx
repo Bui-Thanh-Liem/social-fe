@@ -1,26 +1,15 @@
-import { ArrowLeftIcon } from "lucide-react";
-import { useState } from "react";
 import { SearchAdvanced } from "~/components/search-advanced/SearchAdvanced";
 import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/WrapIcon";
 import { ForYouTab } from "./for-you-tab/ForYouTab";
 import { TrendingTab } from "./trending-tab/TrendingTab";
 
 export function ExplorePage() {
-  const [searchVal, setSearchVal] = useState("");
-
   return (
     <div>
       <div className="px-4 pt-2 flex items-center gap-3">
-        {searchVal && (
-          <WrapIcon onClick={() => setSearchVal("")}>
-            <ArrowLeftIcon />
-          </WrapIcon>
-        )}
         <SearchAdvanced
           size="lg"
-          onChange={setSearchVal}
-          className="w-[580px]"
+          className="md:w-[580px]"
           placeholder="liemdev, #developer"
         />
       </div>

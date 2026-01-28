@@ -74,7 +74,7 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
           className="rounded-2xl w-60 px-0 py-2"
         >
           <DropdownMenuItem
-            className="cursor-pointer h-10 px-3 font-semibold"
+            className="cursor-pointer h-10 px-3 font-semibold hidden lg:flex"
             onClick={onSeeComment}
           >
             <Eye strokeWidth={2} className="w-6 h-6" color="#000" />
