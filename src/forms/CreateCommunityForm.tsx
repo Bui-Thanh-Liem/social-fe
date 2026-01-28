@@ -160,14 +160,14 @@ export function CreateCommunityForm({
     startTransition(async () => {
       if (!data.category && !categoryText) {
         toastSimple(
-          "Danh mục / dịch vụ không được để trống, bạn có thể tạo mới hoặc chọn mục đã có sẵn.",
+          "Lĩnh vực không được để trống, bạn có thể tạo mới hoặc chọn mục đã có sẵn.",
           "error",
         );
         return;
       }
 
       if (categoryText.length > 10) {
-        toastSimple("Danh mục / dịch vụ tối đa 16 kí tự.", "error");
+        toastSimple("Lĩnh vực tối đa 16 kí tự.", "error");
         return;
       }
 

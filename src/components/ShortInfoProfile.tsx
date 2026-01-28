@@ -34,13 +34,13 @@ export function ShortInfoProfile({
 
   const isOwnProfile = useMemo(
     () => user?._id === profile?._id,
-    [profile?._id, user?._id]
+    [profile?._id, user?._id],
   );
 
   return (
     <HoverCard openDelay={200}>
       <HoverCardTrigger asChild>{children}</HoverCardTrigger>
-      <HoverCardContent className="w-72 p-4 bg-white border rounded-2xl shadow-lg overflow-hidden">
+      <HoverCardContent className="w-80 p-4 bg-white border rounded-2xl shadow-lg overflow-hidden">
         <div className="flex items-center justify-between">
           <AvatarMain
             src={profile?.avatar?.url}
@@ -57,7 +57,7 @@ export function ShortInfoProfile({
           <NameItemUser user={profile} />
           <p className="text-sm text-gray-500">{profile?.username}</p>
         </div>
-        <div className="text-sm mt-1.5">
+        <div className="text-sm mt-1.5 line-clamp-3">
           {profile?.bio?.split("\\n").map((p) => (
             <p className="leading-relaxed" key={p}>
               {p}

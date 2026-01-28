@@ -50,16 +50,18 @@ const DEFAULT_VALUES: CreateTweetDto = {
 
 export function Tweet({
   tweet,
+  community,
   onSuccess,
-  tweetType = ETweetType.Tweet,
   contentBtn = "Đăng Bài",
+  tweetType = ETweetType.Tweet,
   placeholder = "Có chuyện gì thế ? @bui_thanh_liem, #developer",
 }: {
   tweet?: ITweet;
   placeholder?: string;
   contentBtn?: string;
-  onSuccess?: (res?: ResCreateTweet) => void;
+  community?: string;
   tweetType?: ETweetType;
+  onSuccess?: (res?: ResCreateTweet) => void;
 }) {
   const { user } = useUserStore();
   const apiCreateTweet = useCreateTweet();
@@ -83,7 +85,7 @@ export function Tweet({
   const [audience, setAudience] = useState<ETweetAudience>(
     ETweetAudience.Everyone,
   );
-  const [communityId, setCommunityId] = useState("");
+  const [communityId, setCommunityId] = useState(community || "");
 
   const { insertEmoji } = useEmojiInsertion(textareaRef);
 
@@ -410,7 +412,10 @@ export function Tweet({
             {/*  */}
             {(tweetType === ETweetType.Tweet ||
               tweetType === ETweetType.QuoteTweet) && (
-              <TweetCommunity onchange={setCommunityId} />
+              <TweetCommunity
+                onchange={setCommunityId}
+                communityId={communityId}
+              />
             )}
 
             {/*  */}

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { CreateCommunityForm } from "~/forms/CreateCommunityForm";
-import { CreateGroupIcon } from "~/components/icons/create-group";
 import { DialogMain } from "~/components/ui/dialog";
 import { WrapIcon } from "~/components/WrapIcon";
+import { Plus } from "lucide-react";
 
 export function CreateCommunity() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +10,7 @@ export function CreateCommunity() {
   return (
     <>
       <WrapIcon onClick={() => setIsOpen(true)} className="p-1 border">
-        <CreateGroupIcon size={26} />
+        <Plus size={22} />
       </WrapIcon>
 
       {/*  */}

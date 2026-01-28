@@ -120,10 +120,17 @@ export const useGetCommunityTweets = (
     isMedia?: "1" | "0";
   },
 ) => {
+  const { reloadKey } = useReloadStore();
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
   return useQuery({
-    queryKey: ["tweets", "community", queries?.community_id, normalizedQueries],
+    queryKey: [
+      "tweets",
+      "community",
+      reloadKey,
+      queries?.community_id,
+      normalizedQueries,
+    ],
     queryFn: () => {
       // Tạo query string từ queries object
       const queryString = queries ? buildQueryString(queries) : "";

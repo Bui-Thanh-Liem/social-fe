@@ -63,7 +63,7 @@ export function CommunityRow({
     <div key={community._id} className="hover:bg-gray-100 px-4 py-3">
       <div className="flex justify-between items-center">
         <div className="flex-1 gap-4 flex">
-          <div className="w-32 h-24 rounded-xl overflow-hidden">
+          <div className="w-32 h-24 rounded-xl overflow-hidden border border-gray-50">
             {community?.cover ? (
               <img
                 alt="Cover Photo"

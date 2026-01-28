@@ -12,10 +12,12 @@ import {
 
 export function TweetCommunity({
   onchange,
+  communityId,
 }: {
+  communityId?: string;
   onchange: (community_id: string) => void;
 }) {
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedOption, setSelectedOption] = useState(communityId || "");
 
   useEffect(() => {
     onchange(selectedOption);
@@ -37,7 +39,7 @@ export function TweetCommunity({
 
   //
   const selectedOptionData = communities.find(
-    (opt) => opt._id === selectedOption
+    (opt) => opt._id === selectedOption,
   ) as any;
 
   return (
