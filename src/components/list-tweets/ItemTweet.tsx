@@ -41,6 +41,7 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
 
   //
   function handleClickMedia() {
+    if (window.innerWidth < 768) return; // mobile
     open();
     if (tweet) {
       setTweet(tweet);

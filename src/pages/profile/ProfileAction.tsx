@@ -31,6 +31,7 @@ import {
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 import { useCountViewLinkBookmarkInWeek } from "~/apis/useFetchTweet";
 import type { ChartData } from "recharts/types/state/chartDataSlice";
+import { useNavigate } from "react-router-dom";
 
 interface IProfileActiveProps {
   isOwnProfile: boolean;
@@ -68,6 +69,7 @@ export function ProfileEdit({ currentUser }: { currentUser: IUser }) {
 //
 export function ProfileAction({ profile, isOwnProfile }: IProfileActiveProps) {
   const { user } = useUserStore();
+  const navigate = useNavigate();
 
   //
   const logout = useLogout();
@@ -98,6 +100,14 @@ export function ProfileAction({ profile, isOwnProfile }: IProfileActiveProps) {
     });
     if (res.statusCode === 200 && res?.metadata) {
       setConversation(res?.metadata);
+
+      // Mobile không mở hộp chat
+      if (window.innerWidth < 768) {
+        navigate("/messages");
+        return;
+      }
+
+      // Mở hộp chat
       open();
     }
   }
