@@ -1,19 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { BookmarkIcon } from "~/components/icons/bookmark";
-import { CommunityIcon } from "~/components/icons/communities";
 import { ExploreIcon } from "~/components/icons/explore";
 import { HomeIcon } from "~/components/icons/home";
 import { MessageIcon } from "~/components/icons/messages";
 import { NotificationIcon } from "~/components/icons/notifications";
-import { ProfileIcon } from "~/components/icons/profile";
 import type { NavItem } from "~/layouts/home-layout/SidebarLeft";
 import { useReloadStore } from "~/store/useReloadStore";
-import { useUserStore } from "~/store/useUserStore";
 import { WrapIcon } from "../../components/WrapIcon";
 import React, { useEffect, useState } from "react";
 import { ENotificationType } from "~/shared/enums/type.enum";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
+import { SidebarTriggerMobile } from "../../components/sidebar-mobile/SidebarTriggerMobile";
 
 export function NavForMobile() {
   const { pathname } = useLocation();
@@ -21,7 +18,6 @@ export function NavForMobile() {
 
   //
   const { triggerReload } = useReloadStore();
-  const { user } = useUserStore();
 
   //
   const { unread } = useUnreadNotiStore();
@@ -47,21 +43,9 @@ export function NavForMobile() {
   //
   const navs: NavItem[] = [
     {
-      name: "Khám phá",
-      icon: <ExploreIcon />,
-      path: "/explore",
-    },
-    {
-      name: "Cộng đồng",
-      icon: <CommunityIcon />,
-      path: "/communities",
-    },
-
-    {
-      name: "Thông báo",
-      icon: <NotificationIcon />,
-      path: `/notifications#${ENotificationType.Community}`,
-      countNoti: unreadCountNoti,
+      name: "Hồ sơ",
+      icon: <SidebarTriggerMobile />,
+      path: "#",
     },
     {
       name: "Trang chủ",
@@ -69,22 +53,21 @@ export function NavForMobile() {
       path: "/home",
     },
     {
-      name: "Dấu trang",
-      icon: <BookmarkIcon />,
-      path: "/bookmarks",
+      name: "Khám phá",
+      icon: <ExploreIcon />,
+      path: "/explore",
     },
-
+    {
+      name: "Thông báo",
+      icon: <NotificationIcon />,
+      path: `/notifications#${ENotificationType.Community}`,
+      countNoti: unreadCountNoti,
+    },
     {
       name: "Tin nhắn",
       icon: <MessageIcon />,
       path: "/messages",
       countNoti: unreadCountConv,
-    },
-
-    {
-      name: "Hồ sơ",
-      icon: <ProfileIcon />,
-      path: user?.username ? `/${user.username}` : "/profile",
     },
   ];
 

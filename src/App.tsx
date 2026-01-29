@@ -29,6 +29,7 @@ import { TrendingPage } from "./pages/trending/TrendingPage";
 import { TweetDetailPage } from "./pages/tweet-detail/TweetDetailPage";
 import { ProtectTweetDetail } from "./components/ProtectTweetDetail";
 import NotFound from "./components/NotFound";
+import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
 
 // Router config
 const router = createBrowserRouter([
@@ -107,31 +108,20 @@ const queryClient = new QueryClient({
 });
 
 export function App() {
-  // useEffect(() => {
-  //   const handleVisibility = () => {
-  //     if (document.hidden) {
-  //       socket.disconnect(); // user rời tab
-  //     } else {
-  //       socket.connect(); // user quay lại tab
-  //     }
-  //   };
-
-  //   document.addEventListener("visibilitychange", handleVisibility);
-
-  //   return () => {
-  //     document.removeEventListener("visibilitychange", handleVisibility);
-  //   };
-  // }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
-      {/*  */}
-      <RouterProvider router={router} />
+      <SidebarProvider defaultOpen={false}>
+        {/*  */}
+        <main>
+          {/*  */}
+          <RouterProvider router={router} />
+        </main>
 
-      {/* Dev tools chỉ hiện trong development */}
-      {process.env.NODE_ENV === "development" && (
-        <ReactQueryDevtools initialIsOpen={false} />
-      )}
+        {/* Dev tools chỉ hiện trong development */}
+        {process.env.NODE_ENV === "development" && (
+          <ReactQueryDevtools initialIsOpen={false} />
+        )}
+      </SidebarProvider>
     </QueryClientProvider>
   );
 }

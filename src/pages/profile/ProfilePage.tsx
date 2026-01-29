@@ -104,12 +104,8 @@ export function ProfilePage() {
     <div>
       {/* Header */}
       <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className="flex h-12 items-center gap-4">
-          <WrapIcon
-            onClick={() => navigate(-1)}
-            aria-label="Quay lại"
-            className="hidden lg:block"
-          >
+        <div className=" h-12 items-center gap-4 hidden lg:flex">
+          <WrapIcon onClick={() => navigate(-1)} aria-label="Quay lại">
             <ArrowLeftIcon color="#000" />
           </WrapIcon>
           <p className="font-semibold text-[20px]">{profile?.name}</p>

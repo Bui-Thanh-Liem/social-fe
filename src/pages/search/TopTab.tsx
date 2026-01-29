@@ -194,7 +194,7 @@ export function TopTab() {
         {/*  */}
         {!users.length && !isLoading && (
           <div className="flex justify-center items-center h-20">
-            <p className="text-gray-500 text-lg">
+            <p className="text-gray-500 text-lg text-center">
               Không có người dùng nào phù hợp với <strong>"{q}"</strong>
             </p>
           </div>

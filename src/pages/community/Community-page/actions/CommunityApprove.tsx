@@ -178,9 +178,6 @@ export function CommunityApprove({
                         <p className="text-xs text-muted-foreground">
                           {user.username}
                         </p>
-                        {user.bio && (
-                          <p className="line-clamp-3 max-w-[95%]">{user.bio}</p>
-                        )}
                       </div>
                     </div>
                   </ItemMedia>

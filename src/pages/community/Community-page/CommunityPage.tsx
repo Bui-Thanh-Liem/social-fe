@@ -115,7 +115,9 @@ export function CommunityPage() {
             <WrapIcon onClick={() => navigate(-1)}>
               <ArrowLeftIcon color="#000" />
             </WrapIcon>
-            <p className="font-semibold text-[20px]">{community?.name}</p>
+            <p className="font-semibold text-[18px] md:text-[20px]">
+              {community?.name}
+            </p>
             {community.is_joined && (
               <ButtonMain
                 size="sm"
@@ -146,8 +148,8 @@ export function CommunityPage() {
           {/* Community Section */}
           <div className="px-4 mt-4">
             {/* <!-- Name and Category --> */}
-            <div className="flex justify-between">
-              <h2 className="text-xl font-bold flex items-center gap-1">
+            <div className="justify-between flex">
+              <h2 className="text-xl font-bold items-center gap-1 hidden md:flex">
                 {community?.name}{" "}
                 <VerifyIcon
                   active={!!community?.verify}

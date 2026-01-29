@@ -13,6 +13,7 @@ import { useUserStore } from "~/store/useUserStore";
 import { SidebarLeft } from "./SidebarLeft";
 import { SidebarRight } from "./SidebarRight";
 import { NavForMobile } from "~/layouts/home-layout/NavForMobile";
+import { AppSidebarMobile } from "~/components/sidebar-mobile/AppSidebarMobile";
 
 export function HomeLayout() {
   const { isOpen } = useChatBoxStore();
@@ -37,6 +38,9 @@ export function HomeLayout() {
   //
   return (
     <div className="w-full">
+      {/*  */}
+      <AppSidebarMobile />
+
       <div className="mx-auto flex h-screen overflow-hidden">
         <aside className="hidden lg:block w-0 lg:w-[22%] lg:pr-4 h-screen">
           <SidebarLeft />

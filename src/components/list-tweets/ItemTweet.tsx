@@ -158,7 +158,7 @@ export const TweetItem = ({
 
   return (
     <div key={_id} className="px-4 py-2 group hover:bg-gray-50 relative group">
-      {/* Header với thông tin người dùng */}
+      {/*  */}
       {community?.name && (
         <div>
           <Link
@@ -171,6 +171,8 @@ export const TweetItem = ({
           <StatusTag status={tweet.status} className="inline-block ml-4" />
         </div>
       )}
+
+      {/* Header với thông tin người dùng */}
       <div className="flex items-center mb-3">
         <AvatarMain
           src={author.avatar?.url}
@@ -198,6 +200,7 @@ export const TweetItem = ({
         </div>
       </div>
 
+      {/*  */}
       <div className="ml-14">
         {/* Nội dung tweet */}
         {content && tweet.type !== ETweetType.Retweet && (

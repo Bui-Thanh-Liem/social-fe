@@ -135,7 +135,7 @@ export function ProfileTweets({
 
       {/* Tweets list */}
       {allTweets.length > 0 && (
-        <div className="space-y-6">
+        <div className="space-y-6 overflow-x-hidden">
           {allTweets.map((tweet, index: number) => (
             <span key={tweet._id}>
               <TweetItem

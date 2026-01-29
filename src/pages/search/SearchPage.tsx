@@ -1,8 +1,5 @@
-import { ArrowLeftIcon } from "lucide-react";
-import { useState } from "react";
 import { SearchAdvanced } from "~/components/search-advanced/SearchAdvanced";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/WrapIcon";
 import { useUpdateQuery } from "~/hooks/useUpdateQuery";
 import { MediaTab } from "./MediaTab";
 import { PeopleTab } from "./PeopleTab";
@@ -11,21 +8,14 @@ import { TweetTab } from "./TweetTab";
 import { CommunityTab } from "./CommunityTab";
 
 export function SearchPage() {
-  const [searchVal, setSearchVal] = useState("");
   const updateQuery = useUpdateQuery();
 
   return (
     <div>
       <div className="px-4 pt-2 flex items-center gap-3">
-        {searchVal && (
-          <WrapIcon onClick={() => setSearchVal("")}>
-            <ArrowLeftIcon />
-          </WrapIcon>
-        )}
         <SearchAdvanced
           size="lg"
-          onChange={setSearchVal}
-          className="w-[580px]"
+          className="md:w-[580px]"
           placeholder="liemdev, #developer"
         />
       </div>
@@ -71,7 +61,7 @@ export function SearchPage() {
               </TabsTrigger>
 
               <TabsTrigger
-                className="cursor-pointer"
+                className="cursor-pointer line-clamp-1"
                 value="media"
                 onClick={() =>
                   updateQuery({ add: { f: "media" }, remove: ["t"] })

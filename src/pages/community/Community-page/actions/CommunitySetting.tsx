@@ -270,7 +270,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
         onOpenChange={setIsOpen}
       >
         {/*  */}
-        <div className="p-3 rounded-2xl border shadow grid grid-cols-3">
+        <div className="p-3 rounded-2xl border shadow grid grid-cols-1 md:grid-cols-3 gap-y-6 md:gap-y-0">
           {/*  */}
           <div>
             <p className="mb-3 font-medium">Ai được xem hoạt động ?</p>
@@ -347,7 +347,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-x-4 mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 md:gap-y-0 gap-x-4 mt-6">
           {/*  */}
           <div className="p-3 rounded-2xl border shadow">
             <p className="mb-2 font-medium mt-3">Cài đặt tham gia</p>
@@ -358,7 +358,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
                 onValueChange={handleChangeMembership}
               />
             </div>
-            <p className="mb-2 font-medium">Cài đặt hiển thị</p>
+            <p className="my-2 font-medium">Cài đặt hiển thị</p>
             <div className="ml-4">
               <RadioGroupSetting
                 value={community.visibility_type}

@@ -1,10 +1,16 @@
-export function ProfileIcon({ active = false }) {
+export function ProfileIcon({
+  active = false,
+  size,
+}: {
+  active?: boolean;
+  size?: number;
+}) {
   return (
     <>
       {!active ? (
         <svg
-          width={24}
-          height={24}
+          width={size || 24}
+          height={size || 24}
           viewBox="0 0 24 24"
           aria-hidden="true"
           className="r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-18jsvk2 r-lwhw9o r-cnnz9e"

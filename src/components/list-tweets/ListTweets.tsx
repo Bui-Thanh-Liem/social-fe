@@ -148,7 +148,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl">
       {/* Loading state cho lần load đầu tiên */}
       {isLoading && page === 1 && <SkeletonTweet />}
 

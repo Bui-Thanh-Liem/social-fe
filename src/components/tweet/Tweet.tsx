@@ -408,7 +408,7 @@ export function Tweet({
             removeMedia={removeMedia}
           />
 
-          <div className="my-3 flex justify-between items-center gap-2">
+          <div className="my-3 flex justify-between md:items-center gap-2 flex-col md:flex-row">
             {/*  */}
             {(tweetType === ETweetType.Tweet ||
               tweetType === ETweetType.QuoteTweet) && (
@@ -443,7 +443,7 @@ export function Tweet({
               tweetType === ETweetType.QuoteTweet ? "" : "",
             )}
           >
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 flex-wrap md:flex-nowrap">
               <WrapIcon className="hover:bg-blue-100/60">
                 <label
                   htmlFor={inputId}

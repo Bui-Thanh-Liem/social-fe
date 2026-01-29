@@ -86,7 +86,7 @@ export function CommunityTab() {
       {/*  */}
       {!communities.length && !loading && (
         <div className="flex justify-center items-center h-20">
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-500 text-lg text-center">
             Không có cộng đồng nào phù hợp với <strong>"{q}"</strong>
           </p>
         </div>

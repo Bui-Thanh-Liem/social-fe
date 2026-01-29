@@ -119,9 +119,9 @@ export function HomePage() {
   }
 
   return (
-    <main className="relative h-screen flex flex-col">
+    <main className="relative h-screen overflow-y-auto scrollbar-hide">
       {/* Fixed Navigation Bar */}
-      <div className="h-14 bg-white/50 backdrop-blur-md z-30 flex border-b border-gray-200 flex-shrink-0 cursor-grab">
+      <div className="sticky top-0 h-14 bg-white/50 backdrop-blur-md z-30 flex border-b border-gray-200 flex-shrink-0 cursor-grab">
         <div
           ref={navRef}
           className="flex w-full h-full overflow-x-auto scrollbar-hide"
