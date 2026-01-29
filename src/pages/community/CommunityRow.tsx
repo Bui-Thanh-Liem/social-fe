@@ -149,7 +149,7 @@ export function CommunityRowSkeleton() {
         <div className="flex-1 gap-4 flex">
           {/* cover */}
           <div
-            className="w-32 h-24 rounded-xl overflow-hidden bg-gray-200 animate-pulse"
+            className="w-20 h-24 rounded-xl overflow-hidden bg-gray-200 animate-pulse"
             aria-hidden="true"
           />
 

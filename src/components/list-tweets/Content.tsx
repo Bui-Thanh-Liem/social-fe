@@ -86,7 +86,7 @@ export function ContentExpanded({
       )} */}
 
       {/*  */}
-      {(`content`.split("\n").length > 10 || content.length > 500) && (
+      {(content.split("\n").length > 10 || content.length > 500) && (
         <div className="flex my-1">
           <button
             onClick={() => setIsExpanded(!isExpanded)}

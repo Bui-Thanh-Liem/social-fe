@@ -157,8 +157,8 @@ export const TweetItem = ({
   const quoteTweet_user = quoteTweet.user_id as unknown as IUser;
 
   return (
-    <div key={_id} className="px-4 py-2 group hover:bg-gray-50 relative group">
-      {/*  */}
+    <div key={_id} className="px-4 py-2 group hover:bg-gray-50 relative">
+      {/* thông tin cộng đồng */}
       {community?.name && (
         <div>
           <Link
@@ -172,7 +172,7 @@ export const TweetItem = ({
         </div>
       )}
 
-      {/* Header với thông tin người dùng */}
+      {/* thông tin người dùng */}
       <div className="flex items-center mb-3">
         <AvatarMain
           src={author.avatar?.url}
@@ -200,8 +200,8 @@ export const TweetItem = ({
         </div>
       </div>
 
-      {/*  */}
-      <div className="ml-14">
+      {/* thông tin bài viết */}
+      <div className="ml-0 md:ml-14">
         {/* Nội dung tweet */}
         {content && tweet.type !== ETweetType.Retweet && (
           <ContentExpanded
@@ -246,7 +246,7 @@ export const TweetItem = ({
             </div>
 
             {/* Nội dung tweet */}
-            <div className="ml-14">
+            <div className="ml-0 md:ml-14">
               {quoteTweet?.content && (
                 <ContentExpanded
                   bg={quoteTweet?.bgColor}
@@ -255,6 +255,7 @@ export const TweetItem = ({
                   mentions={quoteTweet?.mentions as unknown as IUser[]}
                 />
               )}
+
               {/* Medias content */}
               <MediaContent tweet={quoteTweet} />
             </div>
@@ -339,8 +340,8 @@ function TweetAction({
             <button
               onClick={(e) => e.stopPropagation()}
               className="absolute inset-0 flex items-center justify-end rounded-full outline-0
-                     opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto
-                     transition-opacity duration-150"
+                     opacity-100 md:opacity-0 md:group-hover:opacity-100 md:pointer-events-none md:group-hover:pointer-events-auto
+                     transition-opacity duration-150 "
             >
               <WrapIcon>
                 <DotIcon size={16} />
