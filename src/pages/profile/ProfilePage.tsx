@@ -148,13 +148,13 @@ export function ProfilePage() {
 
           {/* <!-- Bio --> */}
           <div className="mb-3">
-            <p className="leading-relaxed whitespace-break-spaces">
+            <p className="leading-relaxed whitespace-break-spaces text-sm md:text-base">
               {profile?.bio}
             </p>
           </div>
 
           {/* <!-- Location, Website and Join Date --> */}
-          <div className="flex items-center space-x-4 text-gray-500 text-sm mb-3">
+          <div className="flex space-x-4 text-gray-500 text-sm mb-3 flex-col md:flex-row md:items-center">
             {profile?.location && (
               <div className="flex items-center space-x-1">
                 <MapPin className="w-4 h-4" />

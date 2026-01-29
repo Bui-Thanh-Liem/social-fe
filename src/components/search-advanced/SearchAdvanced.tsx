@@ -95,7 +95,7 @@ export function SearchAdvanced({
 
   //
   function onKeydown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.code === "Enter") {
+    if (e.key === "Enter" || e.code === "Enter") {
       if (!handleCheckPermission()) return;
 
       if (searchVal) {
@@ -178,9 +178,10 @@ export function SearchAdvanced({
           <Input
             type="text"
             value={searchVal}
+            enterKeyHint="search"
+            onKeyDown={onKeydown}
             placeholder={placeholder}
             onChange={(e) => onChangeSearch(e.target.value)}
-            onKeyDown={onKeydown}
             className={cn("rounded-full", sizeStyles[size])}
           />
 
