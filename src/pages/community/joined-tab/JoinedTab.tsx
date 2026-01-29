@@ -115,7 +115,7 @@ export function JoinedTab() {
           />
         </div>
 
-        <div className="w-0 lg:w-[50%]">
+        <div className="w-[50%] hidden md:block">
           <Carousel setApi={setApi} className="w-[82%]">
             <CarouselContent className="-ml-1">
               {carouselItems.map((_) => (

@@ -45,9 +45,14 @@ export function SearchAdvanced({
 
   //
   const navigate = useNavigate();
-  const { hash } = useLocation();
+  const { pathname, hash } = useLocation();
   const [searchParams] = useSearchParams();
-  const q = searchParams.get("q") || hash;
+
+  // Sẽ code lại sau khi có time
+  const _hash =
+    pathname === "/notifications" && hash === "#community" ? undefined : hash;
+
+  const q = searchParams.get("q") || _hash;
 
   //
   const [open, setOpen] = useState(false);
