@@ -48,7 +48,7 @@ function SkeletonNotiItem() {
   );
 }
 
-//
+// --- Noti Item ---
 function NotiItem({ noti, onClick, onDelete }: Props) {
   const navigate = useNavigate();
   const [read, setRead] = useState(noti?.isRead);
@@ -143,7 +143,7 @@ function NotiItem({ noti, onClick, onDelete }: Props) {
       </div>
 
       <WrapIcon
-        className="p-[3px] absolute top-1.5 right-1.5 bg-transparent hidden group-hover:inline-block"
+        className="p-[3px] absolute top-1.5 right-1.5 bg-transparent inline-block md:hidden md:group-hover:inline-block"
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
@@ -156,6 +156,7 @@ function NotiItem({ noti, onClick, onDelete }: Props) {
   );
 }
 
+// --- Tab Content ---
 export function TabContent({
   type,
   emptyText,

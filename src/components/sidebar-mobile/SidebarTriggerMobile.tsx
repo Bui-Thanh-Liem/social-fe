@@ -6,7 +6,7 @@ export function SidebarTriggerMobile() {
   const { user: profile } = useUserStore();
 
   return (
-    <div className="md:hidden h-7">
+    <div className="h-7">
       <SidebarTrigger
         icon={
           <AvatarMain

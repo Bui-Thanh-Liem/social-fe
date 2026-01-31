@@ -75,7 +75,12 @@ export function ContentExpanded({
     >
       {/*  */}
       <div
-        className={`my-3 leading-relaxed whitespace-break-spaces ${isExpanded ? "" : "line-clamp-10"}`}
+        className={cn(
+          "my-3 leading-relaxed whitespace-pre-wrap overflow-hidden",
+          // Thêm 2 class "cứu cánh" này:
+          "break-words [word-break:break-word] [hyphens:auto]",
+          isExpanded ? "" : "line-clamp-14",
+        )}
       >
         <Content content={content} mentions={mentions as unknown as IUser[]} />
       </div>
@@ -86,7 +91,7 @@ export function ContentExpanded({
       )} */}
 
       {/*  */}
-      {(content.split("\n").length > 10 || content.length > 500) && (
+      {(content.split("\n").length > 14 || content.length > 500) && (
         <div className="flex my-1">
           <button
             onClick={() => setIsExpanded(!isExpanded)}

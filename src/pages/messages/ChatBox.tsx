@@ -95,7 +95,7 @@ export default function ChatBox() {
   //
   const { data } = useGetMultiMessages(conversation?._id || "", {
     page: "1",
-    limit: "100",
+    limit: "200",
   });
 
   //

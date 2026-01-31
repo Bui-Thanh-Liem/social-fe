@@ -81,7 +81,7 @@ export function TrendingPage() {
             {highlight?.map((h, i) => (
               <li key={h._id}>
                 <p>
-                  <p className="leading-relaxed whitespace-break-spaces">
+                  <p className="leading-relaxed whitespace-break-spaces break-words [word-break:break-word] [hyphens:auto]">
                     <Content content={h.content} mentions={[]} />
                   </p>
                   <Avatar

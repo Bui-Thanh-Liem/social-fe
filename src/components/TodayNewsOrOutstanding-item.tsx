@@ -58,7 +58,7 @@ export function TodayNewsOrOutstandingItem({
       <div className="flex-1">
         <p
           className={cn(
-            "text-sm leading-snug font-semibold",
+            "text-sm leading-snug font-semibold break-words [word-break:break-word] [hyphens:auto]",
             !isMedia ? "line-clamp-1" : "line-clamp-3",
           )}
         >
@@ -85,13 +85,13 @@ export function TodayNewsOrOutstandingItem({
       {isMedia &&
         (item.media?.url ? (
           <div className="w-32 h-20">
-            {item.media?.file_type.includes("video/") ? (
+            {item.media?.file_type?.includes("video/") ? (
               <video
                 src={item.media?.url}
                 controls
                 className="w-full h-full object-cover"
               />
-            ) : item.media?.file_type.includes("image/") ? (
+            ) : item.media?.file_type?.includes("image/") ? (
               <img
                 src={item.media?.url}
                 alt={item.media?.url}
