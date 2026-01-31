@@ -90,7 +90,7 @@ export function MessageView({
   //
   const { data, isLoading } = useGetMultiMessages(conversation?._id || "", {
     page: page.toString(),
-    limit: "50",
+    limit: "100",
   });
 
   // Mỗi lần fetch API xong thì merge vào state (loại bỏ duplicate)
@@ -345,11 +345,14 @@ export function MessageView({
 
           {/*  */}
           <div className="flex flex-col gap-3">
-            {messages.map((msg) => {
-              return (
-                <MessageItem key={msg._id} msg={msg} user={user as IUser} />
-              );
-            })}
+            {messages
+              .slice()
+              .reverse()
+              .map((msg) => {
+                return (
+                  <MessageItem key={msg._id} msg={msg} user={user as IUser} />
+                );
+              })}
             <div ref={endOfMessagesRef} />
           </div>
 
