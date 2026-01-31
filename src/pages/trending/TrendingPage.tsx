@@ -140,7 +140,7 @@ export function TrendingPage() {
 
           {/* End of list */}
           {limit >= relevant_ids.length && !isFetching && (
-            <div className="text-center py-8">
+            <div className="text-center py-8 pb-12">
               <p className="text-gray-500">
                 🎉 Bạn đã xem hết tất cả nội dung!
               </p>
