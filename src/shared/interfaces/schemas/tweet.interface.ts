@@ -1,8 +1,14 @@
 import { ETweetAudience } from "~/shared/enums/common.enum";
 import type { ETweetStatus } from "~/shared/enums/status.enum";
 import { ETweetType } from "~/shared/enums/type.enum";
-import type { IMedia } from "./media.interface";
 import type { IBase } from "./base.interface";
+import type { IMedia } from "./media.interface";
+
+export interface ICodesTweet {
+  _id: string;
+  code: string;
+  langKey: string;
+}
 
 export interface ITweet extends IBase {
   user_id: string;
@@ -18,6 +24,7 @@ export interface ITweet extends IBase {
   user_view: number;
   textColor: string; // màu chữ
   bgColor: string; // màu nềns
+  codes: ICodesTweet[] | null; // mã code nếu có
 
   //
   community_id: null | string;

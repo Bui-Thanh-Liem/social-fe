@@ -49,8 +49,11 @@ export function SearchAdvanced({
   const [searchParams] = useSearchParams();
 
   // Sẽ code lại sau khi có time
+  const ignoreHash = ["#community", "#mention-like", "#follow", "#other"];
   const _hash =
-    pathname === "/notifications" && hash === "#community" ? undefined : hash;
+    pathname === "/notifications" && ignoreHash.includes(hash)
+      ? undefined
+      : hash;
 
   const q = searchParams.get("q") || _hash;
 

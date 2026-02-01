@@ -277,8 +277,7 @@ export function TweetDetailDrawer() {
                                 className="object-contain w-full h-full"
                                 loading="lazy"
                                 onError={(e) => {
-                                  e.currentTarget.src =
-                                    "/placeholder-image.png"; // Fallback image
+                                  e.currentTarget.src = "/favicon.png"; // Fallback image
                                 }}
                               />
                             ) : (

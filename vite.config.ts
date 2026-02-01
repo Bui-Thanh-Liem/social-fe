@@ -6,7 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   css: {
-    devSourcemap: true,
+    devSourcemap: true, // Set to true if you need CSS source maps in development
   },
   resolve: {
     alias: {
@@ -20,6 +20,6 @@ export default defineConfig({
     port: 3000,
   },
   build: {
-    sourcemap: true,
+    sourcemap: false, // Set to true if you need source maps in production
   },
 });

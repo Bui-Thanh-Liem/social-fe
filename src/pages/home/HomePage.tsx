@@ -119,7 +119,7 @@ export function HomePage() {
   }
 
   return (
-    <main className="relative h-screen overflow-y-auto scrollbar-hide">
+    <main className="relative">
       {/* Fixed Navigation Bar */}
       <div className="sticky top-0 h-14 bg-white/50 backdrop-blur-md z-30 flex border-b border-gray-200 flex-shrink-0 cursor-grab">
         <div
@@ -166,7 +166,10 @@ export function HomePage() {
       </div>
 
       {/* Scrollable Content */}
-      <div ref={containerRef} className="flex-1 overflow-y-auto scrollbar-hide">
+      <div
+        ref={containerRef}
+        className="flex-1 h-[calc(100vh-56px)] overflow-y-auto"
+      >
         <div className="px-4 pt-4">
           <Tweet community={communityId || ""} />
         </div>

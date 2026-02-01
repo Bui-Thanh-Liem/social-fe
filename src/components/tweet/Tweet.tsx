@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Terminal } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateTweet } from "~/apis/useFetchTweet";
@@ -13,6 +14,7 @@ import { useMediaPreviewMulti } from "~/hooks/useMediaPreviewMulti";
 import { useTextareaAutoResize } from "~/hooks/useTextareaAutoResize";
 import { cn } from "~/lib/utils";
 import { CONSTANT_MAX_LENGTH_CONTENT } from "~/shared/constants";
+import { LANG_ARR } from "~/shared/constants/lang-array.constant";
 import {
   CreateTweetDtoSchema,
   type CreateTweetDto,
@@ -24,22 +26,26 @@ import type {
   IMedia,
   PreviewMediaProps,
 } from "~/shared/interfaces/schemas/media.interface";
-import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
+import type {
+  ICodesTweet,
+  ITweet,
+} from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
+import { handleResponse, toastSimpleVerify } from "~/utils/toast";
+import { BgColorTweet } from "../BgColorTweet";
 import { TweetItem } from "../list-tweets/ItemTweet";
+import { TextColorTweet } from "../TextColorTweet";
 import { AvatarMain } from "../ui/avatar";
 import { ButtonMain } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import { CircularProgress } from "../ui/circular-progress";
+import { EditorCode } from "./EditorCode";
 import { HashtagSuggest } from "./HashtagSuggest";
 import { Mentions } from "./Mentions";
 import { TweetCommunity } from "./TweetCommunity";
-import { handleResponse, toastSimpleVerify } from "~/utils/toast";
-import { BgColorTweet } from "../BgColorTweet";
-import { TextColorTweet } from "../TextColorTweet";
 
 // Constants
 const DEFAULT_VALUES: CreateTweetDto = {
@@ -48,6 +54,7 @@ const DEFAULT_VALUES: CreateTweetDto = {
   audience: ETweetAudience.Everyone,
 };
 
+//
 export function Tweet({
   tweet,
   community,
@@ -75,6 +82,7 @@ export function Tweet({
   const [searchHashtag, setSearchHashtag] = useState("");
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
+  const [codes, setCodes] = useState<ICodesTweet[]>([]);
 
   // Mentions
   const [mentionIds, setMentionIds] = useState<string[]>([]);
@@ -196,6 +204,7 @@ export function Tweet({
       triggerReload();
       setTextColor("");
       setBgColor("");
+      setCodes([]);
 
       // ⭐ Reset chiều cao textarea
       if (textareaRef.current) {
@@ -260,6 +269,16 @@ export function Tweet({
     setMentionIds((prev) => [...prev, user._id]);
   }
 
+  // Add code block
+  function onAddCode() {
+    const newCode: ICodesTweet = {
+      _id: Date.now().toString(),
+      code: "",
+      langKey: LANG_ARR[0].key,
+    };
+    setCodes((prev) => [...prev, newCode]);
+  }
+
   // Thực hiện gọi api đăng bài
   const onSubmit = useCallback(
     async (data: CreateTweetDto) => {
@@ -319,6 +338,7 @@ export function Tweet({
               s3_key: m.s3_key || "",
               url: m?.url || "",
             })) || undefined,
+          codes: codes.length ? codes : undefined,
         };
 
         const resCreateTweet = await apiCreateTweet.mutateAsync(tweetData);
@@ -381,6 +401,8 @@ export function Tweet({
             onInput={handleTextareaInput}
             onPaste={handlePaste}
           />
+
+          <EditorCode codes={codes} onChangeCode={setCodes} />
 
           {/* Hashtag Suggest */}
           <HashtagSuggest
@@ -473,6 +495,10 @@ export function Tweet({
 
               <WrapIcon className="hover:bg-blue-100/60">
                 <TextColorTweet onChose={onChoseTextColor} />
+              </WrapIcon>
+
+              <WrapIcon className="hover:bg-blue-100/60" onClick={onAddCode}>
+                <Terminal color="#1d9bf0" size={20} />
               </WrapIcon>
             </div>
 

@@ -72,9 +72,6 @@ export function TweetAudience({
         <div className="px-4 py-3 border-b border-gray-100">
           <h3 className="font-semibold text-gray-900">Ai có thể tương tác ?</h3>
           <p className="text-sm text-gray-500">
-            Bất kỳ ai hoặc những người theo dõi bạn.
-          </p>
-          <p className="text-sm text-gray-500">
             Có thể trả lời bài viết của bạn.
           </p>
         </div>

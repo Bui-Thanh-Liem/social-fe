@@ -131,7 +131,7 @@ export function CommunityPage() {
         </div>
 
         {/*  */}
-        <div className="max-h-screen overflow-y-auto scrollbar-hide">
+        <div className="max-h-screen overflow-y-auto">
           {/* Photo cover */}
           <div className="w-full h-60 border-b border-gray-100">
             {community?.cover ? (

@@ -46,11 +46,11 @@ export type NavItem = {
 };
 
 const images = [
-  "./message.png",
-  "./community.png",
-  "./detail-tweet.png",
-  "./explore.png",
   "./home.png",
+  "./explore.png",
+  "./community.png",
+  "./message.png",
+  "./detail-tweet.png",
 ];
 
 export function SidebarLeft() {
@@ -202,7 +202,7 @@ export function SidebarLeft() {
             <Logo size={40} />
           </WrapIcon>
         </h2>
-        <ul className="space-y-3 text-sm text-gray-700">
+        <ul className="space-y-2 text-sm text-gray-700">
           {navs.map((x) => {
             const cleanPath = x.path?.replace(/#.*$/, "") || "";
             const isActive = pathname.startsWith(cleanPath);
@@ -311,7 +311,7 @@ export function SidebarLeft() {
       <DialogMain
         textHeader="Xác minh tài khoản của bạn để: xem bài viết, nhắn tin, cộng đồng, ..."
         textDesc="Kiểm tra email hoặc yêu cầu gửi lại mail ở trang cá nhân của bạn."
-        width="7xl"
+        width="6xl"
         isLogo={false}
         open={isOpenIntro}
         onOpenChange={setIsOpenIntro}

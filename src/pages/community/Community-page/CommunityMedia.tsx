@@ -165,7 +165,7 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
                       className="object-cover w-full h-full"
                       loading="lazy"
                       onError={(e) => {
-                        e.currentTarget.src = "/placeholder-image.png"; // Fallback image
+                        e.currentTarget.src = "/favicon.png"; // Fallback image
                       }}
                     />
                   )}

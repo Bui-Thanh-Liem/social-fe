@@ -31,6 +31,8 @@ import { ActionShared } from "./ActionShared";
 import { formatTimeAgo } from "~/utils/date-time";
 import { handleResponse } from "~/utils/toast";
 import { ContentExpanded } from "./Content";
+import { EditorCodeItem } from "../tweet/EditorCode";
+import { motion } from "framer-motion";
 
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
@@ -68,15 +70,15 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
               <Card className="w-full h-full overflow-hidden flex items-center justify-center border bg-transparent">
                 <CardContent className="w-full h-full p-0 flex items-center justify-center">
                   {item.file_type?.includes("video/") ? (
-                    <video src={item?.url} controls />
+                    <video src={item?.url} controls className="select-none" />
                   ) : item.file_type?.includes("image/") ? (
                     <img
                       loading="lazy"
                       src={item?.url}
                       alt={item?.file_name}
-                      className="object-contain"
+                      className="object-contain select-none"
                       onError={(e) => {
-                        e.currentTarget.src = "/placeholder-image.png"; // Fallback image
+                        e.currentTarget.src = "/favicon.png"; // Fallback image
                       }}
                     />
                   ) : (
@@ -134,6 +136,7 @@ export const TweetItem = ({
 }) => {
   const {
     _id,
+    codes,
     content,
     user_id,
     mentions,
@@ -213,13 +216,29 @@ export const TweetItem = ({
           />
         )}
 
+        {/* Codes content */}
+        {codes && codes.length > 0 && (
+          <motion.div layout className="my-2 flex gap-2 flex-wrap">
+            {codes.map((codeItem) => (
+              <EditorCodeItem
+                readonly
+                key={codeItem._id}
+                code={codeItem.code}
+                langKey={codeItem.langKey}
+                onClose={() => {}}
+                onChangeCode={() => {}}
+              />
+            ))}
+          </motion.div>
+        )}
+
         {/* Medias content */}
         {tweet.type !== ETweetType.Retweet && <MediaContent tweet={tweet} />}
 
         {/* QuoteTweet and Retweet */}
         {tweet.type === ETweetType.QuoteTweet ||
         tweet.type === ETweetType.Retweet ? (
-          <div className="border border-gray-300 rounded-2xl p-3 pb-0">
+          <div className="border border-gray-200 rounded-2xl p-3 pb-1">
             {/* Header với thông tin người dùng */}
             <div className="flex items-center mb-3">
               <AvatarMain
@@ -257,6 +276,22 @@ export const TweetItem = ({
                 />
               )}
 
+              {/* Codes content */}
+              {codes && codes.length > 0 && (
+                <motion.div layout className="my-2 flex gap-2 flex-wrap">
+                  {codes.map((codeItem) => (
+                    <EditorCodeItem
+                      readonly
+                      key={codeItem._id}
+                      code={codeItem.code}
+                      langKey={codeItem.langKey}
+                      onClose={() => {}}
+                      onChangeCode={() => {}}
+                    />
+                  ))}
+                </motion.div>
+              )}
+
               {/* Medias content */}
               <MediaContent tweet={quoteTweet} />
             </div>
@@ -267,7 +302,7 @@ export const TweetItem = ({
         {isAction && (
           <div
             className={cn(
-              "flex items-center justify-between text-gray-500 pt-3 relative",
+              "flex items-center justify-between text-gray-500 pt-3 relative mt-1",
               tweet.status !== ETweetStatus.Ready
                 ? "cursor-not-allowed pointer-events-none"
                 : "",
