@@ -9,6 +9,9 @@ import { php } from "@codemirror/lang-php";
 import { sql } from "@codemirror/lang-sql";
 import { markdown } from "@codemirror/lang-markdown";
 import { yaml } from "@codemirror/lang-yaml";
+import { StreamLanguage } from "@codemirror/language";
+import { shell } from "@codemirror/legacy-modes/mode/shell";
+
 
 //
 export const LANG_ARR = [
@@ -31,4 +34,5 @@ export const LANG_ARR = [
 
   { key: "yaml", label: "YAML", ext: "yml", cm: yaml() },
   { key: "markdown", label: "Markdown", ext: "md", cm: markdown() },
+  { key: "bash", label: "Bash", ext: "sh", cm: StreamLanguage.define(shell) },
 ];

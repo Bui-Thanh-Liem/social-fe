@@ -6,9 +6,11 @@ import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { ErrorResponse } from "~/components/Error";
 
 export function CommunityTweets({
+  q,
   ishl = "0",
   community_id,
 }: {
+  q?: string;
   ishl?: "1" | "0";
   community_id: string;
 }) {
@@ -27,6 +29,7 @@ export function CommunityTweets({
     ishl: ishl,
     community_id: community_id,
     page: page.toString(),
+    q: q || "",
   });
 
   // Effect để xử lý khi có data mới

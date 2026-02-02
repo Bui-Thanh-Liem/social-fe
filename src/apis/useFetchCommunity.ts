@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type {
+  ChangeInfoDto,
   ChangeStatusTweetInCommunityDto,
   CreateCommunityDto,
   deleteInvitationDto,
@@ -417,6 +418,26 @@ export const useUpdateCommunity = () => {
   return useMutation({
     mutationFn: (payload: UpdateDto) =>
       apiCall<boolean>(`/communities/update/`, {
+        method: "PATCH",
+        body: JSON.stringify(payload),
+      }),
+    onSuccess: async () => {
+      // Invalidate danh sách communities
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["communities"] }),
+        queryClient.invalidateQueries({ queryKey: ["community"] }),
+      ]);
+    },
+  });
+};
+
+// ➕ PATCH
+export const useChangeInfoCommunity = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, payload }: { payload: ChangeInfoDto; id: string }) =>
+      apiCall<boolean>(`/communities/change-info/${id}`, {
         method: "PATCH",
         body: JSON.stringify(payload),
       }),

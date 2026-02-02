@@ -326,7 +326,7 @@ export function SearchAdvanced({
                         </h3>
                         <X
                           size={18}
-                          className="block md:hidden md:group-hover:flex ml-auto text-gray-400"
+                          className="flex md:hidden md:group-hover:flex ml-auto text-gray-400"
                           onClick={(e) => handleDeleteHistory(e, sh._id)}
                         />
                       </li>
@@ -357,7 +357,7 @@ export function SearchAdvanced({
                         </div>
                         <X
                           size={18}
-                          className="hidden group-hover:flex ml-auto text-gray-400"
+                          className="flex md:hidden md:group-hover:flex ml-auto text-gray-400"
                           onClick={(e) => handleDeleteHistory(e, sh._id)}
                         />
                       </li>
@@ -403,7 +403,7 @@ export function SearchAdvanced({
                         </div>
                         <X
                           size={18}
-                          className="hidden group-hover:flex ml-auto text-gray-400"
+                          className="flex md:hidden md:group-hover:flex ml-auto text-gray-400"
                           onClick={(e) => handleDeleteHistory(e, sh._id)}
                         />
                       </li>
@@ -425,7 +425,7 @@ export function SearchAdvanced({
                       <div>
                         <X
                           size={18}
-                          className="hidden group-hover:flex ml-auto text-gray-400"
+                          className="flex md:hidden md:group-hover:flex ml-auto text-gray-400"
                           onClick={(e) => handleDeleteHistory(e, sh._id)}
                         />
                       </div>

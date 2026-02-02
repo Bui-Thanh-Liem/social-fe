@@ -1,4 +1,4 @@
-import { Calendar, Pencil } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { VerifyIcon } from "~/components/icons/verify";
@@ -21,16 +21,13 @@ import { useCommunitySocket } from "~/socket/hooks/useCommunitySocket";
 import { playNotificationSound } from "~/utils/notificationSound";
 import { useEffect, useState } from "react";
 import { ErrorResponse } from "~/components/Error";
-import { Button, ButtonMain } from "~/components/ui/button";
+import { ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";
 import { Tweet } from "~/components/tweet/Tweet";
 import { useReloadStore } from "~/store/useReloadStore";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "~/components/ui/tooltip";
-import { toastSimple } from "~/utils/toast";
+import { Bio } from "./actions/EditBio";
+import { SearchMain } from "~/components/ui/search";
+import { useDebounce } from "~/hooks/useDebounce";
 
 export function CommunityPage() {
   const { slug } = useParams();
@@ -40,6 +37,10 @@ export function CommunityPage() {
   const { triggerReload } = useReloadStore();
   const [countTweetApprove, setCountTweetApprove] = useState(0);
   const [isOpenPost, setIsOpenPost] = useState(false);
+
+  //
+  const [searchVal, setSearchVal] = useState("");
+  const debouncedSearchVal = useDebounce(searchVal, 800);
 
   //
   const { data, refetch, isLoading, error } = useGetOneCommunityBySlug(slug!);
@@ -71,11 +72,6 @@ export function CommunityPage() {
   //
   function handleOpenPost() {
     setIsOpenPost(true);
-  }
-
-  //
-  function handleClickEditBio() {
-    toastSimple("Chức năng đang phát triển", "info");
   }
 
   //
@@ -115,17 +111,22 @@ export function CommunityPage() {
             <WrapIcon onClick={() => navigate(-1)}>
               <ArrowLeftIcon color="#000" />
             </WrapIcon>
-            <p className="font-semibold text-[18px] md:text-[20px]">
+            <p className="font-semibold text-[18px] md:text-[20px] line-clamp-1">
               {community?.name}
             </p>
+
             {community.is_joined && (
-              <ButtonMain
-                size="sm"
-                onClick={handleOpenPost}
-                className="ml-auto"
-              >
-                Đăng Bài
-              </ButtonMain>
+              <div className="ml-auto flex items-center gap-x-3 ">
+                <SearchMain
+                  size="sm"
+                  value={searchVal}
+                  onChange={setSearchVal}
+                  onClear={() => setSearchVal("")}
+                />
+                <ButtonMain size="sm" onClick={handleOpenPost}>
+                  Đăng Bài
+                </ButtonMain>
+              </div>
             )}
           </div>
         </div>
@@ -190,27 +191,13 @@ export function CommunityPage() {
             </div>
 
             {/* <!-- Bio --> */}
-            <div className="mb-3 flex items-center gap-x-1">
-              <p className="leading-relaxed whitespace-break-spaces">
-                {community?.bio}
-              </p>
-              {community.is_admin && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="outline" onClick={handleClickEditBio}>
-                      <WrapIcon>
-                        <Pencil size={14} />
-                      </WrapIcon>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">
-                    <p>
-                      Cập nhật thông tin để tối ưu tìm kiếm cộng đồng của bạn
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
-              )}
-            </div>
+            <Bio
+              community={{
+                _id: community?._id || "",
+                bio: community?.bio || "",
+                is_admin: community?.is_admin || false,
+              }}
+            />
 
             {/* <!-- Join Date --> */}
             <div className="flex items-center space-x-4 text-gray-500 text-sm mb-3">
@@ -258,13 +245,20 @@ export function CommunityPage() {
                   className="px-0 py-4"
                 >
                   <div className="space-y-4">
-                    <CommunityTweets community_id={community._id} />
+                    <CommunityTweets
+                      community_id={community._id}
+                      q={debouncedSearchVal}
+                    />
                   </div>
                 </TabsContent>
 
                 <TabsContent value="highlights" className="px-0 py-4">
                   <div className="space-y-4">
-                    <CommunityTweets community_id={community._id} ishl="1" />
+                    <CommunityTweets
+                      community_id={community._id}
+                      ishl="1"
+                      q={debouncedSearchVal}
+                    />
                   </div>
                 </TabsContent>
 

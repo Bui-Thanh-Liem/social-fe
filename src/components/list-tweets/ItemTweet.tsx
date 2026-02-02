@@ -233,6 +233,7 @@ export const TweetItem = ({
         )}
 
         {/* Medias content */}
+        <div className="h-1" />
         {tweet.type !== ETweetType.Retweet && <MediaContent tweet={tweet} />}
 
         {/* QuoteTweet and Retweet */}

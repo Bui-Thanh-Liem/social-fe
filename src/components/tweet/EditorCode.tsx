@@ -80,8 +80,8 @@ export function EditorCodeItem({
       exit={{ opacity: 0, scale: 0.9 }}
       transition={spring}
       className={`
-        rounded-2xl overflow-hidden bg-zinc-900
-        ${isCompact ? "w-64" : "w-full"}
+        rounded-xl overflow-hidden bg-zinc-900
+        ${isCompact ? "w-60" : "w-full"}
       `}
     >
       {/* Header */}

@@ -8,6 +8,16 @@ import { Tweet } from "../../components/tweet/Tweet";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetAllPinnedBareCommunities } from "~/apis/useFetchCommunity";
 import { CommunityTweets } from "../community/Community-page/CommunityTweets";
+import { Hand, HandGrab } from "lucide-react";
+
+function AutoGrabIcon() {
+  return (
+    <div className="relative h-4 w-4">
+      <Hand className="absolute grab-open" size={16} />
+      <HandGrab className="absolute grab-close" size={16} />
+    </div>
+  );
+}
 
 export function HomePage() {
   //
@@ -87,7 +97,7 @@ export function HomePage() {
 
   //
   const classNav =
-    "min-w-1/2 h-full flex items-center justify-center text-gray-500 hover:bg-gray-100 font-semibold transition-colors relative";
+    "min-w-1/2 line-clamp-1 max-w-4 h-full flex items-center justify-center text-gray-500 hover:bg-gray-100 font-semibold transition-colors relative";
   const classActive =
     "text-black font-bold after:absolute after:bottom-0.5 after:left-1/2 after:-translate-x-1/2 after:w-26 after:h-1 after:rounded-full after:bg-[#1D9BF0]";
 
@@ -118,6 +128,7 @@ export function HomePage() {
     navigate(`${pathname}#${slug}`);
   }
 
+  const havePinnedCommunities = pinnedCommunities.length > 0;
   return (
     <main className="relative">
       {/* Fixed Navigation Bar */}
@@ -127,14 +138,17 @@ export function HomePage() {
           className="flex w-full h-full overflow-x-auto scrollbar-hide"
         >
           <TypographyP
-            className={cn(`${classNav}`, hash === "" && classActive)}
+            className={cn(
+              `${classNav} select-none`,
+              hash === "" && classActive,
+            )}
             onClick={handleClickTabForYou}
           >
             Dành Cho Bạn
           </TypographyP>
           <TypographyP
             className={cn(
-              `${classNav}`,
+              `${classNav} select-none`,
               hash === `#${EFeedType.Following}` && classActive,
             )}
             onClick={handleClickTabFollowing}
@@ -142,16 +156,12 @@ export function HomePage() {
             Đã Theo Dõi
           </TypographyP>
 
-          {pinnedCommunities.length === 0 ? (
-            <TypographyP className={cn(classNav, "text-gray-300")}>
-              bạn chưa ghim cộng đồng nào
-            </TypographyP>
-          ) : (
+          {havePinnedCommunities &&
             pinnedCommunities.map((community) => (
               <TypographyP
                 key={community._id}
                 className={cn(
-                  `${classNav} text-center`,
+                  `${classNav} select-none text-center`,
                   hash === `#${community.slug}` && classActive,
                 )}
                 onClick={() =>
@@ -160,9 +170,14 @@ export function HomePage() {
               >
                 {community.name}
               </TypographyP>
-            ))
-          )}
+            ))}
         </div>
+
+        {havePinnedCommunities && (
+          <div className="absolute right-2 top-1/2 -translate-y-1/2">
+            <AutoGrabIcon />
+          </div>
+        )}
       </div>
 
       {/* Scrollable Content */}

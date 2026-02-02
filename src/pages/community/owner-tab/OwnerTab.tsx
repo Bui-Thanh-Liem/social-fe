@@ -30,7 +30,7 @@ export function OwnerTab() {
 
   // Search, Carousel
   const [searchVal, setSearchVal] = useState("");
-  const debouncedSearchVal = useDebounce(searchVal, 500);
+  const debouncedSearchVal = useDebounce(searchVal, 800);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const debouncedCarouselVal = useDebounce(

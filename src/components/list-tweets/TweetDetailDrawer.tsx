@@ -263,7 +263,7 @@ export function TweetDetailDrawer() {
             <div className="h-[92%] flex items-center">
               {medias ? (
                 <Carousel className="w-full">
-                  <CarouselContent className="h-[80vh] cursor-grab">
+                  <CarouselContent className="h-[80vh] cursor-grab select-none">
                     {medias?.map((item) => (
                       <CarouselItem key={item.url} className="lg:basis-1/1">
                         <Card className="w-full h-full overflow-hidden flex items-center justify-center border-0 bg-transparent">

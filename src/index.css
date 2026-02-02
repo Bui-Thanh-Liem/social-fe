@@ -129,6 +129,38 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* AutoGrabIcon */
+.grab-open {
+  animation: grabOpen 1.2s infinite;
+}
+
+.grab-close {
+  animation: grabClose 1.2s infinite;
+}
+
+@keyframes grabOpen {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes grabClose {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  51%,
+  100% {
+    opacity: 1;
+  }
+}
+/* AutoGrabIcon */
+
 @layer base {
   html {
     @apply scroll-smooth;

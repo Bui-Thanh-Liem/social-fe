@@ -15,7 +15,7 @@ export const CreateCommunityDtoSchema = z.object({
     .array(
       z.string().trim().regex(CONSTANT_REGEX.ID_MONGO, {
         message: "ObjectId không hợp lệ",
-      })
+      }),
     )
     .optional(),
 });
@@ -25,7 +25,7 @@ export const InvitationMembersDtoSchema = z.object({
     .array(
       z.string().trim().regex(CONSTANT_REGEX.ID_MONGO, {
         message: "ObjectId không hợp lệ",
-      })
+      }),
     )
     .min(1, { message: "Vui lòng chọn ít nhất một người dùng." }),
   community_id: z.string().trim().regex(CONSTANT_REGEX.ID_MONGO, {
@@ -82,6 +82,10 @@ export const deleteInvitationDtoSchema = z.object({
   }),
 });
 
+export const ChangeInfoDtoSchema = z.object({
+  bio: z.string().trim().max(200).optional(),
+});
+
 export const ChangeStatusTweetInCommunityDtoSchema = z.object({
   community_id: z.string().trim().regex(CONSTANT_REGEX.ID_MONGO, {
     message: "ObjectId không hợp lệ",
@@ -103,3 +107,4 @@ export type deleteInvitationDto = z.infer<typeof deleteInvitationDtoSchema>;
 export type ChangeStatusTweetInCommunityDto = z.infer<
   typeof ChangeStatusTweetInCommunityDtoSchema
 >;
+export type ChangeInfoDto = z.infer<typeof ChangeInfoDtoSchema>;
