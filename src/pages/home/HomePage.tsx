@@ -186,7 +186,7 @@ export function HomePage() {
         className="flex-1 h-[calc(100vh-56px)] overflow-y-auto"
       >
         <div className="px-4 pt-4">
-          <Tweet community={communityId || ""} />
+          <Tweet community={communityId} />
         </div>
         <div className="border-b border-gray-100" />
         {Object.values(EFeedType).includes(formatTypeText(hash)) ? (
