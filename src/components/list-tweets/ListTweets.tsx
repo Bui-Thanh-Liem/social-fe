@@ -147,8 +147,9 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
     setFeeds((prev) => prev.filter((tw) => tw._id !== id));
   }
 
+  // liêm đã đến đây
   return (
-    <div className="max-w-2xl">
+    <div> 
       {/* Loading state cho lần load đầu tiên */}
       {isLoading && page === 1 && <SkeletonTweet />}
 
