@@ -76,10 +76,10 @@ export function MessageView({
   )?.map((u) => u._id);
 
   //
-  const { sendMessage } = useChatSocket((newDataMessage) => {
+  const { sendMessage } = useChatSocket((newMessage) => {
     console.log("new message socket:::");
     setMessages((prev) => {
-      return [...prev, newDataMessage];
+      return [newMessage, ...prev];
     });
   });
   const apiUploadMedia = useUploadMedia();

@@ -64,7 +64,6 @@ function ConversationItem({
   //
   const navigate = useNavigate();
   const { onlUserIds, setOnlUserIds } = useOnlStore();
-  const [isOnl, setOnl] = useState(false);
   const apiDelConversation = useDeleteConversation();
   const apiTogglePinConversation = useTogglePinConversation();
 
@@ -81,7 +80,6 @@ function ConversationItem({
     } else {
       setOnlUserIds([...onlUserIds, val._id]);
     }
-    setOnl(val.hasOnline);
   });
 
   //
@@ -130,7 +128,7 @@ function ConversationItem({
       onClick={onclick}
     >
       <div className="relative flex items-center gap-3">
-        {(isOnl || checkOnl(onlUserIds, participantIds)) && (
+        {checkOnl(onlUserIds, participantIds) && (
           <span className="absolute bottom-0 left-8 z-10 w-3 h-3 bg-green-400 rounded-full border border-white" />
         )}
         {!Array.isArray(avatar) ? (

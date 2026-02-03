@@ -47,7 +47,6 @@ export default function ChatBox() {
   const { close, conversation } = useChatBoxStore();
   const { user } = useUserStore();
   const { onlUserIds, setOnlUserIds } = useOnlStore();
-  const [isOnl, setOnl] = useState(false);
 
   //
   const participantIds = (
@@ -71,7 +70,6 @@ export default function ChatBox() {
 
   // Online status socket
   useStatusSocket((val) => {
-    setOnl(val.hasOnline);
     if (val.hasOnline === false) {
       const userOlIds = onlUserIds.filter((id) => id !== val._id);
       setOnlUserIds(userOlIds);
@@ -85,7 +83,7 @@ export default function ChatBox() {
   const { sendMessage } = useChatSocket((newDataMessage) => {
     console.log("new message socket");
     setMessages((prev) => {
-      return [...prev, newDataMessage];
+      return [newDataMessage, ...prev];
     });
   });
 
@@ -194,7 +192,7 @@ export default function ChatBox() {
 
   return (
     <div className="fixed bottom-8 right-8 bg-white z-50">
-      <Card className="w-[420px] h-[580px] gap-2 rounded-2xl shadow-lg">
+      <Card className="w-[420px] h-[580px] gap-2 rounded-2xl shadow-lg overflow-hidden">
         {/*  */}
         <CardHeader className="px-4">
           <div className="flex gap-x-4 items-center">
@@ -213,15 +211,11 @@ export default function ChatBox() {
               <CardDescription
                 className={cn(
                   "text-gray-300 text-xs mt-1",
-                  isOnl || checkOnl(onlUserIds, participantIds)
-                    ? "text-green-400"
-                    : "",
+                  checkOnl(onlUserIds, participantIds) ? "text-green-400" : "",
                 )}
               >
-                {!isOnl && !checkOnl(onlUserIds, participantIds)
-                  ? "Không"
-                  : "Đang"}{" "}
-                hoạt động
+                {!checkOnl(onlUserIds, participantIds) ? "Không" : "Đang"} hoạt
+                động
               </CardDescription>
             </div>
           </div>
@@ -244,9 +238,12 @@ export default function ChatBox() {
           {/* View message */}
           <ScrollArea className="px-4 pt-2 h-[340px] max-h-[340px]">
             <div className="flex flex-col gap-3">
-              {messages.map((msg) => (
-                <MessageItem msg={msg} user={user as IUser} />
-              ))}
+              {messages
+                .slice()
+                .reverse()
+                .map((msg) => (
+                  <MessageItem msg={msg} user={user as IUser} />
+                ))}
 
               <div ref={endOfMessagesRef} />
             </div>

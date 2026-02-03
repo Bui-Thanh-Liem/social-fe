@@ -287,7 +287,7 @@ export function CommunityPage() {
         width="2xl"
         isLogo={false}
         open={isOpenPost}
-        onOpenChange={setIsOpenPost}
+        onOpenChange={setIsOpenPost} 
       >
         <Tweet
           contentBtn="Đăng bài"
