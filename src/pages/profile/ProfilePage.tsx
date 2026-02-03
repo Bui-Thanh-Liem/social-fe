@@ -19,6 +19,7 @@ import { ProfileTweets } from "./ProfileTweets";
 import { handleResponse } from "~/utils/toast";
 import { formatDateToDateVN } from "~/utils/date-time";
 import { ErrorResponse } from "~/components/Error";
+import { StarPrestige } from "./Star";
 
 export function ProfilePage() {
   const navigate = useNavigate();
@@ -196,6 +197,7 @@ export function ProfilePage() {
               <span className="font-semibold">{profile?.follower_count}</span>
               <span className="text-gray-500"> người theo dõi</span>
             </Link>
+            <StarPrestige count={profile?.star || 0} />
           </div>
 
           {/* Verify email */}

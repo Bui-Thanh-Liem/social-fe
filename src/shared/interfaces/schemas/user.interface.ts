@@ -17,9 +17,10 @@ export interface IUser extends IBase {
   username?: string;
   avatar?: IMediaBare;
   cover_photo?: IMediaBare;
+  star?: number; // thể hiện độ uy tín
 
   //
   follower_count?: number;
   following_count?: number;
-  isFollow?: boolean; // người đang active và user đang truy vấnvấn
+  isFollow?: boolean; // người đang active và user đang truy vấn
 }

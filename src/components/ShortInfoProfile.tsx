@@ -6,6 +6,7 @@ import { useUserStore } from "~/store/useUserStore";
 import { VerifyIcon } from "./icons/verify";
 import { AvatarMain } from "./ui/avatar";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { StarPrestige } from "~/pages/profile/Star";
 
 //
 function NameItemUser({ user }: { user: IUser }) {
@@ -47,6 +48,7 @@ export function ShortInfoProfile({
             alt={profile?.name}
             className="mr-3 w-16 h-16"
           />
+          <StarPrestige count={profile?.star || 0} />
           {!isInfor && (
             <div className="-mt-20">
               <ProfileAction profile={profile} isOwnProfile={isOwnProfile} />
