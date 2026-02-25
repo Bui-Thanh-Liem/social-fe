@@ -1,13 +1,13 @@
-export enum EUserVerifyStatus {
+export enum EAuthVerifyStatus {
   Unverified,
   Verified,
   Banned,
 }
 
 export enum EMediaStatus {
-  Pending,
-  Reject,
-  Active,
+  Pending = "Chờ duyệt",
+  Reject = "Từ chối",
+  Active = "Đang sử dụng",
 }
 
 export enum EAuthVerifyStatus {

@@ -35,6 +35,7 @@ import { useNavigate } from "react-router-dom";
 
 interface IProfileActiveProps {
   isOwnProfile: boolean;
+  isChart?: boolean;
   profile: IUser;
 }
 
@@ -67,7 +68,11 @@ export function ProfileEdit({ currentUser }: { currentUser: IUser }) {
 }
 
 //
-export function ProfileAction({ profile, isOwnProfile }: IProfileActiveProps) {
+export function ProfileAction({
+  profile,
+  isOwnProfile,
+  isChart = true,
+}: IProfileActiveProps) {
   const { user } = useUserStore();
   const navigate = useNavigate();
 
@@ -134,7 +139,7 @@ export function ProfileAction({ profile, isOwnProfile }: IProfileActiveProps) {
     <>
       {isOwnProfile ? (
         <div className="flex items-center gap-2 ">
-          <ChartProfileAction />
+          {isChart && <ChartProfileAction />}
           <ProfileEdit currentUser={profile as IUser} />
           <WrapIcon className="mt-20 border lg:hidden" onClick={onLogout}>
             <LogOut size={22} color="red" />
