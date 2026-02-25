@@ -51,7 +51,11 @@ export function ShortInfoProfile({
           <StarPrestige count={profile?.star || 0} />
           {!isInfor && (
             <div className="-mt-20">
-              <ProfileAction profile={profile} isOwnProfile={isOwnProfile} />
+              <ProfileAction
+                isChart={false}
+                profile={profile}
+                isOwnProfile={isOwnProfile}
+              />
             </div>
           )}
         </div>
