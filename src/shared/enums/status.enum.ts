@@ -10,13 +10,24 @@ export enum EMediaStatus {
   Active,
 }
 
+export enum EAuthVerifyStatus {
+  Unverified,
+  Verified,
+  Banned,
+}
+
 export enum ETweetStatus {
-  Pending,
-  Reject,
-  Ready,
+  Pending = "Chờ duyệt",
+  Reject = "Từ chối",
+  Ready = "Sẵn sàng",
 }
 
 export enum EInvitationStatus {
   Pending,
   Accepted,
+}
+
+export enum EUserStatus {
+  Block = "Đã khoá",
+  Active = "Đang sử dụng",
 }
