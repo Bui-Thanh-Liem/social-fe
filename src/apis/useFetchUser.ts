@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import type { verifyEmailDto } from "~/shared/dtos/req/user.dto";
-import type { EUserVerifyStatus } from "~/shared/enums/status.enum";
+import type { EAuthVerifyStatus } from "~/shared/enums/status.enum";
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
@@ -51,7 +51,7 @@ export const useVerifyEmail = () => {
 
   return useMutation({
     mutationFn: (credentials: verifyEmailDto) =>
-      apiCall<EUserVerifyStatus>("/users/verify-email", {
+      apiCall<EAuthVerifyStatus>("/users/verify-email", {
         method: "POST",
         body: JSON.stringify(credentials),
       }),
@@ -83,7 +83,7 @@ export const useResendVerifyEmail = () => {
 // 📄 GET - Lấy user followed
 export const useGetFollowedById = (
   user_id: string,
-  queries?: IQuery<IUser>
+  queries?: IQuery<IUser>,
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
@@ -112,7 +112,7 @@ export const useGetFollowedById = (
 // 📄 GET - Lấy user following
 export const useGetFollowingById = (
   user_id: string,
-  queries?: IQuery<IUser>
+  queries?: IQuery<IUser>,
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
