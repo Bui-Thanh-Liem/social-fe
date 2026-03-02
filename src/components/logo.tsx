@@ -11,7 +11,7 @@ export function Logo({ size = 100, className = "text-black" }: PropLogoType) {
       <svg
         width={size}
         height={size}
-        viewBox="0 0 24 24"
+        viewBox="0 0 24 30"
         aria-hidden="true"
         fill="currentColor"
         className={`r-4qtqp9 r-yyyyoo r-dnmrzs r-bnwqim r-lrvibr r-m6rgpd r-18jsvk2 r-rxcuwo r-1777fci r-m327ed r-494qqr ${className}`}
