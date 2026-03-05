@@ -11,7 +11,7 @@ export function SidebarRight() {
   const isOpenFilter = pathname === "/search";
 
   return (
-    <div className="px-4">
+    <div className="pl-4">
       <div className="mb-4 mt-2">
         {isOpenFilter && (
           <>

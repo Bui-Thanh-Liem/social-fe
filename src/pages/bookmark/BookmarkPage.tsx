@@ -140,7 +140,7 @@ export function BookmarkPage() {
         />
       </div>
 
-      <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
+      <div className="max-h-[calc(100vh-(128px))] overflow-y-auto">
         {/* Loading state cho lần load đầu tiên */}
         {isLoading && page === 1 && <SkeletonTweet />}
 

@@ -111,9 +111,6 @@ export function CommunityPage() {
             <WrapIcon onClick={() => navigate(-1)}>
               <ArrowLeftIcon color="#000" />
             </WrapIcon>
-            <p className="font-semibold text-[18px] md:text-[20px] line-clamp-1">
-              {community?.name}
-            </p>
 
             {community.is_joined && (
               <div className="ml-auto flex items-center gap-x-3 ">
@@ -132,7 +129,7 @@ export function CommunityPage() {
         </div>
 
         {/*  */}
-        <div className="max-h-screen overflow-y-auto">
+        <div className="max-h-[calc(100vh-114px)] overflow-y-auto">
           {/* Photo cover */}
           <div className="w-full h-60 border-b border-gray-100">
             {community?.cover ? (
@@ -220,7 +217,7 @@ export function CommunityPage() {
           {/* Tweets and medias*/}
           {community.visibility_type === EVisibilityType.Public ||
           community.is_joined ? (
-            <Tabs defaultValue={ETweetType.Tweet.toString()} className="mb-12">
+            <Tabs defaultValue={ETweetType.Tweet.toString()}>
               <div className="bg-white sticky mt-4 top-0 z-50">
                 <TabsList className="w-full">
                   <TabsTrigger
@@ -287,7 +284,7 @@ export function CommunityPage() {
         width="2xl"
         isLogo={false}
         open={isOpenPost}
-        onOpenChange={setIsOpenPost} 
+        onOpenChange={setIsOpenPost}
       >
         <Tweet
           contentBtn="Đăng bài"

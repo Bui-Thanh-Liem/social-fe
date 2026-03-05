@@ -54,7 +54,7 @@ export function CommunityTab() {
   const loading = isLoading || isFetching;
 
   return (
-    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
+    <div className="max-h-[calc(100vh-(152px))] overflow-y-auto">
       {/*  */}
       <div>
         {communities.map((item) => (

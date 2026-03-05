@@ -134,7 +134,7 @@ export function JoinedTab() {
         </div>
       </div>
 
-      <div className="overflow-y-auto h-[calc(100vh-300px)]">
+      <div className="overflow-y-auto h-[calc(100vh-176px)]">
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">

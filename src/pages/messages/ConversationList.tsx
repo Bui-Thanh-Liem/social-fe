@@ -31,6 +31,7 @@ import { formatTimeAgo } from "~/utils/date-time";
 import { ErrorResponse } from "~/components/Error";
 import { useOnlStore } from "~/store/useOnlStore";
 import { checkOnl } from "~/utils/checkOnl.util";
+import { useChatBoxStore } from "~/store/useChatBoxStore";
 
 //
 function ConversationItemSkeleton() {
@@ -132,17 +133,13 @@ function ConversationItem({
           <span className="absolute bottom-0 left-8 z-10 w-3 h-3 bg-green-400 rounded-full border border-white" />
         )}
         {!Array.isArray(avatar) ? (
-          <AvatarMain
-            src={avatar?.url}
-            alt={name || ""}
-            className="w-12 h-12"
-          />
+          <AvatarMain src={avatar?.url} alt={name || ""} className="w-8 h-8" />
         ) : (
           <GroupAvatarMain srcs={avatar.map((a) => a?.url) as string[]} />
         )}
         <div>
-          <p className="font-medium">
-            {name}{" "}
+          <p className="font-medium text-sm">
+            {name}
             {type === EConversationType.Group && (
               <span className="inline-block text-[10px] text-gray-400 p-0.5 px-1 border rounded-full">
                 nhóm
@@ -238,7 +235,7 @@ export function ConversationList({
   onclick: (conversation: IConversation | null) => void;
 }) {
   const { user } = useUserStore();
-
+  const { conversation, setConversation } = useChatBoxStore();
   const [page, setPage] = useState(1);
   const { activeId, setActiveId } = useConversationActiveStore();
   const [allConversations, setAllConversations] = useState<IConversation[]>([]);
@@ -247,6 +244,13 @@ export function ConversationList({
   // Search
   const [searchVal, setSearchVal] = useState("");
   const debouncedSearchVal = useDebounce(searchVal, 500);
+
+  //
+  useEffect(() => {
+    if (conversation) {
+      setActiveId(conversation._id);
+    }
+  }, [conversation?._id]);
 
   const { data, isLoading, error } = useGetMultiConversations({
     page: page.toString(),
@@ -348,6 +352,8 @@ export function ConversationList({
         conversation_id: conversation?._id,
       });
     }
+
+    setConversation(conversation);
   }
 
   //
@@ -391,12 +397,11 @@ export function ConversationList({
   return (
     <div>
       {/*  */}
-      <div className="mx-3 my-4">
+      <div className="mx-3 mb-3">
         <SearchMain
-          size="lg"
           value={searchVal}
-          onClear={() => setSearchVal("")}
           onChange={setSearchVal}
+          onClear={() => setSearchVal("")}
         />
       </div>
 
@@ -416,7 +421,7 @@ export function ConversationList({
         </div>
       )}
 
-      <div className="max-h-[calc(100vh-130px)] overflow-y-auto">
+      <div className="max-h-[460px] overflow-y-auto">
         {/* List conversations */}
         {allConversations.length > 0 && (
           <div>

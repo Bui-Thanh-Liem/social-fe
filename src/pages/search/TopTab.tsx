@@ -91,6 +91,7 @@ export function TopTab() {
     }
   }, [data?.metadata]);
 
+  // Mỗi lần fetch xong thì append thêm vào state
   useEffect(() => {
     const items = dataTweets?.metadata?.items || [];
     const total_page = dataTweets?.metadata?.total_page;
@@ -110,6 +111,7 @@ export function TopTab() {
     }
   }, [dataTweets?.metadata]);
 
+  // Mỗi lần fetch xong thì append thêm vào state
   useEffect(() => {
     const items = dataCommunities?.metadata?.items || [];
     const total_page = dataCommunities?.metadata?.total_page;
@@ -161,7 +163,7 @@ export function TopTab() {
   const loadingTweet = isFetchingTweets || isLoadingTweets;
 
   return (
-    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
+    <div className="max-h-[calc(100vh-(152px))] overflow-y-auto">
       <div>
         {/*  */}
         <div>
@@ -204,14 +206,9 @@ export function TopTab() {
       <div>
         {/* Tweets list */}
         {tweets.length > 0 && (
-          <div className="space-y-6">
-            {tweets.map((tweet, index: number) => (
-              <span key={tweet._id}>
-                <TweetItem tweet={tweet} onSuccessDel={onDel} />
-                {index < tweets.length - 1 && (
-                  <hr className="border-gray-200" />
-                )}
-              </span>
+          <div className="space-y-4">
+            {tweets.map((tweet) => (
+              <TweetItem key={tweet._id} tweet={tweet} onSuccessDel={onDel} />
             ))}
           </div>
         )}

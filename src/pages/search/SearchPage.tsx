@@ -12,7 +12,7 @@ export function SearchPage() {
   return (
     <div>
       <div className="mt-1">
-        <Tabs defaultValue="top" className="mb-12">
+        <Tabs defaultValue="top">
           <div className="bg-white py-2 pt-5 sticky top-0 z-50">
             <TabsList className="w-full">
               <TabsTrigger
@@ -65,19 +65,19 @@ export function SearchPage() {
 
           {/* Tab Content */}
           <div className="pt-0">
-            <TabsContent value="top" className="px-0 pb-4">
+            <TabsContent value="top" className="px-0">
               <TopTab />
             </TabsContent>
-            <TabsContent value="tweet" className="px-0 pb-4">
+            <TabsContent value="tweet" className="px-0">
               <TweetTab />
             </TabsContent>
-            <TabsContent value="community" className="px-0 pb-4">
+            <TabsContent value="community" className="px-0">
               <CommunityTab />
             </TabsContent>
-            <TabsContent value="people" className="px-0 pb-4">
+            <TabsContent value="people" className="px-0">
               <PeopleTab />
             </TabsContent>
-            <TabsContent value="media" className="px-0 pb-4">
+            <TabsContent value="media" className="px-0">
               <MediaTab />
             </TabsContent>
           </div>

@@ -251,7 +251,7 @@ export function MessageView({
   //
   if (!conversation || !activeId)
     return (
-      <div className="h-[100vh] col-span-8 flex gap-5 flex-col items-center justify-center">
+      <div className="h-full col-span-8 flex gap-5 flex-col items-center justify-center">
         <div className="flex items-center gap-x-2">
           <p className="text-2xl font-bold">Chào mừng đến với</p>
           <Logo size={40} />

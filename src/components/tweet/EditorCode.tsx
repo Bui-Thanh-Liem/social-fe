@@ -55,9 +55,9 @@ function CopyButton({ code }: { code: string }) {
 export function EditorCodeItem({
   code,
   onClose,
-  langKey: _langKey,
   onChangeCode,
   readonly = false,
+  langKey: _langKey,
 }: {
   code: string;
   langKey?: string;
@@ -75,14 +75,11 @@ export function EditorCodeItem({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
       transition={spring}
-      className={`
-        rounded-xl overflow-hidden bg-zinc-900
-        ${isCompact ? "w-60" : "w-full"}
-      `}
+      exit={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.95 }}
+      className="rounded-xl overflow-hidden bg-zinc-900 w-full"
     >
       {/* Header */}
       <div className="flex items-center gap-2 px-3 py-1 bg-black select-none">

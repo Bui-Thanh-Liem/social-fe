@@ -113,7 +113,7 @@ export function ProfilePage() {
         </div>
       </div>
 
-      <div className="max-h-screen overflow-y-auto scrollbar-hide">
+      <div className="max-h-[calc(100vh-114px)] overflow-y-auto">
         {/* Photo cover */}
         <div className="relative w-full">
           <div className="w-full h-52">
@@ -230,7 +230,7 @@ export function ProfilePage() {
         </div>
 
         {/* Tweets and media*/}
-        <Tabs defaultValue={ETweetType.Tweet.toString()} className="mb-12">
+        <Tabs defaultValue={ETweetType.Tweet.toString()}>
           <div className="bg-white sticky mt-4 top-0 z-50">
             <TabsList className="w-full">
               <TabsTrigger

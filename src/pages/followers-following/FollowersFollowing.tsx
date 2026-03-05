@@ -44,7 +44,7 @@ export function FollowersFollowing() {
       </div>
 
       {/* Content */}
-      <Tabs value={type} onValueChange={handleTabChange} className="mb-12">
+      <Tabs value={type} onValueChange={handleTabChange}>
         <div className="bg-white sticky top-0 z-50">
           <TabsList className="w-full">
             <TabsTrigger value={following_tab}>Đang theo dõi</TabsTrigger>

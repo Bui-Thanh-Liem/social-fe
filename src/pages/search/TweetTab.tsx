@@ -141,20 +141,15 @@ export function TweetTab() {
   const loading = isLoading || isFetching;
 
   return (
-    <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
+    <div className="max-h-[calc(100vh-(152px))] overflow-y-auto">
       {/* Loading state cho lần load đầu tiên */}
       {loading && page === 1 && <SkeletonTweet />}
 
       {/* Tweets list */}
       {allTweets.length > 0 && (
-        <div className="space-y-6">
-          {allTweets.map((tweet, index: number) => (
-            <span key={tweet._id}>
-              <TweetItem tweet={tweet} onSuccessDel={onDel} />
-              {index < allTweets.length - 1 && (
-                <hr className="border-gray-200" />
-              )}
-            </span>
+        <div className="space-y-4">
+          {allTweets.map((tweet) => (
+            <TweetItem key={tweet._id} tweet={tweet} onSuccessDel={onDel} />
           ))}
         </div>
       )}

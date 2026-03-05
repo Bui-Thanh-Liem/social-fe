@@ -7,8 +7,14 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TypographyP } from "~/components/elements/p";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "~/components/ui/accordion";
 import { ButtonMain } from "~/components/ui/button";
 import {
   Carousel,
@@ -17,6 +23,7 @@ import {
 } from "~/components/ui/carousel";
 import { DialogMain } from "~/components/ui/dialog";
 import { cn } from "~/lib/utils";
+import { CreateCommunity } from "~/pages/community/CreateCommunity";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
 
@@ -69,50 +76,104 @@ export function SidebarLeft() {
       path: "/explore",
     },
     {
-      name: "Cộng đồng",
-      icon: <UsersRound />,
-      path: "/communities",
-    },
-    {
       name: "Dấu trang",
       icon: <Bookmark />,
       path: "/bookmarks",
     },
   ];
 
+  const cla = "flex gap-x-3 p-2 rounded-full hover:bg-gray-100 cursor-pointer";
   return (
     <>
-      <div className="relative h-full flex">
-        <ul className="space-y-1 text-sm text-gray-700 pt-3 border-r pr-4 w-3/5">
-          {navs.map((x) => {
-            const cleanPath = x.path?.replace(/#.*$/, "") || "";
-            const isActive = pathname.startsWith(cleanPath);
+      <ul className="h-full space-y-3 text-sm text-gray-700 pt-3 border-r pr-4">
+        {navs.map((x) => {
+          const cleanPath = x.path?.replace(/#.*$/, "") || "";
+          const isActive = pathname.startsWith(cleanPath);
 
-            return (
-              <li key={x.name} className="cursor-pointer group relative">
-                <div onClick={() => onClickNav(x.path || "", x.name)}>
-                  <TypographyP
-                    className={cn(
-                      "text-[18px] p-3 py-2 group-hover:bg-gray-100 rounded-3xl flex items-center gap-3",
-                      isActive ? "font-semibold" : "",
-                    )}
-                  >
-                    {x.icon}
-                    <span className="line-clamp-1 hidden lg:block">
-                      {x.name}{" "}
+          return (
+            <li key={x.name} className="cursor-pointer group relative">
+              <div onClick={() => onClickNav(x.path || "", x.name)}>
+                <TypographyP
+                  className={cn(
+                    "text-[18px] p-3 py-2 group-hover:bg-gray-100 rounded-3xl flex items-center gap-3",
+                    isActive ? "font-semibold" : "",
+                  )}
+                >
+                  {x.icon}
+                  <span className="line-clamp-1 hidden lg:block">
+                    {x.name}{" "}
+                  </span>
+                  {!!x?.countNoti && (
+                    <span className="absolute top-3 left-6 w-4 h-4 rounded-full flex items-center justify-center bg-sky-400 text-[10px] font-bold text-white animate-bounce">
+                      {x?.countNoti > 9 ? "9+" : x?.countNoti}
                     </span>
-                    {!!x?.countNoti && (
-                      <span className="absolute top-3 left-6 w-4 h-4 rounded-full flex items-center justify-center bg-sky-400 text-[10px] font-bold text-white animate-bounce">
-                        {x?.countNoti > 9 ? "9+" : x?.countNoti}
-                      </span>
-                    )}
-                  </TypographyP>
+                  )}
+                </TypographyP>
+              </div>
+            </li>
+          );
+        })}
+
+        <li>
+          <Accordion type="single" collapsible defaultValue="community">
+            <AccordionItem value="game">
+              <AccordionTrigger className="cursor-pointer">
+                Trò chơi
+              </AccordionTrigger>
+              <AccordionContent className="pl-2">
+                <div className={cla}>
+                  <img
+                    src="./community.png"
+                    alt="community"
+                    className="w-6 h-6 rounded-full"
+                  />
+                  <Link to="/communities" className="text-[16px]">
+                    Đá bóng
+                  </Link>
                 </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <div className={cla}>
+                  <img
+                    src="./community.png"
+                    alt="community"
+                    className="w-6 h-6 rounded-full"
+                  />
+                  <Link to="/communities" className="text-[16px]">
+                    Bóng rổ
+                  </Link>
+                </div>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <div className={cla}>
+                  <img
+                    src="./community.png"
+                    alt="community"
+                    className="w-6 h-6 rounded-full"
+                  />
+                  <Link to="/communities" className="text-[16px]">
+                    Bóng chuyền
+                  </Link>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="community">
+              <AccordionTrigger className="cursor-pointer">
+                Cộng đồng
+              </AccordionTrigger>
+              <AccordionContent className="pl-2">
+                <Link to="/communities" className={cla}>
+                  <UsersRound size={20} />
+                  <p className="text-[16px]">Cộng đồng</p>
+                </Link>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <CreateCommunity />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </li>
+      </ul>
 
       {/*  */}
       <DialogMain

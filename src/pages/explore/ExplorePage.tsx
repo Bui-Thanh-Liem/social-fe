@@ -4,7 +4,7 @@ import { TrendingTab } from "./trending-tab/TrendingTab";
 
 export function ExplorePage() {
   return (
-    <Tabs defaultValue="for-you" className="mb-12">
+    <Tabs defaultValue="for-you">
       <div className="mb-2 sticky top-0 z-50">
         <TabsList className="w-full">
           <TabsTrigger className="cursor-pointer" value="for-you">

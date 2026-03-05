@@ -66,7 +66,7 @@ export function TrendingTab() {
   return (
     <TabsContent
       value="trending"
-      className="h-[calc(100vh-190px)] overflow-y-auto "
+      className="h-[calc(100vh-128px)] overflow-y-auto "
     >
       {/*  */}
       <div>

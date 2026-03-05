@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { CreateCommunityForm } from "~/forms/CreateCommunityForm";
 import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/WrapIcon";
 import { Plus } from "lucide-react";
 
 export function CreateCommunity() {
@@ -9,10 +8,13 @@ export function CreateCommunity() {
 
   return (
     <>
-      <WrapIcon onClick={() => setIsOpen(true)} className="p-1 border">
-        <Plus size={22} />
-      </WrapIcon>
-
+      {/*  */}
+      <div
+        onClick={() => setIsOpen(true)}
+        className="flex gap-x-3 p-2 rounded-full hover:bg-gray-100 cursor-pointer"
+      >
+        <Plus size={20} /> <span className="text-[16px]">Tạo mới</span>
+      </div>
       {/*  */}
       <DialogMain
         isLogo={false}

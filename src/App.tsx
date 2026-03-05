@@ -21,7 +21,6 @@ import {
   following_tab,
 } from "./pages/followers-following/FollowersFollowing";
 import { HomePage } from "./pages/home/HomePage";
-import { MessagePage } from "./pages/messages/MessagePage";
 import { NotificationPage } from "./pages/notification/NotificationPage";
 import { ProfilePage } from "./pages/profile/ProfilePage";
 import { SearchPage } from "./pages/search/SearchPage";
@@ -68,7 +67,6 @@ const router = createBrowserRouter([
           { path: "communities", element: <CommunitiesPage /> },
           { path: "bookmarks", element: <BookmarkPage /> },
           { path: "notifications", element: <NotificationPage /> },
-          { path: "messages", element: <MessagePage /> },
           { path: "search", element: <SearchPage /> },
           { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
           {

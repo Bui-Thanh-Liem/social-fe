@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import {
+  useGetAllCategories,
+  useGetMultiCommunities,
+} from "~/apis/useFetchCommunity";
 import { Card, CardContent } from "~/components/ui/card";
 import {
   Carousel,
@@ -8,20 +11,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "~/components/ui/carousel";
-import {
-  useGetAllCategories,
-  useGetMultiCommunities,
-} from "~/apis/useFetchCommunity";
+import { SearchMain } from "~/components/ui/search";
+import { useDebounce } from "~/hooks/useDebounce";
 import { cn } from "~/lib/utils";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import { CommunityRow, CommunityRowSkeleton } from "../CommunityRow";
 
 export function ExploreTab() {
   //
-  const [searchParams] = useSearchParams();
-
-  //
-  const searchVal = searchParams.get("search");
+  const [searchVal, setSearchVal] = useState("");
+  const searchValDebounce = useDebounce(searchVal || "", 500);
 
   //
   const [page, setPage] = useState(1);
@@ -36,7 +35,7 @@ export function ExploreTab() {
   const { data, isLoading } = useGetMultiCommunities({
     qe: cate,
     limit: "10",
-    q: searchVal || "",
+    q: searchValDebounce || "",
     page: page.toString(),
   });
 
@@ -46,7 +45,7 @@ export function ExploreTab() {
     const total_page = data?.metadata?.total_page;
     total_page_ref.current = total_page || 0;
 
-    if (page === 1 && (searchVal || cate)) {
+    if (page === 1 && (searchValDebounce || cate)) {
       setAllCommunities(items);
     } else {
       setAllCommunities((prev) => {
@@ -57,7 +56,7 @@ export function ExploreTab() {
         return [...newItems, ...prev];
       });
     }
-  }, [data, searchVal, page, cate]);
+  }, [data, searchValDebounce, page, cate]);
 
   //
   useEffect(() => {
@@ -69,8 +68,8 @@ export function ExploreTab() {
 
   //
   useEffect(() => {
-    if (searchVal || cate) setPage(1);
-  }, [searchVal, cate]);
+    if (searchValDebounce || cate) setPage(1);
+  }, [searchValDebounce, cate]);
 
   //
   function onSeeMore() {
@@ -80,8 +79,16 @@ export function ExploreTab() {
   return (
     <div>
       {/*  */}
-      <div className="flex mb-4">
-        <Carousel className="group w-full">
+      <div className="flex gap-x-8 mb-4">
+        <div className="w-60">
+          <SearchMain
+            size="sm"
+            value={searchVal || ""}
+            onChange={setSearchVal}
+            onClear={() => setSearchVal("")}
+          />
+        </div>
+        <Carousel className="group flex-1">
           <CarouselContent className="-ml-1">
             {cates?.metadata?.map((_) => (
               <CarouselItem key={_} className="pl-1 md:basis-1/3 lg:basis-1/4">
@@ -104,7 +111,7 @@ export function ExploreTab() {
         </Carousel>
       </div>
 
-      <div className="overflow-y-auto h-[calc(100vh-300px)]">
+      <div className="overflow-y-auto h-[calc(100vh-176px)]">
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">

@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { TweetDetailDrawer } from "~/components/list-tweets/TweetDetailDrawer";
-import { cn } from "~/lib/utils";
 import ChatBox from "~/pages/messages/ChatBox";
 import { DetailAttachmentDrawer } from "~/pages/messages/DetailAllAttachments";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
@@ -40,15 +39,15 @@ export function HomeLayout() {
 
       {/*  */}
       <div className="mx-auto flex border-t overflow-hidden">
-        <aside className="block w-[22%] pr-4 pl-4">
+        <aside className="w-60 pr-4 pl-4">
           <SidebarLeft />
         </aside>
 
-        <main className={cn("lg:w-[50%] col-span-6 border-gray-200")}>
+        <main className="flex-1">
           <Outlet />
         </main>
 
-        <aside className="flex-1 pr-4">
+        <aside className="w-[26%] pr-4">
           <SidebarRight />
         </aside>
       </div>

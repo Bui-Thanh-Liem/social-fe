@@ -174,7 +174,7 @@ export const TweetItem = ({
       )}
 
       {/* thông tin người dùng */}
-      <div className="flex items-center mb-3">
+      <div className="flex items-center">
         <AvatarMain
           src={author.avatar?.url}
           alt={author.name}

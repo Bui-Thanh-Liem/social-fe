@@ -7,7 +7,7 @@ export function ForYouTab() {
   return (
     <TabsContent
       value="for-you"
-      className="overflow-y-auto h-[calc(100vh-190px)]"
+      className="overflow-y-auto h-[calc(100vh-128px)]"
     >
       <TodayNews />
       <OutstandingThisWeek />
