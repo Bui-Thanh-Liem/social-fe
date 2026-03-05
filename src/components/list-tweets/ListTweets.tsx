@@ -149,7 +149,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
 
   // liêm đã đến đây
   return (
-    <div> 
+    <div>
       {/* Loading state cho lần load đầu tiên */}
       {isLoading && page === 1 && <SkeletonTweet />}
 
@@ -177,28 +177,22 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
 
       {/* Tweets list */}
       {feeds.length > 0 && (
-        <div className="space-y-6">
-          {feeds.map((item, index: number) => {
+        <div className="space-y-4">
+          {feeds.map((item) => {
             const isTweet = Object.values(ETweetType).includes(item?.type);
             const communities = isTweet
               ? []
               : (item as unknown as { extra: ICommunity[] })?.extra;
 
             return isTweet ? (
-              <span key={item._id}>
-                <TweetItem
-                  tweet={item}
-                  key={item._id}
-                  onSuccessDel={onSuccessDel}
-                />
-                {index < feeds.length - 1 && <hr className="border-gray-200" />}
-              </span>
+              <TweetItem
+                tweet={item}
+                key={item._id}
+                onSuccessDel={onSuccessDel}
+              />
             ) : (
               !!communities.length && (
-                <div
-                  className="border-b border-gray-200"
-                  key={communities[0]?._id}
-                >
+                <div key={communities[0]?._id}>
                   <p className="ml-4 mt-2 text-gray-500 font-medium">
                     Gợi ý tham gia
                   </p>

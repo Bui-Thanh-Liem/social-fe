@@ -1,4 +1,3 @@
-import { SearchAdvanced } from "~/components/search-advanced/SearchAdvanced";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { useUpdateQuery } from "~/hooks/useUpdateQuery";
 import { MediaTab } from "./MediaTab";
@@ -12,14 +11,6 @@ export function SearchPage() {
 
   return (
     <div>
-      <div className="px-4 pt-2 flex items-center gap-3">
-        <SearchAdvanced
-          size="lg"
-          className="md:w-[580px]"
-          placeholder="liemdev, #developer"
-        />
-      </div>
-
       <div className="mt-1">
         <Tabs defaultValue="top" className="mb-12">
           <div className="bg-white py-2 pt-5 sticky top-0 z-50">

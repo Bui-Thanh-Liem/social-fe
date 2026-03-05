@@ -64,12 +64,12 @@ const router = createBrowserRouter([
         ),
         children: [
           { path: "home", element: <HomePage /> },
-          { path: "bookmarks", element: <BookmarkPage /> },
           { path: "explore", element: <ExplorePage /> },
+          { path: "communities", element: <CommunitiesPage /> },
+          { path: "bookmarks", element: <BookmarkPage /> },
           { path: "notifications", element: <NotificationPage /> },
           { path: "messages", element: <MessagePage /> },
           { path: "search", element: <SearchPage /> },
-          { path: "communities", element: <CommunitiesPage /> },
           { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
           {
             path: `communities/t/${explore_tab}`,

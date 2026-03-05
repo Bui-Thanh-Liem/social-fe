@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
 import { SearchMain } from "~/components/ui/search";
-import { WrapIcon } from "~/components/WrapIcon";
 import { useDebounce } from "~/hooks/useDebounce";
 import { useGetTweetBookmarked } from "~/apis/useFetchTweet";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
@@ -15,7 +12,6 @@ export function BookmarkPage() {
   const [allTweets, setAllTweets] = useState<ITweet[]>([]);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const navigate = useNavigate();
 
   // Search
   const [searchVal, setSearchVal] = useState("");
@@ -134,42 +130,25 @@ export function BookmarkPage() {
   const tweetLength = allTweets.length;
   return (
     <div>
-      {/* Header */}
-      <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className="flex h-12 items-center gap-6 ">
-          <WrapIcon
-            onClick={() => navigate(-1)}
-            aria-label="Quay lại"
-            className="hidden lg:block"
-          >
-            <ArrowLeftIcon />
-          </WrapIcon>
-          <p className="font-semibold text-[20px]">Bookmarks</p>
-        </div>
-      </div>
-
       {/* Search */}
-      <div className="p-4">
+      <div className="py-4 w-96">
         <SearchMain
-          size="lg"
+          size="sm"
           value={searchVal}
-          onClear={() => setSearchVal("")}
           onChange={setSearchVal}
+          onClear={() => setSearchVal("")}
         />
       </div>
 
-      <div className="max-h-[calc(100vh-(140px))] overflow-y-auto">
+      <div className="max-h-[calc(100vh-(150px))] overflow-y-auto">
         {/* Loading state cho lần load đầu tiên */}
         {isLoading && page === 1 && <SkeletonTweet />}
 
         {/* Tweets list */}
         {tweetLength > 0 && (
-          <div className="space-y-6">
-            {allTweets.map((tweet, index: number) => (
-              <span key={tweet._id}>
-                <TweetItem tweet={tweet} onSuccessDel={onDel} />
-                {index < tweetLength - 1 && <hr className="border-gray-200" />}
-              </span>
+          <div className="space-y-4">
+            {allTweets.map((tweet) => (
+              <TweetItem key={tweet._id} tweet={tweet} onSuccessDel={onDel} />
             ))}
           </div>
         )}

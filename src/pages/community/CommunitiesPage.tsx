@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SearchMain } from "~/components/ui/search";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/WrapIcon";
 import { CreateCommunity } from "./CreateCommunity";
 import { ExploreTab } from "./explore-tab/ExploreTab";
 import { JoinedTab } from "./joined-tab/JoinedTab";
@@ -45,21 +43,9 @@ export function CommunitiesPage() {
   return (
     <div>
       {/* Header */}
-      <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className="flex h-12 items-center gap-4">
-          <WrapIcon
-            onClick={() => navigate(-1)}
-            aria-label="Quay lại"
-            className="hidden lg:block"
-          >
-            <ArrowLeftIcon color="#000" />
-          </WrapIcon>
-          <p className="font-semibold text-[20px]">Cộng đồng</p>
-        </div>
+      {/* <div className="flex justify-between items-center py-4">
         <div className="flex items-center gap-x-3">
-          <span
-            className={cn("hidden", isOpenSearch ? "block w-40 lg:w-auto" : "")}
-          >
+          <span className={cn("hidden", isOpenSearch ? "block w-96" : "")}>
             <SearchMain
               size="sm"
               value={searchVal}
@@ -70,7 +56,7 @@ export function CommunitiesPage() {
           </span>
           <CreateCommunity />
         </div>
-      </div>
+      </div> */}
 
       {/*  */}
       <div>

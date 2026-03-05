@@ -1,19 +1,14 @@
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Bookmark,
+  HomeIcon,
+  Telescope,
+  UsersRound,
+} from "lucide-react";
 import type { ReactNode } from "react";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLogout } from "~/apis/useFetchAuth";
 import { TypographyP } from "~/components/elements/p";
-import { BookmarkIcon } from "~/components/icons/bookmark";
-import { CommunityIcon } from "~/components/icons/communities";
-import { DotIcon } from "~/components/icons/dot";
-import { ExploreIcon } from "~/components/icons/explore";
-import { HomeIcon } from "~/components/icons/home";
-import { MessageIcon } from "~/components/icons/messages";
-import { NotificationIcon } from "~/components/icons/notifications";
-import { ProfileIcon } from "~/components/icons/profile";
-import { Tweet } from "~/components/tweet/Tweet";
-import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import {
   Carousel,
@@ -21,22 +16,9 @@ import {
   CarouselItem,
 } from "~/components/ui/carousel";
 import { DialogMain } from "~/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
 import { cn } from "~/lib/utils";
-import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
-import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
-import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
 import { useReloadStore } from "~/store/useReloadStore";
-import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
-import { playNotificationSound } from "~/utils/notificationSound";
-import { Logo } from "../../components/Logo";
-import { WrapIcon } from "../../components/WrapIcon";
 
 export type NavItem = {
   name: string;
@@ -60,15 +42,10 @@ export function SidebarLeft() {
 
   //
   const { user } = useUserStore();
-  const { unread } = useUnreadNotiStore();
 
-  const logout = useLogout();
   const { triggerReload } = useReloadStore();
 
   //
-  const [unreadCountNoti, setUnreadCountNoti] = useState(0);
-  const [unreadCountConv, setUnreadCountConv] = useState(0);
-  const [isOpenPost, setIsOpenPost] = useState(false);
   const [isOpenIntro, setIsOpenIntro] = useState(!user?.verify);
 
   //
@@ -79,63 +56,6 @@ export function SidebarLeft() {
   }
 
   //
-  useEffect(() => {
-    //
-    if (unreadCountNoti < unread) {
-      playNotificationSound();
-    }
-
-    //
-    document.title =
-      unread > 0
-        ? `(${unread}) thông báo chưa đọc`
-        : CONSTANT_DEFAULT_TITLE_DOCUMENT;
-
-    const oldLinks = document.querySelectorAll(
-      'link[rel="icon"], link[rel="shortcut icon"]',
-    );
-
-    oldLinks.forEach((link) => link.remove());
-
-    // Tạo favicon mới
-    const link = document.createElement("link");
-    link.rel = "icon";
-    link.type = "image/svg+xml";
-    link.href = unread > 0 ? "/favicon-noti.svg" : "/favicon.svg";
-    document.head.appendChild(link);
-    setUnreadCountNoti(unread);
-  }, [unread]);
-
-  //
-  useConversationSocket(
-    () => {},
-    (_unread) => {
-      //
-      if (unreadCountConv < _unread) {
-        playNotificationSound();
-      }
-
-      //
-      document.title =
-        _unread > 0
-          ? `(${_unread}) tin nhắn chưa đọc`
-          : CONSTANT_DEFAULT_TITLE_DOCUMENT;
-
-      const oldLinks = document.querySelectorAll(
-        'link[rel="icon"], link[rel="shortcut icon"]',
-      );
-      oldLinks.forEach((link) => link.remove());
-
-      // Tạo favicon mới
-      const link = document.createElement("link");
-      link.rel = "icon";
-      link.type = "image/svg+xml";
-      link.href = _unread > 0 ? "/favicon-noti.svg" : "/favicon.svg";
-      document.head.appendChild(link);
-      setUnreadCountConv(_unread);
-    },
-    () => {},
-  );
 
   const navs: NavItem[] = [
     {
@@ -145,64 +65,25 @@ export function SidebarLeft() {
     },
     {
       name: "Khám phá",
-      icon: <ExploreIcon />,
+      icon: <Telescope />,
       path: "/explore",
     },
     {
       name: "Cộng đồng",
-      icon: <CommunityIcon />,
+      icon: <UsersRound />,
       path: "/communities",
     },
     {
-      name: "Thông báo",
-      icon: <NotificationIcon />,
-      path: `/notifications#${ENotificationType.Community}`,
-      countNoti: unreadCountNoti,
-    },
-    {
       name: "Dấu trang",
-      icon: <BookmarkIcon />,
+      icon: <Bookmark />,
       path: "/bookmarks",
-    },
-
-    {
-      name: "Tin nhắn",
-      icon: <MessageIcon />,
-      path: "/messages",
-      countNoti: unreadCountConv,
-    },
-
-    {
-      name: "Hồ sơ",
-      icon: <ProfileIcon />,
-      path: user?.username ? `/${user.username}` : "/profile",
     },
   ];
 
-  //
-  async function onLogout() {
-    await logout.mutateAsync();
-  }
-
-  //
-  function handleOpenPost() {
-    setIsOpenPost(true);
-  }
-
-  //
-  function onSuccessPost() {
-    setIsOpenPost(false);
-  }
-
   return (
     <>
-      <div className="relative h-full pt-1 ml-4 lg:ml-0">
-        <h2 className="text-lg font-semibold hidden lg:block">
-          <WrapIcon>
-            <Logo size={40} />
-          </WrapIcon>
-        </h2>
-        <ul className="space-y-2 text-sm text-gray-700">
+      <div className="relative h-full flex">
+        <ul className="space-y-1 text-sm text-gray-700 pt-3 border-r pr-4 w-3/5">
           {navs.map((x) => {
             const cleanPath = x.path?.replace(/#.*$/, "") || "";
             const isActive = pathname.startsWith(cleanPath);
@@ -212,15 +93,11 @@ export function SidebarLeft() {
                 <div onClick={() => onClickNav(x.path || "", x.name)}>
                   <TypographyP
                     className={cn(
-                      "text-[22px] p-3 group-hover:bg-gray-100 rounded-3xl flex items-center gap-3",
+                      "text-[18px] p-3 py-2 group-hover:bg-gray-100 rounded-3xl flex items-center gap-3",
                       isActive ? "font-semibold" : "",
                     )}
                   >
-                    {React.isValidElement(x.icon) &&
-                    typeof x.icon.type === "function"
-                      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        React.cloneElement(x.icon, { active: isActive } as any)
-                      : x.icon}
+                    {x.icon}
                     <span className="line-clamp-1 hidden lg:block">
                       {x.name}{" "}
                     </span>
@@ -235,77 +112,7 @@ export function SidebarLeft() {
             );
           })}
         </ul>
-
-        <div className="absolute w-full bottom-20 lg:bottom-28 hidden lg:block">
-          <ButtonMain
-            size="lg"
-            onClick={handleOpenPost}
-            className="w-full bg-black hover:bg-[#333] hidden lg:block"
-          >
-            Đăng Bài
-          </ButtonMain>
-        </div>
-
-        <div className="absolute w-full bottom-6 lg:bottom-3 p-2 px-3 rounded-4xl hover:bg-gray-100 cursor-pointer flex items-center gap-3">
-          <AvatarMain
-            src={user?.avatar?.url}
-            alt={user?.name}
-            className="hidden lg:block"
-          />
-          <div className="hidden lg:block">
-            <span className="block font-bold">{user?.name}</span>
-            <span className="text-sm text-gray-400">{user?.username}</span>
-          </div>
-
-          <div className="absolute right-1 lg:right-4 hidden lg:block">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <button className="outline-0 outline-transparent">
-                  <WrapIcon className="hidden lg:block">
-                    <DotIcon />
-                  </WrapIcon>
-                  <AvatarMain
-                    src={user?.avatar?.url}
-                    alt={user?.name}
-                    className="lg:hidden"
-                  />
-                </button>
-              </DropdownMenuTrigger>
-
-              {/*  */}
-              <DropdownMenuContent
-                side="right"
-                align="end"
-                className="rounded-2xl w-60 px-0 py-2"
-              >
-                <DropdownMenuItem
-                  className="cursor-pointer h-10 px-4 font-semibold"
-                  onClick={onLogout}
-                >
-                  <span className="text-red-500">
-                    Đăng xuất {user?.username}
-                  </span>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </div>
       </div>
-
-      {/*  */}
-      <DialogMain
-        width="2xl"
-        isLogo={false}
-        open={isOpenPost}
-        onOpenChange={setIsOpenPost}
-      >
-        <Tweet
-          contentBtn="Đăng bài"
-          onSuccess={onSuccessPost}
-          tweetType={ETweetType.Tweet}
-          placeholder="Có chuyện gì thế ? @liemdev, #developer"
-        />
-      </DialogMain>
 
       {/*  */}
       <DialogMain

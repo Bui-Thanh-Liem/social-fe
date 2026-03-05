@@ -4,7 +4,6 @@ import { cn } from "~/lib/utils";
 import { EFeedType } from "~/shared/enums/type.enum";
 import { useReloadStore } from "~/store/useReloadStore";
 import { ListTweets } from "../../components/list-tweets/ListTweets";
-import { Tweet } from "../../components/tweet/Tweet";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetAllPinnedBareCommunities } from "~/apis/useFetchCommunity";
 import { CommunityTweets } from "../community/Community-page/CommunityTweets";
@@ -132,7 +131,7 @@ export function HomePage() {
   return (
     <main className="relative">
       {/* Fixed Navigation Bar */}
-      <div className="sticky top-0 h-14 bg-white/50 backdrop-blur-md z-30 flex border-b border-gray-200 flex-shrink-0 cursor-grab">
+      <div className="sticky top-0 h-14 bg-white/50 backdrop-blur-md z-30 flex flex-shrink-0 cursor-grab">
         <div
           ref={navRef}
           className="flex w-full h-full overflow-x-auto scrollbar-hide"
@@ -183,12 +182,9 @@ export function HomePage() {
       {/* Scrollable Content */}
       <div
         ref={containerRef}
-        className="flex-1 h-[calc(100vh-56px)] overflow-y-auto"
+        className="flex-1 h-[calc(100vh-120px)] overflow-y-auto"
       >
-        <div className="px-4 pt-4">
-          <Tweet community={communityId} />
-        </div>
-        <div className="border-b border-gray-100" />
+        <div className="mb-3" />
         {Object.values(EFeedType).includes(formatTypeText(hash)) ? (
           <ListTweets feedType={formatTypeText(hash)} />
         ) : (

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { TweetDetailDrawer } from "~/components/list-tweets/TweetDetailDrawer";
 import { cn } from "~/lib/utils";
 import ChatBox from "~/pages/messages/ChatBox";
@@ -12,15 +12,12 @@ import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
 import { SidebarLeft } from "./SidebarLeft";
 import { SidebarRight } from "./SidebarRight";
-import { NavForMobile } from "~/layouts/home-layout/NavForMobile";
-import { AppSidebarMobile } from "~/components/sidebar-mobile/AppSidebarMobile";
+import { Header } from "./Header";
 
 export function HomeLayout() {
   const { isOpen } = useChatBoxStore();
   const { user } = useUserStore();
   const { setUnread, setUnreadByType } = useUnreadNotiStore();
-  const { pathname } = useLocation();
-  const isMessage = pathname === "/messages";
 
   // Một kết nối socket duy nhất cho toàn ứng dụng
   useEffect(() => {
@@ -37,34 +34,32 @@ export function HomeLayout() {
 
   //
   return (
-    <div className="w-full">
+    <div>
       {/*  */}
-      <AppSidebarMobile />
+      <Header />
 
-      <div className="mx-auto flex h-screen overflow-hidden">
-        <aside className="hidden lg:block w-0 lg:w-[22%] lg:pr-4 h-screen">
+      {/*  */}
+      <div className="mx-auto flex border-t overflow-hidden">
+        <aside className="block w-[22%] pr-4 pl-4">
           <SidebarLeft />
         </aside>
 
-        <main
-          className={cn(
-            "w-[100%] lg:w-[50%] col-span-6 border-r border-l border-gray-200",
-            isMessage && "w-full lg:w-[76%]",
-          )}
-        >
+        <main className={cn("lg:w-[50%] col-span-6 border-gray-200")}>
           <Outlet />
         </main>
 
-        {/* Trường hơp đặt biệt trang message */}
-        {!isMessage ? (
-          <aside className="h-screen w-0 md:flex-1">
-            <SidebarRight />
-          </aside>
-        ) : null}
+        <aside className="flex-1 pr-4">
+          <SidebarRight />
+        </aside>
       </div>
-      <NavForMobile />
+
+      {/*  */}
       {isOpen && <ChatBox />}
+
+      {/*  */}
       <TweetDetailDrawer />
+
+      {/*  */}
       <DetailAttachmentDrawer />
     </div>
   );

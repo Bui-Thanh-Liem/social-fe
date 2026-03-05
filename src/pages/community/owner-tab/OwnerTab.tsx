@@ -106,7 +106,7 @@ export function OwnerTab() {
   return (
     <div>
       {/*  */}
-      <div className="mb-4 px-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between">
         <div className="lg:w-[40%]">
           <SearchMain
             size="sm"
@@ -135,7 +135,7 @@ export function OwnerTab() {
         </div>
       </div>
 
-      <div className="overflow-y-auto h-[calc(100vh-250px)] lg:h-[calc(100vh-160px)] px-4">
+      <div className="overflow-y-auto h-[calc(100vh-300px)]">
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">

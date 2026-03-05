@@ -158,7 +158,7 @@ export const TweetItem = ({
   const quoteTweet_user = quoteTweet.user_id as unknown as IUser;
 
   return (
-    <div key={_id} className="px-4 py-2 group hover:bg-gray-50 relative">
+    <Card key={_id} className="p-3 group bg-gray-50 relative">
       {/* thông tin cộng đồng */}
       {community?.name && (
         <div>
@@ -202,7 +202,7 @@ export const TweetItem = ({
       </div>
 
       {/* thông tin bài viết */}
-      <div className="ml-0 md:ml-14">
+      <div className="ml-14">
         {/* Nội dung tweet */}
         {content && tweet.type !== ETweetType.Retweet && (
           <ContentExpanded
@@ -333,7 +333,7 @@ export const TweetItem = ({
           </div>
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 

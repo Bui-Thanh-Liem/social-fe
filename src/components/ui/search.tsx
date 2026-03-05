@@ -42,11 +42,11 @@ export function SearchMain({
       {/* Input */}
       <Input
         type="text"
-        placeholder="Tìm kiếm"
         value={value}
+        placeholder="Tìm kiếm"
+        onKeyDown={onKeyDown}
         onChange={(e) => onChange(e.target.value)}
         className={cn("rounded-full", sizeStyles[size])}
-        onKeyDown={onKeyDown}
       />
 
       {/* Nút clear */}

@@ -80,7 +80,7 @@ export function ExploreTab() {
   return (
     <div>
       {/*  */}
-      <div className="flex mb-4 px-4">
+      <div className="flex mb-4">
         <Carousel className="group w-full">
           <CarouselContent className="-ml-1">
             {cates?.metadata?.map((_) => (
@@ -104,7 +104,7 @@ export function ExploreTab() {
         </Carousel>
       </div>
 
-      <div className="overflow-y-auto h-[calc(100vh-210px)] lg:h-[calc(100vh-160px)]">
+      <div className="overflow-y-auto h-[calc(100vh-300px)]">
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">
