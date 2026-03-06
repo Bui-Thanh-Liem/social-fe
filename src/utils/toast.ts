@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import type { OkResponse } from "~/shared/classes/response.class";
-import { formatDateToDateVN } from "./date-time";
+import { formatDateToDateVN } from "./dateTime";
 
 type ToastType = "success" | "error" | "warning" | "info";
 
@@ -50,15 +50,4 @@ export function toastSimple(mess: string, type: ToastType = "info") {
     description: formatDateToDateVN(new Date()),
     richColors: true,
   });
-}
-
-// Specific toast for verification warning
-export function toastSimpleVerify() {
-  toast["warning"](
-    "Tài khoản của bạn chưa được xác minh, xác minh ở trang cá nhân của bạn.",
-    {
-      description: formatDateToDateVN(new Date()),
-      richColors: true,
-    }
-  );
 }

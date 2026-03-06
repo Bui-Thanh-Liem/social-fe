@@ -1,12 +1,11 @@
-import { Calendar } from "lucide-react";
+import { ArrowLeft, Calendar } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { VerifyIcon } from "~/components/icons/verify";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WrapIcon } from "~/components/WrapIcon";
 import { useGetOneCommunityBySlug } from "~/apis/useFetchCommunity";
 import { ETweetType, EVisibilityType } from "~/shared/enums/type.enum";
-import { formatDateToDateVN } from "~/utils/date-time";
+import { formatDateToDateVN } from "~/utils/dateTime";
 import { ProfileSkeleton } from "../../profile/ProfilePage";
 import { CommunityInfo } from "./actions/CommunityInfo";
 import { CommunityInvite } from "./actions/CommunityInvite";
@@ -109,7 +108,7 @@ export function CommunityPage() {
         <div className="px-3 border border-gray-100">
           <div className="flex h-12 items-center gap-4">
             <WrapIcon onClick={() => navigate(-1)}>
-              <ArrowLeftIcon color="#000" />
+              <ArrowLeft color="#000" />
             </WrapIcon>
 
             {community.is_joined && (

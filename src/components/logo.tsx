@@ -7,7 +7,7 @@ type PropLogoType = {
 
 export function Logo({ size = 100, className = "text-black" }: PropLogoType) {
   return (
-    <Link to="/home" style={{ display: "block", width: size }}>
+    <Link to="/" style={{ display: "block", width: size }}>
       <svg
         width={size}
         height={size}

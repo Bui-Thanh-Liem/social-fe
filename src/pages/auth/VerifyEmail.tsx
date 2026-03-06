@@ -21,7 +21,7 @@ export function VerifyEmail() {
             "Xác minh email không thành công. Vui lòng thử lại.",
             "error"
           );
-          navigate("/home");
+          navigate("/");
         }
       })();
     }

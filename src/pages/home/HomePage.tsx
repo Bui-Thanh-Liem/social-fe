@@ -1,16 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetAllPinnedBareCommunities } from "~/apis/useFetchCommunity";
-import { TypographyP } from "~/components/elements/p";
-import { cn } from "~/lib/utils";
 import { EFeedType } from "~/shared/enums/type.enum";
 import { useReloadStore } from "~/store/useReloadStore";
 import { ListTweets } from "../../components/list-tweets/ListTweets";
 import { CommunityTweets } from "../community/Community-page/CommunityTweets";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 
 export function HomePage() {
   const { pathname, hash } = useLocation();
   const [communityId, setCommunityId] = useState<string>("");
+  const [valueSelect, setValueSelect] = useState<string>(`/`);
 
   const navigate = useNavigate();
   const { triggerReload, reloadKey } = useReloadStore();
@@ -18,11 +24,6 @@ export function HomePage() {
   //
   const { data } = useGetAllPinnedBareCommunities();
   const pinnedCommunities = data?.metadata || [];
-
-  //
-  const classNav =
-    "min-w-1/2 line-clamp-1 text-gray-700 px-3 py-1 rounded-2xl hover:bg-gray-100 cursor-pointer";
-  const classActive = "font-medium bg-gray-100";
 
   //
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,73 +36,69 @@ export function HomePage() {
   }, [reloadKey]);
 
   //
-  function handleClickTabForYou() {
-    triggerReload();
-    navigate(`${pathname}`);
-  }
+  useEffect(() => {
+    setValueSelect(hash || "/");
+  }, [hash]);
 
   //
-  function handleClickTabFollowing() {
-    triggerReload();
-    navigate(`${pathname}#${EFeedType.Following}`);
-  }
+  const navigation = [
+    {
+      name: "Dành Cho Bạn",
+      value: "/",
+    },
+    {
+      name: "Đã Theo Dõi",
+      value: `#${EFeedType.Following}`,
+    },
+    ...pinnedCommunities.map((community) => ({
+      name: community.name,
+      value: `#${community.slug}`,
+    })),
+  ];
 
   //
-  function handleClickTabCommunity(slug: string, communityId: string) {
+  function handleClickNav(value: string) {
     triggerReload();
+    setValueSelect(value);
+
+    const selectedCommunity = pinnedCommunities.find(
+      (community) => `#${community.slug}` === value,
+    );
+    const communityId = selectedCommunity?._id || "";
     setCommunityId(communityId);
-    navigate(`${pathname}#${slug}`);
+    navigate(value === "/" ? pathname : `${pathname}${value}`);
   }
 
-  const havePinnedCommunities = pinnedCommunities.length > 0;
   return (
     <main className="relative grid grid-cols-12 pt-3">
-      {/* Fixed Navigation Bar */}
-      <div className="col-span-2 flex">
-        <div className="scrollbar-hide space-y-2 pr-4">
-          <TypographyP
-            className={cn(
-              `${classNav} select-none`,
-              hash === "" && classActive,
-            )}
-            onClick={handleClickTabForYou}
-          >
-            Dành Cho Bạn
-          </TypographyP>
-
-          <TypographyP
-            className={cn(
-              `${classNav} select-none`,
-              hash === `#${EFeedType.Following}` && classActive,
-            )}
-            onClick={handleClickTabFollowing}
-          >
-            Đã Theo Dõi
-          </TypographyP>
-
-          {havePinnedCommunities &&
-            pinnedCommunities.map((community) => (
-              <TypographyP
-                key={community._id}
-                className={cn(
-                  `${classNav} select-none`,
-                  hash === `#${community.slug}` && classActive,
-                )}
-                onClick={() =>
-                  handleClickTabCommunity(community.slug, community._id)
-                }
-              >
-                {community.name}
-              </TypographyP>
-            ))}
-        </div>
-      </div>
-
-      {/* Scrollable Content */}
+      <div className="col-span-3 flex"></div>
       <div
         ref={containerRef}
-        className="col-span-10 h-[calc(100vh-76px)] overflow-y-auto"
+        className="col-span-9 h-[calc(100vh-76px)] overflow-y-auto"
       >
+        {/* Fixed Navigation Bar */}
+        <Select
+          value={valueSelect}
+          onValueChange={handleClickNav}
+          defaultValue={navigation[0].value}
+        >
+          <SelectTrigger
+            id="nav"
+            size="sm"
+            className="border-0 outline-0 focus:bg-white bg-white min-w-60 mb-3"
+          >
+            <SelectValue placeholder="Select language" />
+          </SelectTrigger>
+          <SelectContent>
+            {navigation.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {/* Scrollable Content */}
         {Object.values(EFeedType).includes(formatTypeText(hash)) ? (
           <ListTweets feedType={formatTypeText(hash)} />
         ) : (

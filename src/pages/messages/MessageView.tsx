@@ -1,4 +1,4 @@
-import { LoaderCircle, Send } from "lucide-react";
+import { ArrowLeft, ImagePlus, LoaderCircle, Send, X } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -12,9 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { useGetMultiMessages } from "~/apis/useFetchMessages";
 import { useUploadMedia } from "~/apis/useFetchUpload";
 import { EmojiSelector } from "~/components/EmojiPicker";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
-import { CloseIcon } from "~/components/icons/close";
-import { ImageIcon } from "~/components/icons/image";
 import { Logo } from "~/components/Logo";
 import { AvatarMain, GroupAvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
@@ -275,7 +272,7 @@ export function MessageView({
               onBack();
             }}
           >
-            <ArrowLeftIcon color="#000" />
+            <ArrowLeft color="#000" />
           </WrapIcon>
           {!Array.isArray(conversation.avatar) ? (
             <AvatarMain
@@ -388,7 +385,7 @@ export function MessageView({
                     )}
                     title="Thêm ảnh hoặc video"
                   >
-                    <ImageIcon />
+                    <ImagePlus color="#1d9bf0" size={20} />
                     <input
                       multiple
                       type="file"
@@ -490,7 +487,7 @@ export function PreviewMediaMulti({
                     className="absolute top-0 left-0 bg-transparent cursor-pointer hover:bg-transparent"
                     onClick={() => removeMedia(item.id)}
                   >
-                    <CloseIcon size={16} color="red" />
+                    <X size={16} color="red" />
                   </WrapIcon>
                   <CardContent className="w-full h-full p-0 flex items-center justify-center">
                     {item.file_type.startsWith("image/") ? (

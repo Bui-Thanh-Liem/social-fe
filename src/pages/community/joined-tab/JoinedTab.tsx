@@ -106,12 +106,12 @@ export function JoinedTab() {
     <div>
       {/*  */}
       <div className="mb-4 flex items-center justify-between">
-        <div className="lg:w-[40%]">
+        <div className="w-[40%]">
           <SearchMain
             size="sm"
             value={searchVal}
-            onClear={() => setSearchVal("")}
             onChange={setSearchVal}
+            onClear={() => setSearchVal("")}
           />
         </div>
 

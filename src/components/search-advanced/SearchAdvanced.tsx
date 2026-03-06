@@ -12,8 +12,6 @@ import { cn } from "~/lib/utils";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITrending } from "~/shared/interfaces/schemas/trending.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
-import { toastSimpleVerify } from "~/utils/toast";
 import { VerifyIcon } from "../icons/verify";
 import { Logo } from "../Logo";
 import { AvatarMain } from "../ui/avatar";
@@ -41,8 +39,6 @@ export function SearchAdvanced({
   size = "md",
   placeholder = "Tìm kiếm",
 }: SearchBarProps) {
-  const { user } = useUserStore();
-
   //
   const navigate = useNavigate();
   const { pathname, hash } = useLocation();
@@ -99,8 +95,6 @@ export function SearchAdvanced({
   //
   function onKeydown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Enter" || e.code === "Enter") {
-      if (!handleCheckPermission()) return;
-
       if (searchVal) {
         apiCreateHistory.mutate({ text: searchVal });
         navigate(`/search?q=${searchVal}`);
@@ -110,8 +104,6 @@ export function SearchAdvanced({
 
   //
   function onClickTrendingItem(tr: ITrending) {
-    if (!handleCheckPermission()) return;
-
     if (tr) {
       apiCreateHistory.mutate({ trending: tr._id });
       navigate(`/search?q=${tr?.topic}`);
@@ -121,7 +113,6 @@ export function SearchAdvanced({
   }
 
   function onClickShItem(tr: string) {
-    if (!handleCheckPermission()) return;
     navigate(`/search?q=${tr}`);
     setSearchVal(tr);
     setOpen(false);
@@ -129,8 +120,6 @@ export function SearchAdvanced({
 
   //
   function onClickUserItem(u: IUser) {
-    if (!handleCheckPermission()) return;
-
     if (u) {
       apiCreateHistory.mutate({ user: u._id });
       navigate(`/${u.username}`);
@@ -141,8 +130,6 @@ export function SearchAdvanced({
 
   //
   function onClickCommunityItem(c: ICommunity) {
-    if (!handleCheckPermission()) return;
-
     if (c) {
       apiCreateHistory.mutate({ community: c._id });
       navigate(`/search?q=${c?.slug}`);
@@ -155,14 +142,6 @@ export function SearchAdvanced({
     e.stopPropagation();
     e.preventDefault();
     apiDeleteHistory.mutate({ id });
-  }
-
-  function handleCheckPermission() {
-    if (user && !user?.verify) {
-      toastSimpleVerify();
-    }
-
-    return user?.verify;
   }
 
   //

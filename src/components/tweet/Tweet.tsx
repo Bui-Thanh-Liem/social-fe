@@ -1,12 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Terminal } from "lucide-react";
+import { ImagePlus, Terminal, X } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateTweet } from "~/apis/useFetchTweet";
 import { useUploadMedia } from "~/apis/useFetchUpload";
 import { EmojiSelector } from "~/components/EmojiPicker";
-import { CloseIcon } from "~/components/icons/close";
-import { ImageIcon } from "~/components/icons/image";
 import { TweetAudience } from "~/components/tweet/TweetAudience";
 import { WrapIcon } from "~/components/WrapIcon";
 import { useEmojiInsertion } from "~/hooks/useEmojiInsertion";
@@ -33,7 +31,7 @@ import type {
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
-import { handleResponse, toastSimpleVerify } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast";
 import { BgColorTweet } from "../BgColorTweet";
 import { TweetItem } from "../list-tweets/ItemTweet";
 import { TextColorTweet } from "../TextColorTweet";
@@ -282,11 +280,6 @@ export function Tweet({
   // Thực hiện gọi api đăng bài
   const onSubmit = useCallback(
     async (data: CreateTweetDto) => {
-      if (user && !user?.verify) {
-        toastSimpleVerify();
-        return;
-      }
-
       try {
         setIsUploading(true);
         let medias: IMedia[] = [];
@@ -472,7 +465,7 @@ export function Tweet({
                   className="cursor-pointer"
                   title="Thêm ảnh hoặc video"
                 >
-                  <ImageIcon />
+                  <ImagePlus color="#1d9bf0" size={20} />
                   <input
                     multiple
                     type="file"
@@ -546,7 +539,7 @@ export function PreviewMediaMulti({
                 className="absolute top-0 right-0 bg-transparent cursor-pointer hover:bg-transparent"
                 onClick={() => removeMedia(item.id)}
               >
-                <CloseIcon size={16} color="red" />
+                <X size={16} color="red" />
               </WrapIcon>
               <CardContent className="w-full h-full p-0 flex items-center justify-center">
                 {item.file_type.includes("image/") ? (

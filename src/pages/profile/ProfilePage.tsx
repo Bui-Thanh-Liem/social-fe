@@ -1,13 +1,10 @@
-import { Calendar, Globe, MapPin } from "lucide-react";
+import { Calendar, Globe, MapPin, X } from "lucide-react";
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
-import { CloseIcon } from "~/components/icons/close";
+import { Link, useParams } from "react-router-dom";
 import { VerifyIcon } from "~/components/icons/verify";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/WrapIcon";
 import { useGetOneByUsername, useResendVerifyEmail } from "~/apis/useFetchUser";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
 import { ETweetType } from "~/shared/enums/type.enum";
@@ -17,12 +14,11 @@ import { ProfileLiked } from "./ProfileLiked";
 import { ProfileMedia } from "./ProfileMedia";
 import { ProfileTweets } from "./ProfileTweets";
 import { handleResponse } from "~/utils/toast";
-import { formatDateToDateVN } from "~/utils/date-time";
+import { formatDateToDateVN } from "~/utils/dateTime";
 import { ErrorResponse } from "~/components/Error";
 import { StarPrestige } from "./Star";
 
 export function ProfilePage() {
-  const navigate = useNavigate();
   const { username } = useParams(); // Đặt tên params ở <App />
   const { user } = useUserStore();
   const { data, refetch, isLoading, error } = useGetOneByUsername(username!);
@@ -53,7 +49,7 @@ export function ProfilePage() {
 
   //
   useEffect(() => {
-    setOpenVerify(Boolean(!profile?.verify));
+    if (profile) setOpenVerify(Boolean(!profile?.verify));
   }, [profile?.verify]);
 
   //
@@ -74,25 +70,6 @@ export function ProfilePage() {
     );
   }
 
-  // Loading state
-  if (isLoading && !data) {
-    return <ProfileSkeleton />;
-  }
-
-  // User not found
-  if (data?.statusCode === 404) {
-    return (
-      <div className="flex flex-col items-center justify-center h-96">
-        <h2 className="text-xl font-bold text-gray-600 mb-2">
-          Không tìm thấy người dùng
-        </h2>
-        <p className="text-gray-500">
-          "{username}" không tồn tại hoặc đã bị xóa
-        </p>
-      </div>
-    );
-  }
-
   //
   async function resendVerifyEmail() {
     startTransition(async () => {
@@ -102,18 +79,9 @@ export function ProfilePage() {
   }
 
   return (
-    <div>
-      {/* Header */}
-      <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className=" h-12 items-center gap-4 hidden lg:flex">
-          <WrapIcon onClick={() => navigate(-1)} aria-label="Quay lại">
-            <ArrowLeftIcon color="#000" />
-          </WrapIcon>
-          <p className="font-semibold text-[20px]">{profile?.name}</p>
-        </div>
-      </div>
-
-      <div className="max-h-[calc(100vh-114px)] overflow-y-auto">
+    <div className="max-h-[calc(100vh-64px)] overflow-y-auto grid grid-cols-12">
+      <div className="col-span-3"></div>
+      <div className="col-span-9">
         {/* Photo cover */}
         <div className="relative w-full">
           <div className="w-full h-52">
@@ -176,7 +144,11 @@ export function ProfilePage() {
               <Calendar className="w-4 h-4" />
               <span>
                 Đã tham gia{" "}
-                {formatDateToDateVN(new Date(profile?.created_at || ""))}
+                {formatDateToDateVN(
+                  profile?.created_at
+                    ? new Date(profile?.created_at)
+                    : new Date(),
+                )}
               </span>
             </div>
           </div>
@@ -207,7 +179,7 @@ export function ProfilePage() {
                 className="outline-0 absolute top-3 right-3 text-gray-600 hover:text-gray-800 cursor-pointer"
                 onClick={() => setOpenVerify(false)}
               >
-                <CloseIcon color="#333" size={18} />
+                <X color="#333" size={18} />
               </button>
               <div className="flex items-center space-x-2 mb-2">
                 <h3 className="text-black font-bold text-lg">
@@ -335,6 +307,21 @@ export function ProfilePage() {
             )}
           </div>
         </Tabs>
+
+        {/*  */}
+        {isLoading && !data && <ProfileSkeleton />}
+
+        {/*  */}
+        {data?.statusCode === 404 && (
+          <div className="flex flex-col items-center justify-center h-96">
+            <h2 className="text-xl font-bold text-gray-600 mb-2">
+              Không tìm thấy người dùng
+            </h2>
+            <p className="text-gray-500">
+              "{username}" không tồn tại hoặc đã bị xóa
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -343,14 +330,6 @@ export function ProfilePage() {
 export function ProfileSkeleton() {
   return (
     <div className="animate-pulse">
-      {/* Header */}
-      <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className="flex h-12 items-center gap-4">
-          <div className="w-8 h-8 bg-gray-200 rounded-full" />
-          <div className="h-5 w-32 bg-gray-200 rounded" />
-        </div>
-      </div>
-
       <div className="max-h-screen overflow-y-auto">
         {/* Cover Photo Skeleton */}
         <div className="w-full h-52 bg-gray-200" />

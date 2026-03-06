@@ -1,10 +1,4 @@
-import {
-  ArrowRight,
-  Bookmark,
-  HomeIcon,
-  Telescope,
-  UsersRound,
-} from "lucide-react";
+import { Bookmark, Hash, HomeIcon, Telescope, UsersRound } from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -15,7 +9,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import { ButtonMain } from "~/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -35,11 +28,11 @@ export type NavItem = {
 };
 
 const images = [
-  "./home.png",
-  "./explore.png",
-  "./community.png",
-  "./message.png",
-  "./detail-tweet.png",
+  "/home.png",
+  "/explore.png",
+  "/community.png",
+  "/message.png",
+  "/detail-tweet.png",
 ];
 
 export function SidebarLeft() {
@@ -53,22 +46,23 @@ export function SidebarLeft() {
   const { triggerReload } = useReloadStore();
 
   //
-  const [isOpenIntro, setIsOpenIntro] = useState(!user?.verify);
+  const [isOpenIntro, setIsOpenIntro] = useState(
+    Boolean(user && !user?.verify),
+  );
 
   //
   function onClickNav(path: string, name: string) {
-    if (path !== "/home") document.title = name;
+    if (path !== "/") document.title = name;
     triggerReload();
     navigate(path);
   }
 
   //
-
-  const navs: NavItem[] = [
+  const navMain: NavItem[] = [
     {
       name: "Trang chủ",
       icon: <HomeIcon />,
-      path: "/home",
+      path: "/",
     },
     {
       name: "Khám phá",
@@ -86,7 +80,8 @@ export function SidebarLeft() {
   return (
     <>
       <ul className="h-full space-y-3 text-sm text-gray-700 pt-3 border-r pr-4">
-        {navs.map((x) => {
+        {/*  */}
+        {navMain.map((x) => {
           const cleanPath = x.path?.replace(/#.*$/, "") || "";
           const isActive = pathname.startsWith(cleanPath);
 
@@ -114,49 +109,10 @@ export function SidebarLeft() {
           );
         })}
 
+        {/*  */}
         <li>
           <Accordion type="single" collapsible defaultValue="community">
-            <AccordionItem value="game">
-              <AccordionTrigger className="cursor-pointer">
-                Trò chơi
-              </AccordionTrigger>
-              <AccordionContent className="pl-2">
-                <div className={cla}>
-                  <img
-                    src="./community.png"
-                    alt="community"
-                    className="w-6 h-6 rounded-full"
-                  />
-                  <Link to="/communities" className="text-[16px]">
-                    Đá bóng
-                  </Link>
-                </div>
-              </AccordionContent>
-              <AccordionContent className="pl-2">
-                <div className={cla}>
-                  <img
-                    src="./community.png"
-                    alt="community"
-                    className="w-6 h-6 rounded-full"
-                  />
-                  <Link to="/communities" className="text-[16px]">
-                    Bóng rổ
-                  </Link>
-                </div>
-              </AccordionContent>
-              <AccordionContent className="pl-2">
-                <div className={cla}>
-                  <img
-                    src="./community.png"
-                    alt="community"
-                    className="w-6 h-6 rounded-full"
-                  />
-                  <Link to="/communities" className="text-[16px]">
-                    Bóng chuyền
-                  </Link>
-                </div>
-              </AccordionContent>
-            </AccordionItem>
+            {/*  */}
             <AccordionItem value="community">
               <AccordionTrigger className="cursor-pointer">
                 Cộng đồng
@@ -169,6 +125,54 @@ export function SidebarLeft() {
               </AccordionContent>
               <AccordionContent className="pl-2">
                 <CreateCommunity />
+              </AccordionContent>
+            </AccordionItem>
+
+            {/*  */}
+            <AccordionItem value="game">
+              <AccordionTrigger className="cursor-pointer">
+                Trò chơi
+              </AccordionTrigger>
+              <AccordionContent className="pl-2">
+                <div className={cla}>
+                  <Hash size={18} />
+                  <Link to="/communities" className="text-[16px]">
+                    Cờ caro
+                  </Link>
+                </div>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <div className={cla}>
+                  <Hash size={18} />
+                  <Link to="/communities" className="text-[16px]">
+                    Lật bài
+                  </Link>
+                </div>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <div className={cla}>
+                  <Hash size={18} />
+                  <Link to="/communities" className="text-[16px]">
+                    Đập chuột
+                  </Link>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/*  */}
+            <AccordionItem value="recent">
+              <AccordionTrigger className="cursor-pointer">
+                Xem gần đây
+              </AccordionTrigger>
+              <AccordionContent className="pl-2">
+                <Link to="/communities" className={cla}>
+                  <img
+                    src="./community.png"
+                    alt="community"
+                    className="w-6 h-6 rounded-full"
+                  />
+                  <p className="text-[16px]">Nodejs</p>
+                </Link>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -193,14 +197,6 @@ export function SidebarLeft() {
             ))}
           </CarouselContent>
         </Carousel>
-
-        <div className="text-end mt-3">
-          <a href="https://mail.google.com/mail/u/0/" target="_blank">
-            <ButtonMain className="animate-bounce">
-              Đi tới email của bạn <ArrowRight />
-            </ButtonMain>
-          </a>
-        </div>
       </DialogMain>
     </>
   );

@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { UserToFollowItemSkeleton } from "~/components/who-to-follow/WhoToFollowItem";
-import { useGetMultiCommunities } from "~/apis/useFetchCommunity";
 import { cn } from "~/lib/utils";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import { CommunityRow } from "../community/CommunityRow";
+import { useSearchCommunities } from "~/apis/useFetchSearch";
 
 export function CommunityTab() {
   const [searchParams] = useSearchParams();
@@ -14,7 +14,7 @@ export function CommunityTab() {
   const [communities, setCommunities] = useState<ICommunity[]>([]);
 
   const total_page_ref = useRef(0);
-  const { data, isLoading, refetch, isFetching } = useGetMultiCommunities({
+  const { data, isLoading, refetch, isFetching } = useSearchCommunities({
     page: page.toString(),
     limit: "10",
     q: q ?? "",

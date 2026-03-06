@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CloseIcon } from "~/components/icons/close";
 import { AvatarMain } from "~/components/ui/avatar";
 import { WrapIcon } from "~/components/WrapIcon";
 import {
@@ -15,8 +14,9 @@ import type { INotification } from "~/shared/interfaces/schemas/notification.int
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useNotificationSocket } from "~/socket/hooks/useNotificationSocket";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/dateTime";
 import { handleResponse } from "~/utils/toast";
+import { X } from "lucide-react";
 
 //
 type Props = {
@@ -150,7 +150,7 @@ function NotiItem({ noti, onClick, onDelete }: Props) {
           if (onDelete) onDelete(noti);
         }}
       >
-        <CloseIcon size={16} color="#e2877d" />
+        <X size={16} color="#e2877d" />
       </WrapIcon>
     </button>
   );

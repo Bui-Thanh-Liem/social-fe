@@ -1,11 +1,11 @@
 import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
-import { EmojiIcon } from "./icons/emoji";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { SmilePlus } from "lucide-react";
 
 export function EmojiSelector({
   onEmojiClick,
@@ -18,7 +18,7 @@ export function EmojiSelector({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <span onClick={() => setOpen(!open)}>
-          <EmojiIcon />
+          <SmilePlus color="#1d9bf0" size={20} />
         </span>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-0 border-0 z-[2000]">

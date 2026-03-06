@@ -80,7 +80,7 @@ export function ExploreTab() {
     <div>
       {/*  */}
       <div className="flex gap-x-8 mb-4">
-        <div className="w-60">
+        <div className="w-[40%]">
           <SearchMain
             size="sm"
             value={searchVal || ""}

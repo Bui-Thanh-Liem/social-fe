@@ -48,7 +48,7 @@ export const useRegister = () => {
         })();
 
         //
-        navigate("/home");
+        navigate("/");
       }
     },
   });
@@ -72,7 +72,7 @@ export const useLogin = () => {
         localStorage.setItem("access_token", data.metadata?.access_token || "");
         localStorage.setItem(
           "refresh_token",
-          data.metadata?.refresh_token || ""
+          data.metadata?.refresh_token || "",
         );
 
         // Nếu đăng nhập thành công thì gọi api getMe lưu vào Store global
@@ -84,7 +84,7 @@ export const useLogin = () => {
         })();
 
         //
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       }
     },
   });

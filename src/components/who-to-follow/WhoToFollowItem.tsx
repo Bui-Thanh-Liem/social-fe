@@ -7,7 +7,7 @@ import { VerifyIcon } from "../icons/verify";
 import { ShortInfoProfile } from "../ShortInfoProfile";
 import { AvatarMain } from "../ui/avatar";
 import { ButtonMain } from "../ui/button";
-import { toastSimpleVerify } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast";
 
 export function UserToFollowItemSkeleton() {
   return (
@@ -37,7 +37,7 @@ export function UserToFollowItem({ user }: { user: Partial<IUser> }) {
   const [followed, setFollowed] = useState(user?.isFollow);
 
   //
-  const { mutate, isError } = useFollowUser();
+  const { mutateAsync, isError } = useFollowUser();
 
   //
   useEffect(() => {
@@ -45,17 +45,14 @@ export function UserToFollowItem({ user }: { user: Partial<IUser> }) {
   }, [isError]);
 
   //
-  function handleToggleFollow() {
-    if (user && !user?.verify) {
-      toastSimpleVerify();
-      return;
-    }
-
-    setFollowed(!followed);
-    mutate({
+  async function handleToggleFollow() {
+    //
+    const res = await mutateAsync({
       user_id: user._id || "",
       username: user.username || "",
     });
+    if (res.statusCode === 200) setFollowed(!followed);
+    handleResponse(res);
   }
 
   //

@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import type { ResSearchPending } from "~/shared/dtos/res/search.dto";
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
+import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITrending } from "~/shared/interfaces/schemas/trending.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
@@ -11,7 +12,7 @@ import { apiCall } from "~/utils/callApi.util";
 // 📄 GET - dùng trong gợi ý khi gõ trong input search
 export const useSearchPending = (
   queries?: IQuery<ITrending>,
-  enabled = true
+  enabled = true,
 ) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
@@ -79,6 +80,37 @@ export const useSearchUsers = (queries?: IQuery<IUser>) => {
       const queryString = queries ? buildQueryString(queries) : "";
       const url = `/search/users${queryString ? `?${queryString}` : ""}`;
       return apiCall<ResMultiType<IUser>>(url);
+    },
+
+    // Lên getNewFeeds đọc giải thích
+    enabled: !!queries?.q,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: "always",
+    refetchOnReconnect: false,
+    refetchInterval: false,
+    networkMode: "online",
+  });
+};
+
+// 📄 GET
+export const useSearchCommunities = (queries?: IQuery<ICommunity>) => {
+  const normalizedQueries = queries ? JSON.stringify(queries) : "";
+
+  return useQuery({
+    queryKey: [
+      "search",
+      "communities",
+      queries?.q,
+      queries?.pf,
+      normalizedQueries,
+    ],
+    queryFn: () => {
+      // Tạo query string từ queries object
+      const queryString = queries ? buildQueryString(queries) : "";
+      const url = `/search/communities${queryString ? `?${queryString}` : ""}`;
+      return apiCall<ResMultiType<ICommunity>>(url);
     },
 
     // Lên getNewFeeds đọc giải thích

@@ -1,12 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RedirectIfAuthenticated } from "./components/RedirectIfAuthenticated";
-import { RedirectIfNotAuthenticated } from "./components/RedirectIfNotAuthenticated";
 import { HomeLayout } from "./layouts/home-layout/HomeLayout";
-import RootLayout from "./layouts/root-layout/RootLayout";
-import { AuthPage } from "./pages/auth/AuthPage";
-import { VerifyEmail } from "./pages/auth/VerifyEmail";
 import { BookmarkPage } from "./pages/bookmark/BookmarkPage";
 import {
   CommunitiesPage,
@@ -26,7 +21,6 @@ import { ProfilePage } from "./pages/profile/ProfilePage";
 import { SearchPage } from "./pages/search/SearchPage";
 import { TrendingPage } from "./pages/trending/TrendingPage";
 import { TweetDetailPage } from "./pages/tweet-detail/TweetDetailPage";
-import { ProtectTweetDetail } from "./components/ProtectTweetDetail";
 import NotFound from "./components/NotFound";
 import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
 
@@ -34,58 +28,34 @@ import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <RootLayout />,
+    element: <HomeLayout />,
     children: [
+      { element: <HomePage />, index: true },
+      { path: "explore", element: <ExplorePage /> },
+      { path: "communities", element: <CommunitiesPage /> },
+      { path: "bookmarks", element: <BookmarkPage /> },
+      { path: "notifications", element: <NotificationPage /> },
+      { path: "search", element: <SearchPage /> },
+      { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
       {
-        index: true,
-        element: (
-          <RedirectIfAuthenticated>
-            <AuthPage />
-          </RedirectIfAuthenticated>
-        ),
+        path: `communities/t/${explore_tab}`,
+        element: <CommunitiesPage />,
       },
-      { path: "verify", element: <VerifyEmail /> },
+      { path: "communities/:slug", element: <CommunityPage /> },
+      { path: "trending", element: <TrendingPage /> },
       {
         path: "tweet/:tweet_id",
-        element: (
-          <ProtectTweetDetail>
-            <TweetDetailPage />
-          </ProtectTweetDetail>
-        ),
+        element: <TweetDetailPage />,
       },
-
-      // ✅ Bọc các route cần HomeLayout ở đây
       {
-        element: (
-          <RedirectIfNotAuthenticated>
-            <HomeLayout />
-          </RedirectIfNotAuthenticated>
-        ),
-        children: [
-          { path: "home", element: <HomePage /> },
-          { path: "explore", element: <ExplorePage /> },
-          { path: "communities", element: <CommunitiesPage /> },
-          { path: "bookmarks", element: <BookmarkPage /> },
-          { path: "notifications", element: <NotificationPage /> },
-          { path: "search", element: <SearchPage /> },
-          { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
-          {
-            path: `communities/t/${explore_tab}`,
-            element: <CommunitiesPage />,
-          },
-          { path: "communities/:slug", element: <CommunityPage /> },
-          { path: "trending", element: <TrendingPage /> },
-          {
-            path: `:username/${following_tab}`,
-            element: <FollowersFollowing />,
-          },
-          {
-            path: `:username/${followers_tab}`,
-            element: <FollowersFollowing />,
-          },
-          { path: ":username", element: <ProfilePage /> },
-        ],
+        path: `:username/${following_tab}`,
+        element: <FollowersFollowing />,
       },
+      {
+        path: `:username/${followers_tab}`,
+        element: <FollowersFollowing />,
+      },
+      { path: ":username", element: <ProfilePage /> },
     ],
   },
   { path: "*", element: <NotFound /> },

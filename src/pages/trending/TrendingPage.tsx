@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { WrapIcon } from "~/components/WrapIcon";
@@ -8,7 +7,8 @@ import { useGetTweetsByIds } from "~/apis/useFetchTrending";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useTrendingStore } from "~/store/useTrendingStore";
 import { Content } from "~/components/list-tweets/Content";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/dateTime";
+import { ArrowLeft } from "lucide-react";
 
 export function TrendingPage() {
   const navigate = useNavigate();
@@ -68,7 +68,7 @@ export function TrendingPage() {
       <div className="px-3 flex justify-between items-center border border-gray-100">
         <div className="flex h-12 items-center gap-4">
           <WrapIcon onClick={() => navigate(-1)}>
-            <ArrowLeftIcon color="#000" />
+            <ArrowLeft color="#000" />
           </WrapIcon>
           <p className="font-semibold text-[20px]">Thịnh hành</p>
         </div>

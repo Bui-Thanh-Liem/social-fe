@@ -66,7 +66,7 @@ export function CreateCommunityForm({
 
   //
   const { data: cates } = useGetAllCategories();
-  const { data, isLoading } = useGetFollowedById(user!._id!, {
+  const { data, isLoading } = useGetFollowedById(user?._id || "", {
     page: page.toString(),
     q: debouncedSearchVal,
     limit: "15",

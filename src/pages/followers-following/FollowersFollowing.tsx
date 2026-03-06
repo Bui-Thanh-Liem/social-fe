@@ -1,10 +1,10 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { WrapIcon } from "~/components/WrapIcon";
 import { useGetOneByUsername } from "~/apis/useFetchUser";
 import { FollowersPage } from "./FollowersPage";
 import { FollowingPage } from "./FollowingPage";
+import { ArrowLeft } from "lucide-react";
 
 export const followers_tab = "followers";
 export const following_tab = "following";
@@ -29,39 +29,44 @@ export function FollowersFollowing() {
   };
 
   return (
-    <div>
-      {/* Header */}
-      <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className="flex h-12 items-center gap-4">
-          <WrapIcon onClick={() => navigate(-1)}>
-            <ArrowLeftIcon color="#000" />
-          </WrapIcon>
-          <div>
-            <p className="font-semibold text-lg">{profile?.name}</p>
-            <p className="text-gray-400 text-xs -mt-0.5">{profile?.username}</p>
+    <div className="grid grid-cols-12">
+      <div className="col-span-3"></div>
+      <div className="col-span-9">
+        {/* Header */}
+        <div className="px-3 flex justify-between items-center border border-x-0 border-gray-100">
+          <div className="flex h-12 items-center gap-4">
+            <WrapIcon onClick={() => navigate(-1)}>
+              <ArrowLeft color="#000" />
+            </WrapIcon>
+            <div>
+              <p className="font-semibold text-lg">{profile?.name}</p>
+              <p className="text-gray-400 text-xs -mt-0.5">
+                {profile?.username}
+              </p>
+            </div>
           </div>
         </div>
+
+        {/* Content */}
+        <Tabs value={type} onValueChange={handleTabChange}>
+          <div className="bg-white sticky top-0 z-50">
+            <TabsList className="w-full">
+              <TabsTrigger value={following_tab}>Đang theo dõi</TabsTrigger>
+              <TabsTrigger value={followers_tab}>Người theo dõi</TabsTrigger>
+            </TabsList>
+          </div>
+
+          <div className="pt-0">
+            <TabsContent value={followers_tab} className="px-0 py-4">
+              <FollowersPage />
+            </TabsContent>
+
+            <TabsContent value={following_tab} className="px-0 py-4">
+              <FollowingPage />
+            </TabsContent>
+          </div>
+        </Tabs>
       </div>
-
-      {/* Content */}
-      <Tabs value={type} onValueChange={handleTabChange}>
-        <div className="bg-white sticky top-0 z-50">
-          <TabsList className="w-full">
-            <TabsTrigger value={following_tab}>Đang theo dõi</TabsTrigger>
-            <TabsTrigger value={followers_tab}>Người theo dõi</TabsTrigger>
-          </TabsList>
-        </div>
-
-        <div className="pt-0">
-          <TabsContent value={followers_tab} className="px-0 py-4">
-            <FollowersPage />
-          </TabsContent>
-
-          <TabsContent value={following_tab} className="px-0 py-4">
-            <FollowingPage />
-          </TabsContent>
-        </div>
-      </Tabs>
     </div>
   );
 }

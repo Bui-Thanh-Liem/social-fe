@@ -16,7 +16,7 @@ import type {
 } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { handleResponse } from "~/utils/toast";
-import { formatTimeUntil } from "~/utils/date-time";
+import { formatTimeUntil } from "~/utils/dateTime";
 
 export function CommunityInvitedList({ community }: { community: ICommunity }) {
   //

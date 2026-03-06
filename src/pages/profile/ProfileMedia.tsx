@@ -4,7 +4,6 @@ import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 
 export function ProfileMedia({
   profile_id,
@@ -13,9 +12,6 @@ export function ProfileMedia({
   profile_id: string;
   isOwnProfile: boolean;
 }) {
-  //
-  const { open, setTweet } = useDetailTweetStore();
-
   // State để quản lý pagination và data
   const [page, setPage] = useState(1);
   const [tweets, setTweets] = useState<ITweet[]>([]);
@@ -141,14 +137,6 @@ export function ProfileMedia({
     );
   }
 
-  //
-  function handleClickMedia(tweet: ITweet) {
-    open();
-    if (tweet) {
-      setTweet(tweet);
-    }
-  }
-
   return (
     <div className="px-4">
       {/* Medias grid */}
@@ -159,7 +147,6 @@ export function ProfileMedia({
               <Card
                 key={`profile-media-${tweet._id}-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"
-                onClick={() => handleClickMedia(tweet)}
               >
                 <CardContent className="p-0">
                   {m?.file_type.startsWith("video/") ? (

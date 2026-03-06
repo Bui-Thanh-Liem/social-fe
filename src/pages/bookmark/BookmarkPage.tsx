@@ -129,84 +129,88 @@ export function BookmarkPage() {
 
   const tweetLength = allTweets.length;
   return (
-    <div>
-      {/* Search */}
-      <div className="py-4 w-96">
-        <SearchMain
-          size="sm"
-          value={searchVal}
-          onChange={setSearchVal}
-          onClear={() => setSearchVal("")}
-        />
-      </div>
+    <div className="grid grid-cols-12">
+      <div className="col-span-3"></div>
+      <div className="col-span-9">
+        {/* Search */}
+        <div className="py-4 w-96">
+          <SearchMain
+            size="sm"
+            value={searchVal}
+            onChange={setSearchVal}
+            onClear={() => setSearchVal("")}
+          />
+        </div>
 
-      <div className="max-h-[calc(100vh-(128px))] overflow-y-auto">
-        {/* Loading state cho lần load đầu tiên */}
-        {isLoading && page === 1 && <SkeletonTweet />}
+        {/* Tweets Container */}
+        <div className="max-h-[calc(100vh-(128px))] overflow-y-auto">
+          {/* Loading state cho lần load đầu tiên */}
+          {isLoading && page === 1 && <SkeletonTweet />}
 
-        {/* Tweets list */}
-        {tweetLength > 0 && (
-          <div className="space-y-4">
-            {allTweets.map((tweet) => (
-              <TweetItem key={tweet._id} tweet={tweet} onSuccessDel={onDel} />
-            ))}
-          </div>
-        )}
+          {/* Tweets list */}
+          {tweetLength > 0 && (
+            <div className="space-y-4">
+              {allTweets.map((tweet) => (
+                <TweetItem key={tweet._id} tweet={tweet} onSuccessDel={onDel} />
+              ))}
+            </div>
+          )}
 
-        {/* Loading more indicator */}
-        {isLoadingMore && (
-          <div className="py-4">
-            <SkeletonTweet count={2} />
-          </div>
-        )}
+          {/* Loading more indicator */}
+          {isLoadingMore && (
+            <div className="py-4">
+              <SkeletonTweet count={2} />
+            </div>
+          )}
 
-        {/* Empty state - chưa có data nhưng không phải total = 0 */}
-        {!isLoading &&
-          tweetLength === 0 &&
-          page === 1 &&
-          !searchVal &&
-          !error && (
+          {/* Empty state - chưa có data nhưng không phải total = 0 */}
+          {!isLoading &&
+            tweetLength === 0 &&
+            page === 1 &&
+            !searchVal &&
+            !error && (
+              <div className="text-center pt-20">
+                <p className="text-gray-500 text-lg mb-2">
+                  📑 Chưa có bài viết nào được đánh dấu
+                </p>
+                <p className="text-gray-400">
+                  Hãy đánh dấu một số bài viết để chúng xuất hiện ở đây!
+                </p>
+              </div>
+            )}
+
+          {!isLoading && tweetLength === 0 && page === 1 && searchVal && (
             <div className="text-center py-8">
               <p className="text-gray-500 text-lg mb-2">
-                📑 Chưa có bài viết nào được đánh dấu
+                Không tìm thấy tweet nào khớp với "{searchVal}"
               </p>
-              <p className="text-gray-400">
-                Hãy đánh dấu một số bài viết để chúng xuất hiện ở đây!
+              <p className="text-gray-400">Hãy thử từ khóa khác!</p>
+            </div>
+          )}
+
+          {/* Observer element - invisible trigger cho infinite scroll */}
+          <div ref={observerRef} className="h-10 w-full" />
+
+          {/* End of content indicator */}
+          {!hasMore && tweetLength > 0 && (
+            <div className="text-center py-8">
+              <p className="text-gray-500">
+                🎉 Bạn đã xem hết tất cả tweet đã đánh dấu!
               </p>
             </div>
           )}
 
-        {!isLoading && tweetLength === 0 && page === 1 && searchVal && (
-          <div className="text-center py-8">
-            <p className="text-gray-500 text-lg mb-2">
-              Không tìm thấy tweet nào khớp với "{searchVal}"
-            </p>
-            <p className="text-gray-400">Hãy thử từ khóa khác!</p>
-          </div>
-        )}
-
-        {/* Observer element - invisible trigger cho infinite scroll */}
-        <div ref={observerRef} className="h-10 w-full" />
-
-        {/* End of content indicator */}
-        {!hasMore && tweetLength > 0 && (
-          <div className="text-center py-8">
-            <p className="text-gray-500">
-              🎉 Bạn đã xem hết tất cả tweet đã đánh dấu!
-            </p>
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <ErrorResponse
-            onRetry={() => {
-              setPage(1);
-              setAllTweets([]);
-              setHasMore(true);
-            }}
-          />
-        )}
+          {/* Error */}
+          {error && (
+            <ErrorResponse
+              onRetry={() => {
+                setPage(1);
+                setAllTweets([]);
+                setHasMore(true);
+              }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

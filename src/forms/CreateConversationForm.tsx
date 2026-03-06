@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Upload } from "lucide-react";
+import { Upload, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDebounce } from "~/hooks/useDebounce";
@@ -17,7 +17,6 @@ import { EConversationType } from "~/shared/enums/type.enum";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { handleResponse } from "~/utils/toast";
-import { CloseIcon } from "~/components/icons/close";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -40,7 +39,7 @@ export function UserSelected({
       <p className="text-xs max-w-28 line-clamp-1">{user.name}</p>
 
       <div className="ml-auto p-1 cursor-pointer" onClick={onCancel}>
-        <CloseIcon color="red" size={16} />
+        <X color="red" size={16} />
       </div>
     </div>
   );

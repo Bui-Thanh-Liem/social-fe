@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { TweetDetailDrawer } from "~/components/list-tweets/TweetDetailDrawer";
 import ChatBox from "~/pages/messages/ChatBox";
 import { DetailAttachmentDrawer } from "~/pages/messages/DetailAllAttachments";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
@@ -33,33 +32,32 @@ export function HomeLayout() {
 
   //
   return (
-    <div>
-      {/*  */}
-      <Header />
+    <div className="w-screen flex items-center justify-center">
+      <div className="w-5/6 max-w-5/6">
+        {/*  */}
+        <Header />
 
-      {/*  */}
-      <div className="mx-auto flex border-t overflow-hidden">
-        <aside className="w-60 pr-4 pl-4">
-          <SidebarLeft />
-        </aside>
+        {/*  */}
+        <div className="mx-auto flex border-t overflow-hidden">
+          <aside className="w-60 pr-4 pl-4">
+            <SidebarLeft />
+          </aside>
 
-        <main className="flex-1">
-          <Outlet />
-        </main>
+          <main className="flex-1">
+            <Outlet />
+          </main>
 
-        <aside className="w-[26%] pr-4">
-          <SidebarRight />
-        </aside>
+          <aside className="w-[26%] pr-4">
+            <SidebarRight />
+          </aside>
+        </div>
+
+        {/*  */}
+        {isOpen && <ChatBox />}
+
+        {/*  */}
+        <DetailAttachmentDrawer />
       </div>
-
-      {/*  */}
-      {isOpen && <ChatBox />}
-
-      {/*  */}
-      <TweetDetailDrawer />
-
-      {/*  */}
-      <DetailAttachmentDrawer />
     </div>
   );
 }

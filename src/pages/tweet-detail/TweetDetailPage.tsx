@@ -1,10 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ArrowLeftIcon } from "~/components/icons/arrow-left";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
 import { Tweet } from "~/components/tweet/Tweet";
 import { TypingIndicator } from "~/components/TypingIndicator";
-import { WrapIcon } from "~/components/WrapIcon";
 import { useGetDetailTweet, useGetTweetChildren } from "~/apis/useFetchTweet";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
@@ -13,7 +11,6 @@ import { useCommentSocket } from "~/socket/hooks/useCommentSocket";
 import { useUserStore } from "~/store/useUserStore";
 import { Logo } from "~/components/Logo";
 import { ButtonMain } from "~/components/ui/button";
-import { useBackUrlStore } from "~/store/useBackUrlStore";
 
 export function TweetDetailPage() {
   //
@@ -23,7 +20,6 @@ export function TweetDetailPage() {
   //
   const [tweetComments, setTweetComments] = useState<ITweet[]>([]);
   const { user } = useUserStore();
-  const { setBackUrl } = useBackUrlStore();
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
@@ -173,21 +169,6 @@ export function TweetDetailPage() {
     setTweetComments((prev) => prev.filter((tw) => tw._id !== id));
   }
 
-  // Back
-  function onBack() {
-    if (window.history.length <= 3) {
-      navigate("/");
-      return;
-    }
-    navigate(-1);
-  }
-
-  //
-  function onClickLogin() {
-    setBackUrl(window.location.pathname + window.location.search);
-    navigate("/");
-  }
-
   //
   if (isLoadingDetail) {
     return <SkeletonTweet />;
@@ -218,72 +199,52 @@ export function TweetDetailPage() {
   }
 
   return (
-    <>
-      {/* Header */}
-      <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className="flex h-12 items-center gap-4">
-          <WrapIcon onClick={onBack}>
-            <ArrowLeftIcon color="#000" />
-          </WrapIcon>
-          <p className="font-semibold text-[20px]">Bài viết</p>
-        </div>
-        <Logo size={36} />
-        {!user && (
-          <div>
-            <ButtonMain size="sm" className="w-full" onClick={onClickLogin}>
-              Đăng nhập
-            </ButtonMain>
+    <div className="h-[calc(100vh-76px)] max-h-[calc(100vh-76px)] overflow-y-auto mt-3">
+      <TweetItem tweet={tweet} onSuccessDel={() => {}} isClickable={false} />
+
+      {/*  */}
+      <div className="p-4 pb-0">
+        <Tweet
+          tweet={tweet}
+          contentBtn="Bình luận"
+          tweetType={ETweetType.Comment}
+          placeholder="Đăng bình luận của bạn"
+        />
+      </div>
+
+      <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
+
+      {/* COMMENTS */}
+      <div className="ml-14 space-y-4">
+        {tweetComments?.length ? (
+          tweetComments.map((tw) => {
+            return <TweetItem tweet={tw} key={tw._id} onSuccessDel={onDel} />;
+          })
+        ) : isLoadingCmm ? (
+          <SkeletonTweet />
+        ) : (
+          <div className="flex h-24">
+            <p className="m-auto text-gray-400 text-sm">Chưa có bình luận</p>
           </div>
         )}
       </div>
 
-      <div className="h-[calc(100vh-50px)] max-h-[calc(100vh-50px)] overflow-y-auto pb-6">
-        <TweetItem tweet={tweet} onSuccessDel={() => {}} />
-
-        {/*  */}
-        <div className="p-4 border-y border-gray-100 pb-0">
-          <Tweet
-            tweet={tweet}
-            contentBtn="Bình luận"
-            tweetType={ETweetType.Comment}
-            placeholder="Đăng bình luận của bạn"
-          />
+      {/* Loading more */}
+      {isLoadingMore && (
+        <div className="py-4">
+          <SkeletonTweet />
         </div>
+      )}
 
-        <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
+      {/* Observer element */}
+      <div ref={observerRef} className="h-10 w-full" />
 
-        {/* COMMENTS */}
-        <div className="ml-14">
-          {tweetComments?.length ? (
-            tweetComments.map((tw) => {
-              return <TweetItem tweet={tw} key={tw._id} onSuccessDel={onDel} />;
-            })
-          ) : isLoadingCmm ? (
-            <SkeletonTweet />
-          ) : (
-            <div className="flex h-24">
-              <p className="m-auto text-gray-400 text-sm">Chưa có bình luận</p>
-            </div>
-          )}
+      {/* End message */}
+      {!hasMore && tweetComments.length > 0 && (
+        <div className="text-center py-6 mb-6">
+          <p className="text-gray-500">🎉 Bạn đã xem hết tất cả bình luận!</p>
         </div>
-
-        {/* Loading more */}
-        {isLoadingMore && (
-          <div className="py-4">
-            <SkeletonTweet />
-          </div>
-        )}
-
-        {/* Observer element */}
-        <div ref={observerRef} className="h-10 w-full" />
-
-        {/* End message */}
-        {!hasMore && tweetComments.length > 0 && (
-          <div className="text-center py-6 mb-6">
-            <p className="text-gray-500">🎉 Bạn đã xem hết tất cả bình luận!</p>
-          </div>
-        )}
-      </div>
-    </>
+      )}
+    </div>
   );
 }

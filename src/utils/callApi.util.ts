@@ -4,6 +4,7 @@ import { useUserStore } from "~/store/useUserStore";
 import { deleteStoredClient } from "./deleteStoredClient";
 
 const apiUrl = import.meta.env.VITE_SERVER_API_URL;
+const apiKey = import.meta.env.VITE_API_KEY;
 
 export const apiCall = async <T>(
   endpoint: string,
@@ -35,6 +36,7 @@ export const apiCall = async <T>(
     headers: {
       ...headers,
       ...options.headers, // Allow override từ options
+      "x-api-key": apiKey, // Add API key to headers
     },
   };
 
@@ -59,6 +61,7 @@ export const apiCall = async <T>(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-api-key": apiKey,
       },
       body: JSON.stringify({ refresh_token }),
     });

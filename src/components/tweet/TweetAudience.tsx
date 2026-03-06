@@ -7,27 +7,24 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { ETweetAudience } from "~/shared/enums/common.enum";
 import { TypographyP } from "../elements/p";
-import { AccountFollowIcon } from "../icons/account-follow";
-import { CheckIcon } from "../icons/check";
-import { EarthIcon } from "../icons/earth";
-import { MentionsIcon } from "../icons/mentions";
+import { AtSign, Check, Earth, UserRoundPlus } from "lucide-react";
 
 //
 const replyOptions = [
   {
     id: ETweetAudience.Everyone,
     title: "Mọi người",
-    icon: <EarthIcon color="#fff" />,
+    icon: <Earth color="#fff" />,
   },
   {
     id: ETweetAudience.Mentions,
     title: "Chỉ những ai tôi nhắc đến",
-    icon: <MentionsIcon color="#fff" />,
+    icon: <AtSign color="#fff" />,
   },
   {
     id: ETweetAudience.Followers,
     title: "Chỉ những ai đang theo dõi tôi",
-    icon: <AccountFollowIcon color="#fff" />,
+    icon: <UserRoundPlus color="#fff" />,
   },
 ];
 
@@ -92,7 +89,7 @@ export function TweetAudience({
                   {option.title}
                 </span>
               </div>
-              {selectedOption === option.id && <CheckIcon />}
+              {selectedOption === option.id && <Check />}
             </div>
           </DropdownMenuItem>
         ))}

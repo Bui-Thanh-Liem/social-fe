@@ -3,7 +3,7 @@ import { cn } from "~/lib/utils";
 import type { IResTodayNewsOrOutstanding } from "~/shared/dtos/res/trending.dto";
 import { useTrendingStore } from "~/store/useTrendingStore";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/dateTime";
 
 export function TodayNewsOrOutstandingItemSkeleton() {
   return (

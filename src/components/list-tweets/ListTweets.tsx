@@ -129,9 +129,9 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
   }, [feedType]);
 
   // Verify
-  if (!user?.verify) {
+  if (user && !user?.verify) {
     return (
-      <div className="text-center py-8">
+      <div className="text-center pt-20">
         <p className="text-gray-500 text-lg mb-2">
           📝 Bạn chưa xác minh tài khoản
         </p>
@@ -232,9 +232,18 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
       <div ref={observerRef} className="h-10 w-full" />
 
       {/* End of content indicator */}
-      {!hasMore && feeds.length > 0 && (
+      {!hasMore && feeds.length > 0 && user && (
         <div className="text-center py-8">
           <p className="text-gray-500">🎉 Bạn đã xem hết tất cả nội dung!</p>
+        </div>
+      )}
+
+      {/*  */}
+      {!user && (
+        <div className="text-center py-8">
+          <p className="text-gray-500">
+            🎉 Vui lòng đăng nhập để xem nội dung!
+          </p>
         </div>
       )}
     </div>

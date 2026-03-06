@@ -1,7 +1,6 @@
-import { Pin, Trash, User } from "lucide-react";
+import { Ellipsis, Pin, Trash, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DotIcon } from "~/components/icons/dot";
 import { AvatarMain, GroupAvatarMain } from "~/components/ui/avatar";
 import {
   DropdownMenu,
@@ -27,7 +26,7 @@ import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
 import { useStatusSocket } from "~/socket/hooks/useStatusSocket";
 import { useConversationActiveStore } from "~/store/useConversationActiveStore";
 import { useUserStore } from "~/store/useUserStore";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/dateTime";
 import { ErrorResponse } from "~/components/Error";
 import { useOnlStore } from "~/store/useOnlStore";
 import { checkOnl } from "~/utils/checkOnl.util";
@@ -171,7 +170,7 @@ function ConversationItem({
                      transition-opacity duration-150"
               >
                 <WrapIcon>
-                  <DotIcon size={16} />
+                  <Ellipsis size={16} />
                 </WrapIcon>
               </button>
             </DropdownMenuTrigger>

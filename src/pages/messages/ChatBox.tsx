@@ -1,9 +1,8 @@
-import { Send, X } from "lucide-react";
+import { ImagePlus, Send, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useGetMultiMessages } from "~/apis/useFetchMessages";
 import { EmojiSelector } from "~/components/EmojiPicker";
-import { ImageIcon } from "~/components/icons/image";
 import { Logo } from "~/components/Logo";
 import { AvatarMain, GroupAvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
@@ -283,7 +282,7 @@ export default function ChatBox() {
                         className="cursor-pointer"
                         title="Thêm ảnh hoặc video"
                       >
-                        <ImageIcon />
+                        <ImagePlus color="#1d9bf0" size={20} />
                         <input
                           multiple
                           type="file"

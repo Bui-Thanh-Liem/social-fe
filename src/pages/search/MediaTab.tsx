@@ -4,16 +4,12 @@ import { useSearchTweets } from "~/apis/useFetchSearch";
 import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 
 export function MediaTab() {
   const [searchParams] = useSearchParams();
   const q = searchParams.get("q");
   const pf = searchParams.get("pf");
   const f = searchParams.get("f");
-
-  //
-  const { open, setTweet } = useDetailTweetStore();
 
   // State để quản lý pagination và data
   const [page, setPage] = useState(1);
@@ -136,14 +132,6 @@ export function MediaTab() {
     setIsLoadingMore(false);
   }, [q]);
 
-  //
-  function handleClickMedia(tweet: ITweet) {
-    open();
-    if (tweet) {
-      setTweet(tweet);
-    }
-  }
-
   const loading = isLoading || isFetching;
 
   return (
@@ -170,7 +158,6 @@ export function MediaTab() {
               <Card
                 key={`profile-media-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"
-                onClick={() => handleClickMedia(tweet)}
               >
                 <CardContent className="p-0">
                   {m?.file_type.startsWith("video/") ? (

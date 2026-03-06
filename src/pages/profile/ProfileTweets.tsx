@@ -135,18 +135,13 @@ export function ProfileTweets({
 
       {/* Tweets list */}
       {allTweets.length > 0 && (
-        <div className="space-y-6 overflow-x-hidden">
+        <div className="space-y-4">
           {allTweets.map((tweet, index: number) => (
-            <span key={tweet._id}>
-              <TweetItem
-                tweet={tweet}
-                onSuccessDel={onDel}
-                key={tweet._id || `${tweet._id}-${index}`}
-              />
-              {index < allTweets.length - 1 && (
-                <hr className="border-gray-200" />
-              )}
-            </span>
+            <TweetItem
+              tweet={tweet}
+              onSuccessDel={onDel}
+              key={tweet._id || `${tweet._id}-${index}`}
+            />
           ))}
         </div>
       )}

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { UpdateMeForm } from "~/forms/UpdateMeForm";
-import { MessageIcon } from "~/components/icons/messages";
 import { ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";
 import { WrapIcon } from "~/components/WrapIcon";
@@ -9,8 +8,7 @@ import { useFollowUser } from "~/apis/useFetchFollow";
 import { EConversationType } from "~/shared/enums/type.enum";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useChatBoxStore } from "~/store/useChatBoxStore";
-import { useUserStore } from "~/store/useUserStore";
-import { toastSimpleVerify } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast";
 import {
   BarChart3,
   Bookmark,
@@ -18,6 +16,7 @@ import {
   Heart,
   LoaderCircle,
   LogOut,
+  MessageCircleMore,
 } from "lucide-react";
 import { useLogout } from "~/apis/useFetchAuth";
 import {
@@ -73,7 +72,6 @@ export function ProfileAction({
   isOwnProfile,
   isChart = true,
 }: IProfileActiveProps) {
-  const { user } = useUserStore();
   const navigate = useNavigate();
 
   //
@@ -84,7 +82,7 @@ export function ProfileAction({
   const [isFollow, setIsFollow] = useState(false);
 
   //
-  const { mutate } = useFollowUser();
+  const { mutateAsync } = useFollowUser();
   const apiCreateConversation = useCreateConversation();
 
   //
@@ -94,11 +92,6 @@ export function ProfileAction({
 
   //
   async function handleOpenCheckBox() {
-    if (user && !user?.verify) {
-      toastSimpleVerify();
-      return;
-    }
-
     const res = await apiCreateConversation.mutateAsync({
       type: EConversationType.Private,
       participants: [profile?._id],
@@ -118,16 +111,14 @@ export function ProfileAction({
   }
 
   //
-  function handleFollow() {
-    if (user && !user?.verify) {
-      toastSimpleVerify();
-      return;
-    }
-    mutate({
+  async function handleFollow() {
+    //
+    const res = await mutateAsync({
       user_id: profile._id,
       username: profile.username || "",
     });
-    setIsFollow(!isFollow);
+    if (res.statusCode === 200) setIsFollow(!isFollow);
+    handleResponse(res);
   }
 
   //
@@ -148,7 +139,7 @@ export function ProfileAction({
       ) : (
         <div className="flex items-center gap-x-3 mt-20">
           <WrapIcon className="border" onClick={handleOpenCheckBox}>
-            <MessageIcon size={18} />
+            <MessageCircleMore size={18} />
           </WrapIcon>
           {
             <ButtonMain size="sm" onClick={handleFollow}>

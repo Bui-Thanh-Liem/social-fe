@@ -3,12 +3,8 @@ import { useGetCommunityTweets } from "~/apis/useFetchTweet";
 import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 
 export function CommunityMedia({ community_id }: { community_id: string }) {
-  //
-  const { open, setTweet } = useDetailTweetStore();
-
   // State để quản lý pagination và data
   const [page, setPage] = useState(1);
   const [tweets, setTweets] = useState<ITweet[]>([]);
@@ -131,14 +127,6 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
     );
   }
 
-  //
-  function handleClickMedia(tweet: ITweet) {
-    open();
-    if (tweet) {
-      setTweet(tweet);
-    }
-  }
-
   return (
     <div className="px-4">
       {/* Medias grid */}
@@ -149,7 +137,6 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
               <Card
                 key={`profile-media-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"
-                onClick={() => handleClickMedia(tweet)}
               >
                 <CardContent className="p-0">
                   {m?.file_type.startsWith("video/") ? (

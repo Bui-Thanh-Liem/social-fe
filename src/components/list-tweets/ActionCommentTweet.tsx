@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 import { VerifyIcon } from "../icons/verify";
 import { Tweet } from "../tweet/Tweet";
 import { AvatarMain } from "../ui/avatar";
@@ -16,12 +15,9 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { ContentExpanded } from "./Content";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/dateTime";
 
 export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
-  //
-  const { setTweet, open } = useDetailTweetStore();
-
   //
   const { content, user_id, created_at, mentions, comments_count } = tweet;
   const author = user_id as unknown as IUser;
@@ -44,9 +40,7 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
 
   //
   function onSeeComment() {
-    open();
     setIsDropdownOpen(false);
-    if (tweet) setTweet(tweet);
   }
 
   //

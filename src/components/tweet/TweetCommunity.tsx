@@ -1,8 +1,7 @@
-import { User, Users } from "lucide-react";
+import { Check, User, Users } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useGetAllBareCommunities } from "~/apis/useFetchCommunity";
 import { TypographyP } from "../elements/p";
-import { CheckIcon } from "../icons/check";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -99,7 +98,7 @@ export function TweetCommunity({
                     </span>
                   </div>
                 </div>
-                {selectedOption === option._id && <CheckIcon />}
+                {selectedOption === option._id && <Check />}
               </div>
             </DropdownMenuItem>
           ))}

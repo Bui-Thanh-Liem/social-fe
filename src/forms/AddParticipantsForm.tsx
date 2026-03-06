@@ -22,7 +22,7 @@ import {
   UserFollowerSkeleton,
   UserSelected,
 } from "./CreateConversationForm";
-import { handleResponse, toastSimpleVerify } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast";
 
 export function AddParticipantsForm({
   setOpenForm,
@@ -57,12 +57,12 @@ export function AddParticipantsForm({
   useEffect(() => {
     //
     const participant_ids = (participants as unknown as IUser[]).map(
-      (user) => user._id
+      (user) => user._id,
     );
 
     const items =
       data?.metadata?.items.filter(
-        (user) => !participant_ids.includes(user._id)
+        (user) => !participant_ids.includes(user._id),
       ) || [];
     const total_page = data?.metadata?.total_page;
     total_page_ref.current = total_page || 0;
@@ -73,7 +73,7 @@ export function AddParticipantsForm({
       setFollowers((prev) => {
         const existIds = new Set(prev.map((c) => c._id.toString()));
         const newItems = items.filter(
-          (item) => !existIds.has(item._id.toString())
+          (item) => !existIds.has(item._id.toString()),
         );
         return [...prev, ...newItems];
       });
@@ -122,7 +122,7 @@ export function AddParticipantsForm({
 
       setValue(
         "participants",
-        res.map((user) => user._id)
+        res.map((user) => user._id),
       );
       return res;
     });
@@ -130,11 +130,6 @@ export function AddParticipantsForm({
 
   //
   const onSubmit = async (data: AddParticipantsBodyDto) => {
-    if (user && !user?.verify) {
-      toastSimpleVerify();
-      return;
-    }
-
     const res = await apiAddParticipants.mutateAsync({
       payload: data,
       conv_id: conversation._id,
@@ -201,7 +196,7 @@ export function AddParticipantsForm({
                         "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                         total_page_ref.current <= page
                           ? "text-gray-300 pointer-events-none cursor-default"
-                          : ""
+                          : "",
                       )}
                       onClick={onSeeMore}
                     >

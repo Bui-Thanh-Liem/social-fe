@@ -59,7 +59,7 @@ export const useVerifyEmail = () => {
       if (res.statusCode === 200 && res.metadata) {
         setUser({ ...user, verify: res.metadata } as IUser);
         handleResponse(res);
-        navigate("/home");
+        navigate("/");
       }
     },
   });

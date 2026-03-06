@@ -9,8 +9,7 @@ import { cn } from "~/lib/utils";
 import { EMembershipType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
-import { toastSimpleVerify } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast";
 import { CommunityTag } from "./CommunityCard";
 
 export function CommunityRow({
@@ -24,12 +23,11 @@ export function CommunityRow({
     community?.membership_type === EMembershipType.Invite_only;
 
   //
-  const { user: userActive } = useUserStore();
   const [joined, setJoined] = useState(community?.is_joined);
 
   //
-  const { mutate: joinMutate, isError: joinError } = useJoinCommunity();
-  const { mutate: leaveMutate, isError: leaveError } = useLeaveCommunity();
+  const { mutateAsync: joinMutate, isError: joinError } = useJoinCommunity();
+  const { mutateAsync: leaveMutate, isError: leaveError } = useLeaveCommunity();
 
   //
   useEffect(() => {
@@ -37,24 +35,17 @@ export function CommunityRow({
   }, [joinError, leaveError]);
 
   //
-  function handleToggleJoin() {
-    if (userActive && !userActive?.verify) {
-      toastSimpleVerify();
-      return;
-    }
-
+  async function handleToggleJoin() {
     if (joined) {
       // Đang là thành viên, bấm rời khỏi
-      setJoined(!joined);
-      leaveMutate({
-        community_id: community._id || "",
-      });
+      const res = await leaveMutate({ community_id: community._id || "" });
+      if (res.statusCode === 200) setJoined(!joined);
+      handleResponse(res);
     } else {
       // Chưa là thành viên, bấm tham gia
-      setJoined(!joined);
-      joinMutate({
-        community_id: community._id || "",
-      });
+      const res = await joinMutate({ community_id: community._id || "" });
+      if (res.statusCode === 200) setJoined(!joined);
+      handleResponse(res);
     }
   }
 

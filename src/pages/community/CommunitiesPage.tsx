@@ -23,43 +23,49 @@ export function CommunitiesPage() {
   };
 
   return (
-    <div>
-      <Tabs defaultValue="/" value={type} onValueChange={handleTabChange}>
-        <div className="sticky top-0 z-50">
-          <TabsList className="w-full">
-            <TabsTrigger className="cursor-pointer flex items-center" value="/">
-              <span>Của bạn</span>
-            </TabsTrigger>
+    <div className="grid grid-cols-12">
+      <div className="col-span-3"></div>
+      <div className="col-span-9">
+        <Tabs defaultValue="/" value={type} onValueChange={handleTabChange}>
+          <div className="sticky top-0 z-50">
+            <TabsList className="w-full">
+              <TabsTrigger
+                className="cursor-pointer flex items-center"
+                value="/"
+              >
+                <span>Của bạn</span>
+              </TabsTrigger>
 
-            <TabsTrigger
-              className="cursor-pointer flex items-center"
-              value={joined_tab}
-            >
-              <span>Đã tham gia</span>
-            </TabsTrigger>
+              <TabsTrigger
+                className="cursor-pointer flex items-center"
+                value={joined_tab}
+              >
+                <span>Đã tham gia</span>
+              </TabsTrigger>
 
-            <TabsTrigger
-              className="cursor-pointer flex items-center"
-              value={explore_tab}
-            >
-              <span>Khám phá</span>
-            </TabsTrigger>
-          </TabsList>
-        </div>
+              <TabsTrigger
+                className="cursor-pointer flex items-center"
+                value={explore_tab}
+              >
+                <span>Khám phá</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
-        {/* Tab Content */}
-        <div>
-          <TabsContent value="/" className="pt-2">
-            <OwnerTab />
-          </TabsContent>
-          <TabsContent value={joined_tab} className="pt-2">
-            <JoinedTab />
-          </TabsContent>
-          <TabsContent value={explore_tab} className="pt-2">
-            <ExploreTab />
-          </TabsContent>
-        </div>
-      </Tabs>
+          {/* Tab Content */}
+          <div>
+            <TabsContent value="/" className="pt-2">
+              <OwnerTab />
+            </TabsContent>
+            <TabsContent value={joined_tab} className="pt-2">
+              <JoinedTab />
+            </TabsContent>
+            <TabsContent value={explore_tab} className="pt-2">
+              <ExploreTab />
+            </TabsContent>
+          </div>
+        </Tabs>
+      </div>
     </div>
   );
 }

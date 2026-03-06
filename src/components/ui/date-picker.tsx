@@ -9,7 +9,7 @@ import {
   type UseFormSetValue,
 } from "react-hook-form";
 import { cn } from "~/lib/utils";
-import { formatDateToDateVN } from "~/utils/date-time";
+import { formatDateToDateVN } from "~/utils/dateTime";
 import { getNestedError } from "~/utils/getNestedError";
 import { Button } from "./button";
 import { Calendar } from "./calendar";
@@ -86,7 +86,7 @@ export function DatePicker<T extends object>({
             sizeStyles[sizeInput],
             fullWidth && "w-full",
             errorMessage && "border-red-500 bg-red-50",
-            className
+            className,
           )}
         />
         <DropdownMenuTrigger asChild>

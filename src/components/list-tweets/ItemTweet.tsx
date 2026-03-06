@@ -1,5 +1,11 @@
-import { BarChart3, CornerRightDown, Flag, Trash } from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+  BarChart3,
+  CornerRightDown,
+  Ellipsis,
+  Flag,
+  Trash,
+} from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useReportTweet } from "~/apis/useFetchReport";
 import { useDeleteTweet, useGetDetailTweet } from "~/apis/useFetchTweet";
 import { cn } from "~/lib/utils";
@@ -8,9 +14,7 @@ import { ETweetType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useDetailTweetStore } from "~/store/useDetailTweetStore";
 import { useUserStore } from "~/store/useUserStore";
-import { DotIcon } from "../icons/dot";
 import { VerifyIcon } from "../icons/verify";
 import { ShortInfoProfile } from "../ShortInfoProfile";
 import { AvatarMain } from "../ui/avatar";
@@ -28,7 +32,7 @@ import { ActionCommentTweet } from "./ActionCommentTweet";
 import { ActionLikeTweet } from "./ActionLikeTweet";
 import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
 import { ActionShared } from "./ActionShared";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/dateTime";
 import { handleResponse } from "~/utils/toast";
 import { ContentExpanded } from "./Content";
 import { EditorCodeItem } from "../tweet/EditorCode";
@@ -38,25 +42,10 @@ import { motion } from "framer-motion";
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
   const { medias } = tweet;
 
-  //
-  const { open, setTweet } = useDetailTweetStore();
-
-  //
-  function handleClickMedia() {
-    if (window.innerWidth < 768) return; // mobile
-    open();
-    if (tweet) {
-      setTweet(tweet);
-    }
-  }
-
   if (!medias || !medias.length) return <></>;
 
   return (
-    <div
-      className={cn("", tweet ? "cursor-pointer" : "")}
-      onClick={handleClickMedia}
-    >
+    <div className={cn("", tweet ? "cursor-pointer" : "")}>
       <Carousel className="w-full">
         <CarouselContent className="h-full cursor-grab">
           {medias?.map((item) => (
@@ -124,13 +113,17 @@ export const SkeletonTweet = ({ count = 1 }: { count?: number }) => {
 //
 export const TweetItem = ({
   tweet,
-  isAction = true,
   onSuccessDel,
+  isAction = true,
+  isClickable = true,
 }: {
   tweet: ITweet;
   isAction?: boolean;
+  isClickable?: boolean;
   onSuccessDel: (id: string) => void;
 }) => {
+  const navigate = useNavigate();
+
   const {
     _id,
     codes,
@@ -158,7 +151,15 @@ export const TweetItem = ({
   const quoteTweet_user = quoteTweet.user_id as unknown as IUser;
 
   return (
-    <Card key={_id} className="p-3 group bg-gray-50 relative">
+    <Card
+      key={_id}
+      className="p-3 group bg-gray-50 relative"
+      onClick={() => {
+        if (isClickable) {
+          navigate(`tweet/${_id}`);
+        }
+      }}
+    >
       {/* thông tin cộng đồng */}
       {community?.name && (
         <div>
@@ -378,7 +379,7 @@ function TweetAction({
                      transition-opacity duration-150 "
             >
               <WrapIcon>
-                <DotIcon size={16} />
+                <Ellipsis size={16} />
               </WrapIcon>
             </button>
           </DropdownMenuTrigger>
