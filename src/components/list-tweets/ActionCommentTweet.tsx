@@ -33,7 +33,8 @@ export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {
   }, [comments_count]);
 
   //
-  function onComment() {
+  function onComment(event: React.MouseEvent<HTMLDivElement>) {
+    event.stopPropagation();
     setIsOpen(!isOpen);
     setIsDropdownOpen(false);
   }

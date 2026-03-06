@@ -13,7 +13,8 @@ export function ActionBookmarkTweet({ tweet }: { tweet: ITweet }) {
   }, []);
 
   //
-  function handleBookmarked() {
+  function handleBookmarked(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
     toggleBookmark(tweet._id);
     setIsBookmarked(!isBookmarked);
   }

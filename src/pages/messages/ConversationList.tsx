@@ -1,6 +1,13 @@
 import { Ellipsis, Pin, Trash, User } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  useDeleteConversation,
+  useGetMultiConversations,
+  useReadConversation,
+  useTogglePinConversation,
+} from "~/apis/useFetchConversations";
+import { ErrorResponse } from "~/components/Error";
 import { AvatarMain, GroupAvatarMain } from "~/components/ui/avatar";
 import {
   DropdownMenu,
@@ -10,12 +17,6 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { SearchMain } from "~/components/ui/search";
 import { WrapIcon } from "~/components/WrapIcon";
-import {
-  useDeleteConversation,
-  useGetMultiConversations,
-  useReadConversation,
-  useTogglePinConversation,
-} from "~/apis/useFetchConversations";
 import { useDebounce } from "~/hooks/useDebounce";
 import { cn } from "~/lib/utils";
 import { EConversationType } from "~/shared/enums/type.enum";
@@ -24,13 +25,12 @@ import type { IMessage } from "~/shared/interfaces/schemas/message.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
 import { useStatusSocket } from "~/socket/hooks/useStatusSocket";
-import { useConversationActiveStore } from "~/store/useConversationActiveStore";
-import { useUserStore } from "~/store/useUserStore";
-import { formatTimeAgo } from "~/utils/dateTime";
-import { ErrorResponse } from "~/components/Error";
-import { useOnlStore } from "~/store/useOnlStore";
-import { checkOnl } from "~/utils/checkOnl.util";
 import { useChatBoxStore } from "~/store/useChatBoxStore";
+import { useConversationActiveStore } from "~/store/useConversationActiveStore";
+import { useOnlStore } from "~/store/useOnlStore";
+import { useUserStore } from "~/store/useUserStore";
+import { checkOnl } from "~/utils/checkOnl.util";
+import { formatTimeAgo } from "~/utils/dateTime";
 
 //
 function ConversationItemSkeleton() {
@@ -68,7 +68,7 @@ function ConversationItem({
   const apiTogglePinConversation = useTogglePinConversation();
 
   // Destructuring conversation
-  const { avatar, lastMessage, name, _id, type, participants } = conversation;
+  const { avatar, last_message, name, _id, type, participants } = conversation;
   const participantIds = (participants as unknown as IUser[])?.map(
     (u) => u._id,
   );
@@ -84,15 +84,15 @@ function ConversationItem({
 
   //
   let messageLastContent = "Chưa có tin nhắn";
-  if (lastMessage) {
-    const _lastMessage = lastMessage as unknown as IMessage;
+  if (last_message) {
+    const _lastMessage = last_message as unknown as IMessage;
     const isOwner = currentUser?._id === _lastMessage.sender;
     messageLastContent = `${isOwner ? "Bạn: " : ""}${
       _lastMessage.content || "đã gửi hình ảnh hoặc video"
     }`;
   }
 
-  const isUnread = conversation.readStatus?.includes(currentUser?._id || "");
+  const isUnread = conversation.read_status?.includes(currentUser?._id || "");
   const pinned = conversation.pinned.find(
     (i) => i.user_id === currentUser?._id,
   );
@@ -156,8 +156,8 @@ function ConversationItem({
         <div className="relative w-16 h-6 flex items-center justify-end">
           {/* time: fade out on hover */}
           <span className="text-gray-400 text-sm transition-opacity duration-150 opacity-100 group-hover:opacity-0">
-            {(lastMessage as any)?.created_at &&
-              formatTimeAgo((lastMessage as any).created_at)}
+            {(last_message as any)?.created_at &&
+              formatTimeAgo((last_message as any).created_at)}
           </span>
 
           {/* dropdown trigger: keep in DOM, hide visually until hover */}
@@ -345,7 +345,7 @@ export function ConversationList({
     setActiveId(conversation?._id);
 
     // không gọi api đọc khi đọc rồi
-    const isUnread = conversation.readStatus?.includes(user?._id || "");
+    const isUnread = conversation.read_status?.includes(user?._id || "");
     if (isUnread) {
       await apiReadConversation.mutateAsync({
         conversation_id: conversation?._id,

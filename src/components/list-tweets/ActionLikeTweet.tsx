@@ -15,7 +15,8 @@ export function ActionLikeTweet({ tweet }: { tweet: ITweet }) {
   }, [tweet.is_like, tweet.likes_count]);
 
   //
-  function handleLike() {
+  function handleLike(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
     toggleLike(tweet._id);
     setIsLiked(!isLiked);
     if (isLiked) {

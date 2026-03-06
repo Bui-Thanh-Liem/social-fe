@@ -139,7 +139,7 @@ export function OwnerTab() {
         {/*  */}
         {!isLoading && allCommunities.length === 0 && page === 1 && (
           <p className="mt-24 p-4 text-center text-gray-500">
-            Bạn chưa tự tạo bất kỳ cộng đồng nào.
+            Bạn chưa tạo bất kỳ cộng đồng nào.
           </p>
         )}
 

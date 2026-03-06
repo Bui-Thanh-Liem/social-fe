@@ -37,7 +37,8 @@ export function ActionRetweetQuoteTweet({ tweet }: { tweet: ITweet }) {
   }, [retweets_count, quotes_count, retweet, quote]);
 
   //
-  async function onRetweet() {
+  async function onRetweet(event: React.MouseEvent<HTMLDivElement>) {
+    event.stopPropagation();
     // Nếu đã reTweet rồi thì gỡ (xóa)
     if (_retweet) {
       const resDeleted = await apiDeleteTweet.mutateAsync(_retweet);
@@ -74,7 +75,8 @@ export function ActionRetweetQuoteTweet({ tweet }: { tweet: ITweet }) {
   }
 
   //
-  async function onQuote() {
+  async function onQuote(event: React.MouseEvent<HTMLDivElement>) {
+    event.stopPropagation();
     // Nếu đã quoteTweet rồi thì gỡ (xóa)
     if (_quoteTweet) {
       const resDeleted = await apiDeleteTweet.mutateAsync(_quoteTweet);

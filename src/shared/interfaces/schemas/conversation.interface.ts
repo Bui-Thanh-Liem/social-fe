@@ -12,8 +12,8 @@ export interface IConversation extends IBase {
   pinned: IPinned[];
 
   //
-  lastMessage: string | null;
-  readStatus: string[] | null;
+  last_message: string | null;
+  read_status: string[] | null;
 
   //
   username?: string; // Đơn giản hóa tính năng xem trang cá nhân tại cuộc trò chuyện (type === private)

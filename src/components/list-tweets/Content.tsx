@@ -1,10 +1,10 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { cn } from "~/lib/utils";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { ShortInfoProfile } from "../ShortInfoProfile";
 import { WrapIcon } from "../WrapIcon";
-import { cn } from "~/lib/utils";
 
 export function Content({
   content,
@@ -68,6 +68,12 @@ export function ContentExpanded({
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  //
+  function toggleExpanded(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
+    setIsExpanded((prev) => !prev);
+  }
+
   return (
     <div
       className={cn("relative rounded-xl", bg ? "px-3 py-0.5" : "")}
@@ -93,10 +99,7 @@ export function ContentExpanded({
       {/*  */}
       {(content.split("\n").length > 14 || content.length > 500) && (
         <div className="flex my-1">
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="m-auto outline-none"
-          >
+          <button onClick={toggleExpanded} className="m-auto outline-none">
             <WrapIcon className="bg-gray-100">
               {isExpanded ? (
                 <ArrowUp size={20} className="text-blue-400" />

@@ -42,7 +42,7 @@ export function Header() {
         </div>
 
         <div className="col-span-1">
-          <div className="w-[420px] rounded-full outline-2 outline-sky-300">
+          <div className="w-[420px] rounded-full outline-2 outline-sky-400">
             <SearchAdvanced
               className="w-[420px]"
               placeholder="Tìm kiếm mọi thứ"

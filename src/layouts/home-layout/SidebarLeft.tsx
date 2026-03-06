@@ -83,7 +83,7 @@ export function SidebarLeft() {
         {/*  */}
         {navMain.map((x) => {
           const cleanPath = x.path?.replace(/#.*$/, "") || "";
-          const isActive = pathname.startsWith(cleanPath);
+          const isActive = pathname === cleanPath;
 
           return (
             <li key={x.name} className="cursor-pointer group relative">
@@ -120,7 +120,14 @@ export function SidebarLeft() {
               <AccordionContent className="pl-2">
                 <Link to="/communities" className={cla}>
                   <UsersRound size={20} />
-                  <p className="text-[16px]">Cộng đồng</p>
+                  <p
+                    className={cn(
+                      "text-[16px]",
+                      pathname === "/communities" && "font-semibold",
+                    )}
+                  >
+                    Cộng đồng
+                  </p>
                 </Link>
               </AccordionContent>
               <AccordionContent className="pl-2">
@@ -134,28 +141,22 @@ export function SidebarLeft() {
                 Trò chơi
               </AccordionTrigger>
               <AccordionContent className="pl-2">
-                <div className={cla}>
+                <Link to="/games" className={cn(cla, "text-[16px]")}>
                   <Hash size={18} />
-                  <Link to="/communities" className="text-[16px]">
-                    Cờ caro
-                  </Link>
-                </div>
+                  Bắn tàu
+                </Link>
               </AccordionContent>
               <AccordionContent className="pl-2">
-                <div className={cla}>
+                <Link to="/games" className={cn(cla, "text-[16px]")}>
                   <Hash size={18} />
-                  <Link to="/communities" className="text-[16px]">
-                    Lật bài
-                  </Link>
-                </div>
+                  Cờ caro
+                </Link>
               </AccordionContent>
               <AccordionContent className="pl-2">
-                <div className={cla}>
+                <Link to="/games" className={cn(cla, "text-[16px]")}>
                   <Hash size={18} />
-                  <Link to="/communities" className="text-[16px]">
-                    Đập chuột
-                  </Link>
-                </div>
+                  Lật bài
+                </Link>
               </AccordionContent>
             </AccordionItem>
 

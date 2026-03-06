@@ -23,6 +23,7 @@ import { TrendingPage } from "./pages/trending/TrendingPage";
 import { TweetDetailPage } from "./pages/tweet-detail/TweetDetailPage";
 import NotFound from "./components/NotFound";
 import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
+import { GamePage } from "./pages/game/GamePage";
 
 // Router config
 const router = createBrowserRouter([
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
       { path: "bookmarks", element: <BookmarkPage /> },
       { path: "notifications", element: <NotificationPage /> },
       { path: "search", element: <SearchPage /> },
+      { path: "games", element: <GamePage /> },
       { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
       {
         path: `communities/t/${explore_tab}`,
