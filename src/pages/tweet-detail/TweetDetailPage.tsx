@@ -203,7 +203,7 @@ export function TweetDetailPage() {
       <TweetItem tweet={tweet} onSuccessDel={() => {}} isClickable={false} />
 
       {/*  */}
-      <div className="p-4 pb-0">
+      <div className="p-4 pb-0 sticky top-0 bg-white z-10">
         <Tweet
           tweet={tweet}
           contentBtn="Bình luận"
@@ -218,7 +218,14 @@ export function TweetDetailPage() {
       <div className="ml-14 space-y-4">
         {tweetComments?.length ? (
           tweetComments.map((tw) => {
-            return <TweetItem tweet={tw} key={tw._id} onSuccessDel={onDel} />;
+            return (
+              <TweetItem
+                tweet={tw}
+                key={tw._id}
+                onSuccessDel={onDel}
+                isClickable={false}
+              />
+            );
           })
         ) : isLoadingCmm ? (
           <SkeletonTweet />

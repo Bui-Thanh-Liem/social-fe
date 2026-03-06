@@ -374,6 +374,10 @@ export function Tweet({
     () => `image-upload-${tweetType}-${Math.random()}`,
   );
 
+  const isTweetType = tweetType === ETweetType.Tweet;
+  const isReQuoteType = tweetType === ETweetType.QuoteTweet;
+  const isCommentType = tweetType === ETweetType.Comment;
+
   //
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -423,10 +427,14 @@ export function Tweet({
             removeMedia={removeMedia}
           />
 
-          <div className="my-3 flex justify-between md:items-center gap-2 flex-col md:flex-row">
+          <div
+            className={cn(
+              "my-3 flex justify-between md:items-center gap-2 flex-col md:flex-row",
+              isCommentType ? "hidden" : "",
+            )}
+          >
             {/*  */}
-            {(tweetType === ETweetType.Tweet ||
-              tweetType === ETweetType.QuoteTweet) && (
+            {(isTweetType || isReQuoteType) && (
               <TweetCommunity
                 onchange={setCommunityId}
                 communityId={communityId}
@@ -434,14 +442,14 @@ export function Tweet({
             )}
 
             {/*  */}
-            {((!communityId && tweetType === ETweetType.Tweet) ||
-              (!communityId && tweetType === ETweetType.QuoteTweet)) && (
+            {((!communityId && isTweetType) ||
+              (!communityId && isReQuoteType)) && (
               <TweetAudience onChangeAudience={setAudience} />
             )}
           </div>
 
           {/*  */}
-          {tweetType === ETweetType.QuoteTweet && tweet && (
+          {isReQuoteType && tweet && (
             <div className="w-ful mt-1 rounded-3xl border overflow-hidden">
               <TweetItem
                 isAction={false}
@@ -450,12 +458,17 @@ export function Tweet({
               />
             </div>
           )}
-          <div className="w-full border-b border-gray-200 mt-3" />
+          <div
+            className={cn(
+              "w-full border-b border-gray-200 mt-3",
+              isCommentType && "mt-0",
+            )}
+          />
 
           <div
             className={cn(
               "flex justify-between items-center -ml-2 my-2 bg-white",
-              tweetType === ETweetType.QuoteTweet ? "" : "",
+              isReQuoteType ? "" : "",
             )}
           >
             <div className="flex items-center gap-1 flex-wrap md:flex-nowrap">

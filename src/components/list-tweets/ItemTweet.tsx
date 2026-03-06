@@ -153,7 +153,7 @@ export const TweetItem = ({
   return (
     <Card
       key={_id}
-      className="p-3 group bg-gray-50 relative"
+      className="p-3 pb-2 group bg-gray-50 relative gap-3"
       onClick={() => {
         if (isClickable) {
           navigate(`tweet/${_id}`);

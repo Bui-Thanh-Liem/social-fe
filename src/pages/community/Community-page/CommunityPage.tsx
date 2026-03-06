@@ -105,7 +105,7 @@ export function CommunityPage() {
     <>
       <div>
         {/* Header */}
-        <div className="px-3 border border-gray-100">
+        <div className="pr-3">
           <div className="flex h-12 items-center gap-4">
             <WrapIcon onClick={() => navigate(-1)}>
               <ArrowLeft color="#000" />

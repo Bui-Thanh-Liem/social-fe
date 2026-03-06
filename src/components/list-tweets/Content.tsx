@@ -76,7 +76,7 @@ export function ContentExpanded({
       {/*  */}
       <div
         className={cn(
-          "my-3 leading-relaxed whitespace-pre-wrap overflow-hidden",
+          "my-1 leading-relaxed whitespace-pre-wrap overflow-hidden",
           // Thêm 2 class "cứu cánh" này:
           "break-words [word-break:break-word] [hyphens:auto]",
           isExpanded ? "" : "line-clamp-14",

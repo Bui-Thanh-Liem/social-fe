@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const NotFound: React.FC = () => {
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-5 overflow-hidden font-sans text-[#e7e9ea]">
+    <div className="min-h-screen w-screen bg-black flex items-center justify-center p-5 overflow-hidden font-sans text-[#e7e9ea]">
       <div className="text-center max-w-[600px]">
         {/* Logo Section */}
         <svg
