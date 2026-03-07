@@ -8,7 +8,7 @@ import { socket } from "~/socket/socket";
 import { useChatBoxStore } from "~/store/useChatBoxStore";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
-import { SidebarLeft } from "./SidebarLeft";
+import { SidebarLeft } from "./sidebar-left/SidebarLeft";
 import { SidebarRight } from "./SidebarRight";
 import { Header } from "./Header";
 

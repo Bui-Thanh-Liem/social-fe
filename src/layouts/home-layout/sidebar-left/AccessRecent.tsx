@@ -1,0 +1,100 @@
+import { X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useGetMultiAccessRecent } from "~/apis/useFetchAccessRecent";
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "~/components/ui/accordion";
+import { Button } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
+import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
+import type { IUser } from "~/shared/interfaces/schemas/user.interface";
+
+export function AccessRecent() {
+  //
+  const { data } = useGetMultiAccessRecent({
+    page: "1",
+    limit: "5",
+  });
+  const accessRecent = data?.metadata?.items || [];
+
+  //
+  function onDeleteRecent(id: string) {
+    console.log("delete", id);
+  }
+
+  const cla = "flex gap-x-3 p-2 rounded-full hover:bg-gray-100 cursor-pointer";
+  return (
+    <AccordionItem value="recent">
+      <AccordionTrigger className="cursor-pointer">
+        Xem gần đây
+      </AccordionTrigger>
+      <AccordionContent className="pl-2 max-h-96 overflow-y-auto">
+        {accessRecent.map((x) => {
+          const ref = x.detail;
+
+          if (x.type === "user") {
+            return (
+              <Link
+                to={(ref as IUser).username || ""}
+                className={cn(cla, "relative group")}
+              >
+                <img
+                  src={(ref as IUser).avatar?.url}
+                  alt={(ref as IUser).username}
+                  className="w-7 h-7 rounded-full"
+                />
+                <p className="text-[16px]">{(ref as IUser).name}</p>
+                <X
+                  size={18}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    onDeleteRecent(x._id);
+                  }}
+                  className="absolute text-red-400 top-1/2 right-3 -translate-y-1/2 hidden group-hover:block"
+                />
+              </Link>
+            );
+          }
+
+          if (x.type === "community") {
+            return (
+              <Link
+                to={`/communities/${(ref as ICommunity).slug}`}
+                className={cn(cla, "relative group")}
+              >
+                <img
+                  src={(ref as ICommunity).cover?.url}
+                  alt={(ref as ICommunity).name}
+                  className="w-7 h-7 rounded-full object-contain"
+                />
+                <p className="text-[16px] line-clamp-1">
+                  {(ref as ICommunity).name}
+                </p>
+                <X
+                  size={18}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    onDeleteRecent(x._id);
+                  }}
+                  className="absolute text-red-400 top-1/2 right-3 -translate-y-1/2 hidden group-hover:block"
+                />
+              </Link>
+            );
+          }
+        })}
+        <div className="flex items-center gap-x-4 mt-2">
+          <Button variant="ghost" className="text-gray-400">
+            xem thêm
+          </Button>
+          <Button variant="ghost" className="text-red-400">
+            xoá tất cả
+          </Button>
+        </div>
+      </AccordionContent>
+    </AccordionItem>
+  );
+}

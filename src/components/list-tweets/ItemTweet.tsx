@@ -47,7 +47,12 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
   return (
     <div className={cn("", tweet ? "cursor-pointer" : "")}>
       <Carousel className="w-full">
-        <CarouselContent className="h-full cursor-grab">
+        <CarouselContent
+          className="h-full cursor-grab"
+          onDrag={(e) => {
+            e.stopPropagation();
+          }}
+        >
           {medias?.map((item) => (
             <CarouselItem
               key={item.url}
@@ -156,7 +161,7 @@ export const TweetItem = ({
       className="p-3 pb-2 group bg-gray-50 relative gap-3"
       onClick={() => {
         if (isClickable) {
-          navigate(`tweet/${_id}`);
+          navigate(`/tweet/${_id}`);
         }
       }}
     >
@@ -166,6 +171,9 @@ export const TweetItem = ({
           <Link
             to={`/communities/${community.slug}`}
             className="text-gray-500 hover:underline text-md"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             {community?.name}
           </Link>
@@ -184,6 +192,9 @@ export const TweetItem = ({
         <div>
           <ShortInfoProfile profile={tweet.user_id as unknown as IUser}>
             <Link
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
               to={`/${author.username}`}
               className="flex items-center gap-2"
             >

@@ -67,7 +67,9 @@ export function TodayNewsCard() {
 
         {!news.length && !isLoading && (
           <div className="pb-4 pl-4">
-            <p className="text-gray-400">Chưa có gì nổi bật hôm nay</p>
+            <p className="text-gray-400 text-[14px]">
+              Chưa có gì nổi bật hôm nay
+            </p>
           </div>
         )}
       </CardContent>

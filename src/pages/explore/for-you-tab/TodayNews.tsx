@@ -133,7 +133,9 @@ export function TodayNews() {
         {/*  */}
         {!news.length && !isLoading && (
           <div className="flex justify-center items-center h-20">
-            <p className="text-gray-400">Chưa có gì nổi bật hôm nay</p>
+            <p className="text-gray-400 text-[14px]">
+              Chưa có gì nổi bật hôm nay
+            </p>
           </div>
         )}
       </div>

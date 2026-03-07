@@ -200,7 +200,13 @@ export function TweetDetailPage() {
 
   return (
     <div className="h-[calc(100vh-76px)] max-h-[calc(100vh-76px)] overflow-y-auto mt-3">
-      <TweetItem tweet={tweet} onSuccessDel={() => {}} isClickable={false} />
+      <TweetItem
+        tweet={tweet}
+        onSuccessDel={() => {
+          navigate(-1);
+        }}
+        isClickable={false}
+      />
 
       {/*  */}
       <div className="p-4 pb-0 sticky top-0 bg-white z-10">

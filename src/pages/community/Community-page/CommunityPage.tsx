@@ -102,8 +102,9 @@ export function CommunityPage() {
   }
 
   return (
-    <>
-      <div>
+    <div className="grid grid-cols-12">
+      <div className="col-span-3"></div>
+      <div className="col-span-9">
         {/* Header */}
         <div className="pr-3">
           <div className="flex h-12 items-center gap-4">
@@ -293,6 +294,6 @@ export function CommunityPage() {
           placeholder="Đăng bài trong cộng đồng"
         />
       </DialogMain>
-    </>
+    </div>
   );
 }

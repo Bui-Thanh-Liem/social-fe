@@ -19,6 +19,7 @@ import { cn } from "~/lib/utils";
 import { CreateCommunity } from "~/pages/community/CreateCommunity";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
+import { AccessRecent } from "./AccessRecent";
 
 export type NavItem = {
   name: string;
@@ -43,6 +44,7 @@ export function SidebarLeft() {
   //
   const { user } = useUserStore();
 
+  //
   const { triggerReload } = useReloadStore();
 
   //
@@ -161,21 +163,7 @@ export function SidebarLeft() {
             </AccordionItem>
 
             {/*  */}
-            <AccordionItem value="recent">
-              <AccordionTrigger className="cursor-pointer">
-                Xem gần đây
-              </AccordionTrigger>
-              <AccordionContent className="pl-2">
-                <Link to="/communities" className={cla}>
-                  <img
-                    src="./community.png"
-                    alt="community"
-                    className="w-6 h-6 rounded-full"
-                  />
-                  <p className="text-[16px]">Nodejs</p>
-                </Link>
-              </AccordionContent>
-            </AccordionItem>
+            <AccessRecent />
           </Accordion>
         </li>
       </ul>
