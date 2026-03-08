@@ -91,7 +91,8 @@ export function ProfileAction({
   }, [profile?.isFollow]);
 
   //
-  async function handleOpenCheckBox() {
+  async function handleOpenCheckBox(e: React.MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
     const res = await apiCreateConversation.mutateAsync({
       type: EConversationType.Private,
       participants: [profile?._id],
@@ -111,7 +112,8 @@ export function ProfileAction({
   }
 
   //
-  async function handleFollow() {
+  async function handleFollow(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
     //
     const res = await mutateAsync({
       user_id: profile._id,

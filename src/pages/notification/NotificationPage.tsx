@@ -29,8 +29,8 @@ export function NotificationPage() {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-3"></div>
-      <div className="col-span-9">
+      <div className="lg:col-span-0 xl:col-span-3"></div>
+      <div className="lg:col-span-12 xl:col-span-9">
         <Tabs
           value={hash}
           onValueChange={handleTabChange}
@@ -89,7 +89,7 @@ export function NotificationPage() {
           </div>
 
           {/* Tab Content */}
-          <div className="pt-0 overflow-y-auto h-[calc(100vh-120px)]">
+          <div className="pt-0 overflow-y-auto h-[calc(100vh-120px)] px-1">
             <TabsContent
               value={`#${ENotificationType.Community}`}
               className="px-0 py-4"

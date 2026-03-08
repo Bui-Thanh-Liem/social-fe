@@ -1,9 +1,43 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { IAccessRecent } from "~/shared/interfaces/schemas/access-recent.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
 import { buildQueryString } from "~/utils/buildQueryString";
 import { apiCall } from "~/utils/callApi.util";
+
+// ➕ POST
+export const useDeleteAccessRecent = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: { _id: string }) =>
+      apiCall<IAccessRecent>(`/access-recent/${payload._id}`, {
+        method: "DELETE",
+      }),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["access-recent"] }),
+      ]);
+    },
+  });
+};
+
+// ➕ POST
+export const useDeleteAllAccessRecent = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () =>
+      apiCall<IAccessRecent>(`/access-recent/all`, {
+        method: "DELETE",
+      }),
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["access-recent"] }),
+      ]);
+    },
+  });
+};
 
 // 📄 GET
 export const useGetMultiAccessRecent = (queries?: IQuery<IAccessRecent>) => {

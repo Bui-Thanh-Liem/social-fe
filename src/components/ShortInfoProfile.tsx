@@ -11,7 +11,13 @@ import { StarPrestige } from "~/pages/profile/Star";
 //
 function NameItemUser({ user }: { user: IUser }) {
   return (
-    <Link to={`/${user?.username}`} className="flex items-center gap-2">
+    <Link
+      to={`/${user?.username}`}
+      className="flex items-center gap-2"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <h3 className="text-lg font-semibold hover:underline hover:cursor-pointer">
         {user?.name}
       </h3>

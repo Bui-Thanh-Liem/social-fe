@@ -1,6 +1,10 @@
 import { X } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useGetMultiAccessRecent } from "~/apis/useFetchAccessRecent";
+import {
+  useDeleteAccessRecent,
+  useDeleteAllAccessRecent,
+  useGetMultiAccessRecent,
+} from "~/apis/useFetchAccessRecent";
 import {
   AccordionContent,
   AccordionItem,
@@ -10,9 +14,12 @@ import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
+import { handleResponse } from "~/utils/toast";
 
 export function AccessRecent() {
   //
+  const apiDeleteAccessRecent = useDeleteAccessRecent();
+  const apiDeleteAllAccessRecent = useDeleteAllAccessRecent();
   const { data } = useGetMultiAccessRecent({
     page: "1",
     limit: "5",
@@ -20,9 +27,18 @@ export function AccessRecent() {
   const accessRecent = data?.metadata?.items || [];
 
   //
-  function onDeleteRecent(id: string) {
-    console.log("delete", id);
+  async function onDeleteRecent(id: string) {
+    const res = await apiDeleteAccessRecent.mutateAsync({ _id: id });
+    handleResponse(res);
   }
+
+  async function onDeleteAllRecent() {
+    const res = await apiDeleteAllAccessRecent.mutateAsync();
+    handleResponse(res);
+  }
+
+  //
+  if (accessRecent.length === 0) return null;
 
   const cla = "flex gap-x-3 p-2 rounded-full hover:bg-gray-100 cursor-pointer";
   return (
@@ -45,7 +61,9 @@ export function AccessRecent() {
                   alt={(ref as IUser).username}
                   className="w-7 h-7 rounded-full"
                 />
-                <p className="text-[16px]">{(ref as IUser).name}</p>
+                <p className="text-[16px] line-clamp-1 max-w-24">
+                  {(ref as IUser).name}
+                </p>
                 <X
                   size={18}
                   onClick={(e) => {
@@ -70,7 +88,7 @@ export function AccessRecent() {
                   alt={(ref as ICommunity).name}
                   className="w-7 h-7 rounded-full object-contain"
                 />
-                <p className="text-[16px] line-clamp-1">
+                <p className="text-[16px] line-clamp-1 max-w-24">
                   {(ref as ICommunity).name}
                 </p>
                 <X
@@ -90,7 +108,11 @@ export function AccessRecent() {
           <Button variant="ghost" className="text-gray-400">
             xem thêm
           </Button>
-          <Button variant="ghost" className="text-red-400">
+          <Button
+            variant="ghost"
+            className="text-red-400"
+            onClick={onDeleteAllRecent}
+          >
             xoá tất cả
           </Button>
         </div>

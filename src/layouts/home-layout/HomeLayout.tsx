@@ -39,7 +39,7 @@ export function HomeLayout() {
 
         {/*  */}
         <div className="mx-auto flex border-t overflow-hidden">
-          <aside className="w-60 pr-4 pl-4">
+          <aside className="pr-4 md:w-0 lg:w-60">
             <SidebarLeft />
           </aside>
 
@@ -47,7 +47,7 @@ export function HomeLayout() {
             <Outlet />
           </main>
 
-          <aside className="w-[26%] pr-4">
+          <aside className="md:w-0 lg:w-0 xl:w-[26%]">
             <SidebarRight />
           </aside>
         </div>

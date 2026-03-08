@@ -187,14 +187,17 @@ export default function ChatBox() {
   }
 
   return (
-    <Card className="w-[800px] h-[580px] gap-2 rounded-2xl shadow-lg overflow-hidden fixed bottom-8 right-8 bg-white z-50">
+    <Card className="w-[800px] gap-2 rounded-2xl shadow-lg overflow-hidden fixed bottom-8 right-8 bg-white z-50">
       <div className="flex">
+        {/*  */}
         <div className="w-82 border-r px-3">
           <ConversationList onclick={() => {}} />
         </div>
-        <div className="flex-1">
+
+        {/*  */}
+        <div className="flex-1 flex flex-col">
           {/*  */}
-          <CardHeader className="px-4">
+          <CardHeader>
             <div className="flex gap-x-4 items-center">
               {!Array.isArray(conversation?.avatar) ? (
                 <AvatarMain
@@ -206,13 +209,14 @@ export default function ChatBox() {
                   srcs={conversation?.avatar?.map((a) => a.url) as string[]}
                 />
               )}
+
               <div>
                 <CardTitle>
                   {conversation?.name || "Chọn cuộc trò chuyện"}
                 </CardTitle>
                 <CardDescription
                   className={cn(
-                    "text-gray-300 text-xs mt-1",
+                    "text-gray-300 text-xs",
                     checkOnl(onlUserIds, participantIds)
                       ? "text-green-400"
                       : "",
@@ -225,7 +229,7 @@ export default function ChatBox() {
             </div>
 
             {/*  */}
-            <CardAction className="flex items-center gap-2">
+            <CardAction className="flex items-center gap-2 mt-1">
               <CreateConversation
                 initialUserIds={(
                   conversation?.participants as unknown as IUser[]
@@ -238,9 +242,9 @@ export default function ChatBox() {
           </CardHeader>
 
           {/*  */}
-          <CardContent className="flex-1 flex flex-col border-t px-1">
+          <CardContent className="flex flex-col border-t px-2">
             {/* View message */}
-            <ScrollArea className="px-4 pt-2 h-[340px] max-h-[340px]">
+            <ScrollArea className="px-4 h-56 max-h-56 overflow-y-auto">
               <div className="flex flex-col gap-3">
                 {messages
                   .slice()
@@ -254,13 +258,13 @@ export default function ChatBox() {
               {!messages?.length && (
                 <Logo
                   size={100}
-                  className="text-gray-100 translate-y-28 translate-x-32"
+                  className="text-gray-100 translate-y-15 translate-x-38"
                 />
               )}
             </ScrollArea>
 
             {/* Action message */}
-            <form onSubmit={handleSubmit(onSubmit)} className="px-4">
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="relative border-t">
                 <div className="absolute top-[108px] right-1">
                   <CircularProgress

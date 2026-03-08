@@ -80,8 +80,8 @@ export function ProfilePage() {
 
   return (
     <div className="max-h-[calc(100vh-64px)] overflow-y-auto grid grid-cols-12">
-      <div className="col-span-3"></div>
-      <div className="col-span-9">
+      <div className="lg:col-span-0 xl:col-span-3"></div>
+      <div className="lg:col-span-12 xl:col-span-9">
         {/* Photo cover */}
         <div className="relative w-full">
           <div className="w-full h-52">

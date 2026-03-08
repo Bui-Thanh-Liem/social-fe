@@ -11,6 +11,8 @@ import { useCommentSocket } from "~/socket/hooks/useCommentSocket";
 import { useUserStore } from "~/store/useUserStore";
 import { Logo } from "~/components/Logo";
 import { ButtonMain } from "~/components/ui/button";
+import { WrapIcon } from "~/components/WrapIcon";
+import { ArrowLeft } from "lucide-react";
 
 export function TweetDetailPage() {
   //
@@ -199,65 +201,72 @@ export function TweetDetailPage() {
   }
 
   return (
-    <div className="h-[calc(100vh-76px)] max-h-[calc(100vh-76px)] overflow-y-auto mt-3">
-      <TweetItem
-        tweet={tweet}
-        onSuccessDel={() => {
-          navigate(-1);
-        }}
-        isClickable={false}
-      />
-
-      {/*  */}
-      <div className="p-4 pb-0 sticky top-0 bg-white z-10">
-        <Tweet
-          tweet={tweet}
-          contentBtn="Bình luận"
-          tweetType={ETweetType.Comment}
-          placeholder="Đăng bình luận của bạn"
-        />
+    <div className="h-[calc(100vh-76px)] max-h-[calc(100vh-76px)] overflow-y-auto mt-3 grid grid-cols-12">
+      <div className="col-span-1">
+        <WrapIcon className="bg-gray-100" onClick={() => navigate(-1)}>
+          <ArrowLeft />
+        </WrapIcon>
       </div>
+      <div className="col-span-11">
+        <TweetItem
+          tweet={tweet}
+          onSuccessDel={() => {
+            navigate(-1);
+          }}
+          isClickable={false}
+        />
 
-      <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
+        {/*  */}
+        <div className="p-4 pb-0 sticky top-0 bg-white z-10">
+          <Tweet
+            tweet={tweet}
+            contentBtn="Bình luận"
+            tweetType={ETweetType.Comment}
+            placeholder="Đăng bình luận của bạn"
+          />
+        </div>
 
-      {/* COMMENTS */}
-      <div className="ml-14 space-y-4">
-        {tweetComments?.length ? (
-          tweetComments.map((tw) => {
-            return (
-              <TweetItem
-                tweet={tw}
-                key={tw._id}
-                onSuccessDel={onDel}
-                isClickable={false}
-              />
-            );
-          })
-        ) : isLoadingCmm ? (
-          <SkeletonTweet />
-        ) : (
-          <div className="flex h-24">
-            <p className="m-auto text-gray-400 text-sm">Chưa có bình luận</p>
+        <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
+
+        {/* COMMENTS */}
+        <div className="ml-14 space-y-4">
+          {tweetComments?.length ? (
+            tweetComments.map((tw) => {
+              return (
+                <TweetItem
+                  tweet={tw}
+                  key={tw._id}
+                  onSuccessDel={onDel}
+                  isClickable={false}
+                />
+              );
+            })
+          ) : isLoadingCmm ? (
+            <SkeletonTweet />
+          ) : (
+            <div className="flex h-24">
+              <p className="m-auto text-gray-400 text-sm">Chưa có bình luận</p>
+            </div>
+          )}
+        </div>
+
+        {/* Loading more */}
+        {isLoadingMore && (
+          <div className="py-4">
+            <SkeletonTweet />
+          </div>
+        )}
+
+        {/* Observer element */}
+        <div ref={observerRef} className="h-10 w-full" />
+
+        {/* End message */}
+        {!hasMore && tweetComments.length > 0 && (
+          <div className="text-center py-6 mb-6">
+            <p className="text-gray-500">🎉 Bạn đã xem hết tất cả bình luận!</p>
           </div>
         )}
       </div>
-
-      {/* Loading more */}
-      {isLoadingMore && (
-        <div className="py-4">
-          <SkeletonTweet />
-        </div>
-      )}
-
-      {/* Observer element */}
-      <div ref={observerRef} className="h-10 w-full" />
-
-      {/* End message */}
-      {!hasMore && tweetComments.length > 0 && (
-        <div className="text-center py-6 mb-6">
-          <p className="text-gray-500">🎉 Bạn đã xem hết tất cả bình luận!</p>
-        </div>
-      )}
     </div>
   );
 }

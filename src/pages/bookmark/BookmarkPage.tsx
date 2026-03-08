@@ -130,8 +130,8 @@ export function BookmarkPage() {
   const tweetLength = allTweets.length;
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-3"></div>
-      <div className="col-span-9">
+      <div className="lg:col-span-0 xl:col-span-3"></div>
+      <div className="lg:col-span-12 xl:col-span-9">
         {/* Search */}
         <div className="py-4 w-96">
           <SearchMain

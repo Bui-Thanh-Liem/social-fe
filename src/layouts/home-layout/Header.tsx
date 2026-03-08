@@ -17,31 +17,28 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { WrapIcon } from "~/components/WrapIcon";
-import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
-import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
-import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
-import { useChatBoxStore } from "~/store/useChatBoxStore";
-import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
-import { playNotificationSound } from "~/utils/notificationSound";
 import { ConfirmOtpForm } from "~/forms/ConfirmOtpForm";
 import { ForgotPasswordForm } from "~/forms/ForgotPasswordForm";
 import { LoginAccountForm } from "~/forms/LoginAccountForm";
 import { RegisterAccountForm } from "~/forms/RegisterAccountForm";
 import { ResetPasswordForm } from "~/forms/ResetPasswordForm";
+import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
+import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
+import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
+import { useChatBoxStore } from "~/store/useChatBoxStore";
+import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
+import { playNotificationSound } from "~/utils/notificationSound";
 
 export function Header() {
   return (
     <>
-      <header className="grid-cols-3 grid items-center px-4">
-        <div className="col-span-1">
-          <WrapIcon>
-            <Logo size={40} />
-          </WrapIcon>
+      <header className="grid-cols-12 grid items-center h-14">
+        <div className="col-span-4">
+          <Logo size={40} />
         </div>
 
-        <div className="col-span-1">
+        <div className="col-span-4">
           <div className="w-[420px] rounded-full outline-2 outline-sky-400">
             <SearchAdvanced
               className="w-[420px]"
@@ -50,8 +47,18 @@ export function Header() {
           </div>
         </div>
 
-        <AuthHeader />
+        <div className="col-span-4">
+          <div className="flex justify-end">
+            <AuthHeader />
+          </div>
+        </div>
       </header>
+
+      {/* <div className="col-span-4 mb-3 px-6 hidden">
+        <div className="w-full rounded-full outline-2 outline-sky-400">
+          <SearchAdvanced placeholder="Tìm kiếm mọi thứ" />
+        </div>
+      </div> */}
     </>
   );
 }
@@ -194,11 +201,9 @@ function AuthHeader() {
   if (!user)
     return (
       <>
-        <div className="ml-auto">
-          <ButtonMain size="sm" onClick={() => setIsOpenLogin(true)}>
-            Đăng nhập
-          </ButtonMain>
-        </div>
+        <ButtonMain size="sm" onClick={() => setIsOpenLogin(true)}>
+          Đăng nhập
+        </ButtonMain>
 
         {/* Register */}
         <DialogMain
@@ -265,7 +270,7 @@ function AuthHeader() {
     );
 
   return (
-    <div className="col-span-1 flex justify-end">
+    <>
       <div className="flex gap-x-7 items-center">
         <ButtonMain size="sm" onClick={handleOpenPost} variant={"outline"}>
           <Plus /> Đăng Bài
@@ -340,6 +345,6 @@ function AuthHeader() {
           placeholder="Có chuyện gì thế ? @liemdev, #developer"
         />
       </DialogMain>
-    </div>
+    </>
   );
 }

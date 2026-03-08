@@ -420,7 +420,7 @@ export function ConversationList({
         </div>
       )}
 
-      <div className="max-h-[460px] overflow-y-auto">
+      <div className="overflow-y-auto">
         {/* List conversations */}
         {allConversations.length > 0 && (
           <div>

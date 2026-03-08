@@ -27,6 +27,9 @@ export function Content({
           <Link
             to={`/${mention?.username}`}
             className="items-center gap-2 inline"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             <span className="text-blue-400 font-semibold hover:underline hover:cursor-pointer mb-2 inline-block">
               {mention?.username}
@@ -44,6 +47,9 @@ export function Content({
           key={i}
           to={`/search?q=${part.replace("#", "")}`}
           className="text-blue-400 font-medium hover:underline hover:cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           {part}
         </Link>
@@ -82,8 +88,7 @@ export function ContentExpanded({
       {/*  */}
       <div
         className={cn(
-          "my-1 leading-relaxed whitespace-pre-wrap text-[14px] overflow-hidden",
-          // Thêm 2 class "cứu cánh" này:
+          "mb-1 leading-relaxed whitespace-pre-wrap text-[14px] overflow-hidden",
           "break-words [word-break:break-word] [hyphens:auto]",
           isExpanded ? "" : "line-clamp-14",
         )}

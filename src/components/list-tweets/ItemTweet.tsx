@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   BarChart3,
   CornerRightDown,
@@ -15,8 +16,11 @@ import type { ICommunity } from "~/shared/interfaces/schemas/community.interface
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
+import { formatTimeAgo } from "~/utils/dateTime";
+import { handleResponse } from "~/utils/toast";
 import { VerifyIcon } from "../icons/verify";
 import { ShortInfoProfile } from "../ShortInfoProfile";
+import { EditorCodeItem } from "../tweet/EditorCode";
 import { AvatarMain } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
@@ -32,11 +36,7 @@ import { ActionCommentTweet } from "./ActionCommentTweet";
 import { ActionLikeTweet } from "./ActionLikeTweet";
 import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
 import { ActionShared } from "./ActionShared";
-import { formatTimeAgo } from "~/utils/dateTime";
-import { handleResponse } from "~/utils/toast";
 import { ContentExpanded } from "./Content";
-import { EditorCodeItem } from "../tweet/EditorCode";
-import { motion } from "framer-motion";
 
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
@@ -363,7 +363,8 @@ function TweetAction({
   const apiReportTweet = useReportTweet();
 
   // Gỡ bài viết (xoá)
-  async function onDel() {
+  async function onDel(e: React.MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
     const resDeleted = await apiDeleteTweet.mutateAsync(tweet._id);
     handleResponse(resDeleted, () => {
       onSuccessDel(tweet._id);
@@ -371,7 +372,8 @@ function TweetAction({
   }
 
   // Báo cáo bài viết
-  async function onReport() {
+  async function onReport(e: React.MouseEvent<HTMLDivElement>) {
+    e.stopPropagation();
     const resDeleted = await apiReportTweet.mutateAsync(tweet._id);
     handleResponse(resDeleted, () => {
       onSuccessDel(tweet._id);
