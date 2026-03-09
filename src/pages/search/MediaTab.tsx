@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchTweets } from "~/apis/useFetchSearch";
 import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
@@ -7,6 +7,7 @@ import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 
 export function MediaTab() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const q = searchParams.get("q");
   const pf = searchParams.get("pf");
   const f = searchParams.get("f");
@@ -132,6 +133,11 @@ export function MediaTab() {
     setIsLoadingMore(false);
   }, [q]);
 
+  //
+  function onMediaClick(tweet: ITweet) {
+    navigate(`/tweet/${tweet._id}`);
+  }
+
   const loading = isLoading || isFetching;
 
   return (
@@ -158,6 +164,7 @@ export function MediaTab() {
               <Card
                 key={`profile-media-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"
+                onClick={() => onMediaClick(tweet)}
               >
                 <CardContent className="p-0">
                   {m?.file_type.startsWith("video/") ? (

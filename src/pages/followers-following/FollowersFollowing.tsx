@@ -30,8 +30,8 @@ export function FollowersFollowing() {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-3"></div>
-      <div className="col-span-9">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10">
         {/* Header */}
         <div className="px-3 flex justify-between items-center border border-x-0 border-gray-100">
           <div className="flex h-12 items-center gap-4">
@@ -57,11 +57,11 @@ export function FollowersFollowing() {
           </div>
 
           <div className="pt-0">
-            <TabsContent value={followers_tab} className="px-0 py-4">
+            <TabsContent value={followers_tab} className="px-0">
               <FollowersPage />
             </TabsContent>
 
-            <TabsContent value={following_tab} className="px-0 py-4">
+            <TabsContent value={following_tab} className="px-0">
               <FollowingPage />
             </TabsContent>
           </div>

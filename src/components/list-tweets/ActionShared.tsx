@@ -5,7 +5,8 @@ import { toastSimple } from "~/utils/toast";
 const apiUrl = import.meta.env.VITE_CLIENT_URL;
 
 export function ActionShared({ tweet }: { tweet: ITweet }) {
-  const handleCopy = async () => {
+  const handleCopy = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     try {
       await navigator.clipboard.writeText(`${apiUrl}/tweet/${tweet._id}`);
       toastSimple("Đã sao chép liên kết bài viết", "success");

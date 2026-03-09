@@ -17,6 +17,7 @@ import {
   LoaderCircle,
   LogOut,
   MessageCircleMore,
+  UserPen,
 } from "lucide-react";
 import { useLogout } from "~/apis/useFetchAuth";
 import {
@@ -46,11 +47,18 @@ export function ProfileEdit({ currentUser }: { currentUser: IUser }) {
     <>
       <ButtonMain
         variant="outline"
-        className="mt-20"
+        className="mt-20 hidden lg:block"
         onClick={() => setIsOpen(true)}
       >
         Chỉnh sửa hồ sơ
       </ButtonMain>
+
+      <WrapIcon
+        className="mt-20 lg:hidden border"
+        onClick={() => setIsOpen(true)}
+      >
+        <UserPen className="lg:hidden" size={22} />
+      </WrapIcon>
 
       {/*  */}
       <DialogMain

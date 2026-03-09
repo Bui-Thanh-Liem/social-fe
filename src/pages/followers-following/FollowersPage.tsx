@@ -54,7 +54,7 @@ export function FollowersPage() {
   const loading = isLoading || isFetching;
 
   return (
-    <div className="max-h-[calc(100vh-120px)] overflow-y-auto px-4">
+    <div className="max-h-[calc(100vh-170px)] overflow-y-auto px-4">
       <div>
         {users.map((u) => (
           <UserToFollowItem key={u?._id} user={u} />

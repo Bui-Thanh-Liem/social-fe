@@ -238,7 +238,7 @@ export function TopTab() {
         {!tweets.length && !loadingTweet && (
           <div className="flex justify-center items-center h-20">
             <p className="text-gray-500 text-lg">
-              Không có bài viết nào phù hợp với <strong>"{q}"</strong>
+              Không có bài viết phù hợp với <strong>"{q}"</strong>
             </p>
           </div>
         )}
@@ -284,7 +284,7 @@ export function TopTab() {
         {!communities.length && !isLoadingCommunity && (
           <div className="flex justify-center items-center h-20">
             <p className="text-gray-500 text-lg">
-              Không có cộng đồng nào phù hợp với <strong>"{q}"</strong>
+              Không có cộng đồng phù hợp với <strong>"{q}"</strong>
             </p>
           </div>
         )}

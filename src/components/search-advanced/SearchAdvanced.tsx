@@ -1,5 +1,5 @@
 import { Search, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchPending } from "~/apis/useFetchSearch";
 import {
@@ -51,16 +51,20 @@ export function SearchAdvanced({
       ? undefined
       : hash;
 
-  const q = searchParams.get("q") || _hash;
-
+  const q = searchParams.get("q") || _hash || "";
   //
   const [open, setOpen] = useState(false);
-  const [searchVal, setSearchVal] = useState(q ?? "");
+  const [searchVal, setSearchVal] = useState(q);
   const debouncedValue = useDebounce(searchVal, 400);
 
   //
   const apiCreateHistory = useCreateSearchHistory();
   const apiDeleteHistory = useDeleteSearchHistory();
+
+  //
+  useEffect(() => {
+    setSearchVal(q);
+  }, [q]);
 
   //
   const { data } = useSearchPending(
@@ -132,9 +136,9 @@ export function SearchAdvanced({
   function onClickCommunityItem(c: ICommunity) {
     if (c) {
       apiCreateHistory.mutate({ community: c._id });
-      navigate(`/search?q=${c?.slug}`);
+      navigate(`/search?q=${c?.name}`);
     }
-    setSearchVal(c?.slug);
+    setSearchVal(c?.name);
     setOpen(false);
   }
 
@@ -178,7 +182,7 @@ export function SearchAdvanced({
       </PopoverTrigger>
       <PopoverContent
         className={cn(
-          "bg-white border rounded-2xl shadow-lg z-[4000] w-80",
+          "bg-white border rounded-2xl shadow-lg z-[4000]",
           className,
         )}
         onOpenAutoFocus={(e) => e.preventDefault()}

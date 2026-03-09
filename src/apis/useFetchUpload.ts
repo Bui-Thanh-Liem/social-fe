@@ -31,7 +31,7 @@ export const allowedVideoTypes = [
 export const usePresignedUrl = () => {
   return useMutation({
     mutationFn: async (
-      files: File[]
+      files: File[],
     ): Promise<OkResponse<ResPresignedUrl[]>> => {
       // Tạo payload từ file list
       const payload: PresignedUrlDto[] = files.map((file) => ({
@@ -48,10 +48,10 @@ export const usePresignedUrl = () => {
             {
               method: "POST",
               body: JSON.stringify(item),
-            }
+            },
           );
           return res.metadata!;
-        })
+        }),
       );
       return new OkResponse("Success", results);
     },
@@ -66,19 +66,18 @@ export const usePresignedUrl = () => {
 export const validateMediaFile = (file: File) => {
   if (allowedImgTypes.includes(file.type)) {
     if (file.size > CONSTANT_MAX_SIZE_IMAGE_UPLOAD) {
-      throw new Error("Dung lượng ảnh quá lớn. Tối đa 5MB.");
+      toastSimple("Dung lượng ảnh quá lớn. Tối đa 5MB.", "error");
     }
     return true;
   }
 
   if (allowedVideoTypes.includes(file.type)) {
     if (file.size > CONSTANT_MAX_SIZE_VIDEO_UPLOAD) {
-      throw new Error("Dung lượng video quá lớn. Tối đa 10MB.");
+      toastSimple("Dung lượng video quá lớn. Tối đa 10MB.", "error");
     }
     return true;
   }
-
-  throw new Error("Định dạng không được hỗ trợ.");
+  toastSimple("Định dạng file không được hỗ trợ.", "error");
 };
 
 // 🎯 Hook tiện ích để upload với validation
@@ -112,7 +111,7 @@ export const useUploadMedia = () => {
           }
 
           return key;
-        })
+        }),
       );
 
       // 4. Gọi API confirm với danh sách keys đã upload thành công

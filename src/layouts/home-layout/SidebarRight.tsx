@@ -25,7 +25,7 @@ export function SidebarRight() {
         )}
       </div>
 
-      <div className="space-y-4 max-h-[calc(100vh-80px)] overflow-y-auto scrollbar-hide">
+      <div className="space-y-4 max-h-[calc(100vh-280px)] overflow-y-auto scrollbar-hide">
         <RelatedWhoCard />
         <TodayNewsCard />
         <OutstandingThisWeekCard />

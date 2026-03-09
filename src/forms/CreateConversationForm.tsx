@@ -16,7 +16,7 @@ import {
 import { EConversationType } from "~/shared/enums/type.enum";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse, toastSimple } from "~/utils/toast";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
@@ -226,17 +226,22 @@ export function CreateConversationForm({
   //
   const onSubmit = async (data: CreateConversationDto) => {
     if (avatarFile) {
-      const resUploadAvatar = await apiUploadMedia.mutateAsync([avatarFile]);
+      try {
+        const resUploadAvatar = await apiUploadMedia.mutateAsync([avatarFile]);
 
-      if (resUploadAvatar.statusCode !== 200 || !resUploadAvatar.metadata) {
-        handleResponse(resUploadAvatar);
+        if (resUploadAvatar.statusCode !== 200 || !resUploadAvatar.metadata) {
+          handleResponse(resUploadAvatar);
+          return;
+        }
+
+        data.avatar = {
+          s3_key: resUploadAvatar?.metadata[0].s3_key,
+          url: resUploadAvatar?.metadata[0].url || "",
+        };
+      } catch (error) {
+        toastSimple((error as { message: string }).message, "error");
         return;
       }
-
-      data.avatar = {
-        s3_key: resUploadAvatar?.metadata[0].s3_key,
-        url: resUploadAvatar?.metadata[0].url || "",
-      };
     }
 
     const res = await apiCreateConversation.mutateAsync(data);

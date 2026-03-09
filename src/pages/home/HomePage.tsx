@@ -71,10 +71,10 @@ export function HomePage() {
 
   return (
     <main className="relative grid grid-cols-12 pt-3">
-      <div className="lg:col-span-0 xl:col-span-3"></div>
+      <div className="col-span-0 xl:col-span-2"></div>
       <div
         ref={containerRef}
-        className="lg:col-span-12 xl:col-span-9 h-[calc(100vh-76px)] overflow-y-auto"
+        className="col-span-12 xl:col-span-10 h-[calc(100vh-76px)] overflow-y-auto"
       >
         {/* Fixed Navigation Bar */}
         <Select

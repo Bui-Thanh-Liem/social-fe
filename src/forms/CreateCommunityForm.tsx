@@ -172,15 +172,20 @@ export function CreateCommunityForm({
       }
 
       if (coverFile) {
-        const resUploadCover = await apiUploadMedia.mutateAsync([coverFile]);
-        if (resUploadCover.statusCode !== 200 || !resUploadCover.metadata) {
-          handleResponse(resUploadCover);
+        try {
+          const resUploadCover = await apiUploadMedia.mutateAsync([coverFile]);
+          if (resUploadCover.statusCode !== 200 || !resUploadCover.metadata) {
+            handleResponse(resUploadCover);
+            return;
+          }
+          data.cover = {
+            s3_key: resUploadCover?.metadata[0].s3_key,
+            url: resUploadCover?.metadata[0].url || "",
+          };
+        } catch (error) {
+          toastSimple((error as { message: string }).message, "error");
           return;
         }
-        data.cover = {
-          s3_key: resUploadCover?.metadata[0].s3_key,
-          url: resUploadCover?.metadata[0].url || "",
-        };
       }
 
       const res = await apiCreateCommunity.mutateAsync({

@@ -63,89 +63,91 @@ export function TrendingPage() {
   const loading = isLoading || isFetching;
 
   return (
-    <div>
-      {/* Header */}
-      <div className="px-3 flex justify-between items-center border border-gray-100">
-        <div className="flex h-12 items-center gap-4">
-          <WrapIcon onClick={() => navigate(-1)}>
-            <ArrowLeft color="#000" />
-          </WrapIcon>
-          <p className="font-semibold text-[20px]">Thịnh hành</p>
+    <div className="grid grid-cols-12">
+      <div className="col-span-2"></div>
+      <div className="col-span-10">
+        {/* Header */}
+        <div className="px-3 flex justify-between items-center border-b border-gray-100">
+          <div className="flex h-12 items-center gap-4">
+            <WrapIcon onClick={() => navigate(-1)}>
+              <ArrowLeft color="#000" />
+            </WrapIcon>
+            <p className="font-semibold text-[20px]">Thịnh hành</p>
+          </div>
         </div>
-      </div>
 
-      <div className="max-h-[calc(100vh-50px)] overflow-y-auto">
-        {/* Summary */}
-        <div>
-          <ul className="my-3 px-8 space-y-3 list-disc">
-            {highlight?.map((h, i) => (
-              <li key={h._id}>
-                <p>
-                  <p className="leading-relaxed whitespace-break-spaces break-words [word-break:break-word] [hyphens:auto]">
-                    <Content content={h.content} mentions={[]} />
+        <div className="max-h-[calc(100vh-110px)] overflow-y-auto">
+          {/* Summary */}
+          <div>
+            <ul className="my-3 px-8 space-y-3 list-disc text-[14px]">
+              {highlight?.map((h, i) => (
+                <li key={h._id}>
+                  <p>
+                    <p className="leading-relaxed whitespace-break-spaces break-words [word-break:break-word] [hyphens:auto]">
+                      <Content content={h.content} mentions={[]} />
+                    </p>
+                    <Avatar
+                      key={`${h.avatar}-${i}`}
+                      className="inline-block ml-4 w-5 h-5"
+                    >
+                      <AvatarImage src={h.avatar?.url} alt={h.content} />
+                      <AvatarFallback>{h.avatar?.url}</AvatarFallback>
+                    </Avatar>
+                    <span className="text-xs ml-2 text-gray-400">
+                      {formatTimeAgo(h.created_at as unknown as string)}
+                    </span>
                   </p>
-                  <Avatar
-                    key={`${h.avatar}-${i}`}
-                    className="inline-block ml-4 w-5 h-5"
-                  >
-                    <AvatarImage src={h.avatar?.url} alt={h.content} />
-                    <AvatarFallback>{h.avatar?.url}</AvatarFallback>
-                  </Avatar>
-                  <span className="text-xs ml-2 text-gray-400">
-                    {formatTimeAgo(h.created_at as unknown as string)}
-                  </span>
-                </p>
-              </li>
-            ))}
-          </ul>
-          <hr />
-        </div>
-
-        {/* Tweets list */}
-        <div>
-          {isLoading && limit === 5 && <SkeletonTweet />}
-
-          {!isLoading && !error && allTweets.length === 0 && limit === 5 && (
-            <div className="text-center py-12">
-              <p className="text-gray-500 text-lg mb-2">
-                📭 Chưa có nội dung nào
-              </p>
-            </div>
-          )}
-
-          {allTweets.length > 0 && (
-            <div className="space-y-6">
-              {allTweets.map((tweet, index: number) => (
-                <span key={tweet._id}>
-                  <TweetItem tweet={tweet} onSuccessDel={onSuccessDel} />
-                  {index < allTweets.length - 1 && (
-                    <hr className="border-gray-200" />
-                  )}
-                </span>
+                </li>
               ))}
-            </div>
-          )}
+            </ul>
+            <hr />
+          </div>
 
-          {/* Loading more indicator */}
-          {loading && (
-            <div className="py-4">
-              <SkeletonTweet />
-            </div>
-          )}
+          {/* Tweets list */}
+          <div className="mt-4">
+            {isLoading && limit === 5 && <SkeletonTweet />}
 
-          {/* Loader */}
-          {limit < relevant_ids.length && (
-            <div ref={loaderRef} className="text-center py-6" />
-          )}
+            {!isLoading && !error && allTweets.length === 0 && limit === 5 && (
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg mb-2">
+                  📭 Chưa có nội dung nào
+                </p>
+              </div>
+            )}
 
-          {/* End of list */}
-          {limit >= relevant_ids.length && !isFetching && (
-            <div className="text-center py-8 pb-12">
-              <p className="text-gray-500">
-                🎉 Bạn đã xem hết tất cả nội dung!
-              </p>
-            </div>
-          )}
+            {allTweets.length > 0 && (
+              <div className="space-y-4">
+                {allTweets.map((tweet) => (
+                  <TweetItem
+                    key={tweet._id}
+                    tweet={tweet}
+                    onSuccessDel={onSuccessDel}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Loading more indicator */}
+            {loading && (
+              <div className="py-4">
+                <SkeletonTweet />
+              </div>
+            )}
+
+            {/* Loader */}
+            {limit < relevant_ids.length && (
+              <div ref={loaderRef} className="text-center py-6" />
+            )}
+
+            {/* End of list */}
+            {limit >= relevant_ids.length && !isFetching && (
+              <div className="text-center py-8 pb-12">
+                <p className="text-gray-500">
+                  🎉 Bạn đã xem hết tất cả nội dung!
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

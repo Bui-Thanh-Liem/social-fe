@@ -10,10 +10,11 @@ export function SearchPage() {
   const updateQuery = useUpdateQuery();
 
   return (
-    <div>
-      <div className="mt-1">
+    <div className="grid grid-cols-12">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10">
         <Tabs defaultValue="top">
-          <div className="bg-white py-2 pt-5 sticky top-0 z-50">
+          <div className="bg-white sticky top-0 z-50">
             <TabsList className="w-full">
               <TabsTrigger
                 className="cursor-pointer"
@@ -64,7 +65,7 @@ export function SearchPage() {
           </div>
 
           {/* Tab Content */}
-          <div className="pt-0">
+          <div className="pt-0 overflow-y-auto h-[calc(100vh-120px)]">
             <TabsContent value="top" className="px-0">
               <TopTab />
             </TabsContent>

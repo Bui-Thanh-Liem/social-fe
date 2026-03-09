@@ -11,6 +11,7 @@ import { useUserStore } from "~/store/useUserStore";
 import { SidebarLeft } from "./sidebar-left/SidebarLeft";
 import { SidebarRight } from "./SidebarRight";
 import { Header } from "./Header";
+import { AppSidebarMobile } from "~/components/sidebar-mobile/AppSidebarMobile";
 
 export function HomeLayout() {
   const { isOpen } = useChatBoxStore();
@@ -33,13 +34,13 @@ export function HomeLayout() {
   //
   return (
     <div className="w-screen flex items-center justify-center">
-      <div className="w-5/6 max-w-5/6">
+      <div className="w-full px-4 md:w-5/6 md:px-0">
         {/*  */}
         <Header />
 
         {/*  */}
         <div className="mx-auto flex border-t overflow-hidden">
-          <aside className="pr-4 md:w-0 lg:w-60">
+          <aside className="pr-4 w-60 hidden md:block">
             <SidebarLeft />
           </aside>
 
@@ -47,7 +48,7 @@ export function HomeLayout() {
             <Outlet />
           </main>
 
-          <aside className="md:w-0 lg:w-0 xl:w-[26%]">
+          <aside className="w-0 xl:w-[26%]">
             <SidebarRight />
           </aside>
         </div>
@@ -57,6 +58,9 @@ export function HomeLayout() {
 
         {/*  */}
         <DetailAttachmentDrawer />
+
+        {/*  */}
+        <AppSidebarMobile />
       </div>
     </div>
   );

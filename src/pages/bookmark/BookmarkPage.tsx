@@ -130,17 +130,19 @@ export function BookmarkPage() {
   const tweetLength = allTweets.length;
   return (
     <div className="grid grid-cols-12">
-      <div className="lg:col-span-0 xl:col-span-3"></div>
-      <div className="lg:col-span-12 xl:col-span-9">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10">
         {/* Search */}
-        <div className="py-4 w-96">
-          <SearchMain
-            size="sm"
-            value={searchVal}
-            onChange={setSearchVal}
-            onClear={() => setSearchVal("")}
-          />
-        </div>
+        {allTweets.length > 0 && (
+          <div className="py-4 w-96">
+            <SearchMain
+              size="sm"
+              value={searchVal}
+              onChange={setSearchVal}
+              onClear={() => setSearchVal("")}
+            />
+          </div>
+        )}
 
         {/* Tweets Container */}
         <div className="max-h-[calc(100vh-(128px))] overflow-y-auto">

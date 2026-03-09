@@ -13,13 +13,13 @@ export function formatDateToDateVN(date: Date) {
 
 // Format time ago from a date string
 export const formatTimeAgo = (dateString: string) => {
-  if (!dateString) return "Vừa xong";
+  if (!dateString) return "vừa xong";
 
   const now = new Date();
   const createdDate = new Date(dateString);
 
   const diffInMinutes = Math.floor(
-    (now.getTime() - createdDate.getTime()) / (1000 * 60)
+    (now.getTime() - createdDate.getTime()) / (1000 * 60),
   );
   const diffInHours = Math.floor(diffInMinutes / 60);
 
@@ -29,13 +29,13 @@ export const formatTimeAgo = (dateString: string) => {
       new Date(
         createdDate.getFullYear(),
         createdDate.getMonth(),
-        createdDate.getDate()
+        createdDate.getDate(),
       ).getTime()) /
-      (1000 * 60 * 60 * 24)
+      (1000 * 60 * 60 * 24),
   );
 
   if (diffInDays === 0) {
-    if (diffInMinutes < 1) return "Vừa xong";
+    if (diffInMinutes < 1) return "vừa xong";
     if (diffInMinutes < 60) return `${diffInMinutes} phút`;
     return `${diffInHours} giờ`;
   }
@@ -56,7 +56,7 @@ export const formatTimeUntil = (futureDateString: string) => {
   if (futureDate <= now) return "đã đến hạn";
 
   const diffInMinutes = Math.floor(
-    (futureDate.getTime() - now.getTime()) / (1000 * 60)
+    (futureDate.getTime() - now.getTime()) / (1000 * 60),
   );
   const diffInHours = Math.floor(diffInMinutes / 60);
   const diffInDays = Math.floor(diffInHours / 24);

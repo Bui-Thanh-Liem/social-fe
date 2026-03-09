@@ -202,12 +202,12 @@ export function TweetDetailPage() {
 
   return (
     <div className="h-[calc(100vh-76px)] max-h-[calc(100vh-76px)] overflow-y-auto mt-3 grid grid-cols-12">
-      <div className="col-span-1">
+      <div className="col-span-0 xl:col-span-1">
         <WrapIcon className="bg-gray-100" onClick={() => navigate(-1)}>
           <ArrowLeft />
         </WrapIcon>
       </div>
-      <div className="col-span-11">
+      <div className="col-span-12 xl:col-span-11">
         <TweetItem
           tweet={tweet}
           onSuccessDel={() => {

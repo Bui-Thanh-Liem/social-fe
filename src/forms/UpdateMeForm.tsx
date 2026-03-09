@@ -97,40 +97,54 @@ export function UpdateMeForm({
 
       //
       if (avatarFile) {
-        const resRemoteImages = await apiDeleteMedia.mutateAsync({
-          s3_keys: [getValues("avatar")?.s3_key || ""],
-        });
+        try {
+          const resRemoteImages = await apiDeleteMedia.mutateAsync({
+            s3_keys: [getValues("avatar")?.s3_key || ""],
+          });
 
-        if (resRemoteImages.statusCode === 200) {
-          const resUploadAvatar = await apiUploadMedia.mutateAsync([
-            avatarFile,
-          ]);
-          if (resUploadAvatar.statusCode !== 200 || !resUploadAvatar.metadata) {
-            handleResponse(resUploadAvatar);
-            return;
+          if (resRemoteImages.statusCode === 200) {
+            const resUploadAvatar = await apiUploadMedia.mutateAsync([
+              avatarFile,
+            ]);
+            if (
+              resUploadAvatar.statusCode !== 200 ||
+              !resUploadAvatar.metadata
+            ) {
+              handleResponse(resUploadAvatar);
+              return;
+            }
+            data.avatar = {
+              s3_key: resUploadAvatar?.metadata[0].s3_key,
+              url: resUploadAvatar?.metadata[0].url || "",
+            };
           }
-          data.avatar = {
-            s3_key: resUploadAvatar?.metadata[0].s3_key,
-            url: resUploadAvatar?.metadata[0].url || "",
-          };
+        } catch (error) {
+          toastSimple((error as { message: string }).message, "error");
         }
       }
 
       if (coverFile) {
-        const resRemoteImages = await apiDeleteMedia.mutateAsync({
-          s3_keys: [getValues("cover_photo")?.s3_key || ""],
-        });
+        try {
+          const resRemoteImages = await apiDeleteMedia.mutateAsync({
+            s3_keys: [getValues("cover_photo")?.s3_key || ""],
+          });
 
-        if (resRemoteImages.statusCode === 200) {
-          const resUploadCover = await apiUploadMedia.mutateAsync([coverFile]);
-          if (resUploadCover.statusCode !== 200 || !resUploadCover.metadata) {
-            handleResponse(resUploadCover);
-            return;
+          if (resRemoteImages.statusCode === 200) {
+            const resUploadCover = await apiUploadMedia.mutateAsync([
+              coverFile,
+            ]);
+            if (resUploadCover.statusCode !== 200 || !resUploadCover.metadata) {
+              handleResponse(resUploadCover);
+              return;
+            }
+            data.cover_photo = {
+              s3_key: resUploadCover?.metadata[0].s3_key,
+              url: resUploadCover?.metadata[0].url || "",
+            };
           }
-          data.cover_photo = {
-            s3_key: resUploadCover?.metadata[0].s3_key,
-            url: resUploadCover?.metadata[0].url || "",
-          };
+        } catch (error) {
+          toastSimple((error as { message: string }).message, "error");
+          return;
         }
       }
 

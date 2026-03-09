@@ -1,9 +1,11 @@
-import { BellIcon, MessageCircleMore, Plus } from "lucide-react";
+import { BellIcon, Menu, MessageCircleMore, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useGetMe, useLogout } from "~/apis/useFetchAuth";
 import { Logo } from "~/components/Logo";
 import { SearchAdvanced } from "~/components/search-advanced/SearchAdvanced";
+import { SearchAdvancedMobile } from "~/components/search-advanced/SearchAdvancedMobile";
+import { SidebarTrigger } from "~/components/sidebar-mobile/sidebar";
 import { Tweet } from "~/components/tweet/Tweet";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
@@ -33,32 +35,35 @@ import { playNotificationSound } from "~/utils/notificationSound";
 export function Header() {
   return (
     <>
-      <header className="grid-cols-12 grid items-center h-14">
-        <div className="col-span-4">
+      <header className="grid-cols-12 grid items-center h-14 justify-between">
+        <div className="col-span-4 flex items-center gap-x-4">
+          <div className="block md:hidden">
+            <SidebarTrigger
+              icon={
+                <Menu
+                  style={{ width: "28px", height: "24px", marginTop: "6px" }}
+                />
+              }
+            />
+          </div>
           <Logo size={40} />
         </div>
 
-        <div className="col-span-4">
-          <div className="w-[420px] rounded-full outline-2 outline-sky-400">
+        <div className="col-span-4 hidden lg:block">
+          <div className="w-full rounded-full outline-2 outline-sky-400">
             <SearchAdvanced
-              className="w-[420px]"
+              className="w-[530px] max-w-[530px]"
               placeholder="Tìm kiếm mọi thứ"
             />
           </div>
         </div>
 
-        <div className="col-span-4">
+        <div className="col-span-8 lg:col-span-4">
           <div className="flex justify-end">
             <AuthHeader />
           </div>
         </div>
       </header>
-
-      {/* <div className="col-span-4 mb-3 px-6 hidden">
-        <div className="w-full rounded-full outline-2 outline-sky-400">
-          <SearchAdvanced placeholder="Tìm kiếm mọi thứ" />
-        </div>
-      </div> */}
     </>
   );
 }
@@ -271,10 +276,23 @@ function AuthHeader() {
 
   return (
     <>
-      <div className="flex gap-x-7 items-center">
-        <ButtonMain size="sm" onClick={handleOpenPost} variant={"outline"}>
+      <div className="flex gap-x-5 xl:gap-x-7 items-center">
+        <SearchAdvancedMobile />
+
+        <ButtonMain
+          size="sm"
+          onClick={handleOpenPost}
+          variant={"outline"}
+          className="hidden md:inline-flex"
+        >
           <Plus /> Đăng Bài
         </ButtonMain>
+
+        <Plus
+          size={26}
+          onClick={handleOpenPost}
+          className="cursor-pointer block md:hidden"
+        />
 
         <Link
           to={`/notifications#${ENotificationType.Community}`}

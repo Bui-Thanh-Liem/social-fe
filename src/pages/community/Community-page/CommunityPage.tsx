@@ -79,40 +79,23 @@ export function CommunityPage() {
     triggerReload();
   }
 
-  // Error handling
-  if (error) {
-    return <ErrorResponse onRetry={() => refetch()} />;
-  }
-
-  // Loading state
-  if (isLoading && !data) {
-    return <ProfileSkeleton />;
-  }
-
-  // Community not found
-  if (data?.statusCode === 404 || !community) {
-    return (
-      <div className="flex flex-col items-center justify-center h-96">
-        <h2 className="text-xl font-bold text-gray-600 mb-2">
-          Không tìm thấy cộng đồng.
-        </h2>
-        <p className="text-gray-500">{slug} không tồn tại hoặc đã bị xóa.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-3"></div>
-      <div className="col-span-9">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10">
         {/* Header */}
         <div className="pr-3">
           <div className="flex h-12 items-center gap-4">
-            <WrapIcon onClick={() => navigate(-1)}>
-              <ArrowLeft color="#000" />
-            </WrapIcon>
+            <div className="flex h-12 items-center gap-4">
+              <WrapIcon onClick={() => navigate(-1)}>
+                <ArrowLeft color="#000" />
+              </WrapIcon>
+              <p className="font-semibold text-[20px] line-clamp-1">
+                {community?.name}
+              </p>
+            </div>
 
-            {community.is_joined && (
+            {community?.is_joined && (
               <div className="ml-auto flex items-center gap-x-3 ">
                 <SearchMain
                   size="sm"
@@ -144,79 +127,81 @@ export function CommunityPage() {
           </div>
 
           {/* Community Section */}
-          <div className="px-4 mt-4">
-            {/* <!-- Name and Category --> */}
-            <div className="justify-between flex">
-              <h2 className="text-xl font-bold items-center gap-1 hidden md:flex">
-                {community?.name}{" "}
-                <VerifyIcon
-                  active={!!community?.verify}
-                  size={20}
-                  color="orange"
-                />
-              </h2>
-              <div className="flex items-center gap-3">
-                {/*  */}
-                <CommunitySetting community={community} />
+          {community && (
+            <div className="px-4 mt-4">
+              {/* <!-- Name and Category --> */}
+              <div className="justify-between flex">
+                <h2 className="text-xl font-bold items-center gap-1 hidden md:flex">
+                  {community?.name}{" "}
+                  <VerifyIcon
+                    active={!!community?.verify}
+                    size={20}
+                    color="orange"
+                  />
+                </h2>
+                <div className="flex items-center gap-3">
+                  {/*  */}
+                  <CommunitySetting community={community} />
 
-                {/*  */}
-                <CommunityApprove
-                  community={community}
-                  count={countTweetApprove}
-                />
+                  {/*  */}
+                  <CommunityApprove
+                    community={community}
+                    count={countTweetApprove}
+                  />
 
-                {/*  */}
-                <CommunityActivity community={community} />
+                  {/*  */}
+                  <CommunityActivity community={community} />
 
-                {/*  */}
-                <CommunityInvitedList community={community} />
+                  {/*  */}
+                  <CommunityInvitedList community={community} />
 
-                {/*  */}
-                <CommunityInfo community={community} />
+                  {/*  */}
+                  <CommunityInfo community={community} />
 
-                {/*  */}
-                <CommunityInvite community={community} />
+                  {/*  */}
+                  <CommunityInvite community={community} />
 
-                {/*  */}
-                <CommunityJoinLeave community={community} />
+                  {/*  */}
+                  <CommunityJoinLeave community={community} />
+                </div>
               </div>
-            </div>
-            <div className="my-3 px-3 rounded-2xl border inline-block">
-              <span className="text-[15px] font-medium">
-                {community?.category}
-              </span>
-            </div>
-
-            {/* <!-- Bio --> */}
-            <Bio
-              community={{
-                _id: community?._id || "",
-                bio: community?.bio || "",
-                is_admin: community?.is_admin || false,
-              }}
-            />
-
-            {/* <!-- Join Date --> */}
-            <div className="flex items-center space-x-4 text-gray-500 text-sm mb-3">
-              <div className="flex items-center space-x-1">
-                <Calendar className="w-4 h-4" />
-                <span>
-                  Đã tạo{" "}
-                  {formatDateToDateVN(new Date(community?.created_at || ""))}
+              <div className="my-3 px-3 rounded-2xl border inline-block">
+                <span className="text-[15px] font-medium">
+                  {community?.category}
                 </span>
               </div>
-            </div>
 
-            {/* <!-- Members --> */}
-            <div className="flex items-center space-x-2 text-sm mb-4">
-              <span className="font-semibold">{community.member_count}</span>
-              <span className="text-gray-500"> thành viên</span>
+              {/* <!-- Bio --> */}
+              <Bio
+                community={{
+                  _id: community?._id || "",
+                  bio: community?.bio || "",
+                  is_admin: community?.is_admin || false,
+                }}
+              />
+
+              {/* <!-- Join Date --> */}
+              <div className="flex items-center space-x-4 text-gray-500 text-sm mb-3">
+                <div className="flex items-center space-x-1">
+                  <Calendar className="w-4 h-4" />
+                  <span>
+                    Đã tạo{" "}
+                    {formatDateToDateVN(new Date(community?.created_at || ""))}
+                  </span>
+                </div>
+              </div>
+
+              {/* <!-- Members --> */}
+              <div className="flex items-center space-x-2 text-sm mb-4">
+                <span className="font-semibold">{community.member_count}</span>
+                <span className="text-gray-500"> thành viên</span>
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Tweets and medias*/}
-          {community.visibility_type === EVisibilityType.Public ||
-          community.is_joined ? (
+          {community?.visibility_type === EVisibilityType.Public ||
+          community?.is_joined ? (
             <Tabs defaultValue={ETweetType.Tweet.toString()}>
               <div className="bg-white sticky mt-4 top-0 z-50">
                 <TabsList className="w-full">
@@ -229,7 +214,7 @@ export function CommunityPage() {
                   <TabsTrigger className="cursor-pointer" value="highlights">
                     Nổi bật
                   </TabsTrigger>
-                  <TabsTrigger className="cursor-pointer" value="media">
+                  <TabsTrigger className="cursor-pointer line-clamp-1" value="media">
                     Hình ảnh/video
                   </TabsTrigger>
                 </TabsList>
@@ -277,6 +262,24 @@ export function CommunityPage() {
             </div>
           )}
         </div>
+
+        {/*  */}
+        {isLoading && !data && <ProfileSkeleton />}
+
+        {/*  */}
+        {(data?.statusCode === 404 || !community) && (
+          <div className="flex flex-col items-center justify-center h-96">
+            <h2 className="text-xl font-bold text-gray-600 mb-2">
+              Không tìm thấy cộng đồng.
+            </h2>
+            <p className="text-gray-500">
+              {slug} không tồn tại hoặc đã bị xóa.
+            </p>
+          </div>
+        )}
+
+        {/*  */}
+        {error && <ErrorResponse onRetry={() => refetch()} />}
       </div>
 
       {/*  */}

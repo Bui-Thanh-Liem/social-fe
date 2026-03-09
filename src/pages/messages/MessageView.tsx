@@ -211,7 +211,8 @@ export function MessageView({
             medias = resUploadMedia.metadata;
           }
         } catch (uploadError) {
-          toastSimple((uploadError as { message: string }).message);
+          toastSimple((uploadError as { message: string }).message, "error");
+          return;
         }
 
         sendMessage({

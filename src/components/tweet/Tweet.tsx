@@ -31,7 +31,7 @@ import type {
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse, toastSimple } from "~/utils/toast";
 import { BgColorTweet } from "../BgColorTweet";
 import { TweetItem } from "../list-tweets/ItemTweet";
 import { TextColorTweet } from "../TextColorTweet";
@@ -299,10 +299,8 @@ export function Tweet({
             medias = resUploadMedia.metadata;
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
           } catch (err) {
-            handleResponse({
-              statusCode: 500,
-              message: "Có lỗi xảy ra khi tải lên hình ảnh/video",
-            });
+            toastSimple((err as { message: string }).message, "error");
+            return;
           }
         }
 

@@ -34,9 +34,9 @@ const router = createBrowserRouter([
       { element: <HomePage />, index: true },
       { path: "explore", element: <ExplorePage /> },
       { path: "communities", element: <CommunitiesPage /> },
+      { path: "search", element: <SearchPage /> },
       { path: "bookmarks", element: <BookmarkPage /> },
       { path: "notifications", element: <NotificationPage /> },
-      { path: "search", element: <SearchPage /> },
       { path: "games", element: <GamePage /> },
       { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
       {

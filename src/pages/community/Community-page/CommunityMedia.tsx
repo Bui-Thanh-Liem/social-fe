@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetCommunityTweets } from "~/apis/useFetchTweet";
 import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
@@ -14,6 +15,9 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
   // Ref để theo dõi element cuối cùng
   const observerRef = useRef<HTMLDivElement>(null);
   const observerInstanceRef = useRef<IntersectionObserver | null>(null);
+
+  //
+  const navigate = useNavigate();
 
   const { data, isLoading, error } = useGetCommunityTweets({
     limit: "10",
@@ -113,18 +117,9 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
     });
   }, [community_id]);
 
-  // Error state
-  if (error) {
-    return (
-      <ErrorResponse
-        onRetry={() => {
-          setPage(1);
-          setTweets([]);
-          setHasMore(true);
-          window.location.reload();
-        }}
-      />
-    );
+  //
+  function onMediaClick(tweet: ITweet) {
+    navigate(`/tweet/${tweet._id}`);
   }
 
   return (
@@ -137,6 +132,7 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
               <Card
                 key={`profile-media-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"
+                onClick={() => onMediaClick(tweet)}
               >
                 <CardContent className="p-0">
                   {m?.file_type.startsWith("video/") ? (
@@ -175,6 +171,18 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Error state */}
+      {error && (
+        <ErrorResponse
+          onRetry={() => {
+            setPage(1);
+            setTweets([]);
+            setHasMore(true);
+            window.location.reload();
+          }}
+        />
       )}
 
       {/* Empty state - chưa có data nhưng không phải total = 0 */}

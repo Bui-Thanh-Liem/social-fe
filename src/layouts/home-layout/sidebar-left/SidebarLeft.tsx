@@ -85,7 +85,11 @@ export function SidebarLeft() {
         {/*  */}
         {navMain.map((x) => {
           const cleanPath = x.path?.replace(/#.*$/, "") || "";
-          const isActive = pathname === cleanPath;
+
+          const isActive =
+            pathname === "/"
+              ? pathname.includes(cleanPath)
+              : pathname === cleanPath;
 
           return (
             <li key={x.name} className="cursor-pointer group relative">
@@ -97,9 +101,7 @@ export function SidebarLeft() {
                   )}
                 >
                   {x.icon}
-                  <span className="line-clamp-1 hidden lg:block">
-                    {x.name}{" "}
-                  </span>
+                  <span className="line-clamp-1">{x.name} </span>
                   {!!x?.countNoti && (
                     <span className="absolute top-3 left-6 w-4 h-4 rounded-full flex items-center justify-center bg-sky-400 text-[10px] font-bold text-white animate-bounce">
                       {x?.countNoti > 9 ? "9+" : x?.countNoti}
@@ -125,7 +127,7 @@ export function SidebarLeft() {
                   <p
                     className={cn(
                       "text-[16px]",
-                      pathname === "/communities" && "font-semibold",
+                      pathname.includes("/communities") && "font-semibold",
                     )}
                   >
                     Cộng đồng

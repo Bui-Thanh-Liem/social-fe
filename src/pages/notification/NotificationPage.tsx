@@ -29,8 +29,8 @@ export function NotificationPage() {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="lg:col-span-0 xl:col-span-3"></div>
-      <div className="lg:col-span-12 xl:col-span-9">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10">
         <Tabs
           value={hash}
           onValueChange={handleTabChange}

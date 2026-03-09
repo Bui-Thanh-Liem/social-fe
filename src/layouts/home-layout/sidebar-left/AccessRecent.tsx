@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   useDeleteAccessRecent,
@@ -12,19 +13,38 @@ import {
 } from "~/components/ui/accordion";
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
+import type { IAccessRecent } from "~/shared/interfaces/schemas/access-recent.interface";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { handleResponse } from "~/utils/toast";
 
 export function AccessRecent() {
   //
+  const [accessRecent, setAccessRecent] = useState<IAccessRecent[]>([]);
+  const [page, setPage] = useState(1);
+  const total_page_ref = useRef(0);
+
+  //
   const apiDeleteAccessRecent = useDeleteAccessRecent();
   const apiDeleteAllAccessRecent = useDeleteAllAccessRecent();
   const { data } = useGetMultiAccessRecent({
-    page: "1",
+    page: page.toString(),
     limit: "5",
   });
-  const accessRecent = data?.metadata?.items || [];
+
+  // Mỗi lần fetch xong thì append thêm vào state
+  useEffect(() => {
+    const items = data?.metadata?.items || [];
+    const total_page = data?.metadata?.total_page ?? 1;
+    total_page_ref.current = total_page;
+    if (items.length) {
+      if (page === 1) {
+        setAccessRecent(items);
+      } else {
+        setAccessRecent((prev) => [...prev, ...items]);
+      }
+    }
+  }, [data, page]);
 
   //
   async function onDeleteRecent(id: string) {
@@ -35,6 +55,11 @@ export function AccessRecent() {
   async function onDeleteAllRecent() {
     const res = await apiDeleteAllAccessRecent.mutateAsync();
     handleResponse(res);
+  }
+
+  //
+  function onSeeMore() {
+    setPage((prev) => prev + 1);
   }
 
   //
@@ -105,15 +130,24 @@ export function AccessRecent() {
           }
         })}
         <div className="flex items-center gap-x-4 mt-2">
-          <Button variant="ghost" className="text-gray-400">
-            xem thêm
+          <Button
+            variant="ghost"
+            className={cn(
+              "text-gray-400",
+              total_page_ref.current <= page
+                ? "text-gray-300 pointer-events-none"
+                : "",
+            )}
+            onClick={onSeeMore}
+          >
+            Xem thêm
           </Button>
           <Button
             variant="ghost"
             className="text-red-400"
             onClick={onDeleteAllRecent}
           >
-            xoá tất cả
+            Xoá tất cả
           </Button>
         </div>
       </AccordionContent>
