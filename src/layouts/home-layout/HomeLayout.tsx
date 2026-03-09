@@ -48,7 +48,7 @@ export function HomeLayout() {
             <Outlet />
           </main>
 
-          <aside className="w-0 xl:w-[26%]">
+          <aside className="hidden xl:w-[26%] xl:block">
             <SidebarRight />
           </aside>
         </div>

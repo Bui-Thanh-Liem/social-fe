@@ -1,4 +1,4 @@
-import { ArrowLeft, ImagePlus, LoaderCircle, Send, X } from "lucide-react";
+import { ImagePlus, LoaderCircle, Send, X } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -33,32 +33,26 @@ import type {
   IMedia,
   PreviewMediaProps,
 } from "~/shared/interfaces/schemas/media.interface";
-import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { IMessage } from "~/shared/interfaces/schemas/message.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useChatSocket } from "~/socket/hooks/useChatSocket";
+import { useChatBoxStore } from "~/store/useChatBoxStore";
 import { useConversationActiveStore } from "~/store/useConversationActiveStore";
 import { useDetailAttachment } from "~/store/useDetailAttachment";
+import { useOnlStore } from "~/store/useOnlStore";
 import { useUserStore } from "~/store/useUserStore";
+import { checkOnl } from "~/utils/checkOnl.util";
 import { handleResponse, toastSimple } from "~/utils/toast";
 import { AddParticipants } from "./AddParticipants";
 import { CreateConversation } from "./CreateConversation";
 import { ParticipantList } from "./ParticipantList";
-import { useOnlStore } from "~/store/useOnlStore";
-import { checkOnl } from "~/utils/checkOnl.util";
-
 //
-export function MessageView({
-  conversation,
-  onBack,
-}: {
-  conversation: IConversation | null;
-  onBack: () => void;
-}) {
+export function MessageView() {
   //
   const uploadId = useId();
   const { user } = useUserStore();
   const { onlUserIds } = useOnlStore();
+  const { conversation } = useChatBoxStore();
   const { activeId } = useConversationActiveStore();
   const [isPending, startTransition] = useTransition();
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -264,17 +258,9 @@ export function MessageView({
 
   //
   return (
-    <div className="h-full flex flex-col">
+    <div className="col-span-11 h-full flex flex-col">
       <div className="p-3 flex items-center justify-between bg-blue-50">
         <div className="flex items-center gap-3">
-          <WrapIcon
-            className="md:hidden lg:hidden"
-            onClick={() => {
-              onBack();
-            }}
-          >
-            <ArrowLeft color="#000" />
-          </WrapIcon>
           {!Array.isArray(conversation.avatar) ? (
             <AvatarMain
               src={conversation.avatar?.url}
@@ -317,7 +303,7 @@ export function MessageView({
       </div>
 
       <div className="flex-1 flex flex-col">
-        <div className="px-4 pt-2 h-[calc(100vh-300px)] lg:h-[calc(100vh-260px)] overflow-y-auto overflow-x-hidden">
+        <div className="px-4 pt-2 h-[calc(100vh-270px)] max-h-[calc(100vh-270px)] overflow-y-auto overflow-x-hidden">
           {/* Loading khi load thêm */}
           {isLoading ? (
             <div className="p-3">
@@ -364,7 +350,7 @@ export function MessageView({
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="relative border-t px-3">
+          <div className="relative border-t">
             <div className="absolute top-[108px] right-4">
               <CircularProgress
                 value={isNaN(contentValue?.length) ? 0 : contentValue?.length}

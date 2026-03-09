@@ -12,20 +12,19 @@ export function SidebarRight() {
 
   return (
     <div className="pl-4">
-      <div className="mb-4 mt-2">
-        {isOpenFilter && (
-          <>
-            <Card className="py-2 mb-4">
-              <CardHeader className="px-4">
-                <CardTitle className="text-xl">Bộ lọc tìm kiếm</CardTitle>
-              </CardHeader>
-            </Card>
-            <SearchFilterCard />
-          </>
-        )}
-      </div>
-
-      <div className="space-y-4 max-h-[calc(100vh-280px)] overflow-y-auto scrollbar-hide">
+      <div className="space-y-4 max-h-[calc(100vh-60px)] overflow-y-auto scrollbar-hide">
+        <div className="mb-4 mt-2">
+          {isOpenFilter && (
+            <>
+              <Card className="py-2 mb-4">
+                <CardHeader className="px-4">
+                  <CardTitle className="text-xl">Bộ lọc tìm kiếm</CardTitle>
+                </CardHeader>
+              </Card>
+              <SearchFilterCard />
+            </>
+          )}
+        </div>
         <RelatedWhoCard />
         <TodayNewsCard />
         <OutstandingThisWeekCard />

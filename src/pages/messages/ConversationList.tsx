@@ -230,7 +230,9 @@ function ConversationItem({
 //
 export function ConversationList({
   onclick,
+  className,
 }: {
+  className?: string;
   onclick: (conversation: IConversation | null) => void;
 }) {
   const { user } = useUserStore();
@@ -396,7 +398,7 @@ export function ConversationList({
   return (
     <div>
       {/*  */}
-      <div className="mx-3 mb-3">
+      <div className="mb-3">
         <SearchMain
           value={searchVal}
           onChange={setSearchVal}
@@ -420,7 +422,7 @@ export function ConversationList({
         </div>
       )}
 
-      <div className="overflow-y-auto">
+      <div className={cn("overflow-y-auto", className)}>
         {/* List conversations */}
         {allConversations.length > 0 && (
           <div>

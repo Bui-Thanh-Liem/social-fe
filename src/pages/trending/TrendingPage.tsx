@@ -64,11 +64,11 @@ export function TrendingPage() {
 
   return (
     <div className="grid grid-cols-12">
-      <div className="col-span-2"></div>
-      <div className="col-span-10">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10">
         {/* Header */}
-        <div className="px-3 flex justify-between items-center border-b border-gray-100">
-          <div className="flex h-12 items-center gap-4">
+        <div className="flex justify-between items-center border-b border-gray-100">
+          <div className="flex h-12 items-center gap-2">
             <WrapIcon onClick={() => navigate(-1)}>
               <ArrowLeft color="#000" />
             </WrapIcon>

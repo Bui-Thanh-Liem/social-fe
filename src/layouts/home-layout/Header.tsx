@@ -306,7 +306,10 @@ function AuthHeader() {
           <BellIcon />
         </Link>
 
-        <div className="p-1 relative cursor-pointer" onClick={open}>
+        <div
+          className="p-1 relative cursor-pointer hidden xl:block"
+          onClick={open}
+        >
           {unreadCountConversation > 0 && (
             <span className="absolute top-0 left-4 w-4 h-4 rounded-full flex items-center justify-center bg-sky-400 text-[10px] font-bold text-white animate-bounce">
               {unreadCountConversation > 9 ? "9+" : unreadCountConversation}
@@ -314,6 +317,18 @@ function AuthHeader() {
           )}
           <MessageCircleMore />
         </div>
+
+        <Link
+          to="/messages"
+          className="p-1 relative cursor-pointer block xl:hidden"
+        >
+          {unreadCountConversation > 0 && (
+            <span className="absolute top-0 left-4 w-4 h-4 rounded-full flex items-center justify-center bg-sky-400 text-[10px] font-bold text-white animate-bounce">
+              {unreadCountConversation > 9 ? "9+" : unreadCountConversation}
+            </span>
+          )}
+          <MessageCircleMore />
+        </Link>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

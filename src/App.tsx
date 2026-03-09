@@ -24,6 +24,8 @@ import { TweetDetailPage } from "./pages/tweet-detail/TweetDetailPage";
 import NotFound from "./components/NotFound";
 import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
 import { GamePage } from "./pages/game/GamePage";
+import { MessagePage } from "./pages/messages/MessagePage";
+import { MessageView } from "./pages/messages/MessageView";
 
 // Router config
 const router = createBrowserRouter([
@@ -38,6 +40,8 @@ const router = createBrowserRouter([
       { path: "bookmarks", element: <BookmarkPage /> },
       { path: "notifications", element: <NotificationPage /> },
       { path: "games", element: <GamePage /> },
+      { path: "messages", element: <MessagePage /> },
+      { path: "messages/:conversation_name", element: <MessageView /> },
       { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
       {
         path: `communities/t/${explore_tab}`,

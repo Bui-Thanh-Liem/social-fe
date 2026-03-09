@@ -191,7 +191,7 @@ export default function ChatBox() {
       <div className="flex">
         {/*  */}
         <div className="w-82 border-r px-3">
-          <ConversationList onclick={() => {}} />
+          <ConversationList onclick={() => {}} className="max-h-[346px]" />
         </div>
 
         {/*  */}
@@ -244,7 +244,7 @@ export default function ChatBox() {
           {/*  */}
           <CardContent className="flex flex-col border-t px-2">
             {/* View message */}
-            <ScrollArea className="px-4 h-56 max-h-56 overflow-y-auto">
+            <ScrollArea className="px-4 h-56 max-h-56 overflow-y-auto pt-1">
               <div className="flex flex-col gap-3">
                 {messages
                   .slice()
