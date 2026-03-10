@@ -100,7 +100,7 @@ export function SearchPage() {
           </div>
 
           {/* Tab Content */}
-          <div className="pt-0 overflow-y-auto h-[calc(100vh-180px)]">
+          <div className="pt-0 overflow-y-auto h-[calc(100vh-114px)]">
             <TabsContent value="top" className="px-0">
               <TopTab />
             </TabsContent>
