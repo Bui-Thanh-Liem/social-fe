@@ -1,26 +1,28 @@
 import { Calendar, Globe, MapPin, X } from "lucide-react";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useGetOneByUsername, useResendVerifyEmail } from "~/apis/useFetchUser";
+import { ErrorResponse } from "~/components/Error";
 import { VerifyIcon } from "~/components/icons/verify";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { useGetOneByUsername, useResendVerifyEmail } from "~/apis/useFetchUser";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
 import { ETweetType } from "~/shared/enums/type.enum";
+import { useTriggerAccessRecentStore } from "~/store/useTriggerAccessRecentStore";
 import { useUserStore } from "~/store/useUserStore";
+import { formatDateToDateVN } from "~/utils/dateTime";
+import { handleResponse } from "~/utils/toast";
 import { ProfileAction } from "./ProfileAction";
 import { ProfileLiked } from "./ProfileLiked";
 import { ProfileMedia } from "./ProfileMedia";
 import { ProfileTweets } from "./ProfileTweets";
-import { handleResponse } from "~/utils/toast";
-import { formatDateToDateVN } from "~/utils/dateTime";
-import { ErrorResponse } from "~/components/Error";
 import { StarPrestige } from "./Star";
 
 export function ProfilePage() {
   const { username } = useParams(); // Đặt tên params ở <App />
   const { user } = useUserStore();
+  const { trigger } = useTriggerAccessRecentStore();
   const { data, refetch, isLoading, error } = useGetOneByUsername(username!);
   const apiResendVerifyEmail = useResendVerifyEmail();
 
@@ -38,6 +40,13 @@ export function ProfilePage() {
     () => user?._id === profile?._id,
     [user?._id, profile?._id],
   );
+
+  //
+  useEffect(() => {
+    if (username) {
+      trigger(); // Gọi lại API khi username thay đổi
+    }
+  }, [username]);
 
   //
   useEffect(() => {

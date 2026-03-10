@@ -7,12 +7,12 @@ type ToastType = "success" | "error" | "warning" | "info";
 // Handle response with success and error toasts
 export function handleResponse(
   res: OkResponse<any | boolean>,
-  ...callbacks: ((val?: unknown) => void)[]
+  ...SuccessCallbacks: ((val?: unknown) => void)[]
 ) {
   const { statusCode, message } = res;
 
   if ([200, 201].includes(statusCode)) {
-    callbacks.forEach((fn) => fn());
+    SuccessCallbacks.forEach((fn) => fn());
     toast.success(message, {
       // position: "top-center",
       description: formatDateToDateVN(new Date()),

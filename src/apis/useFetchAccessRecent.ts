@@ -5,36 +5,36 @@ import type { ResMultiType } from "~/shared/types/response.type";
 import { buildQueryString } from "~/utils/buildQueryString";
 import { apiCall } from "~/utils/callApi.util";
 
-// ➕ POST
+// ➕ Delete
 export const useDeleteAccessRecent = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (payload: { _id: string }) =>
-      apiCall<IAccessRecent>(`/access-recent/${payload._id}`, {
+      apiCall<boolean>(`/access-recent/${payload._id}`, {
         method: "DELETE",
       }),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["access-recent"] }),
-      ]);
+    onSuccess: async (res) => {
+      if ([200, 201].includes(res.statusCode)) {
+        await queryClient.invalidateQueries({ queryKey: ["access-recent"] });
+      }
     },
   });
 };
 
-// ➕ POST
+// ➕ DELETE ALL
 export const useDeleteAllAccessRecent = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: () =>
-      apiCall<IAccessRecent>(`/access-recent/all`, {
+      apiCall<boolean>(`/access-recent/all`, {
         method: "DELETE",
       }),
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["access-recent"] }),
-      ]);
+    onSuccess: async (res) => {
+      if ([200, 201].includes(res.statusCode)) {
+        await queryClient.invalidateQueries({ queryKey: ["access-recent"] });
+      }
     },
   });
 };
@@ -44,7 +44,7 @@ export const useGetMultiAccessRecent = (queries?: IQuery<IAccessRecent>) => {
   const normalizedQueries = queries ? JSON.stringify(queries) : "";
 
   return useQuery({
-    queryKey: ["access-recent", queries?.q, normalizedQueries],
+    queryKey: ["access-recent", normalizedQueries],
     queryFn: () => {
       // Tạo query string từ queries object
       const queryString = queries ? buildQueryString(queries) : "";
@@ -53,7 +53,7 @@ export const useGetMultiAccessRecent = (queries?: IQuery<IAccessRecent>) => {
     },
 
     // Lên getNewFeeds đọc giải thích
-    staleTime: 5 * 60 * 1000,
+    staleTime: 2 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
     refetchOnWindowFocus: true,
     refetchOnMount: "always",

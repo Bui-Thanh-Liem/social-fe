@@ -9,7 +9,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 export const apiCall = async <T>(
   endpoint: string,
   options: any = {},
-  isClientId: boolean = false
+  isClientId: boolean = false,
 ): Promise<OkResponse<T>> => {
   const user = useUserStore.getState().user;
   const access_token = localStorage.getItem("access_token");
@@ -72,11 +72,11 @@ export const apiCall = async <T>(
     if (resRefreshToken?.statusCode === 200) {
       localStorage.setItem(
         "access_token",
-        resRefreshToken.metadata?.access_token || ""
+        resRefreshToken.metadata?.access_token || "",
       );
       localStorage.setItem(
         "refresh_token",
-        resRefreshToken.metadata?.refresh_token || ""
+        resRefreshToken.metadata?.refresh_token || "",
       );
 
       // Update the Authorization header with new token

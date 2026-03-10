@@ -1,32 +1,33 @@
 import { ArrowLeft, Calendar } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
-import { VerifyIcon } from "~/components/icons/verify";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { WrapIcon } from "~/components/WrapIcon";
-import { useGetOneCommunityBySlug } from "~/apis/useFetchCommunity";
-import { ETweetType, EVisibilityType } from "~/shared/enums/type.enum";
-import { formatDateToDateVN } from "~/utils/dateTime";
-import { ProfileSkeleton } from "../../profile/ProfilePage";
-import { CommunityInfo } from "./actions/CommunityInfo";
-import { CommunityInvite } from "./actions/CommunityInvite";
-import { CommunityJoinLeave } from "./actions/CommunityJoinLeave";
-import { CommunitySetting } from "./actions/CommunitySetting";
-import { CommunityActivity } from "./actions/CommunityActivity";
-import { CommunityInvitedList } from "./actions/CommunityInvitedList";
-import { CommunityTweets } from "./CommunityTweets";
-import { CommunityMedia } from "./CommunityMedia";
-import { CommunityApprove } from "./actions/CommunityApprove";
-import { useCommunitySocket } from "~/socket/hooks/useCommunitySocket";
-import { playNotificationSound } from "~/utils/notificationSound";
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetOneCommunityBySlug } from "~/apis/useFetchCommunity";
 import { ErrorResponse } from "~/components/Error";
+import { VerifyIcon } from "~/components/icons/verify";
+import { Tweet } from "~/components/tweet/Tweet";
 import { ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";
-import { Tweet } from "~/components/tweet/Tweet";
-import { useReloadStore } from "~/store/useReloadStore";
-import { Bio } from "./actions/EditBio";
 import { SearchMain } from "~/components/ui/search";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { WrapIcon } from "~/components/WrapIcon";
 import { useDebounce } from "~/hooks/useDebounce";
+import { ETweetType, EVisibilityType } from "~/shared/enums/type.enum";
+import { useCommunitySocket } from "~/socket/hooks/useCommunitySocket";
+import { useReloadStore } from "~/store/useReloadStore";
+import { useTriggerAccessRecentStore } from "~/store/useTriggerAccessRecentStore";
+import { formatDateToDateVN } from "~/utils/dateTime";
+import { playNotificationSound } from "~/utils/notificationSound";
+import { ProfileSkeleton } from "../../profile/ProfilePage";
+import { CommunityActivity } from "./actions/CommunityActivity";
+import { CommunityApprove } from "./actions/CommunityApprove";
+import { CommunityInfo } from "./actions/CommunityInfo";
+import { CommunityInvite } from "./actions/CommunityInvite";
+import { CommunityInvitedList } from "./actions/CommunityInvitedList";
+import { CommunityJoinLeave } from "./actions/CommunityJoinLeave";
+import { CommunitySetting } from "./actions/CommunitySetting";
+import { Bio } from "./actions/EditBio";
+import { CommunityMedia } from "./CommunityMedia";
+import { CommunityTweets } from "./CommunityTweets";
 
 export function CommunityPage() {
   const { slug } = useParams();
@@ -34,6 +35,7 @@ export function CommunityPage() {
 
   //
   const { triggerReload } = useReloadStore();
+    const { trigger } = useTriggerAccessRecentStore();
   const [countTweetApprove, setCountTweetApprove] = useState(0);
   const [isOpenPost, setIsOpenPost] = useState(false);
 
@@ -53,6 +55,13 @@ export function CommunityPage() {
     }
     setCountTweetApprove(count);
   });
+
+  //
+  useEffect(() => {
+    if (slug) {
+      trigger(); // Gọi lại API khi slug thay đổi
+    }
+  }, [slug]);
 
   //
   useEffect(() => {
@@ -214,7 +223,10 @@ export function CommunityPage() {
                   <TabsTrigger className="cursor-pointer" value="highlights">
                     Nổi bật
                   </TabsTrigger>
-                  <TabsTrigger className="cursor-pointer line-clamp-1" value="media">
+                  <TabsTrigger
+                    className="cursor-pointer line-clamp-1"
+                    value="media"
+                  >
                     Hình ảnh/video
                   </TabsTrigger>
                 </TabsList>

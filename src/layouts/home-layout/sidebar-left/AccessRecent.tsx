@@ -16,6 +16,7 @@ import { cn } from "~/lib/utils";
 import type { IAccessRecent } from "~/shared/interfaces/schemas/access-recent.interface";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
+import { useTriggerAccessRecentStore } from "~/store/useTriggerAccessRecentStore";
 import { handleResponse } from "~/utils/toast";
 
 export function AccessRecent() {
@@ -25,9 +26,12 @@ export function AccessRecent() {
   const total_page_ref = useRef(0);
 
   //
+  const { state } = useTriggerAccessRecentStore();
+
+  //
   const apiDeleteAccessRecent = useDeleteAccessRecent();
   const apiDeleteAllAccessRecent = useDeleteAllAccessRecent();
-  const { data } = useGetMultiAccessRecent({
+  const { data, refetch } = useGetMultiAccessRecent({
     page: page.toString(),
     limit: "5",
   });
@@ -47,14 +51,24 @@ export function AccessRecent() {
   }, [data, page]);
 
   //
+  useEffect(() => {
+    console.log("AccessRecent - state changed, refetching... State:", state);
+    refetch();
+  }, [state]);
+
+  //
   async function onDeleteRecent(id: string) {
     const res = await apiDeleteAccessRecent.mutateAsync({ _id: id });
-    handleResponse(res);
+    handleResponse(res, () => {
+      setAccessRecent((prev) => prev.filter((x) => x._id !== id));
+    });
   }
 
   async function onDeleteAllRecent() {
     const res = await apiDeleteAllAccessRecent.mutateAsync();
-    handleResponse(res);
+    handleResponse(res, () => {
+      setAccessRecent([]);
+    });
   }
 
   //
@@ -78,6 +92,7 @@ export function AccessRecent() {
           if (x.type === "user") {
             return (
               <Link
+                key={x._id}
                 to={(ref as IUser).username || ""}
                 className={cn(cla, "relative group")}
               >
