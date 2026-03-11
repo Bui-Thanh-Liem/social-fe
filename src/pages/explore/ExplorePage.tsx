@@ -1,27 +1,25 @@
-import { Tabs, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { ForYouTab } from "./for-you-tab/ForYouTab";
-import { TrendingTab } from "./trending-tab/TrendingTab";
+import { Tabs } from "~/components/ui/tabs";
+import { OutstandingThisWeek } from "./OutstandingThisWeek";
+import { TodayNews } from "./TodayNews";
+import { Trending } from "./Trending";
+import { WhoToFollows } from "./WhoToFollows";
 
 export function ExplorePage() {
   return (
     <Tabs defaultValue="for-you" className="grid grid-cols-12">
       <div className="col-span-0 xl:col-span-2"></div>
       <div className="col-span-12 xl:col-span-10">
-        <div className="mb-2 sticky top-0 z-50">
-          <TabsList className="w-full">
-            <TabsTrigger className="cursor-pointer" value="for-you">
-              Dành cho bạn
-            </TabsTrigger>
-            <TabsTrigger className="cursor-pointer" value="trending">
-              Xu hướng
-            </TabsTrigger>
-          </TabsList>
-        </div>
-
-        {/* Tab Content */}
-        <div className="pt-0">
-          <ForYouTab />
-          <TrendingTab />
+        <div className="overflow-y-auto h-[calc(100vh-68px)] scrollbar-hide">
+          <TodayNews />
+          <div className="grid grid-cols-12 gap-4">
+            <div className="col-span-12 xl:col-span-8">
+              <OutstandingThisWeek />
+              <WhoToFollows />
+            </div>
+            <div className="col-span-12 xl:col-span-4 mb-4">
+              <Trending />
+            </div>
+          </div>
         </div>
       </div>
     </Tabs>

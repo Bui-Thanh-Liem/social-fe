@@ -8,7 +8,7 @@ import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
 export function WhoToFollowCard() {
   const { data, isLoading } = useGetTopFollowedUsers({
     page: "1",
-    limit: "2",
+    limit: "5",
   });
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ export function WhoToFollowCard() {
   return (
     <Card
       className={cn(
-        "w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2",
+        "w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2 mb-3",
         open ? "" : "hidden",
       )}
     >

@@ -102,7 +102,7 @@ export function OutstandingThisWeek() {
           scrollMarginTop: "80px",
         }}
       />
-      <p className="text-xl font-bold mt-4 py-2 bg-gray-50 sticky top-0 z-30">
+      <p className="text-xl font-bold py-2 bg-gray-50 sticky top-0 z-30">
         Nổi bật trong tuần
       </p>
 

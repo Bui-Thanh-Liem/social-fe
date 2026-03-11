@@ -1,5 +1,7 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { AppSidebarMobile } from "~/components/sidebar-mobile/AppSidebarMobile";
+import { cn } from "~/lib/utils";
 import ChatBox from "~/pages/messages/ChatBox";
 import { DetailAttachmentDrawer } from "~/pages/messages/DetailAllAttachments";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
@@ -8,14 +10,15 @@ import { socket } from "~/socket/socket";
 import { useChatBoxStore } from "~/store/useChatBoxStore";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
+import { Header } from "./Header";
 import { SidebarLeft } from "./sidebar-left/SidebarLeft";
 import { SidebarRight } from "./SidebarRight";
-import { Header } from "./Header";
-import { AppSidebarMobile } from "~/components/sidebar-mobile/AppSidebarMobile";
 
 export function HomeLayout() {
-  const { isOpen } = useChatBoxStore();
+  const { pathname } = useLocation();
+  const isExplorePage = pathname.includes("/explore");
   const { user } = useUserStore();
+  const { isOpen } = useChatBoxStore();
   const { setUnread, setUnreadByType } = useUnreadNotiStore();
 
   // Một kết nối socket duy nhất cho toàn ứng dụng
@@ -30,6 +33,7 @@ export function HomeLayout() {
 
   //
   useNotificationSocket(() => {}, setUnread, setUnreadByType);
+  console.log("isExplore:::", isExplorePage);
 
   //
   return (
@@ -48,7 +52,12 @@ export function HomeLayout() {
             <Outlet />
           </main>
 
-          <aside className="hidden xl:w-[26%] xl:block">
+          <aside
+            className={cn(
+              "hidden xl:w-[26%] ",
+              isExplorePage ? "hidden" : "xl:block",
+            )}
+          >
             <SidebarRight />
           </aside>
         </div>
