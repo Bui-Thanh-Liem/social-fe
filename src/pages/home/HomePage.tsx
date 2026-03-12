@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useGetAllPinnedBareCommunities } from "~/apis/useFetchCommunity";
-import { EFeedType } from "~/shared/enums/type.enum";
-import { useReloadStore } from "~/store/useReloadStore";
-import { ListTweets } from "../../components/list-tweets/ListTweets";
-import { CommunityTweets } from "../community/Community-page/CommunityTweets";
 import {
   Select,
   SelectContent,
@@ -12,13 +8,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { EFeedType } from "~/shared/enums/type.enum";
+import { useReloadStore } from "~/store/useReloadStore";
+import { ListTweets } from "../../components/list-tweets/ListTweets";
+import { CommunityTweets } from "../community/Community-page/CommunityTweets";
 
 export function HomePage() {
   const { pathname, hash } = useLocation();
+  const navigate = useNavigate();
+
+  //
   const [communityId, setCommunityId] = useState<string>("");
   const [valueSelect, setValueSelect] = useState<string>(`/`);
 
-  const navigate = useNavigate();
+  //
   const { triggerReload, reloadKey } = useReloadStore();
 
   //
@@ -30,9 +33,8 @@ export function HomePage() {
 
   //
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.scrollTop = 0; // scroll lên đầu container
-    }
+    if (!containerRef.current) return;
+    containerRef.current.scrollTop = 0; // scroll lên đầu container
   }, [reloadKey]);
 
   //
