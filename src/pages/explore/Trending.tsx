@@ -193,7 +193,7 @@ export function Trending() {
 
         {!trending.length && !isLoading && (
           <div className="flex justify-center items-center mt-20">
-            <p className="text-gray-400">Chưa có sự kiện gì nổi bật</p>
+            <p className="text-gray-400">Chưa có sự từ khóa nổi bật</p>
           </div>
         )}
       </div>

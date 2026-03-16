@@ -89,10 +89,10 @@ export function TodayNews() {
 
           {/*  */}
           {isLoading &&
-            Array.from({ length: 2 }).map((_, i) => (
+            Array.from({ length: 4 }).map((_, i) => (
               <CarouselItem
                 key={`more-${i}`}
-                className="basis-1/2 lg:basis-1/3"
+                className="basis-1/2 lg:basis-1/3 mt-2"
               >
                 <TodayNewsOrOutstandingItemSkeleton shape="card" />
               </CarouselItem>

@@ -84,7 +84,7 @@ export function WhoToFollows() {
 
       {/*  */}
       {isLoading
-        ? Array.from({ length: 2 }).map((_, i) => (
+        ? Array.from({ length: 4 }).map((_, i) => (
             <UserToFollowItemSkeleton key={`more-${i}`} />
           ))
         : !!users.length && (

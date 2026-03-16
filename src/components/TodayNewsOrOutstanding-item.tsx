@@ -25,30 +25,30 @@ export function TodayNewsOrOutstandingItemSkeleton({
               {[1, 2, 3].map((i) => (
                 <div
                   key={i}
-                  className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white"
+                  className="w-6 h-6 rounded-full bg-gray-100 border-2 border-white"
                 ></div>
               ))}
             </div>
-            <div className="h-3 w-32 bg-gray-200 rounded"></div>
+            <div className="h-3 w-32 bg-gray-100 rounded"></div>
           </div>
         </div>
         {/* Giả lập Media vuông bên phải */}
-        <div className="w-32 h-20 bg-gray-200 rounded-md"></div>
+        <div className="w-32 h-20 bg-gray-100 rounded-md"></div>
       </div>
     );
   }
 
   // Skeleton cho dạng CARD (Có ảnh nền)
   return (
-    <Card className="relative min-h-48 w-full overflow-hidden animate-pulse bg-gray-200 border-none">
+    <Card className="relative min-h-48 w-full overflow-hidden animate-pulse bg-gray-100 border-none">
       {/* Overlay giả lập để text nổi lên giống card thật */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
 
       <CardContent className="absolute top-24 w-full">
         {/* Giả lập CardTitle (2 dòng) */}
         <div className="space-y-2 mb-4">
-          <div className="h-4 w-5/6 bg-gray-300/50 rounded"></div>
-          <div className="h-4 w-1/2 bg-gray-300/50 rounded"></div>
+          <div className="h-4 w-5/6 bg-gray-100 rounded"></div>
+          <div className="h-4 w-1/2 bg-gray-100 rounded"></div>
         </div>
 
         {/* Giả lập Avatar Group */}
@@ -56,7 +56,7 @@ export function TodayNewsOrOutstandingItemSkeleton({
           {[1, 2, 3].map((i) => (
             <div
               key={i}
-              className="w-6 h-6 rounded-full bg-gray-300/50 border-2 border-gray-400/20"
+              className="w-6 h-6 rounded-full bg-gray-100 border-2 border-gray-100"
             ></div>
           ))}
         </div>

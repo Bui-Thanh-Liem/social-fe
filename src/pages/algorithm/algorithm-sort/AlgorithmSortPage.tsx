@@ -4,63 +4,30 @@ import { Card, CardContent } from "~/components/ui/card";
 export function AlgorithmSortPage() {
   const navigate = useNavigate();
 
-  return (
-    <div>
-      <Card
-        onClick={() => {
-          navigate("/algorithm/sort/selection");
-        }}
-      >
-        <CardContent>
-          <div className="text-2xl font-bold mb-4">Selection Sort</div>
-        </CardContent>
-      </Card>
-      <Card
-        onClick={() => {
-          navigate("/algorithm/sort/insertion");
-        }}
-      >
-        <CardContent>
-          <div className="text-2xl font-bold mb-4">Insertion Sort</div>
-        </CardContent>
-      </Card>
-      <Card
-        onClick={() => {
-          navigate("/algorithm/sort/bubble");
-        }}
-      >
-        <CardContent>
-          <div className="text-2xl font-bold mb-4">Bubble Sort</div>
-        </CardContent>
-      </Card>
-      <Card
-        onClick={() => {
-          navigate("/algorithm/sort/merge");
-        }}
-      >
-        <CardContent>
-          <div className="text-2xl font-bold mb-4">Merge Sort</div>
-        </CardContent>
-      </Card>
-      <Card
-        onClick={() => {
-          navigate("/algorithm/sort/heap");
-        }}
-      >
-        <CardContent>
-          <div className="text-2xl font-bold mb-4">Heap Sort</div>
-        </CardContent>
-      </Card>
+  const sortingAlgorithms = [
+    { name: "Selection Sort", path: "/algorithm/sort/selection" },
+    { name: "Insertion Sort", path: "/algorithm/sort/insertion" },
+    { name: "Bubble Sort", path: "/algorithm/sort/bubble" },
+    { name: "Merge Sort", path: "/algorithm/sort/merge" },
+    { name: "Heap Sort", path: "/algorithm/sort/heap" },
+    { name: "Quick Sort", path: "/algorithm/sort/quick" },
+  ];
 
-      <Card
-        onClick={() => {
-          navigate("/algorithm/sort/quick");
-        }}
-      >
-        <CardContent>
-          <div className="text-2xl font-bold mb-4">Quick Sort</div>
-        </CardContent>
-      </Card>
+  return (
+    <div className="space-y-4 my-4 grid grid-cols-2 gap-x-4">
+      {sortingAlgorithms.map((algo) => (
+        <Card
+          key={algo.name}
+          onClick={() => {
+            navigate(algo.path);
+          }}
+          className="cursor-pointer"
+        >
+          <CardContent>
+            <div className="text-2xl font-bold mb-4">{algo.name}</div>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 }

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetDetailTweet, useGetTweetChildren } from "~/apis/useFetchTweet";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
-import { Logo } from "~/components/Logo";
 import { Tweet } from "~/components/tweet/Tweet";
 import { TypingIndicator } from "~/components/TypingIndicator";
 import { ButtonMain } from "~/components/ui/button";
@@ -81,6 +80,7 @@ export function TweetDetailPage() {
   const { data: tweetDetail, isLoading: isLoadingDetail } = useGetDetailTweet(
     tweet_id!,
   );
+  const tweet = tweetDetail?.metadata || null;
 
   // API comments (theo page)
   const { data: comments, isLoading: isLoadingCmm } = useGetTweetChildren({
@@ -175,12 +175,9 @@ export function TweetDetailPage() {
   }
 
   // Not found
-  const tweet = tweetDetail?.metadata || null;
   if (tweetDetail?.statusCode === 404 || !tweet) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen space-y-10">
-        <Logo size={64} className="mb-4" />
-
+      <div className="flex flex-col items-center justify-center h-[calc(100vh-76px)] space-y-10">
         <h2 className="text-xl font-bold text-gray-600 mb-2">
           Không tìm thấy bài viết
         </h2>
@@ -189,7 +186,6 @@ export function TweetDetailPage() {
         </p>
 
         <div className="space-x-4">
-          <ButtonMain onClick={() => navigate("/")}>Trang Chủ</ButtonMain>
           <ButtonMain variant={"outline"} onClick={() => navigate(0)}>
             Tải lại
           </ButtonMain>
@@ -203,10 +199,10 @@ export function TweetDetailPage() {
       <div>
         <TweetItem
           tweet={tweet}
+          isClickable={false}
           onSuccessDel={() => {
             navigate(-1);
           }}
-          isClickable={false}
         />
 
         {/*  */}
