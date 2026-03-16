@@ -16,7 +16,8 @@ import { SidebarRight } from "./SidebarRight";
 
 export function HomeLayout() {
   const { pathname } = useLocation();
-  const isExplorePage = pathname.includes("/explore");
+  const isExplorePage = pathname.startsWith("/explore");
+
   const { user } = useUserStore();
   const { isOpen } = useChatBoxStore();
   const { setUnread, setUnreadByType } = useUnreadNotiStore();

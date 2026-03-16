@@ -1,4 +1,13 @@
-import { Bookmark, Hash, HomeIcon, Telescope, UsersRound } from "lucide-react";
+import {
+  ArrowDownNarrowWide,
+  Bookmark,
+  Hash,
+  HomeIcon,
+  Search,
+  Ship,
+  Telescope,
+  UsersRound,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -116,7 +125,7 @@ export function SidebarLeft() {
         {/*  */}
         <li>
           <Accordion type="single" collapsible defaultValue="community">
-            {/*  */}
+            {/* Cộng đồng */}
             <AccordionItem value="community">
               <AccordionTrigger className="cursor-pointer">
                 Cộng đồng
@@ -139,32 +148,70 @@ export function SidebarLeft() {
               </AccordionContent>
             </AccordionItem>
 
-            {/*  */}
+            {/* Thuật toán */}
+            <AccordionItem value="algorithm">
+              <AccordionTrigger className="cursor-pointer">
+                Thuật toán
+              </AccordionTrigger>
+              <AccordionContent className="pl-2">
+                <Link to="/algorithm/search" className={cn(cla, "text-[16px]")}>
+                  <Search size={18} />
+                  Tìm kiếm
+                </Link>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <Link to="/algorithm/sort" className={cn(cla, "text-[16px]")}>
+                  <ArrowDownNarrowWide size={18} />
+                  Sắp xếp
+                </Link>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <Link to="/algorithm/other" className={cn(cla, "text-[16px]")}>
+                  <Hash size={18} />
+                  Khác
+                </Link>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Kiến trúc */}
+            <AccordionItem value="architecture">
+              <AccordionTrigger className="cursor-pointer">
+                Kiến trúc
+              </AccordionTrigger>
+              <AccordionContent className="pl-2">
+                <Link to="/architecture" className={cn(cla, "text-[16px]")}>
+                  <Search size={18} />
+                  Tìm kiếm
+                </Link>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <Link to="/architecture" className={cn(cla, "text-[16px]")}>
+                  <ArrowDownNarrowWide size={18} />
+                  Sắp xếp
+                </Link>
+              </AccordionContent>
+              <AccordionContent className="pl-2">
+                <Link to="/architecture" className={cn(cla, "text-[16px]")}>
+                  <Hash size={18} />
+                  Khác
+                </Link>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Trò chơi */}
             <AccordionItem value="game">
               <AccordionTrigger className="cursor-pointer">
                 Trò chơi
               </AccordionTrigger>
               <AccordionContent className="pl-2">
                 <Link to="/games" className={cn(cla, "text-[16px]")}>
-                  <Hash size={18} />
+                  <Ship size={18} />
                   Bắn tàu
-                </Link>
-              </AccordionContent>
-              <AccordionContent className="pl-2">
-                <Link to="/games" className={cn(cla, "text-[16px]")}>
-                  <Hash size={18} />
-                  Cờ caro
-                </Link>
-              </AccordionContent>
-              <AccordionContent className="pl-2">
-                <Link to="/games" className={cn(cla, "text-[16px]")}>
-                  <Hash size={18} />
-                  Lật bài
                 </Link>
               </AccordionContent>
             </AccordionItem>
 
-            {/*  */}
+            {/* Gần đây */}
             <AccessRecent />
           </Accordion>
         </li>

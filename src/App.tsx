@@ -26,6 +26,8 @@ import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
 import { GamePage } from "./pages/game/GamePage";
 import { MessagePage } from "./pages/messages/MessagePage";
 import { MessageView } from "./pages/messages/MessageView";
+import { AlgorithmSortPage } from "./pages/algorithm/algorithm-sort/AlgorithmSortPage";
+import { AlgorithmWrap } from "./pages/algorithm/algorithm-sort/AlgorithmWrap";
 
 // Router config
 const router = createBrowserRouter([
@@ -40,6 +42,8 @@ const router = createBrowserRouter([
       { path: "bookmarks", element: <BookmarkPage /> },
       { path: "notifications", element: <NotificationPage /> },
       { path: "games", element: <GamePage /> },
+      { path: "algorithm/sort", element: <AlgorithmSortPage /> },
+      { path: "algorithm/sort/:slug", element: <AlgorithmWrap /> },
       { path: "messages", element: <MessagePage /> },
       { path: "messages/:conversation_name", element: <MessageView /> },
       { path: `communities/t/${joined_tab}`, element: <CommunitiesPage /> },
