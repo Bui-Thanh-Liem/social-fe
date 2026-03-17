@@ -1,7 +1,6 @@
 import {
   ArrowDownNarrowWide,
   Bookmark,
-  Hash,
   HomeIcon,
   Search,
   Ship,
@@ -154,46 +153,29 @@ export function SidebarLeft() {
                 Thuật toán
               </AccordionTrigger>
               <AccordionContent className="pl-2">
-                <Link to="/algorithm/search" className={cn(cla, "text-[16px]")}>
+                <Link
+                  to="/algorithm/search"
+                  className={cn(
+                    cla,
+                    "text-[16px]",
+                    pathname.includes("/algorithm/search") && "font-semibold",
+                  )}
+                >
                   <Search size={18} />
                   Tìm kiếm
                 </Link>
               </AccordionContent>
               <AccordionContent className="pl-2">
-                <Link to="/algorithm/sort" className={cn(cla, "text-[16px]")}>
+                <Link
+                  to="/algorithm/sort"
+                  className={cn(
+                    cla,
+                    "text-[16px]",
+                    pathname.includes("/algorithm/sort") && "font-semibold",
+                  )}
+                >
                   <ArrowDownNarrowWide size={18} />
                   Sắp xếp
-                </Link>
-              </AccordionContent>
-              <AccordionContent className="pl-2">
-                <Link to="/algorithm/other" className={cn(cla, "text-[16px]")}>
-                  <Hash size={18} />
-                  Khác
-                </Link>
-              </AccordionContent>
-            </AccordionItem>
-
-            {/* Kiến trúc */}
-            <AccordionItem value="architecture">
-              <AccordionTrigger className="cursor-pointer">
-                Kiến trúc
-              </AccordionTrigger>
-              <AccordionContent className="pl-2">
-                <Link to="/architecture" className={cn(cla, "text-[16px]")}>
-                  <Search size={18} />
-                  Tìm kiếm
-                </Link>
-              </AccordionContent>
-              <AccordionContent className="pl-2">
-                <Link to="/architecture" className={cn(cla, "text-[16px]")}>
-                  <ArrowDownNarrowWide size={18} />
-                  Sắp xếp
-                </Link>
-              </AccordionContent>
-              <AccordionContent className="pl-2">
-                <Link to="/architecture" className={cn(cla, "text-[16px]")}>
-                  <Hash size={18} />
-                  Khác
                 </Link>
               </AccordionContent>
             </AccordionItem>

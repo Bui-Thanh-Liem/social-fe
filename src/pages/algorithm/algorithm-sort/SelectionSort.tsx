@@ -69,10 +69,41 @@ export function SelectionSort() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 h-[calc(100vh-100px)]">
+    <div className="flex flex-col items-center justify-center py-8">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Selection Sort</h1>
+      <div className="text-slate-600 text-sm leading-relaxed mb-6 bg-slate-50 p-5 rounded-lg border border-slate-100 max-w-2xl">
+        <p className="font-semibold mb-3 text-slate-800 flex items-center gap-2">
+          <span className="w-2 h-4 bg-blue-800 rounded-full"></span>
+          Cách thức hoạt động của Selection Sort:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <p>
+              <strong className="text-blue-800">1. Thiết lập:</strong> Chia mảng
+              thành 2 phần: phần đã sắp xếp (bên trái) và phần chưa sắp xếp (bên
+              phải).
+            </p>
+            <p>
+              <strong className="text-red-600">2. Tìm kiếm:</strong> Quét toàn
+              bộ phần chưa sắp xếp để tìm ra phần tử có giá trị{" "}
+              <span className="font-bold underline">nhỏ nhất</span>.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <p>
+              <strong className="text-yellow-600">3. So sánh:</strong> Trong khi
+              quét, nếu thấy số nào nhỏ hơn số nhỏ nhất hiện tại, ta cập nhật
+              lại mục tiêu.
+            </p>
+            <p>
+              <strong className="text-green-600">4. Hoán đổi:</strong> Đưa số
+              nhỏ nhất tìm được về vị trí đầu tiên của vùng chưa sắp xếp.
+            </p>
+          </div>
+        </div>
+      </div>
 
-      <div className="flex items-end justify-center gap-1 bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl">
+      <div className="flex items-end justify-center gap-1 bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl h-64">
         {array.map((value, idx) => {
           // Logic đổi màu Tailwind
           let barColor = "bg-blue-500";
@@ -84,8 +115,8 @@ export function SelectionSort() {
           return (
             <div
               key={idx}
-              className={`${barColor} transition-all duration-150 rounded-t-sm`}
-              style={{ height: `${value * 1.5}px`, width: "24px" }}
+              className={`${barColor} transition-all duration-150 rounded-t-sm w-3 lg:w-6`}
+              style={{ height: `${value * 1.5}px` }}
             ></div>
           );
         })}
@@ -100,7 +131,7 @@ export function SelectionSort() {
         </ButtonMain>
       </div>
 
-      <div className="mt-6 text-sm text-gray-600 flex gap-6">
+      <div className="mt-6 text-sm text-gray-600 grid grid-cols-2 lg:grid-cols-4 gap-4 gap-x-10">
         <div className="flex items-center gap-2">
           <span className="w-4 h-4 bg-blue-800"></span> Đang xét
         </div>

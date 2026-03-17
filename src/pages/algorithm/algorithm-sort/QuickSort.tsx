@@ -78,8 +78,44 @@ export function QuickSort() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 h-[calc(100vh-100px)]">
+    <div className="flex flex-col items-center justify-center py-8">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Quick Sort</h1>
+      <div className="text-slate-600 text-sm leading-relaxed mb-6 bg-slate-50 p-5 rounded-lg border border-slate-100 max-w-2xl">
+        <p className="font-semibold mb-3 text-slate-800 flex items-center gap-2">
+          <span className="w-2 h-4 bg-purple-600 rounded-full"></span>
+          Cách thức hoạt động của Quick Sort:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <p>
+              <strong className="text-purple-700">1. Chọn Pivot:</strong> Một
+              phần tử được chọn làm chốt (trong code này là phần tử cuối cùng
+              `high`).
+            </p>
+            <p>
+              <strong className="text-yellow-600">
+                2. Phân tách (Partition):
+              </strong>{" "}
+              Duyệt mảng và đưa các phần tử nhỏ hơn Pivot sang trái, lớn hơn
+              sang phải.
+            </p>
+          </div>
+          <div className="space-y-2">
+            <p>
+              <strong className="text-blue-600">3. Đặt Pivot:</strong> Đưa Pivot
+              về vị trí chính xác giữa hai nhóm. Lúc này Pivot đã{" "}
+              <span className="text-green-600 font-bold">
+                đứng đúng vị trí vĩnh viễn
+              </span>
+              .
+            </p>
+            <p>
+              <strong className="text-slate-700">4. Đệ quy:</strong> Lặp lại quy
+              trình trên cho hai mảng con bên trái và bên phải của Pivot.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="flex items-end justify-center gap-1 bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl h-64">
         {array.map((value, idx) => {
@@ -94,8 +130,8 @@ export function QuickSort() {
           return (
             <div
               key={idx}
-              className={`${barColor} transition-all duration-150 rounded-t-sm`}
-              style={{ height: `${value * 1.5}px`, width: "24px" }}
+              className={`${barColor} transition-all duration-150 rounded-t-sm w-3 lg:w-6`}
+              style={{ height: `${value * 1.5}px` }}
             ></div>
           );
         })}
@@ -110,7 +146,7 @@ export function QuickSort() {
         </ButtonMain>
       </div>
 
-      <div className="mt-6 text-sm text-gray-600 flex flex-wrap justify-center gap-6">
+      <div className="mt-6 text-sm text-gray-600 grid grid-cols-1 lg:grid-cols-3 gap-4 gap-x-10">
         <div className="flex items-center gap-2">
           <span className="w-4 h-4 bg-purple-600"></span> Pivot (Điểm chốt)
         </div>

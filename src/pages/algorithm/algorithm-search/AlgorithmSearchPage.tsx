@@ -1,4 +1,4 @@
-export function GamePage() {
+export function AlgorithmSearchPage() {
   return (
     <div className="flex items-center justify-center h-[calc(100vh-64px)]">
       <img

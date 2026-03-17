@@ -61,8 +61,52 @@ export function InsertionSort() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-8 h-[calc(100vh-100px)]">
+    <div className="flex flex-col items-center justify-center py-8">
       <h1 className="text-3xl font-bold mb-8 text-gray-800">Insertion Sort</h1>
+      <div className="text-slate-600 text-sm leading-relaxed mb-6 bg-slate-50 p-5 rounded-lg border border-slate-100 max-w-2xl">
+        <p className="font-semibold mb-3 text-slate-800 flex items-center gap-2">
+          <span className="w-2 h-4 bg-red-500 rounded-full"></span>
+          Cách thức hoạt động của Insertion Sort:
+        </p>
+        <div className="space-y-3">
+          <div className="flex gap-3">
+            <span className="font-bold text-red-500 min-w-[60px]">Bước 1:</span>
+            <p>
+              Chọn phần tử thứ 2 trong mảng làm <strong>"Key"</strong> (khóa).
+              Các phần tử bên trái khóa được coi là vùng đã sắp xếp.
+            </p>
+          </div>
+
+          <div className="flex gap-3">
+            <span className="font-bold text-yellow-500 min-w-[60px]">
+              Bước 2:
+            </span>
+            <p>
+              So sánh <strong>Key</strong> với các phần tử ở vùng bên trái. Nếu
+              phần tử bên trái lớn hơn Key, ta dịch chuyển phần tử đó sang phải
+              một vị trí.
+            </p>
+          </div>
+
+          <div className="flex gap-3">
+            <span className="font-bold text-blue-500 min-w-[60px]">
+              Bước 3:
+            </span>
+            <p>
+              Tiếp tục dịch chuyển cho đến khi tìm thấy vị trí thích hợp (nhỏ
+              hơn hoặc bằng Key) và <strong>chèn</strong> Key vào đó.
+            </p>
+          </div>
+
+          <div className="flex gap-3 border-t pt-2 mt-2 italic text-slate-500">
+            <span className="font-bold min-w-[60px]">Lưu ý:</span>
+            <p>
+              Thuật toán này cực kỳ hiệu quả với những mảng "gần như đã sắp xếp"
+              vì nó sẽ thực hiện rất ít phép dịch chuyển.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="flex items-end justify-center gap-1 bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl h-64">
         {array.map((value, idx) => {
@@ -77,8 +121,8 @@ export function InsertionSort() {
           return (
             <div
               key={idx}
-              className={`${barColor} transition-all duration-150 rounded-t-sm`}
-              style={{ height: `${value * 1.5}px`, width: "24px" }}
+              className={`${barColor} transition-all duration-150 rounded-t-sm w-3 lg:w-6`}
+              style={{ height: `${value * 1.5}px` }}
             ></div>
           );
         })}
@@ -93,7 +137,7 @@ export function InsertionSort() {
         </ButtonMain>
       </div>
 
-      <div className="mt-6 text-sm text-gray-600 grid grid-cols-2 gap-4">
+      <div className="mt-6 text-sm text-gray-600 grid grid-cols-2 lg:grid-cols-4 gap-4 gap-x-10">
         <div className="flex items-center gap-2">
           <span className="w-4 h-4 bg-red-500"></span> Đang lấy ra (Key)
         </div>

@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import { SelectionSort } from "./SelectionSort";
-import { InsertionSort } from "./InsertSort";
 import { BubbleSort } from "./BubbleSort";
+import { HeapSort } from "./HeapSort";
+import { InsertionSort } from "./InsertSort";
 import { MergeSort } from "./MergeSort";
 import { QuickSort } from "./QuickSort";
-import { HeapSort } from "./HeapSort";
+import { SelectionSort } from "./SelectionSort";
 
 export function AlgorithmWrap() {
   const { slug } = useParams();
@@ -32,12 +32,16 @@ export function AlgorithmWrap() {
             </h1>
             <p className="text-gray-600">
               Thuật toán bạn đang tìm kiếm không tồn tại hoặc chưa được triển
-              khai. Vui lòng quay lại và chọn một thuật toán khác.
+              khai.
             </p>
           </div>
         );
     }
   };
 
-  return <div>{renderAlgorithm()}</div>;
+  return (
+    <div className="max-h-[calc(100vh-60px)] overflow-y-auto">
+      {renderAlgorithm()}
+    </div>
+  );
 }

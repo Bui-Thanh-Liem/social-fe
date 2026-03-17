@@ -172,7 +172,7 @@ export function Trending() {
         ))}
         {/*  */}
         {isLoading
-          ? Array.from({ length: 4 }).map((_, i) => (
+          ? Array.from({ length: 8 }).map((_, i) => (
               <TrendingItemSkeleton key={`more-${i}`} />
             ))
           : !!trending.length && (

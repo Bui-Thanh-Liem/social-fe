@@ -1,7 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NotFound from "./components/NotFound";
+import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
 import { HomeLayout } from "./layouts/home-layout/HomeLayout";
+import { AlgorithmSearchPage } from "./pages/algorithm/algorithm-search/AlgorithmSearchPage";
+import { AlgorithmSortPage } from "./pages/algorithm/algorithm-sort/AlgorithmSortPage";
+import { AlgorithmWrap } from "./pages/algorithm/algorithm-sort/AlgorithmWrap";
 import { BookmarkPage } from "./pages/bookmark/BookmarkPage";
 import {
   CommunitiesPage,
@@ -15,19 +20,15 @@ import {
   FollowersFollowing,
   following_tab,
 } from "./pages/followers-following/FollowersFollowing";
+import { GamePage } from "./pages/game/GamePage";
 import { HomePage } from "./pages/home/HomePage";
+import { MessagePage } from "./pages/messages/MessagePage";
+import { MessageView } from "./pages/messages/MessageView";
 import { NotificationPage } from "./pages/notification/NotificationPage";
 import { ProfilePage } from "./pages/profile/ProfilePage";
 import { SearchPage } from "./pages/search/SearchPage";
 import { TrendingPage } from "./pages/trending/TrendingPage";
 import { TweetDetailPage } from "./pages/tweet-detail/TweetDetailPage";
-import NotFound from "./components/NotFound";
-import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
-import { GamePage } from "./pages/game/GamePage";
-import { MessagePage } from "./pages/messages/MessagePage";
-import { MessageView } from "./pages/messages/MessageView";
-import { AlgorithmSortPage } from "./pages/algorithm/algorithm-sort/AlgorithmSortPage";
-import { AlgorithmWrap } from "./pages/algorithm/algorithm-sort/AlgorithmWrap";
 
 // Router config
 const router = createBrowserRouter([
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
       { path: "notifications", element: <NotificationPage /> },
       { path: "games", element: <GamePage /> },
       { path: "algorithm/sort", element: <AlgorithmSortPage /> },
+      { path: "algorithm/search", element: <AlgorithmSearchPage /> },
       { path: "algorithm/sort/:slug", element: <AlgorithmWrap /> },
       { path: "messages", element: <MessagePage /> },
       { path: "messages/:conversation_name", element: <MessageView /> },
