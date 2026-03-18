@@ -36,7 +36,7 @@ export function Header() {
   return (
     <>
       <header className="grid-cols-12 grid items-center h-14 justify-between">
-        <div className="col-span-4 flex items-center gap-x-4">
+        <div className="col-span-4 flex items-center gap-x-3">
           <div className="block md:hidden">
             <SidebarTrigger
               icon={
