@@ -154,8 +154,7 @@ export const TweetItem = ({
   //
   const author = user_id as unknown as IUser;
   const community = community_id as unknown as ICommunity;
-  // const pathname = window.location.pathname;
-  // const isComment = !pathname?.includes("/tweet/");
+  const isTweetMainOtherRetweet = tweet.type !== ETweetType.Retweet;
 
   // Gọi api detail để lấy các retweet/quoteTweet
   const { data } = useGetDetailTweet(parent_id || "");
@@ -231,7 +230,7 @@ export const TweetItem = ({
       {/* thông tin bài viết */}
       <div>
         {/* Nội dung tweet */}
-        {content && tweet.type !== ETweetType.Retweet && (
+        {content && isTweetMainOtherRetweet && (
           <ContentExpanded
             content={content}
             bg={tweet.bgColor}
@@ -241,7 +240,7 @@ export const TweetItem = ({
         )}
 
         {/* Codes content */}
-        {codes && codes.length > 0 && (
+        {codes && isTweetMainOtherRetweet && codes.length > 0 && (
           <motion.div layout className="my-2 flex gap-2 flex-wrap">
             {codes.map((codeItem) => (
               <EditorCodeItem
@@ -257,7 +256,7 @@ export const TweetItem = ({
         )}
 
         {/* Embed Code */}
-        {tweet.embed_code && (
+        {tweet.embed_code && isTweetMainOtherRetweet && (
           <div
             className="my-2 border rounded-xl flex items-center justify-center overflow-hidden [&_iframe]:w-full [&_iframe]:aspect-video"
             dangerouslySetInnerHTML={{ __html: tweet.embed_code }}
@@ -266,7 +265,7 @@ export const TweetItem = ({
 
         {/* Medias content */}
         <div className="h-1" />
-        {tweet.type !== ETweetType.Retweet && <MediaContent tweet={tweet} />}
+        {isTweetMainOtherRetweet && <MediaContent tweet={tweet} />}
 
         {/* QuoteTweet and Retweet */}
         {tweet.type === ETweetType.QuoteTweet ||

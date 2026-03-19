@@ -46,7 +46,8 @@ export const CreateTweetDtoSchema = z.object({
       CONSTANT_MAX_LENGTH_EMBED_CODE,
       `Nội dung tối đa ${CONSTANT_MAX_LENGTH_EMBED_CODE} kí tự`,
     )
-    .trim(),
+    .trim()
+    .optional(),
   hashtags: z.array(z.string().trim()).optional(), // client gửi lên name
   mentions: z
     .array(
