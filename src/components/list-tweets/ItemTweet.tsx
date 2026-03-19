@@ -6,7 +6,7 @@ import {
   Flag,
   Trash,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useReportTweet } from "~/apis/useFetchReport";
 import { useDeleteTweet, useGetDetailTweet } from "~/apis/useFetchTweet";
 import { cn } from "~/lib/utils";
@@ -23,7 +23,13 @@ import { ShortInfoProfile } from "../ShortInfoProfile";
 import { EditorCodeItem } from "../tweet/EditorCode";
 import { AvatarMain } from "../ui/avatar";
 import { Card, CardContent } from "../ui/card";
-import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../ui/carousel";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -85,6 +91,8 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
             </CarouselItem>
           ))}
         </CarouselContent>
+        <CarouselPrevious className="left-2 disabled:hidden" />
+        <CarouselNext className="right-2 disabled:hidden" />
       </Carousel>
     </div>
   );
@@ -128,6 +136,7 @@ export const TweetItem = ({
   onSuccessDel: (id: string) => void;
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const {
     _id,
@@ -145,8 +154,8 @@ export const TweetItem = ({
   //
   const author = user_id as unknown as IUser;
   const community = community_id as unknown as ICommunity;
-  const pathname = window.location.pathname;
-  const isComment = !pathname?.includes("/tweet/");
+  // const pathname = window.location.pathname;
+  // const isComment = !pathname?.includes("/tweet/");
 
   // Gọi api detail để lấy các retweet/quoteTweet
   const { data } = useGetDetailTweet(parent_id || "");
@@ -159,9 +168,15 @@ export const TweetItem = ({
     <Card
       key={_id}
       className="p-3 pb-2 group bg-gray-50 relative gap-3"
-      onClick={() => {
+      onClick={(e) => {
+        // Nếu click vào nút của Carousel thì không làm gì cả
+        if ((e.target as HTMLElement).closest("button")) return;
+
+        //
         if (isClickable) {
-          navigate(`/tweet/${_id}`);
+          navigate(`/tweet/${_id}`, {
+            state: { backgroundLocation: location },
+          });
         }
       }}
     >
@@ -214,7 +229,7 @@ export const TweetItem = ({
       </div>
 
       {/* thông tin bài viết */}
-      <div className="ml-14">
+      <div>
         {/* Nội dung tweet */}
         {content && tweet.type !== ETweetType.Retweet && (
           <ContentExpanded
@@ -239,6 +254,14 @@ export const TweetItem = ({
               />
             ))}
           </motion.div>
+        )}
+
+        {/* Embed Code */}
+        {tweet.embed_code && (
+          <div
+            className="my-2 border rounded-xl flex items-center justify-center overflow-hidden [&_iframe]:w-full [&_iframe]:aspect-video"
+            dangerouslySetInnerHTML={{ __html: tweet.embed_code }}
+          />
         )}
 
         {/* Medias content */}
@@ -302,6 +325,14 @@ export const TweetItem = ({
                 </motion.div>
               )}
 
+              {/* Embed Code */}
+              {quoteTweet.embed_code && (
+                <div
+                  className="my-2 border rounded-xl flex items-center justify-center overflow-hidden [&_iframe]:w-full [&_iframe]:aspect-video"
+                  dangerouslySetInnerHTML={{ __html: quoteTweet.embed_code }}
+                />
+              )}
+
               {/* Medias content */}
               <MediaContent tweet={quoteTweet} />
             </div>
@@ -321,7 +352,7 @@ export const TweetItem = ({
             <div className="absolute top-0 w-64 h-[1px] bg-gray-100 right-1/2 translate-x-1/2"></div>
 
             {/* Comment */}
-            {isComment && <ActionCommentTweet tweet={tweet} />}
+            <ActionCommentTweet tweet={tweet} />
 
             {/* Retweet and Quote */}
             <ActionRetweetQuoteTweet tweet={tweet} />

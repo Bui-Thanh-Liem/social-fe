@@ -29,7 +29,8 @@ const spring = {
 function CopyButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false);
 
-  async function handleCopy() {
+  async function handleCopy(e: { stopPropagation: () => void }) {
+    e.stopPropagation();
     await navigator.clipboard.writeText(code);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
@@ -85,14 +86,20 @@ export function EditorCodeItem({
       <div className="flex items-center gap-2 px-3 py-1 bg-black select-none">
         <div
           className="w-3.5 h-3.5 rounded-full bg-red-400 cursor-pointer group/code"
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
         >
           <X size={14} color="#fff" className="hidden group-hover/code:block" />
         </div>
 
         <div
           className="w-3.5 h-3.5 rounded-full bg-yellow-300 cursor-pointer group/code"
-          onClick={() => setIsCompact(true)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsCompact(true);
+          }}
         >
           <Minus
             size={14}
@@ -103,7 +110,10 @@ export function EditorCodeItem({
 
         <div
           className="w-3.5 h-3.5 rounded-full bg-green-400 cursor-pointer group/code"
-          onClick={() => setIsCompact(false)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsCompact(false);
+          }}
         >
           <Expand
             size={14}
@@ -196,7 +206,9 @@ export function EditorCode({
             onChangeCode={(value, langKey) =>
               onChangeCodeItem(index, value, langKey)
             }
-            onClose={() => onClose(index)}
+            onClose={() => {
+              onClose(index);
+            }}
           />
         ))}
       </AnimatePresence>

@@ -274,7 +274,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
           {/*  */}
           <div>
             <p className="mb-3 font-medium">Ai được xem hoạt động ?</p>
-            <div className="flex items-center gap-x-5">
+            <div className="flex flex-col gap-y-2 lg:flex-row lg:items-center gap-x-5">
               <div className="flex items-center space-x-2">
                 <Switch
                   id="show_log_for_mentor"
@@ -303,7 +303,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
           {/*  */}
           <div>
             <p className="mb-3 font-medium">Ai được xem danh sách mời ?</p>
-            <div className="flex items-center gap-x-5">
+            <div className="flex flex-col gap-y-2 lg:flex-row lg:items-center gap-x-5">
               <div className="flex items-center space-x-2">
                 <Switch
                   id="show_invite_list_for_mentor"
@@ -351,7 +351,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
           {/*  */}
           <div className="p-3 rounded-2xl border shadow">
             <p className="mb-2 font-medium mt-3">Cài đặt tham gia</p>
-            <div className="ml-4">
+            <div>
               <RadioGroupSetting
                 options={Object.values(EMembershipType)}
                 value={community.membership_type}
@@ -359,7 +359,7 @@ export function CommunitySetting({ community }: { community: ICommunity }) {
               />
             </div>
             <p className="my-2 font-medium">Cài đặt hiển thị</p>
-            <div className="ml-4">
+            <div>
               <RadioGroupSetting
                 value={community.visibility_type}
                 onValueChange={handleChangeVisibility}

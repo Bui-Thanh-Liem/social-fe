@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useGetProfileTweets } from "~/apis/useFetchTweet";
 import { ErrorResponse } from "~/components/Error";
 import { Card, CardContent } from "~/components/ui/card";
@@ -12,6 +13,9 @@ export function ProfileMedia({
   profile_id: string;
   isOwnProfile: boolean;
 }) {
+  //
+  const navigate = useNavigate();
+
   // State để quản lý pagination và data
   const [page, setPage] = useState(1);
   const [tweets, setTweets] = useState<ITweet[]>([]);
@@ -147,6 +151,9 @@ export function ProfileMedia({
               <Card
                 key={`profile-media-${tweet._id}-${index}`}
                 className="h-36 overflow-hidden flex items-center justify-center cursor-pointer"
+                onClick={() => {
+                  navigate("/tweet/" + tweet._id);
+                }}
               >
                 <CardContent className="p-0">
                   {m?.file_type.startsWith("video/") ? (

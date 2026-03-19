@@ -275,7 +275,7 @@ export function CreateCommunityForm({
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <div>
             <Label className="text-sm font-medium line-clamp-1">
               Lĩnh vực / Danh mục (ưu tiên)
@@ -307,7 +307,7 @@ export function CreateCommunityForm({
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <SelectMain
             control={control}
             options={Object.values(EVisibilityType).map((val) => ({
@@ -344,7 +344,7 @@ export function CreateCommunityForm({
         </div>
 
         <div className="grid grid-cols-12">
-          <div className="col-span-7 border-r pr-4 ">
+          <div className="col-span-12 lg:col-span-7 lg:border-r lg:pr-4 ">
             <SearchMain
               size="sm"
               value={searchVal}
@@ -400,7 +400,7 @@ export function CreateCommunityForm({
               )}
             </div>
           </div>
-          <div className="mt-10 col-span-5 px-2 space-y-2 max-h-96 overflow-auto">
+          <div className="mt-10 hidden lg:block col-span-5 px-2 space-y-2 max-h-96 overflow-auto">
             {userSelected?.map((user) => (
               <UserSelected
                 user={user}

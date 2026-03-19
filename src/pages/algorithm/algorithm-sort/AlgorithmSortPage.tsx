@@ -54,7 +54,10 @@ export function AlgorithmSortPage() {
             {/* The Flipping Card */}
             <div className="relative w-full h-full transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(-180deg)] rounded-3xl">
               {/* FRONT SIDE */}
-              <Card className="absolute inset-0 w-full h-full [backface-visibility:hidden] border-2 border-slate-100 flex flex-col justify-center bg-white">
+              <Card
+                className="absolute inset-0 w-full h-full [backface-visibility:hidden] border-2 border-slate-100 flex flex-col justify-center bg-white"
+                onClick={() => navigate(algo.path)}
+              >
                 <CardContent className="p-6 text-center">
                   <div className="inline-block p-3 rounded-full bg-blue-50 text-sky-600 mb-4 group-hover:scale-110 transition-transform duration-500">
                     <svg

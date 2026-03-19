@@ -65,10 +65,13 @@ export function CommunityInfo({ community }: { community: ICommunity }) {
           {/* Thông tin chung */}
           <section>
             <p className="font-medium pb-3">Quy tắc</p>
-            <div className="pl-4 space-y-2">
+            <div className="lg:pl-4 space-y-2">
               {[community.membership_type, community.visibility_type].map(
                 (type) => (
-                  <div key={type} className="flex items-start gap-3">
+                  <div
+                    key={type}
+                    className="flex flex-col lg:flex-row items-start gap-3"
+                  >
                     <div className="w-32">
                       <CommunityTag
                         text={type}

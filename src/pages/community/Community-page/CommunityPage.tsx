@@ -35,7 +35,7 @@ export function CommunityPage() {
 
   //
   const { triggerReload } = useReloadStore();
-    const { trigger } = useTriggerAccessRecentStore();
+  const { trigger } = useTriggerAccessRecentStore();
   const [countTweetApprove, setCountTweetApprove] = useState(0);
   const [isOpenPost, setIsOpenPost] = useState(false);
 

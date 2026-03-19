@@ -1,10 +1,13 @@
+import { X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetDetailTweet, useGetTweetChildren } from "~/apis/useFetchTweet";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
 import { Tweet } from "~/components/tweet/Tweet";
 import { TypingIndicator } from "~/components/TypingIndicator";
 import { ButtonMain } from "~/components/ui/button";
+import { Card, CardContent } from "~/components/ui/card";
+import { WrapIcon } from "~/components/WrapIcon";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
@@ -14,6 +17,7 @@ import { useUserStore } from "~/store/useUserStore";
 export function TweetDetailPage() {
   //
   const navigate = useNavigate();
+  const location = useLocation();
   const { tweet_id } = useParams(); // Đặt tên params ở <App />
 
   //
@@ -164,98 +168,123 @@ export function TweetDetailPage() {
     setIsLoadingMore(false);
   }, [tweet_id]);
 
+  //
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài nếu cần
+
+    // KIỂM TRA: Nếu có backgroundLocation tức là họ mở từ Feed -> Back lại là an toàn
+    if (location.state?.backgroundLocation) {
+      navigate(-1);
+    } else {
+      // Nếu không có state (vào trực tiếp bằng link) -> Đẩy về trang chủ
+      navigate("/", { replace: true });
+    }
+  };
+
   // Xoá comment khỏi list
   function onDel(id: string) {
     setTweetComments((prev) => prev.filter((tw) => tw._id !== id));
   }
 
-  //
-  if (isLoadingDetail) {
-    return <SkeletonTweet />;
-  }
-
-  // Not found
-  if (tweetDetail?.statusCode === 404 || !tweet) {
-    return (
-      <div className="flex flex-col items-center justify-center h-[calc(100vh-76px)] space-y-10">
-        <h2 className="text-xl font-bold text-gray-600 mb-2">
-          Không tìm thấy bài viết
-        </h2>
-        <p className="text-gray-500 text-center">
-          {tweetDetail?.message || "Bài viết không tồn tại hoặc đã bị xóa"}
-        </p>
-
-        <div className="space-x-4">
-          <ButtonMain variant={"outline"} onClick={() => navigate(0)}>
-            Tải lại
-          </ButtonMain>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="h-[calc(100vh-76px)] max-h-[calc(100vh-76px)] overflow-y-auto mt-3">
-      <div>
-        <TweetItem
-          tweet={tweet}
-          isClickable={false}
-          onSuccessDel={() => {
-            navigate(-1);
-          }}
-        />
+    <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
+      <Card className="relative">
+        <WrapIcon
+          className="absolute -top-2 -right-2 bg-gray-50 p-1 lg:p-2 lg:-top-4 lg:-right-4"
+          onClick={handleClose}
+        >
+          <X />
+        </WrapIcon>
+        <CardContent className="h-[80vh] overflow-y-auto w-[94vw] lg:w-[54vw] bg-white px-1 lg:px-4">
+          {isLoadingDetail && <SkeletonTweet />}
 
-        {/*  */}
-        <div className="p-4 pb-0 sticky top-0 bg-white z-10">
-          <Tweet
-            tweet={tweet}
-            contentBtn="Bình luận"
-            tweetType={ETweetType.Comment}
-            placeholder="Đăng bình luận của bạn"
-          />
-        </div>
+          {(tweetDetail?.statusCode === 404 || !tweet) && (
+            <div className="flex flex-col items-center justify-center h-[calc(100vh-76px)] space-y-10">
+              <h2 className="text-xl font-bold text-gray-600 mb-2">
+                Không tìm thấy bài viết
+              </h2>
+              <p className="text-gray-500 text-center">
+                {tweetDetail?.message ||
+                  "Bài viết không tồn tại hoặc đã bị xóa"}
+              </p>
 
-        <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
-
-        {/* COMMENTS */}
-        <div className="ml-14 space-y-4">
-          {tweetComments?.length ? (
-            tweetComments.map((tw) => {
-              return (
-                <TweetItem
-                  tweet={tw}
-                  key={tw._id}
-                  onSuccessDel={onDel}
-                  isClickable={false}
-                />
-              );
-            })
-          ) : isLoadingCmm ? (
-            <SkeletonTweet />
-          ) : (
-            <div className="flex h-24">
-              <p className="m-auto text-gray-400 text-sm">Chưa có bình luận</p>
+              <div className="space-x-4">
+                <ButtonMain variant={"outline"} onClick={() => navigate(0)}>
+                  Tải lại
+                </ButtonMain>
+              </div>
             </div>
           )}
-        </div>
 
-        {/* Loading more */}
-        {isLoadingMore && (
-          <div className="py-4">
-            <SkeletonTweet />
+          {/*  */}
+          {tweet && (
+            <TweetItem
+              tweet={tweet}
+              isClickable={false}
+              onSuccessDel={() => {
+                navigate(-1);
+              }}
+            />
+          )}
+
+          {/*  */}
+          {tweet && (
+            <div className="p-4 pb-0 sticky top-0 bg-white z-10">
+              <Tweet
+                tweet={tweet}
+                contentBtn="Bình luận"
+                tweetType={ETweetType.Comment}
+                placeholder="Đăng bình luận của bạn"
+              />
+            </div>
+          )}
+
+          <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
+
+          {/* COMMENTS */}
+          <div className="space-y-4">
+            {tweetComments?.length ? (
+              tweetComments.map((tw) => {
+                return (
+                  <TweetItem
+                    tweet={tw}
+                    key={tw._id}
+                    onSuccessDel={onDel}
+                    // isClickable={false}
+                  />
+                );
+              })
+            ) : isLoadingCmm ? (
+              <SkeletonTweet />
+            ) : (
+              <div className="flex h-24">
+                <p className="m-auto text-gray-400 text-sm">
+                  Chưa có bình luận
+                </p>
+              </div>
+            )}
           </div>
-        )}
 
-        {/* Observer element */}
-        <div ref={observerRef} className="h-10 w-full" />
+          {/* Loading more */}
+          {isLoadingMore && (
+            <div className="py-4">
+              <SkeletonTweet />
+            </div>
+          )}
 
-        {/* End message */}
-        {!hasMore && tweetComments.length > 0 && (
-          <div className="text-center py-6 mb-6">
-            <p className="text-gray-500">🎉 Bạn đã xem hết tất cả bình luận!</p>
-          </div>
-        )}
-      </div>
+          {/* Observer element */}
+          <div ref={observerRef} className="h-10 w-full" />
+
+          {/* End message */}
+          {!hasMore && tweetComments.length > 0 && (
+            <div className="text-center py-6 mb-6">
+              <p className="text-gray-500">
+                🎉 Bạn đã xem hết tất cả bình luận!
+              </p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

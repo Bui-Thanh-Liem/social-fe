@@ -65,6 +65,7 @@ export function ActionRetweetQuoteTweet({ tweet }: { tweet: ITweet }) {
           }))
         : undefined,
       mentions: mentions?.map((mention) => mention._id),
+      embed_code: tweet.embed_code,
     };
     const resCreateTweet = await apiCreateTweet.mutateAsync(tweetData);
 

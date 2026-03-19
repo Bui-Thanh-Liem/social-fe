@@ -117,7 +117,7 @@ export function QuickSort() {
         </div>
       </div>
 
-      <div className="flex items-end justify-center gap-1 bg-white p-6 rounded-xl shadow-lg w-full max-w-2xl h-64">
+      <div className="flex items-end justify-center gap-1 bg-white p-6 px-3 rounded-xl shadow-lg w-full max-w-2xl h-64">
         {array.map((value, idx) => {
           let barColor = "bg-blue-400"; // Mặc định
 

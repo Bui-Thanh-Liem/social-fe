@@ -150,7 +150,7 @@ export function InviteCommunityForm({
     >
       <div className="mt-4 space-y-6 w-full md:min-w-[460px]">
         <div className="grid grid-cols-12">
-          <div className="col-span-7 border-r pr-4 ">
+          <div className="col-span-12 lg:col-span-7 lg:border-r lg:pr-4">
             <SearchMain
               size="sm"
               value={searchVal}
@@ -206,7 +206,7 @@ export function InviteCommunityForm({
               )}
             </div>
           </div>
-          <div className="mt-10 col-span-5 px-2 space-y-2 max-h-96 overflow-auto">
+          <div className="mt-10 hidden lg:block col-span-5 px-2 space-y-2 max-h-96 overflow-auto">
             {userSelected?.map((user) => (
               <UserSelected
                 user={user}

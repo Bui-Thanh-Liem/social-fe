@@ -32,9 +32,9 @@ import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
 import { handleResponse, toastSimple } from "~/utils/toast";
-import { BgColorTweet } from "../BgColorTweet";
+import { BgColorTweet } from "./BgColorTweet";
 import { TweetItem } from "../list-tweets/ItemTweet";
-import { TextColorTweet } from "../TextColorTweet";
+import { TextColorTweet } from "./TextColorTweet";
 import { AvatarMain } from "../ui/avatar";
 import { ButtonMain } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
@@ -44,10 +44,12 @@ import { EditorCode } from "./EditorCode";
 import { HashtagSuggest } from "./HashtagSuggest";
 import { Mentions } from "./Mentions";
 import { TweetCommunity } from "./TweetCommunity";
+import { Embed } from "./Embed";
 
 // Constants
 const DEFAULT_VALUES: CreateTweetDto = {
   content: "",
+  embed_code: "",
   type: ETweetType.Tweet,
   audience: ETweetAudience.Everyone,
 };
@@ -86,6 +88,9 @@ export function Tweet({
   const [mentionIds, setMentionIds] = useState<string[]>([]);
   const [openMentions, setOpenMentions] = useState(false);
   const [searchMentions, setSearchMentions] = useState("");
+
+  //
+  const [embedCode, setEmbedCode] = useState("");
 
   const { textareaRef, autoResize } = useTextareaAutoResize();
   const [audience, setAudience] = useState<ETweetAudience>(
@@ -277,6 +282,11 @@ export function Tweet({
     setCodes((prev) => [...prev, newCode]);
   }
 
+  // Handle change embed code
+  function handleEmbedChange(value: string) {
+    setEmbedCode(value);
+  }
+
   // Thực hiện gọi api đăng bài
   const onSubmit = useCallback(
     async (data: CreateTweetDto) => {
@@ -319,6 +329,7 @@ export function Tweet({
           textColor,
           type: tweetType,
           content: data.content,
+          embed_code: embedCode,
           mentions: mentionIds,
           ...(communityId && {
             community_id: communityId,
@@ -378,7 +389,10 @@ export function Tweet({
 
   //
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onClick={(e) => e.stopPropagation()}
+    >
       <div className="flex gap-4">
         <AvatarMain src={user?.avatar?.url} alt={user?.name} />
         <div className="flex-1 mt-2">
@@ -395,9 +409,18 @@ export function Tweet({
             maxLength={CONSTANT_MAX_LENGTH_CONTENT}
             onInput={handleTextareaInput}
             onPaste={handlePaste}
+            onClick={(e) => e.stopPropagation()}
           />
 
           <EditorCode codes={codes} onChangeCode={setCodes} />
+
+          {/* Embed Code */}
+          {embedCode && (
+            <div
+              className="my-2 border rounded-xl flex items-center justify-center overflow-hidden [&_iframe]:w-full [&_iframe]:aspect-video"
+              dangerouslySetInnerHTML={{ __html: embedCode }}
+            />
+          )}
 
           {/* Hashtag Suggest */}
           <HashtagSuggest
@@ -465,11 +488,11 @@ export function Tweet({
 
           <div
             className={cn(
-              "flex justify-between items-center -ml-2 my-2 bg-white",
+              "flex flex-col lg:flex-row justify-between gap-y-2 lg:items-center -ml-2 my-2 bg-white",
               isReQuoteType ? "" : "",
             )}
           >
-            <div className="flex items-center gap-1 flex-wrap md:flex-nowrap">
+            <div className="flex items-center gap-2 flex-wrap md:flex-nowrap">
               <WrapIcon className="hover:bg-blue-100/60">
                 <label
                   htmlFor={inputId}
@@ -504,9 +527,13 @@ export function Tweet({
               <WrapIcon className="hover:bg-blue-100/60" onClick={onAddCode}>
                 <Terminal color="#1d9bf0" size={20} />
               </WrapIcon>
+
+              <WrapIcon className="hover:bg-blue-100/60">
+                <Embed onChange={handleEmbedChange} value={embedCode} />
+              </WrapIcon>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 ml-2 lg:ml-0">
               {/* Character count indicator */}
 
               <CircularProgress

@@ -175,6 +175,7 @@ export function DialogMain({
           "rounded-2xl px-0 pt-0 pb-0 shadow-xl max-h-[80vh] md:max-h-[90vh] flex flex-col z-[100]", // px-0 để scroll không đè padding
           widthClasses[width],
         )}
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header cố định */}
         <div className="px-6 pt-4">

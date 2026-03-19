@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   CONSTANT_MAX_LENGTH_CONTENT,
+  CONSTANT_MAX_LENGTH_EMBED_CODE,
   CONSTANT_REGEX,
 } from "~/shared/constants";
 import { ETweetAudience } from "~/shared/enums/common.enum";
@@ -37,6 +38,13 @@ export const CreateTweetDtoSchema = z.object({
     .max(
       CONSTANT_MAX_LENGTH_CONTENT,
       `Nội dung tối đa ${CONSTANT_MAX_LENGTH_CONTENT} kí tự`,
+    )
+    .trim(),
+  embed_code: z
+    .string()
+    .max(
+      CONSTANT_MAX_LENGTH_EMBED_CODE,
+      `Nội dung tối đa ${CONSTANT_MAX_LENGTH_EMBED_CODE} kí tự`,
     )
     .trim(),
   hashtags: z.array(z.string().trim()).optional(), // client gửi lên name
