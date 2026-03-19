@@ -78,7 +78,7 @@ export function TodayNews() {
         Tin tức hôm nay
       </p>
 
-      <Carousel opts={{ align: "start" }}>
+      <Carousel opts={{ align: "start" }} className="mt-4">
         <CarouselContent>
           {/*  */}
           {news.map((item) => (
@@ -92,7 +92,7 @@ export function TodayNews() {
             Array.from({ length: 4 }).map((_, i) => (
               <CarouselItem
                 key={`more-${i}`}
-                className="basis-1/2 lg:basis-1/3 mt-2"
+                className="basis-1/2 lg:basis-1/3"
               >
                 <TodayNewsOrOutstandingItemSkeleton shape="card" />
               </CarouselItem>
