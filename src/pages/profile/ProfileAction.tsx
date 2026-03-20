@@ -164,10 +164,11 @@ export function ProfileAction({
 
 //
 export function ChartProfileAction() {
-  const { data: loe, isLoading } = useCountViewLinkBookmarkInWeek();
-  const data_views = loe?.metadata?.tweet_views_count;
-  const data_likes = loe?.metadata?.tweet_likes_count;
-  const data_bookmarks = loe?.metadata?.tweet_bookmarks_count;
+  const { data: dataChart, isLoading } = useCountViewLinkBookmarkInWeek();
+
+  const data_views = dataChart?.metadata?.tweet_views_count;
+  const data_likes = dataChart?.metadata?.tweet_likes_count;
+  const data_bookmarks = dataChart?.metadata?.tweet_bookmarks_count;
 
   return (
     <Drawer>
