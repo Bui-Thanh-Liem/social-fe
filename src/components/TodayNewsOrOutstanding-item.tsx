@@ -152,7 +152,11 @@ export function TodayNewsOrOutstandingItem({
 
   return (
     <Card
-      style={{ backgroundImage: `url(${item.media?.url})` }}
+      style={{
+        backgroundImage: item.media?.url
+          ? `url(${item.media?.url})`
+          : "url(/no-media.jpg)",
+      }}
       onClick={onClick}
       className="relative min-h-48"
     >

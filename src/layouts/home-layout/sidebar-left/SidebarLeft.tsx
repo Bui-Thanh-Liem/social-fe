@@ -8,7 +8,6 @@ import {
   UsersRound,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TypographyP } from "~/components/elements/p";
 import {
@@ -17,16 +16,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "~/components/ui/carousel";
-import { DialogMain } from "~/components/ui/dialog";
 import { cn } from "~/lib/utils";
 import { CreateCommunity } from "~/pages/community/CreateCommunity";
 import { useReloadStore } from "~/store/useReloadStore";
-import { useUserStore } from "~/store/useUserStore";
 import { AccessRecent } from "./AccessRecent";
 
 export type NavItem = {
@@ -36,29 +28,13 @@ export type NavItem = {
   countNoti?: number;
 };
 
-const images = [
-  "/home.png",
-  "/explore.png",
-  "/community.png",
-  "/message.png",
-  "/detail-tweet.png",
-];
-
 export function SidebarLeft() {
   //
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
   //
-  const { user } = useUserStore();
-
-  //
   const { triggerReload } = useReloadStore();
-
-  //
-  const [isOpenIntro, setIsOpenIntro] = useState(
-    Boolean(user && !user?.verify),
-  );
 
   //
   function onClickNav(path: string, name: string) {
@@ -198,26 +174,6 @@ export function SidebarLeft() {
           </Accordion>
         </li>
       </ul>
-
-      {/*  */}
-      <DialogMain
-        textHeader="Xác minh tài khoản của bạn để: xem bài viết, nhắn tin, cộng đồng, ..."
-        textDesc="Kiểm tra email hoặc yêu cầu gửi lại mail ở trang cá nhân của bạn."
-        width="6xl"
-        isLogo={false}
-        open={isOpenIntro}
-        onOpenChange={setIsOpenIntro}
-      >
-        <Carousel>
-          <CarouselContent className="cursor-grab">
-            {images.map((_, index) => (
-              <CarouselItem key={index}>
-                <img src={_} alt={_} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </DialogMain>
     </>
   );
 }

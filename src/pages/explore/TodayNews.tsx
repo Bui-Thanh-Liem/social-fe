@@ -64,6 +64,8 @@ export function TodayNews() {
     }
   }, [location.hash]);
 
+  console.log("TodayNewsOrOutstandingItem - item :::", news);
+
   //
   return (
     <div className="mb-4">

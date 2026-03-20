@@ -270,7 +270,7 @@ export const TweetItem = ({
         {/* QuoteTweet and Retweet */}
         {tweet.type === ETweetType.QuoteTweet ||
         tweet.type === ETweetType.Retweet ? (
-          <div className="border border-gray-200 rounded-2xl p-3 pb-1">
+          <div className="border border-gray-200 rounded-2xl p-3 pb-1 ml-0 md:ml-14">
             {/* Header với thông tin người dùng */}
             <div className="flex items-center mb-3">
               <AvatarMain
@@ -298,7 +298,7 @@ export const TweetItem = ({
             </div>
 
             {/* Nội dung tweet */}
-            <div className="ml-0 md:ml-14">
+            <div>
               {quoteTweet?.content && (
                 <ContentExpanded
                   bg={quoteTweet?.bgColor}
