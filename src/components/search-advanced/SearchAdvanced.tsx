@@ -187,7 +187,7 @@ export function SearchAdvanced({
         )}
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
-        <div className="max-h-[60vh] overflow-y-auto">
+        <div className="max-h-[30vh] lg:max-h-[60vh] overflow-y-auto">
           {searchVal && (
             <>
               {/*  */}

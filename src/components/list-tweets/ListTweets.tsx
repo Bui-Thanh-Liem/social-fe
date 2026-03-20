@@ -128,20 +128,6 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
     });
   }, [feedType]);
 
-  // Verify
-  if (user && !user?.verify) {
-    return (
-      <div className="text-center pt-20">
-        <p className="text-gray-500 text-lg mb-2">
-          📝 Bạn chưa xác minh tài khoản
-        </p>
-        <p className="text-gray-400">
-          kiểm tra email hoặc vào trang cá nhân xác minh tài khoản của bạn.
-        </p>
-      </div>
-    );
-  }
-
   // Thực hiện khi xoá bài viết thành công ở BE
   function onSuccessDel(id: string) {
     setFeeds((prev) => prev.filter((tw) => tw._id !== id));
@@ -149,7 +135,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
 
   // liêm đã đến đây
   return (
-    <div>
+    <div className="min-h-[calc(100vh-120px)]">
       {/* Loading state cho lần load đầu tiên */}
       {isLoading && page === 1 && <SkeletonTweet />}
 

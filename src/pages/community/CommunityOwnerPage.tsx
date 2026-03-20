@@ -14,7 +14,7 @@ import { useGetMultiCommunitiesOwner } from "~/apis/useFetchCommunity";
 import { cn } from "~/lib/utils";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
-import { CommunityCard, CommunityCardSkeleton } from "../CommunityCard";
+import { CommunityCard, CommunityCardSkeleton } from "./CommunityCard";
 
 const carouselItems = [
   "Tất cả",
@@ -22,7 +22,7 @@ const carouselItems = [
   ...Object.values(EMembershipType),
 ];
 
-export function OwnerTab() {
+export function CommunityOwnerPage() {
   //
   const [page, setPage] = useState(1);
   const [allCommunities, setAllCommunities] = useState<ICommunity[]>([]);
@@ -104,91 +104,96 @@ export function OwnerTab() {
   }
 
   return (
-    <div>
-      {/*  */}
-      <div className="mb-4 flex items-center justify-between">
-        <div className="lg:w-[40%]">
-          <SearchMain
-            size="sm"
-            value={searchVal}
-            onClear={() => setSearchVal("")}
-            onChange={setSearchVal}
-          />
-        </div>
-
-        <div className="w-[50%] hidden md:block">
-          <Carousel setApi={setApi} className="w-[82%]">
-            <CarouselContent className="-ml-1">
-              {carouselItems.map((_) => (
-                <CarouselItem key={_} className="pl-1">
-                  <Card className="py-1 rounded-2xl border-gray-200">
-                    <CardContent className="flex items-center justify-center">
-                      <span className="text-[15px] font-medium">{_}</span>
-                    </CardContent>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden lg:inline-flex" />
-            <CarouselNext className="hidden lg:inline-flex" />
-          </Carousel>
-        </div>
-      </div>
-
-      <div className="overflow-y-auto h-[calc(100vh-176px)]">
-        {/*  */}
-        {!isLoading && allCommunities.length === 0 && page === 1 && (
-          <p className="mt-24 p-4 text-center text-gray-500">
-            Bạn chưa tạo bất kỳ cộng đồng nào.
-          </p>
-        )}
-
-        {/* Loading lần đầu */}
-        {isLoading && page === 1 && (
-          <div className="grid grid-cols-2 ml:grid-cols-3 gap-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <CommunityCardSkeleton key={`more-${i}`} />
-            ))}
-          </div>
-        )}
-
+    <div className="grid grid-cols-12 max-h-[calc(100vh-60px)] overflow-y-auto">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10 min-h-[calc(100vh-120px)]">
         {/*  */}
         {allCommunities.length > 0 && (
-          <div className="grid grid-cols-2 ml:grid-cols-3 gap-3">
-            {sortCommunity(allCommunities).map((community) => (
-              <CommunityCard
-                key={community._id}
-                community={community}
-                onTogglePinned={onPinnedCommunity}
+          <div className="mb-4 flex items-center justify-between sticky top-0 z-10 py-3 bg-white">
+            <div className="w-full lg:w-[40%]">
+              <SearchMain
+                size="sm"
+                value={searchVal}
+                onClear={() => setSearchVal("")}
+                onChange={setSearchVal}
               />
-            ))}
+            </div>
+
+            <div className="w-[50%] hidden md:block">
+              <Carousel setApi={setApi} className="w-[82%]">
+                <CarouselContent className="-ml-1">
+                  {carouselItems.map((_) => (
+                    <CarouselItem key={_} className="pl-1">
+                      <Card className="py-1 rounded-2xl border-gray-200">
+                        <CardContent className="flex items-center justify-center">
+                          <span className="text-[15px] font-medium">{_}</span>
+                        </CardContent>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="hidden lg:inline-flex" />
+                <CarouselNext className="hidden lg:inline-flex" />
+              </Carousel>
+            </div>
           </div>
         )}
 
-        {/* Loading khi load thêm */}
-        {isLoading && page > 1 ? (
-          <div className="grid grid-cols-3 gap-3 mt-3">
-            {Array.from({ length: 2 }).map((_, i) => (
-              <CommunityCardSkeleton key={`more-${i}`} />
-            ))}
-          </div>
-        ) : (
-          !!allCommunities.length && (
-            <div className="px-4 py-3">
-              <p
-                className={cn(
-                  "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
-                  total_page_ref.current <= page
-                    ? "text-gray-300 pointer-events-none cursor-default"
-                    : "",
-                )}
-                onClick={onSeeMore}
-              >
-                Xem thêm
-              </p>
+        <div>
+          {/*  */}
+          {!isLoading && allCommunities.length === 0 && page === 1 && (
+            <p className="mt-32 p-4 text-center text-gray-500">
+              Bạn chưa tạo bất kỳ cộng đồng nào.
+            </p>
+          )}
+
+          {/* Loading lần đầu */}
+          {isLoading && page === 1 && (
+            <div className="mt-4 grid grid-cols-2 ml:grid-cols-3 gap-3">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <CommunityCardSkeleton key={`more-${i}`} />
+              ))}
             </div>
-          )
-        )}
+          )}
+
+          {/*  */}
+          {allCommunities.length > 0 && (
+            <div className="grid grid-cols-2 ml:grid-cols-3 gap-3">
+              {sortCommunity(allCommunities).map((community) => (
+                <CommunityCard
+                  key={community._id}
+                  community={community}
+                  onTogglePinned={onPinnedCommunity}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Loading khi load thêm */}
+          {isLoading && page > 1 ? (
+            <div className="grid grid-cols-3 gap-3 mt-3">
+              {Array.from({ length: 2 }).map((_, i) => (
+                <CommunityCardSkeleton key={`more-${i}`} />
+              ))}
+            </div>
+          ) : (
+            !!allCommunities.length && (
+              <div className="py-3">
+                <p
+                  className={cn(
+                    "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
+                    total_page_ref.current <= page
+                      ? "text-gray-300 pointer-events-none cursor-default"
+                      : "",
+                  )}
+                  onClick={onSeeMore}
+                >
+                  Xem thêm
+                </p>
+              </div>
+            )
+          )}
+        </div>
       </div>
     </div>
   );

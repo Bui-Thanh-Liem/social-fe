@@ -1,6 +1,11 @@
 import { BellIcon, Menu, MessageCircleMore, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useGetMe, useLogout } from "~/apis/useFetchAuth";
 import { Logo } from "~/components/Logo";
 import { SearchAdvanced } from "~/components/search-advanced/SearchAdvanced";
@@ -27,6 +32,7 @@ import { ResetPasswordForm } from "~/forms/ResetPasswordForm";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
 import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
 import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
+import { useBackLinkStore } from "~/store/useBackLinkStore";
 import { useChatBoxStore } from "~/store/useChatBoxStore";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
@@ -101,6 +107,7 @@ function AuthHeader() {
   );
 
   //
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   //
@@ -110,6 +117,7 @@ function AuthHeader() {
   //
   const { unread } = useUnreadNotiStore();
   const { open } = useChatBoxStore();
+  const { link, setLink } = useBackLinkStore();
   const { user, setUser } = useUserStore();
 
   //
@@ -141,7 +149,7 @@ function AuthHeader() {
       //
       if (resGetMe.statusCode === 200 && resGetMe?.metadata) {
         setUser(resGetMe.metadata);
-        navigate("/", { replace: true });
+        navigate(link || "/", { replace: true });
       }
     }
     if (["login", "signup"].includes(status)) onLoginOAuthSuccess();
@@ -194,6 +202,7 @@ function AuthHeader() {
 
   //
   async function onLogout() {
+    setLink(pathname);
     await logout.mutateAsync();
   }
 
@@ -203,10 +212,16 @@ function AuthHeader() {
   }
 
   //
+  function onClickLogin() {
+    setLink(pathname);
+    setIsOpenLogin(true);
+  }
+
+  //
   if (!user)
     return (
       <>
-        <ButtonMain size="sm" onClick={() => setIsOpenLogin(true)}>
+        <ButtonMain size="sm" onClick={onClickLogin}>
           Đăng nhập
         </ButtonMain>
 

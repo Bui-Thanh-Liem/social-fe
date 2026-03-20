@@ -270,7 +270,7 @@ export function TabContent({
 
       {/*  */}
       {!!notis.length && (
-        <div className="px-4 py-3">
+        <div className="pb-3">
           <p
             className={cn(
               "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",

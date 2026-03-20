@@ -9,6 +9,7 @@ import type {
 } from "~/shared/dtos/req/auth.dto";
 import type { ResLoginUser } from "~/shared/dtos/res/auth.dto";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
+import { useBackLinkStore } from "~/store/useBackLinkStore";
 import { useUserStore } from "~/store/useUserStore";
 import { apiCall } from "~/utils/callApi.util";
 import { deleteStoredClient } from "~/utils/deleteStoredClient";
@@ -58,6 +59,7 @@ export const useRegister = () => {
 export const useLogin = () => {
   const getMe = useGetMe();
   const { setUser } = useUserStore();
+  const { link } = useBackLinkStore();
   const navigate = useNavigate();
 
   return useMutation({
@@ -84,7 +86,7 @@ export const useLogin = () => {
         })();
 
         //
-        navigate("/", { replace: true });
+        navigate(link || "/", { replace: true });
       }
     },
   });
@@ -94,6 +96,7 @@ export const useLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const { clearUser } = useUserStore();
+  const { link } = useBackLinkStore();
   const navigate = useNavigate();
   const refresh_token = localStorage.getItem("refresh_token");
 
@@ -115,7 +118,7 @@ export const useLogout = () => {
         clearUser();
 
         //
-        navigate("/");
+        navigate(link || "/", { replace: true });
       }
     },
   });

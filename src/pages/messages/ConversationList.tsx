@@ -451,10 +451,10 @@ export function ConversationList({
           </div>
         ) : (
           !!allConversations.length && (
-            <div className="px-4 py-3">
+            <div className="pt-3">
               <p
                 className={cn(
-                  "inline-block text-sm leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
+                  "inline-block text-xs leading-snug font-semibold text-[#1d9bf0] cursor-pointer",
                   total_page_ref.current <= page
                     ? "text-gray-300 pointer-events-none cursor-default"
                     : "",

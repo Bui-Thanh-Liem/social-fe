@@ -89,11 +89,11 @@ export function CommunityPage() {
   }
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 max-h-[calc(100vh-60px)] overflow-y-auto">
       <div className="col-span-0 xl:col-span-2"></div>
       <div className="col-span-12 xl:col-span-10">
         {/* Header */}
-        <div className="pr-3">
+        <div className="pr-3 sticky top-0 z-50 bg-white">
           <div className="flex h-12 items-center gap-4">
             <div className="flex h-12 items-center gap-4">
               <WrapIcon onClick={() => navigate(-1)}>
@@ -121,7 +121,7 @@ export function CommunityPage() {
         </div>
 
         {/*  */}
-        <div className="max-h-[calc(100vh-114px)] overflow-y-auto">
+        <div>
           {/* Photo cover */}
           <div className="w-full h-60 border-b border-gray-100">
             {community?.cover ? (
@@ -212,7 +212,7 @@ export function CommunityPage() {
           {community?.visibility_type === EVisibilityType.Public ||
           community?.is_joined ? (
             <Tabs defaultValue={ETweetType.Tweet.toString()}>
-              <div className="bg-white sticky mt-4 top-0 z-50">
+              <div className="bg-white sticky mt-4 top-12 z-50">
                 <TabsList className="w-full">
                   <TabsTrigger
                     className="cursor-pointer"

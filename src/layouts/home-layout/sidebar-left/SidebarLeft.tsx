@@ -5,6 +5,8 @@ import {
   Search,
   Ship,
   Telescope,
+  UserRoundPlus,
+  UserRoundSearch,
   UsersRound,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -20,6 +22,7 @@ import { cn } from "~/lib/utils";
 import { CreateCommunity } from "~/pages/community/CreateCommunity";
 import { useReloadStore } from "~/store/useReloadStore";
 import { AccessRecent } from "./AccessRecent";
+import { explore_tab, joined_tab } from "~/pages/community/CommunitiesPage";
 
 export type NavItem = {
   name: string;
@@ -62,6 +65,7 @@ export function SidebarLeft() {
     },
   ];
 
+  //
   const cla = "flex gap-x-3 p-2 rounded-full hover:bg-gray-100 cursor-pointer";
   return (
     <>
@@ -106,18 +110,49 @@ export function SidebarLeft() {
                 Cộng đồng
               </AccordionTrigger>
               <AccordionContent className="pl-2">
-                <Link to="/communities" className={cla}>
+                <Link to={`/communities/t/${explore_tab}`} className={cla}>
                   <UsersRound size={20} />
                   <p
                     className={cn(
                       "text-[16px]",
-                      pathname.includes("/communities") && "font-semibold",
+                      pathname === `/communities/t/${explore_tab}` &&
+                        "font-semibold",
                     )}
                   >
-                    Cộng đồng
+                    Tất cả
                   </p>
                 </Link>
               </AccordionContent>
+
+              <AccordionContent className="pl-2">
+                <Link to="/communities" className={cla}>
+                  <UserRoundPlus size={20} />
+                  <p
+                    className={cn(
+                      "text-[16px]",
+                      pathname === "/communities" && "font-semibold",
+                    )}
+                  >
+                    Của tôi
+                  </p>
+                </Link>
+              </AccordionContent>
+
+              <AccordionContent className="pl-2">
+                <Link to={`/communities/t/${joined_tab}`} className={cla}>
+                  <UserRoundSearch size={20} />
+                  <p
+                    className={cn(
+                      "text-[16px]",
+                      pathname === `/communities/t/${joined_tab}` &&
+                        "font-semibold",
+                    )}
+                  >
+                    Đã tham gia
+                  </p>
+                </Link>
+              </AccordionContent>
+
               <AccordionContent className="pl-2">
                 <CreateCommunity />
               </AccordionContent>

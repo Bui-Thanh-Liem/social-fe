@@ -88,7 +88,7 @@ export function ProfilePage() {
   }
 
   return (
-    <div className="max-h-[calc(100vh-64px)] overflow-y-auto grid grid-cols-12">
+    <div className="max-h-[calc(100vh-60px)] overflow-y-auto grid grid-cols-12">
       <div className="col-span-0 xl:col-span-2"></div>
       <div className="col-span-12 xl:col-span-10">
         {/* Photo cover */}

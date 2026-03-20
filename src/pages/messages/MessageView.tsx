@@ -49,6 +49,7 @@ import { ParticipantList } from "./ParticipantList";
 //
 export function MessageView() {
   //
+  const navigate = useNavigate();
   const uploadId = useId();
   const { user } = useUserStore();
   const { onlUserIds } = useOnlStore();
@@ -243,16 +244,12 @@ export function MessageView() {
   //
   if (!conversation || !activeId)
     return (
-      <div className="h-full col-span-8 flex gap-5 flex-col items-center justify-center">
-        <div className="flex items-center gap-x-2">
-          <p className="text-2xl font-bold">Chào mừng đến với</p>
-          <Logo size={40} />
-        </div>
-        <p className="w-2/3 text-gray-400">
-          Trò chuyện cùng người thân, bạn bè được tối ưu hoá cho máy tính của
-          bạn. Nhắn tin nhiều hơn, soạn thảo ít hơn.
-        </p>
-        <img className="w-1/2" src="./message-view.png" alt="" />
+      <div className="h-[calc(100vh-60px)] col-span-8 flex gap-5 flex-col items-center justify-center">
+        <Logo size={80} />
+        <p className="text-gray-500">Trò chuyện cùng người thân, bạn bè, ...</p>
+        <ButtonMain onClick={() => navigate("/messages")}>
+          Trở về danh sách cuộc trò chuyện
+        </ButtonMain>
       </div>
     );
 

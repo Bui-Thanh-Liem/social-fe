@@ -63,11 +63,11 @@ export function TrendingPage() {
   const loading = isLoading || isFetching;
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 max-h-[calc(100vh-60px)] overflow-y-auto">
       <div className="col-span-0 xl:col-span-2"></div>
       <div className="col-span-12 xl:col-span-10">
         {/* Header */}
-        <div className="flex justify-between items-center border-b border-gray-100">
+        <div className="flex justify-between items-center border-b border-gray-100 sticky top-0 z-10 bg-white">
           <div className="flex h-12 items-center gap-2">
             <WrapIcon onClick={() => navigate(-1)}>
               <ArrowLeft color="#000" />
@@ -76,7 +76,7 @@ export function TrendingPage() {
           </div>
         </div>
 
-        <div className="max-h-[calc(100vh-110px)] overflow-y-auto">
+        <div>
           {/* Summary */}
           <div>
             <ul className="my-3 px-8 space-y-3 list-disc text-[14px]">

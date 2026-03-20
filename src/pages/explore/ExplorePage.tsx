@@ -6,10 +6,13 @@ import { WhoToFollows } from "./WhoToFollows";
 
 export function ExplorePage() {
   return (
-    <Tabs defaultValue="for-you" className="grid grid-cols-8">
+    <Tabs
+      defaultValue="for-you"
+      className="grid grid-cols-8 overflow-y-auto h-[calc(100vh-60px)] scrollbar-hide"
+    >
       <div className="col-span-0 xl:col-span-1"></div>
       <div className="col-span-8 xl:col-span-7">
-        <div className="overflow-y-auto h-[calc(100vh-68px)] scrollbar-hide">
+        <div className="">
           <TodayNews />
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 xl:col-span-8">

@@ -28,7 +28,7 @@ export function NotificationPage() {
   };
 
   return (
-    <div className="grid grid-cols-12">
+    <div className="grid grid-cols-12 overflow-y-auto h-[calc(100vh-60px)]">
       <div className="col-span-0 xl:col-span-2"></div>
       <div className="col-span-12 xl:col-span-10">
         <Tabs
@@ -89,10 +89,10 @@ export function NotificationPage() {
           </div>
 
           {/* Tab Content */}
-          <div className="pt-0 overflow-y-auto h-[calc(100vh-120px)] px-1">
+          <div className="px-1">
             <TabsContent
               value={`#${ENotificationType.Community}`}
-              className="px-0 py-4"
+              className="px-0"
             >
               <TabContent
                 type={ENotificationType.Community}
@@ -103,7 +103,7 @@ export function NotificationPage() {
 
             <TabsContent
               value={`#${ENotificationType.Mention_like}`}
-              className="px-0 py-4"
+              className="px-0"
             >
               <TabContent
                 type={ENotificationType.Mention_like}
@@ -113,7 +113,7 @@ export function NotificationPage() {
             </TabsContent>
             <TabsContent
               value={`#${ENotificationType.Follow}`}
-              className="px-0 py-4"
+              className="px-0"
             >
               <TabContent
                 type={ENotificationType.Follow}
@@ -122,10 +122,7 @@ export function NotificationPage() {
               />
             </TabsContent>
 
-            <TabsContent
-              value={`#${ENotificationType.Other}`}
-              className="px-0 py-4"
-            >
+            <TabsContent value={`#${ENotificationType.Other}`} className="px-0">
               <TabContent
                 type={ENotificationType.Other}
                 key={ENotificationType.Other}

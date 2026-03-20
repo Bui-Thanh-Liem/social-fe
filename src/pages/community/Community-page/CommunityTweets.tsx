@@ -125,7 +125,7 @@ export function CommunityTweets({
   const loading = isLoading || isFetching;
 
   return (
-    <div>
+    <div className="min-h-[calc(100vh-120px)]">
       {loading && page === 1 && <SkeletonTweet />}
 
       {/* Tweets list */}

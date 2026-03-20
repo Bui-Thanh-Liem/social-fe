@@ -34,6 +34,8 @@ import { AlgorithmWrap } from "~/pages/algorithm/algorithm-sort/AlgorithmWrap";
 import { FollowersFollowing } from "~/pages/followers-following/FollowersFollowing";
 import { AlgorithmSortPage } from "~/pages/algorithm/algorithm-sort/AlgorithmSortPage";
 import { CommunityPage } from "~/pages/community/Community-page/CommunityPage";
+import { CommunityOwnerPage } from "~/pages/community/CommunityOwnerPage";
+import { CommunityJoinedPage } from "~/pages/community/CommunityJoinedPage";
 
 export function HomeLayout() {
   const { pathname } = useLocation();
@@ -84,10 +86,10 @@ export function HomeLayout() {
               <Route path="explore" element={<ExplorePage />} />
 
               {/*  */}
-              <Route path="communities" element={<CommunitiesPage />} />
+              <Route path="communities" element={<CommunityOwnerPage />} />
               <Route
                 path={`communities/t/${joined_tab}`}
-                element={<CommunitiesPage />}
+                element={<CommunityJoinedPage />}
               />
               <Route
                 path={`communities/t/${explore_tab}`}
