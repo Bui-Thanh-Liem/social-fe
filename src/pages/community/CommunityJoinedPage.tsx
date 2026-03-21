@@ -23,6 +23,11 @@ const carouselItems = [
 ];
 
 export function CommunityJoinedPage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Cộng đồng đã tham gia";
+  }, []);
+
   //
   const [page, setPage] = useState(1);
   const [allCommunities, setAllCommunities] = useState<ICommunity[]>([]);

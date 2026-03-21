@@ -14,6 +14,11 @@ import { ListTweets } from "../../components/list-tweets/ListTweets";
 import { CommunityTweets } from "../community/Community-page/CommunityTweets";
 
 export function HomePage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Mạng xã hội (DEV)";
+  }, []);
+
   const { pathname, hash } = useLocation();
   const navigate = useNavigate();
 

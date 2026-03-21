@@ -7,6 +7,11 @@ import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { ErrorResponse } from "~/components/Error";
 
 export function BookmarkPage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Đánh dấu";
+  }, []);
+
   // State để quản lý pagination và data
   const [page, setPage] = useState(1);
   const [allTweets, setAllTweets] = useState<ITweet[]>([]);

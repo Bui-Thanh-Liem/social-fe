@@ -21,6 +21,11 @@ export const joined_tab = "joined";
 export const explore_tab = "explore";
 
 export function CommunitiesPage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Cộng đồng";
+  }, []);
+
   //
   const [searchVal, setSearchVal] = useState("");
   const searchValDebounce = useDebounce(searchVal || "", 500);

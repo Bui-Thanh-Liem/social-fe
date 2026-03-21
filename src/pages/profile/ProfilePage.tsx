@@ -20,6 +20,14 @@ import { ProfileTweets } from "./ProfileTweets";
 import { StarPrestige } from "./Star";
 
 export function ProfilePage() {
+  // Metadata
+  useEffect(() => {
+    document.title = username || CONSTANT_DEFAULT_TITLE_DOCUMENT;
+    return () => {
+      document.title = CONSTANT_DEFAULT_TITLE_DOCUMENT;
+    };
+  }, []);
+
   const { username } = useParams(); // Đặt tên params ở <App />
   const { user } = useUserStore();
   const { trigger } = useTriggerAccessRecentStore();
@@ -47,14 +55,6 @@ export function ProfilePage() {
       trigger(); // Gọi lại API khi username thay đổi
     }
   }, [username]);
-
-  //
-  useEffect(() => {
-    document.title = username || CONSTANT_DEFAULT_TITLE_DOCUMENT;
-    return () => {
-      document.title = CONSTANT_DEFAULT_TITLE_DOCUMENT;
-    };
-  }, []);
 
   //
   useEffect(() => {

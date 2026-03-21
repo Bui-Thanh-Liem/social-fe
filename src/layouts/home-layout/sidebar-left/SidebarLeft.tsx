@@ -40,8 +40,7 @@ export function SidebarLeft() {
   const { triggerReload } = useReloadStore();
 
   //
-  function onClickNav(path: string, name: string) {
-    if (path !== "/") document.title = name;
+  function onClickNav(path: string) {
     triggerReload();
     navigate(path);
   }
@@ -81,7 +80,7 @@ export function SidebarLeft() {
 
           return (
             <li key={x.name} className="cursor-pointer group relative">
-              <div onClick={() => onClickNav(x.path || "", x.name)}>
+              <div onClick={() => onClickNav(x.path || "")}>
                 <TypographyP
                   className={cn(
                     "text-[18px] p-3 py-2 group-hover:bg-gray-100 rounded-3xl flex items-center gap-3",

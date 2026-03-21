@@ -3,8 +3,14 @@ import { OutstandingThisWeek } from "./OutstandingThisWeek";
 import { TodayNews } from "./TodayNews";
 import { Trending } from "./Trending";
 import { WhoToFollows } from "./WhoToFollows";
+import { useEffect } from "react";
 
 export function ExplorePage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Khám phá";
+  }, []);
+
   return (
     <Tabs
       defaultValue="for-you"

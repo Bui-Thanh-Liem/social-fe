@@ -1,10 +1,18 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ButtonMain } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 
 export function AlgorithmSortPage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Thuật toán sắp xếp";
+  }, []);
+
+  //
   const navigate = useNavigate();
 
+  //
   const sortingAlgorithms = [
     {
       name: "Selection Sort",

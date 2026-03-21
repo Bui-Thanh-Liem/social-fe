@@ -6,6 +6,11 @@ import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { TabContent } from "./TabContent";
 
 export function NotificationPage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Thông báo";
+  }, []);
+
   //
   const { pathname, hash } = useLocation();
   const navigate = useNavigate();
