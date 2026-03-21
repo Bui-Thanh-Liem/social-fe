@@ -11,6 +11,11 @@ import { formatTimeAgo } from "~/utils/dateTime";
 import { ArrowLeft } from "lucide-react";
 
 export function TrendingPage() {
+  // Metadata
+  useEffect(() => {
+    document.title = "Thịnh hành";
+  }, []);
+
   const navigate = useNavigate();
   const { trendingItem } = useTrendingStore();
   const highlight = trendingItem?.highlight;

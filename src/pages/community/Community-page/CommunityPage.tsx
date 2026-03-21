@@ -33,6 +33,11 @@ export function CommunityPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
 
+  // Metadata
+  useEffect(() => {
+    document.title = slug ? `Cộng đồng ${slug}` : "Cộng đồng";
+  }, [slug]);
+
   //
   const { triggerReload } = useReloadStore();
   const { trigger } = useTriggerAccessRecentStore();

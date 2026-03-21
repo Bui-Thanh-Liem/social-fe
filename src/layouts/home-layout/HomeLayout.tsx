@@ -66,7 +66,7 @@ export function HomeLayout() {
 
   //
   return (
-    <div className="w-screen flex items-center justify-center">
+    <main className="w-screen flex items-center justify-center">
       <div className="w-full px-4 md:w-5/6 md:px-0">
         {/* Header */}
         <Header />
@@ -157,6 +157,6 @@ export function HomeLayout() {
         {/* Mobile Sidebar */}
         <AppSidebarMobile />
       </div>
-    </div>
+    </main>
   );
 }
