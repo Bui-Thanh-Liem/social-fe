@@ -7,7 +7,6 @@ import { VerifyIcon } from "../icons/verify";
 import { ShortInfoProfile } from "../ShortInfoProfile";
 import { AvatarMain } from "../ui/avatar";
 import { ButtonMain } from "../ui/button";
-import { handleResponse } from "~/utils/toast";
 
 export function UserToFollowItemSkeleton() {
   return (
@@ -52,7 +51,6 @@ export function UserToFollowItem({ user }: { user: Partial<IUser> }) {
       username: user.username || "",
     });
     if (res.statusCode === 200) setFollowed(!followed);
-    handleResponse(res);
   }
 
   //

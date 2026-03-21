@@ -1,14 +1,3 @@
-import { useEffect, useState } from "react";
-import { UpdateMeForm } from "~/forms/UpdateMeForm";
-import { ButtonMain } from "~/components/ui/button";
-import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/WrapIcon";
-import { useCreateConversation } from "~/apis/useFetchConversations";
-import { useFollowUser } from "~/apis/useFetchFollow";
-import { EConversationType } from "~/shared/enums/type.enum";
-import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useChatBoxStore } from "~/store/useChatBoxStore";
-import { handleResponse } from "~/utils/toast";
 import {
   BarChart3,
   Bookmark,
@@ -19,7 +8,16 @@ import {
   MessageCircleMore,
   UserPen,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import type { ChartData } from "recharts/types/state/chartDataSlice";
 import { useLogout } from "~/apis/useFetchAuth";
+import { useCreateConversation } from "~/apis/useFetchConversations";
+import { useFollowUser } from "~/apis/useFetchFollow";
+import { useCountViewLinkBookmarkInWeek } from "~/apis/useFetchTweet";
+import { ButtonMain } from "~/components/ui/button";
+import { DialogMain } from "~/components/ui/dialog";
 import {
   Drawer,
   DrawerContent,
@@ -28,10 +26,11 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "~/components/ui/drawer";
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
-import { useCountViewLinkBookmarkInWeek } from "~/apis/useFetchTweet";
-import type { ChartData } from "recharts/types/state/chartDataSlice";
-import { useNavigate } from "react-router-dom";
+import { WrapIcon } from "~/components/WrapIcon";
+import { UpdateMeForm } from "~/forms/UpdateMeForm";
+import { EConversationType } from "~/shared/enums/type.enum";
+import type { IUser } from "~/shared/interfaces/schemas/user.interface";
+import { useChatBoxStore } from "~/store/useChatBoxStore";
 
 interface IProfileActiveProps {
   isOwnProfile: boolean;
@@ -128,7 +127,6 @@ export function ProfileAction({
       username: profile.username || "",
     });
     if (res.statusCode === 200) setIsFollow(!isFollow);
-    handleResponse(res);
   }
 
   //
