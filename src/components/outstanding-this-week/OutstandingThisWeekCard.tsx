@@ -29,6 +29,9 @@ export function OutstandingThisWeekCard() {
   }, [location.hash]);
 
   //
+  if (!data?.metadata?.length) return null;
+
+  //
   return (
     <Card
       className={cn(

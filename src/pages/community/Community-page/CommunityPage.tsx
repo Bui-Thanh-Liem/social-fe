@@ -125,7 +125,6 @@ export function CommunityPage() {
           </div>
         </div>
 
-        {/*  */}
         <div>
           {/* Photo cover */}
           <div className="w-full h-60 border-b border-gray-100">

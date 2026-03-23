@@ -209,7 +209,7 @@ export function MediaTab() {
       {!loading && tweets.length === 0 && page === 1 && (
         <div className="text-center py-8">
           <p className="text-gray-500 text-lg mb-2">
-            Không có hình ảnh hoặc video nào phù hợp với <strong>"{q}"</strong>
+            Không có hình ảnh hoặc video phù hợp với <strong>"{q}"</strong>
           </p>
         </div>
       )}

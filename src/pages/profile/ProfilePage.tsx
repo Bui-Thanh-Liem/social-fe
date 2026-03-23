@@ -1,6 +1,6 @@
-import { Calendar, Globe, MapPin, X } from "lucide-react";
+import { ArrowLeft, Calendar, Globe, MapPin, X } from "lucide-react";
 import { useEffect, useMemo, useState, useTransition } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetOneByUsername, useResendVerifyEmail } from "~/apis/useFetchUser";
 import { ErrorResponse } from "~/components/Error";
 import { VerifyIcon } from "~/components/icons/verify";
@@ -18,6 +18,7 @@ import { ProfileLiked } from "./ProfileLiked";
 import { ProfileMedia } from "./ProfileMedia";
 import { ProfileTweets } from "./ProfileTweets";
 import { StarPrestige } from "./Star";
+import { WrapIcon } from "~/components/WrapIcon";
 
 export function ProfilePage() {
   // Metadata
@@ -27,6 +28,9 @@ export function ProfilePage() {
       document.title = CONSTANT_DEFAULT_TITLE_DOCUMENT;
     };
   }, []);
+
+  //
+  const navigate = useNavigate();
 
   const { username } = useParams(); // Đặt tên params ở <App />
   const { user } = useUserStore();
@@ -91,6 +95,19 @@ export function ProfilePage() {
     <div className="max-h-[calc(100vh-60px)] overflow-y-auto grid grid-cols-12">
       <div className="col-span-0 xl:col-span-2"></div>
       <div className="col-span-12 xl:col-span-10">
+        <div className="pr-3 sticky top-0 z-50 bg-white">
+          <div className="flex h-12 items-center gap-4">
+            <div className="flex h-12 items-center gap-4">
+              <WrapIcon onClick={() => navigate(-1)}>
+                <ArrowLeft color="#000" />
+              </WrapIcon>
+              <p className="font-semibold text-[20px] line-clamp-1">
+                {profile?.name}
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Photo cover */}
         <div className="relative w-full">
           <div className="w-full h-52">
@@ -212,7 +229,7 @@ export function ProfilePage() {
 
         {/* Tweets and media*/}
         <Tabs defaultValue={ETweetType.Tweet.toString()}>
-          <div className="bg-white sticky mt-4 top-0 z-50">
+          <div className="bg-white sticky mt-4 top-12 z-50">
             <TabsList className="w-full">
               <TabsTrigger
                 className="cursor-pointer"

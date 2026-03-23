@@ -1,10 +1,8 @@
-import { X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useGetTodayNews } from "~/apis/useFetchTrending";
 import { cn } from "~/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { WrapIcon } from "../WrapIcon";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
@@ -17,30 +15,20 @@ export function TodayNewsCard() {
     limit: "4",
   });
 
-  const location = useLocation();
-  const [open, setOpen] = useState(false);
-
+  //
   const news = useMemo(
     () => data?.metadata?.slice(0, 3) || [],
     [data?.metadata],
   );
 
-  useEffect(() => {
-    setOpen(window.location.hash !== "#news-today");
-  }, [location]);
+  //
+  if (!data?.metadata?.length) return null;
 
+  //
   return (
-    <Card
-      className={cn(
-        "w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2",
-        open ? "" : "hidden",
-      )}
-    >
+    <Card className={cn("w-full rounded-2xl py-0 pt-2 overflow-hidden gap-2")}>
       <CardHeader className="flex flex-row items-center justify-between px-4 mb-0">
         <CardTitle className="text-xl">Tin tức hôm nay</CardTitle>
-        <WrapIcon>
-          <X className="h-4 w-4" onClick={() => setOpen(false)} />
-        </WrapIcon>
       </CardHeader>
 
       <CardContent className="px-0">
