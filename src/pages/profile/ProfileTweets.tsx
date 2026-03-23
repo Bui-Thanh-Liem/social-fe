@@ -1,21 +1,19 @@
 import { useEffect, useRef, useState } from "react";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
-import { NotFoundTweet } from "~/components/list-tweets/NotFoundTweet";
 import { useGetProfileTweets } from "~/apis/useFetchTweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { ErrorResponse } from "~/components/state/Error";
+import { NotThing } from "~/components/state/NotThing";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { ErrorResponse } from "~/components/Error";
 
 export function ProfileTweets({
   ishl = "0",
   tweetType,
   profile_id,
-  isOwnProfile,
 }: {
   ishl?: "1" | "0";
   tweetType: ETweetType;
   profile_id: string;
-  isOwnProfile: boolean;
 }) {
   // State để quản lý pagination và data
   const [page, setPage] = useState(1);
@@ -166,9 +164,7 @@ export function ProfileTweets({
       )}
 
       {/* Empty state - chưa có data nhưng không phải total = 0 */}
-      {!loading && allTweets.length === 0 && page === 1 && (
-        <NotFoundTweet isOwn={isOwnProfile} />
-      )}
+      {!loading && allTweets.length === 0 && page === 1 && <NotThing />}
 
       {/* Observer element - invisible trigger cho infinite scroll */}
       <div ref={observerRef} className="h-10 w-full" />

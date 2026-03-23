@@ -1,4 +1,4 @@
-import { ButtonMain } from "./ui/button";
+import { ButtonMain } from "../ui/button";
 
 export function ErrorResponse({ onRetry }: { onRetry: () => void }) {
   return (

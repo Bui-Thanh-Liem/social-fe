@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchTweets } from "~/apis/useFetchSearch";
-import { ErrorResponse } from "~/components/Error";
+import { ErrorResponse } from "~/components/state/Error";
+import { NotThing } from "~/components/state/NotThing";
 import { Card, CardContent } from "~/components/ui/card";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 
@@ -143,7 +144,7 @@ export function MediaTab() {
   return (
     <div className="overflow-y-auto">
       {/* Loading state cho lần load đầu tiên */}
-      {loading && page === 1 && (
+      {loading && (
         <div className="py-4">
           <div className="grid grid-cols-3 gap-4">
             {Array.from({ length: 6 }).map((_, index) => (
@@ -207,11 +208,10 @@ export function MediaTab() {
 
       {/* Empty state - chưa có data nhưng không phải total = 0 */}
       {!loading && tweets.length === 0 && page === 1 && (
-        <div className="text-center py-8">
-          <p className="text-gray-500 text-lg mb-2">
-            Không có hình ảnh hoặc video phù hợp với <strong>"{q}"</strong>
-          </p>
-        </div>
+        <NotThing
+          type="search"
+          description={`Không có hình ảnh hoặc video phù hợp với "${q}"`}
+        />
       )}
 
       {/* Observer element - invisible trigger cho infinite scroll */}

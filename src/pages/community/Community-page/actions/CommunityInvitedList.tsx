@@ -1,22 +1,23 @@
 import { ScrollText, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { VerifyIcon } from "~/components/icons/verify";
-import { AvatarMain } from "~/components/ui/avatar";
-import { DialogMain } from "~/components/ui/dialog";
-import { WrapIcon } from "~/components/WrapIcon";
 import {
   useDeleteInvitation,
   useGetMultiInvitations,
 } from "~/apis/useFetchCommunity";
+import { VerifyIcon } from "~/components/icons/verify";
+import { NotThing } from "~/components/state/NotThing";
+import { AvatarMain } from "~/components/ui/avatar";
+import { DialogMain } from "~/components/ui/dialog";
+import { WrapIcon } from "~/components/WrapIcon";
 import { cn } from "~/lib/utils";
 import type {
   ICommunity,
   ICommunityInvitation,
 } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { handleResponse } from "~/utils/toast";
 import { formatTimeUntil } from "~/utils/dateTime";
+import { handleResponse } from "~/utils/toast";
 
 export function CommunityInvitedList({ community }: { community: ICommunity }) {
   //
@@ -135,11 +136,7 @@ export function CommunityInvitedList({ community }: { community: ICommunity }) {
               )}
 
           {/*  */}
-          {!isLoading && invited.length === 0 && page === 1 && (
-            <p className="p-4 text-center text-gray-400">
-              Cộng đồng của bạn chưa mời ai
-            </p>
-          )}
+          {!isLoading && invited.length === 0 && page === 1 && <NotThing />}
         </div>
       </DialogMain>
     </>

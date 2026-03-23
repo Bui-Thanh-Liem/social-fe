@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSearchTweets } from "~/apis/useFetchSearch";
-import { ErrorResponse } from "~/components/Error";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { ErrorResponse } from "~/components/state/Error";
+import { NotThing } from "~/components/state/NotThing";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 
 export function TweetTab() {
@@ -163,11 +164,10 @@ export function TweetTab() {
 
       {/* Empty state - chưa có data nhưng không phải total = 0 */}
       {!loading && allTweets.length === 0 && page === 1 && (
-        <div className="text-center py-8">
-          <p className="text-gray-500 text-lg mb-2">
-            Không có bài viết phù hợp với <strong>"{q}"</strong>
-          </p>
-        </div>
+        <NotThing
+          type="search"
+          description={`Không có bài viết phù hợp với "${q}"`}
+        />
       )}
 
       {/* Observer element - invisible trigger cho infinite scroll */}

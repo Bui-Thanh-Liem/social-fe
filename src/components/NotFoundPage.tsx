@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NotFound: React.FC = () => {
+export const NotFoundPage: React.FC = () => {
   return (
     <div className="min-h-screen w-screen bg-black flex items-center justify-center p-5 overflow-hidden font-sans text-[#e7e9ea]">
       <div className="text-center max-w-[600px]">
@@ -60,5 +60,3 @@ const NotFound: React.FC = () => {
     </div>
   );
 };
-
-export default NotFound;

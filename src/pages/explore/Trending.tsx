@@ -2,6 +2,7 @@ import { Annoyed, Ellipsis } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useGetTrending, useReportTrending } from "~/apis/useFetchTrending";
+import { NotThing } from "~/components/state/NotThing";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -170,6 +171,7 @@ export function Trending() {
         {trending?.map((item, idx) => (
           <TrendingItem key={item._id} item={item} idx={idx + 1} />
         ))}
+
         {/*  */}
         {isLoading
           ? Array.from({ length: 8 }).map((_, i) => (
@@ -191,11 +193,7 @@ export function Trending() {
               </div>
             )}
 
-        {!trending.length && !isLoading && (
-          <div className="flex justify-center items-center mt-20">
-            <p className="text-gray-400">Chưa có sự từ khóa nổi bật</p>
-          </div>
-        )}
+        {!trending.length && !isLoading && <NotThing />}
       </div>
       <div className="h-2"></div>
     </div>

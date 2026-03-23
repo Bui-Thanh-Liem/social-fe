@@ -20,6 +20,7 @@ import { ETweetStatus } from "~/shared/enums/status.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
+import { NotThing } from "~/components/state/NotThing";
 
 export function TweetApproveSkeleton() {
   return (
@@ -232,9 +233,7 @@ export function CommunityApprove({
               )}
 
           {/*  */}
-          {!isLoading && tweets.length === 0 && page === 1 && (
-            <p className="p-4 text-center text-gray-400">Chưa có bài viết</p>
-          )}
+          {!isLoading && tweets.length === 0 && page === 1 && <NotThing />}
         </div>
       </DialogMain>
     </>

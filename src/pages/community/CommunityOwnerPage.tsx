@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { useGetMultiCommunitiesOwner } from "~/apis/useFetchCommunity";
+import { NotThing } from "~/components/state/NotThing";
 import { Card, CardContent } from "~/components/ui/card";
 import {
   Carousel,
@@ -10,11 +12,13 @@ import {
 } from "~/components/ui/carousel";
 import { SearchMain } from "~/components/ui/search";
 import { useDebounce } from "~/hooks/useDebounce";
-import { useGetMultiCommunitiesOwner } from "~/apis/useFetchCommunity";
 import { cn } from "~/lib/utils";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
-import { CommunityCard, CommunityCardSkeleton } from "./CommunityCard";
+import {
+  CommunityShortRow,
+  CommunityShortRowSkeleton,
+} from "./CommunityShortRow";
 
 const carouselItems = [
   "Tất cả",
@@ -58,7 +62,7 @@ export function CommunityOwnerPage() {
 
   //
   const { data, isLoading } = useGetMultiCommunitiesOwner({
-    limit: "10",
+    limit: "20",
     qe: debouncedCarouselVal,
     page: page.toString(),
     q: debouncedSearchVal,
@@ -147,25 +151,23 @@ export function CommunityOwnerPage() {
         <div>
           {/*  */}
           {!isLoading && allCommunities.length === 0 && page === 1 && (
-            <p className="mt-32 p-4 text-center text-gray-500">
-              Bạn chưa tạo bất kỳ cộng đồng nào.
-            </p>
+            <NotThing />
           )}
 
           {/* Loading lần đầu */}
           {isLoading && page === 1 && (
-            <div className="mt-4 grid grid-cols-2 ml:grid-cols-3 gap-3">
+            <div className="mt-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
               {Array.from({ length: 6 }).map((_, i) => (
-                <CommunityCardSkeleton key={`more-${i}`} />
+                <CommunityShortRowSkeleton key={`more-${i}`} />
               ))}
             </div>
           )}
 
           {/*  */}
           {allCommunities.length > 0 && (
-            <div className="grid grid-cols-2 ml:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               {sortCommunity(allCommunities).map((community) => (
-                <CommunityCard
+                <CommunityShortRow
                   key={community._id}
                   community={community}
                   onTogglePinned={onPinnedCommunity}
@@ -176,9 +178,9 @@ export function CommunityOwnerPage() {
 
           {/* Loading khi load thêm */}
           {isLoading && page > 1 ? (
-            <div className="grid grid-cols-3 gap-3 mt-3">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-3">
               {Array.from({ length: 2 }).map((_, i) => (
-                <CommunityCardSkeleton key={`more-${i}`} />
+                <CommunityShortRowSkeleton key={`more-${i}`} />
               ))}
             </div>
           ) : (

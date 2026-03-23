@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useSearchUsers } from "~/apis/useFetchSearch";
+import { NotThing } from "~/components/state/NotThing";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
 } from "~/components/who-to-follow/WhoToFollowItem";
-import { useSearchUsers } from "~/apis/useFetchSearch";
 import { cn } from "~/lib/utils";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 
@@ -90,11 +91,10 @@ export function PeopleTab() {
 
       {/*  */}
       {!users.length && !loading && (
-        <div className="flex justify-center items-center h-20">
-          <p className="text-gray-500 text-lg text-center">
-            Không có người dùng phù hợp với <strong>"{q}"</strong>
-          </p>
-        </div>
+        <NotThing
+          type="search"
+          description={`Không có người dùng phù hợp với "${q}"`}
+        />
       )}
     </div>
   );

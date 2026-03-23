@@ -1,18 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetProfileTweets } from "~/apis/useFetchTweet";
-import { ErrorResponse } from "~/components/Error";
+import { ErrorResponse } from "~/components/state/Error";
+import { NotThing } from "~/components/state/NotThing";
 import { Card, CardContent } from "~/components/ui/card";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 
-export function ProfileMedia({
-  profile_id,
-  isOwnProfile,
-}: {
-  profile_id: string;
-  isOwnProfile: boolean;
-}) {
+export function ProfileMedia({ profile_id }: { profile_id: string }) {
   //
   const navigate = useNavigate();
 
@@ -195,16 +190,7 @@ export function ProfileMedia({
       )}
 
       {/* Empty state - chưa có data nhưng không phải total = 0 */}
-      {!isLoading && tweets.length === 0 && page === 1 && (
-        <div className="text-center py-8">
-          <p className="text-gray-500 text-lg mb-2">📷 Chưa có media nào</p>
-          <p className="text-gray-400">
-            {isOwnProfile
-              ? "Hãy đăng ảnh hoặc video để chúng xuất hiện ở đây!"
-              : "Người dùng chưa đăng bài viết."}
-          </p>
-        </div>
-      )}
+      {!isLoading && tweets.length === 0 && page === 1 && <NotThing />}
 
       {/* Observer element - invisible trigger cho infinite scroll */}
       <div ref={observerRef} className="h-10 w-full" />

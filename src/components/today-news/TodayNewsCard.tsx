@@ -2,11 +2,12 @@ import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useGetTodayNews } from "~/apis/useFetchTrending";
 import { cn } from "~/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
-} from "../TodayNewsOrOutstanding-item";
+} from "../TodayNewsOrOutstandingItem";
+import { NotThing } from "../state/NotThing";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export function TodayNewsCard() {
   //
@@ -54,11 +55,7 @@ export function TodayNewsCard() {
         )}
 
         {!news.length && !isLoading && (
-          <div className="pb-4 pl-4">
-            <p className="text-gray-400 text-[14px]">
-              Chưa có gì nổi bật hôm nay
-            </p>
-          </div>
+          <NotThing />
         )}
       </CardContent>
     </Card>

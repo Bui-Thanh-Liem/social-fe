@@ -1,12 +1,14 @@
+import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AvatarMain } from "~/components/ui/avatar";
-import { WrapIcon } from "~/components/WrapIcon";
 import {
   useDeleteNotification,
   useGetMultiByType,
   useReadNotification,
 } from "~/apis/useFetchNotifications";
+import { NotThing } from "~/components/state/NotThing";
+import { AvatarMain } from "~/components/ui/avatar";
+import { WrapIcon } from "~/components/WrapIcon";
 import { cn } from "~/lib/utils";
 import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
@@ -16,7 +18,6 @@ import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useNotificationSocket } from "~/socket/hooks/useNotificationSocket";
 import { formatTimeAgo } from "~/utils/dateTime";
 import { handleResponse } from "~/utils/toast";
-import { X } from "lucide-react";
 
 //
 type Props = {
@@ -157,13 +158,7 @@ function NotiItem({ noti, onClick, onDelete }: Props) {
 }
 
 // --- Tab Content ---
-export function TabContent({
-  type,
-  emptyText,
-}: {
-  type: ENotificationType;
-  emptyText: string;
-}) {
+export function TabContent({ type }: { type: ENotificationType }) {
   //
   const [notis, setNotis] = useState<INotification[]>([]);
   const [page, setPage] = useState(1);
@@ -262,10 +257,17 @@ export function TabContent({
 
       {/*  */}
       {!notis.length && !isLoading && (
-        <div className="flex justify-center flex-col items-center">
-          <p className="text-xl mb-1">Chưa có gì ở đây</p>
-          <p className="text-gray-400 w-80 lg:w-96 text-justify">{emptyText}</p>
-        </div>
+        <NotThing
+          description={
+            type === ENotificationType.Follow
+              ? "Bạn chưa có thông báo nào về người theo dõi mới"
+              : type === ENotificationType.Mention_like
+                ? "Bạn chưa có thông báo nào về lượt thích và đề cập mới"
+                : type === ENotificationType.Community
+                  ? "Bạn chưa có thông báo nào về hoạt động cộng đồng mới"
+                  : "Bạn chưa có thông báo nào"
+          }
+        />
       )}
 
       {/*  */}

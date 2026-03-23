@@ -102,7 +102,6 @@ export function NotificationPage() {
               <TabContent
                 type={ENotificationType.Community}
                 key={ENotificationType.Community}
-                emptyText="Tất cả các hoạt động lên quan đến cộng đồng sẽ xuất hiện tại đây."
               />
             </TabsContent>
 
@@ -113,7 +112,6 @@ export function NotificationPage() {
               <TabContent
                 type={ENotificationType.Mention_like}
                 key={ENotificationType.Mention_like}
-                emptyText="Từ lượt thích đến lượt đăng lại và nhiều hơn thế nữa, đây chính là nơi diễn ra mọi hoạt động."
               />
             </TabsContent>
             <TabsContent
@@ -123,7 +121,6 @@ export function NotificationPage() {
               <TabContent
                 type={ENotificationType.Follow}
                 key={ENotificationType.Follow}
-                emptyText="Những ai đang theo dõi bạn, đây chính là nơi diễn ra mọi hoạt động."
               />
             </TabsContent>
 
@@ -131,7 +128,6 @@ export function NotificationPage() {
               <TabContent
                 type={ENotificationType.Other}
                 key={ENotificationType.Other}
-                emptyText="Đây chính là nơi diễn ra mọi hoạt động khác."
               />
             </TabsContent>
           </div>

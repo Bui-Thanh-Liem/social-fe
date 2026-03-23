@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useGetTodayNews } from "~/apis/useFetchTrending";
+import { NotThing } from "~/components/state/NotThing";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
-} from "~/components/TodayNewsOrOutstanding-item";
+} from "~/components/TodayNewsOrOutstandingItem";
 import {
   Carousel,
   CarouselContent,
@@ -105,13 +106,7 @@ export function TodayNews() {
       </Carousel>
 
       {/*  */}
-      {!news.length && !isLoading && (
-        <div className="flex justify-center items-center h-20">
-          <p className="text-gray-400 text-[14px]">
-            Chưa có gì nổi bật hôm nay
-          </p>
-        </div>
-      )}
+      {!news.length && !isLoading && <NotThing />}
     </div>
   );
 }

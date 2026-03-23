@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetCommunityTweets } from "~/apis/useFetchTweet";
-import { ErrorResponse } from "~/components/Error";
+import { ErrorResponse } from "~/components/state/Error";
+import { NotThing } from "~/components/state/NotThing";
 import { Card, CardContent } from "~/components/ui/card";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 
@@ -187,10 +188,7 @@ export function CommunityMedia({ community_id }: { community_id: string }) {
 
       {/* Empty state - chưa có data nhưng không phải total = 0 */}
       {!isLoading && tweets.length === 0 && page === 1 && (
-        <div className="text-center py-8">
-          <p className="text-gray-500 text-lg mb-2">📷 Chưa có media nào</p>
-          <p className="text-gray-400">Chưa đăng bài viết</p>
-        </div>
+       <NotThing />
       )}
 
       {/* Observer element - invisible trigger cho infinite scroll */}

@@ -2,8 +2,9 @@ import { ArrowLeft, Calendar } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetOneCommunityBySlug } from "~/apis/useFetchCommunity";
-import { ErrorResponse } from "~/components/Error";
+import { ErrorResponse } from "~/components/state/Error";
 import { VerifyIcon } from "~/components/icons/verify";
+import { NotThing } from "~/components/state/NotThing";
 import { Tweet } from "~/components/tweet/Tweet";
 import { ButtonMain } from "~/components/ui/button";
 import { DialogMain } from "~/components/ui/dialog";
@@ -283,16 +284,7 @@ export function CommunityPage() {
         {isLoading && !data && <ProfileSkeleton />}
 
         {/*  */}
-        {(data?.statusCode === 404 || !community) && (
-          <div className="flex flex-col items-center justify-center h-96">
-            <h2 className="text-xl font-bold text-gray-600 mb-2">
-              Không tìm thấy cộng đồng.
-            </h2>
-            <p className="text-gray-500">
-              {slug} không tồn tại hoặc đã bị xóa.
-            </p>
-          </div>
-        )}
+        {(data?.statusCode === 404 || !community) && <NotThing />}
 
         {/*  */}
         {error && <ErrorResponse onRetry={() => refetch()} />}

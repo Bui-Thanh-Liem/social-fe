@@ -10,7 +10,7 @@ import { useGetMultiMMCommunityById } from "~/apis/useFetchCommunity";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { CommunityTag } from "../../CommunityCard";
+import { CommunityTag } from "../../CommunityShortRow";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const infoMap = {

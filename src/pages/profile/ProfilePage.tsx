@@ -2,11 +2,12 @@ import { ArrowLeft, Calendar, Globe, MapPin, X } from "lucide-react";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useGetOneByUsername, useResendVerifyEmail } from "~/apis/useFetchUser";
-import { ErrorResponse } from "~/components/Error";
 import { VerifyIcon } from "~/components/icons/verify";
+import { ErrorResponse } from "~/components/state/Error";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { WrapIcon } from "~/components/WrapIcon";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
 import { ETweetType } from "~/shared/enums/type.enum";
 import { useTriggerAccessRecentStore } from "~/store/useTriggerAccessRecentStore";
@@ -18,7 +19,6 @@ import { ProfileLiked } from "./ProfileLiked";
 import { ProfileMedia } from "./ProfileMedia";
 import { ProfileTweets } from "./ProfileTweets";
 import { StarPrestige } from "./Star";
-import { WrapIcon } from "~/components/WrapIcon";
 
 export function ProfilePage() {
   // Metadata
@@ -267,7 +267,6 @@ export function ProfilePage() {
             >
               <div className="space-y-4">
                 <ProfileTweets
-                  isOwnProfile={isOwnProfile}
                   tweetType={ETweetType.Tweet}
                   profile_id={profile?._id || ""}
                 />
@@ -280,7 +279,6 @@ export function ProfilePage() {
             >
               <div className="space-y-4">
                 <ProfileTweets
-                  isOwnProfile={isOwnProfile}
                   tweetType={ETweetType.Retweet}
                   profile_id={profile?._id || ""}
                 />
@@ -293,7 +291,6 @@ export function ProfilePage() {
             >
               <div className="space-y-4">
                 <ProfileTweets
-                  isOwnProfile={isOwnProfile}
                   tweetType={ETweetType.QuoteTweet}
                   profile_id={profile?._id || ""}
                 />
@@ -304,7 +301,6 @@ export function ProfilePage() {
               <div className="space-y-4">
                 <ProfileTweets
                   ishl={"1"}
-                  isOwnProfile={isOwnProfile}
                   tweetType={ETweetType.Tweet}
                   profile_id={profile?._id || ""}
                 />
@@ -313,10 +309,7 @@ export function ProfilePage() {
 
             <TabsContent value="media" className="px-0 py-4">
               <div className="space-y-4">
-                <ProfileMedia
-                  profile_id={profile?._id || ""}
-                  isOwnProfile={isOwnProfile}
-                />
+                <ProfileMedia profile_id={profile?._id || ""} />
               </div>
             </TabsContent>
 

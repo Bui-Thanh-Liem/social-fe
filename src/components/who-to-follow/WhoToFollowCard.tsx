@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
 import { cn } from "~/lib/utils";
+import { NotThing } from "../state/NotThing";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { UserToFollowItem, UserToFollowItemSkeleton } from "./WhoToFollowItem";
-import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
 
 export function WhoToFollowCard() {
   const { data, isLoading } = useGetTopFollowedUsers({
@@ -21,6 +22,8 @@ export function WhoToFollowCard() {
   useEffect(() => {
     setOpen(window.location.hash !== "#who-to-follow");
   }, [location.hash]);
+
+  if (!data?.metadata?.total) return null;
 
   //
   return (
@@ -58,11 +61,7 @@ export function WhoToFollowCard() {
 
         {/*  */}
         {!whoToFollows.length && !isLoading && (
-          <div className="pb-4 pl-4">
-            <p className="text-gray-400 text-[14px]">
-              Chưa có người dùng nổi bật
-            </p>
-          </div>
+          <NotThing description="Bạn đã theo dõi hết nhưng người dùng nổi bật" />
         )}
       </CardContent>
     </Card>

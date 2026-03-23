@@ -3,9 +3,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetDetailTweet, useGetTweetChildren } from "~/apis/useFetchTweet";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { NotThing } from "~/components/state/NotThing";
 import { Tweet } from "~/components/tweet/Tweet";
 import { TypingIndicator } from "~/components/TypingIndicator";
-import { ButtonMain } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { WrapIcon } from "~/components/WrapIcon";
 import { ETweetType } from "~/shared/enums/type.enum";
@@ -198,23 +198,7 @@ export function TweetDetailPage() {
         <CardContent className="h-[80vh] overflow-y-auto w-[94vw] lg:w-[54vw] bg-white px-1 lg:px-4">
           {isLoadingDetail && <SkeletonTweet />}
 
-          {(tweetDetail?.statusCode === 404 || !tweet) && (
-            <div className="flex flex-col items-center justify-center h-[calc(100vh-76px)] space-y-10">
-              <h2 className="text-xl font-bold text-gray-600 mb-2">
-                Không tìm thấy bài viết
-              </h2>
-              <p className="text-gray-500 text-center">
-                {tweetDetail?.message ||
-                  "Bài viết không tồn tại hoặc đã bị xóa"}
-              </p>
-
-              <div className="space-x-4">
-                <ButtonMain variant={"outline"} onClick={() => navigate(0)}>
-                  Tải lại
-                </ButtonMain>
-              </div>
-            </div>
-          )}
+          {(tweetDetail?.statusCode === 404 || !tweet) && <NotThing />}
 
           {/*  */}
           {tweet && (
@@ -242,28 +226,26 @@ export function TweetDetailPage() {
           <TypingIndicator show={!!newAuthorCmt} authorName={newAuthorCmt} />
 
           {/* COMMENTS */}
-          <div className="space-y-4">
-            {tweetComments?.length ? (
-              tweetComments.map((tw) => {
-                return (
-                  <TweetItem
-                    tweet={tw}
-                    key={tw._id}
-                    onSuccessDel={onDel}
-                    // isClickable={false}
-                  />
-                );
-              })
-            ) : isLoadingCmm ? (
-              <SkeletonTweet />
-            ) : (
-              <div className="flex h-24">
-                <p className="m-auto text-gray-400 text-sm">
-                  Chưa có bình luận
-                </p>
-              </div>
-            )}
-          </div>
+          {tweetDetail?.metadata && (
+            <div className="space-y-4">
+              {tweetComments?.length ? (
+                tweetComments.map((tw) => {
+                  return (
+                    <TweetItem
+                      tweet={tw}
+                      key={tw._id}
+                      onSuccessDel={onDel}
+                      // isClickable={false}
+                    />
+                  );
+                })
+              ) : isLoadingCmm ? (
+                <SkeletonTweet />
+              ) : (
+                <NotThing />
+              )}
+            </div>
+          )}
 
           {/* Loading more */}
           {isLoadingMore && (

@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
-import { NotFoundTweet } from "~/components/list-tweets/NotFoundTweet";
 import { useGetCommunityTweets } from "~/apis/useFetchTweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { ErrorResponse } from "~/components/state/Error";
+import { NotThing } from "~/components/state/NotThing";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { ErrorResponse } from "~/components/Error";
 
 export function CommunityTweets({
   q,
@@ -161,7 +161,7 @@ export function CommunityTweets({
       )}
 
       {/* Empty state - chưa có data nhưng không phải total = 0 */}
-      {!loading && allTweets.length === 0 && page === 1 && <NotFoundTweet />}
+      {!loading && allTweets.length === 0 && page === 1 && <NotThing />}
 
       {/* Observer element - invisible trigger cho infinite scroll */}
       <div ref={observerRef} className="h-10 w-full" />

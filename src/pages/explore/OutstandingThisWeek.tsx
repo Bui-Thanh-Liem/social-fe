@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useGetOutstandingThisWeek } from "~/apis/useFetchTrending";
+import { NotThing } from "~/components/state/NotThing";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
-} from "~/components/TodayNewsOrOutstanding-item";
-import { useGetOutstandingThisWeek } from "~/apis/useFetchTrending";
+} from "~/components/TodayNewsOrOutstandingItem";
 import { cn } from "~/lib/utils";
 import type { IResTodayNewsOrOutstanding } from "~/shared/dtos/res/trending.dto";
 import { toastSimple } from "~/utils/toast";
@@ -134,11 +135,7 @@ export function OutstandingThisWeek() {
             </div>
           )}
 
-      {!outstanding.length && !isLoading && (
-        <div className="flex justify-center items-center h-20">
-          <p className="text-gray-400">Chưa có sự kiện gì nổi bật</p>
-        </div>
-      )}
+      {!outstanding.length && !isLoading && <NotThing />}
     </>
   );
 }

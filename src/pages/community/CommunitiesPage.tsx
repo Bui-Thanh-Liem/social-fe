@@ -3,6 +3,7 @@ import {
   useGetAllCategories,
   useGetMultiCommunities,
 } from "~/apis/useFetchCommunity";
+import { NotThing } from "~/components/state/NotThing";
 import { Card, CardContent } from "~/components/ui/card";
 import {
   Carousel,
@@ -129,9 +130,7 @@ export function CommunitiesPage() {
         <div>
           {/*  */}
           {!isLoading && allCommunities.length === 0 && page === 1 && (
-            <p className="mt-32 p-4 text-center text-gray-500">
-              không tìm thấy cộng đồng.
-            </p>
+            <NotThing type="search" />
           )}
 
           {/* Loading lần đầu */}
@@ -145,7 +144,7 @@ export function CommunitiesPage() {
 
           {/*  */}
           {allCommunities.length > 0 && (
-            <div>
+            <div className="space-y-2">
               {sortCommunity(allCommunities)?.map((community) => (
                 <CommunityRow key={community._id} community={community} />
               ))}

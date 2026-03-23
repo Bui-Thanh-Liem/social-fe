@@ -7,7 +7,8 @@ import {
   useReadConversation,
   useTogglePinConversation,
 } from "~/apis/useFetchConversations";
-import { ErrorResponse } from "~/components/Error";
+import { ErrorResponse } from "~/components/state/Error";
+import { NotThing } from "~/components/state/NotThing";
 import { AvatarMain, GroupAvatarMain } from "~/components/ui/avatar";
 import {
   DropdownMenu,
@@ -408,9 +409,7 @@ export function ConversationList({
 
       {/*  */}
       {!isLoading && allConversations.length === 0 && page === 1 && !error && (
-        <p className="p-4 text-center text-gray-500">
-          Không có cuộc trò chuyện
-        </p>
+        <NotThing description="Bạn chưa có cuộc trò chuyện nào, hãy bắt đầu một cuộc trò chuyện mới!" />
       )}
 
       {/* Loading lần đầu */}

@@ -15,7 +15,7 @@ import { EMembershipType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { handleResponse } from "~/utils/toast";
-import { CommunityTag } from "./CommunityCard";
+import { CommunityTag } from "./CommunityShortRow";
 
 export function CommunityRow({
   community,
@@ -56,7 +56,10 @@ export function CommunityRow({
 
   //
   return (
-    <div key={community._id} className="hover:bg-gray-100 px-4 py-2 group">
+    <div
+      key={community._id}
+      className="bg-gray-50 hover:bg-gray-100 px-4 py-2 group rounded-xl"
+    >
       <div className="flex justify-between items-center">
         <div className="flex-1 gap-4 flex">
           <div>

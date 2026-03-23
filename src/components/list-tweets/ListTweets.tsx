@@ -2,15 +2,16 @@ import { ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetNewFeeds } from "~/apis/useFetchTweet";
-import { CommunityCard } from "~/pages/community/CommunityCard";
+import { cn } from "~/lib/utils";
+import { CommunityShortRow } from "~/pages/community/CommunityShortRow";
 import { EFeedType, ETweetType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useUserStore } from "~/store/useUserStore";
+import { ErrorResponse } from "../state/Error";
+import { NotThing } from "../state/NotThing";
 import { ButtonMain } from "../ui/button";
 import { SkeletonTweet, TweetItem } from "./ItemTweet";
-import { ErrorResponse } from "../Error";
-import { cn } from "~/lib/utils";
 
 export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
   const { user } = useUserStore();
@@ -34,33 +35,50 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
   useEffect(() => {
     if (data?.metadata?.items) {
       const newTweets = data.metadata.items as ITweet[];
-
-      // Chèn cộng đồng vào newFeeds
+      const extraData = data.metadata.extra?.items;
       const extraType = data.metadata.extra?.type;
-      const newCommunities = data.metadata.extra?.items as ICommunity[];
-      const _newCommunities = { type: extraType, extra: newCommunities } as any;
+
+      const combinedPageData: any[] = [...newTweets];
+
+      if (extraData && extraData.length > 0) {
+        const _newCommunities = {
+          type: extraType,
+          extra: extraData,
+          _isExtra: true, // Thêm flag để dễ nhận biết khi map
+          id: `extra-${page}-${Date.now()}`, // Key duy nhất
+        };
+
+        // TÍNH NGẪU NHIÊN:
+        // Chọn 1 vị trí ngẫu nhiên từ index 2 đến index (chiều dài mảng - 1)
+        // Công thức: Math.floor(Math.random() * (max - min + 1)) + min
+        const minPos = 2;
+        const maxPos = Math.max(minPos, newTweets.length - 2);
+        const randomPos =
+          Math.floor(Math.random() * (maxPos - minPos + 1)) + minPos;
+
+        combinedPageData.splice(randomPos, 0, _newCommunities);
+      }
 
       if (page === 1) {
-        // Nếu là trang đầu tiên, replace toàn bộ
-        setFeeds([...newTweets, _newCommunities]);
+        setFeeds(combinedPageData);
       } else {
-        // Nếu là trang tiếp theo, append vào cuối
         setFeeds((prev) => {
-          // Loại bỏ duplicate tweets dựa trên _id
-          const existingIds = new Set(prev.map((tweet) => tweet._id));
-          const filteredNewTweets = newTweets.filter(
-            (tweet) => !existingIds.has(tweet._id),
+          // Lọc trùng (chỉ lọc Tweet, bỏ qua các object Extra cũ)
+          const existingTweetIds = new Set(
+            prev
+              .filter((item) => !(item as { _isExtra?: boolean })?._isExtra)
+              .map((t) => t._id),
           );
-          return [...prev, _newCommunities, ...filteredNewTweets];
+
+          const filteredNewData = combinedPageData.filter(
+            (item) => item._isExtra || !existingTweetIds.has(item._id),
+          );
+
+          return [...prev, ...filteredNewData];
         });
       }
 
-      // Kiểm tra xem còn data để load không
-      if (newTweets.length < 10) {
-        // Nếu số tweets trả về ít hơn limit
-        setHasMore(false);
-      }
-
+      if (newTweets.length < 10) setHasMore(false);
       setIsLoadingMore(false);
     }
   }, [data, page]);
@@ -152,14 +170,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
       )}
 
       {/* Empty state */}
-      {!isLoading && !error && feeds.length === 0 && page === 1 && (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg mb-2">📭 Chưa có nội dung nào</p>
-          <p className="text-gray-400">
-            Hãy theo dõi thêm người dùng để xem nội dung của họ!
-          </p>
-        </div>
-      )}
+      {!isLoading && !error && feeds.length === 0 && page === 1 && <NotThing />}
 
       {/* Tweets list */}
       {feeds.length > 0 && (
@@ -188,7 +199,7 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
                     )}
                   >
                     {communities.map((com) => (
-                      <CommunityCard community={com} key={com._id} />
+                      <CommunityShortRow community={com} key={com._id} />
                     ))}
                     <Link
                       to={"/communities/t/explore"}
@@ -221,15 +232,6 @@ export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
       {!hasMore && feeds.length > 0 && user && (
         <div className="text-center py-8">
           <p className="text-gray-500">🎉 Bạn đã xem hết tất cả nội dung!</p>
-        </div>
-      )}
-
-      {/*  */}
-      {!user && (
-        <div className="text-center py-8">
-          <p className="text-gray-500">
-            🎉 Vui lòng đăng nhập để xem nội dung!
-          </p>
         </div>
       )}
     </div>

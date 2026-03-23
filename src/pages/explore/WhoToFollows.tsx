@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
+import { NotThing } from "~/components/state/NotThing";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
 } from "~/components/who-to-follow/WhoToFollowItem";
-import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
 import { cn } from "~/lib/utils";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 
@@ -105,9 +106,7 @@ export function WhoToFollows() {
 
       {/*  */}
       {!users.length && !isLoading && (
-        <div className="flex justify-center items-center h-20">
-          <p className="text-gray-400">Chưa có người dùng nổi bật</p>
-        </div>
+        <NotThing description="Bạn đã theo dõi hết nhưng người dùng nổi bật" />
       )}
     </>
   );

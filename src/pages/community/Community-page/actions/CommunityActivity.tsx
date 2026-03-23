@@ -6,6 +6,8 @@ import {
   UserPlus,
 } from "lucide-react";
 import { useState } from "react";
+import { useGetMultiActivities } from "~/apis/useFetchCommunity";
+import { NotThing } from "~/components/state/NotThing";
 import { DialogMain } from "~/components/ui/dialog";
 import {
   Item,
@@ -15,7 +17,6 @@ import {
   ItemTitle,
 } from "~/components/ui/item";
 import { WrapIcon } from "~/components/WrapIcon";
-import { useGetMultiActivities } from "~/apis/useFetchCommunity";
 import { EActivityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import { toastSimple } from "~/utils/toast";
@@ -96,6 +97,9 @@ export function CommunityActivity({ community }: { community: ICommunity }) {
               </Item>
             );
           })}
+
+          {/*  */}
+          {!activities.length && <NotThing />}
         </div>
       </DialogMain>
     </>

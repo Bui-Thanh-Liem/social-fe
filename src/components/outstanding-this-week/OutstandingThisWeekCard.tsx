@@ -2,10 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useGetOutstandingThisWeek } from "~/apis/useFetchTrending";
 import { cn } from "~/lib/utils";
+import { NotThing } from "../state/NotThing";
 import {
   TodayNewsOrOutstandingItem,
   TodayNewsOrOutstandingItemSkeleton,
-} from "../TodayNewsOrOutstanding-item";
+} from "../TodayNewsOrOutstandingItem";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 export function OutstandingThisWeekCard() {
@@ -65,11 +66,7 @@ export function OutstandingThisWeekCard() {
         )}
 
         {/*  */}
-        {!outstanding.length && !isLoading && (
-          <div className="pb-4 pl-4">
-            <p className="text-gray-400">Chưa có sự kiện gì nổi bật</p>
-          </div>
-        )}
+        {!outstanding.length && !isLoading && <NotThing />}
       </CardContent>
     </Card>
   );

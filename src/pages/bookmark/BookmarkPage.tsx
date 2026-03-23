@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useGetTweetBookmarked } from "~/apis/useFetchTweet";
+import { ErrorResponse } from "~/components/state/Error";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { NotThing } from "~/components/state/NotThing";
 import { SearchMain } from "~/components/ui/search";
 import { useDebounce } from "~/hooks/useDebounce";
-import { useGetTweetBookmarked } from "~/apis/useFetchTweet";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { ErrorResponse } from "~/components/Error";
 
 export function BookmarkPage() {
   // Metadata
@@ -174,16 +175,7 @@ export function BookmarkPage() {
           tweetLength === 0 &&
           page === 1 &&
           !searchVal &&
-          !error && (
-            <div className="text-center pt-20">
-              <p className="text-gray-500 text-lg mb-2">
-                📑 Chưa có bài viết nào được đánh dấu
-              </p>
-              <p className="text-gray-400">
-                Hãy đánh dấu một số bài viết để chúng xuất hiện ở đây!
-              </p>
-            </div>
-          )}
+          !error && <NotThing />}
 
         {!isLoading && tweetLength === 0 && page === 1 && searchVal && (
           <div className="text-center py-8">

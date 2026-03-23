@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useSearchCommunities } from "~/apis/useFetchSearch";
+import { NotThing } from "~/components/state/NotThing";
 import { UserToFollowItemSkeleton } from "~/components/who-to-follow/WhoToFollowItem";
 import { cn } from "~/lib/utils";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import { CommunityRow } from "../community/CommunityRow";
-import { useSearchCommunities } from "~/apis/useFetchSearch";
 
 export function CommunityTab() {
   const [searchParams] = useSearchParams();
@@ -85,11 +86,10 @@ export function CommunityTab() {
 
       {/*  */}
       {!communities.length && !loading && (
-        <div className="flex justify-center items-center h-20">
-          <p className="text-gray-500 text-lg text-center">
-            Không có cộng đồng phù hợp với <strong>"{q}"</strong>
-          </p>
-        </div>
+        <NotThing
+          type="search"
+          description={`Không có cộng đồng phù hợp với "${q}"`}
+        />
       )}
     </div>
   );

@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useGetMultiCommunities } from "~/apis/useFetchCommunity";
+import { useSearchTweets, useSearchUsers } from "~/apis/useFetchSearch";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { NotThing } from "~/components/state/NotThing";
 import {
   UserToFollowItem,
   UserToFollowItemSkeleton,
 } from "~/components/who-to-follow/WhoToFollowItem";
-import { useGetMultiCommunities } from "~/apis/useFetchCommunity";
-import { useSearchTweets, useSearchUsers } from "~/apis/useFetchSearch";
 import { cn } from "~/lib/utils";
+import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { CommunityRow, CommunityRowSkeleton } from "../community/CommunityRow";
-import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 
 export function TopTab() {
   const [searchParams] = useSearchParams();
@@ -195,11 +196,10 @@ export function TopTab() {
 
         {/*  */}
         {!users.length && !isLoading && (
-          <div className="flex justify-center items-center h-20">
-            <p className="text-gray-500 text-lg text-center">
-              Không có người dùng phù hợp với <strong>"{q}"</strong>
-            </p>
-          </div>
+          <NotThing
+            type="search"
+            description={`Không có người dùng phù hợp với "${q}"`}
+          />
         )}
       </div>
       <hr className="my-4" />
@@ -236,11 +236,10 @@ export function TopTab() {
 
         {/*  */}
         {!tweets.length && !loadingTweet && (
-          <div className="flex justify-center items-center h-20">
-            <p className="text-gray-500 text-lg">
-              Không có bài viết phù hợp với <strong>"{q}"</strong>
-            </p>
-          </div>
+          <NotThing
+            type="search"
+            description={`Không có bài viết phù hợp với "${q}"`}
+          />
         )}
       </div>
       <hr className="my-4" />
@@ -282,11 +281,10 @@ export function TopTab() {
 
         {/*  */}
         {!communities.length && !isLoadingCommunity && (
-          <div className="flex justify-center items-center h-20">
-            <p className="text-gray-500 text-lg">
-              Không có cộng đồng phù hợp với <strong>"{q}"</strong>
-            </p>
-          </div>
+          <NotThing
+            type="search"
+            description={`Không có cộng đồng phù hợp với "${q}"`}
+          />
         )}
       </div>
     </div>
