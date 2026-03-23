@@ -43,6 +43,7 @@ import { ActionLikeTweet } from "./ActionLikeTweet";
 import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
 import { ActionShared } from "./ActionShared";
 import { ContentExpanded } from "./Content";
+import { MediaEmbed } from "../embed/MediaEmbed";
 
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
@@ -257,10 +258,7 @@ export const TweetItem = ({
 
         {/* Embed Code */}
         {tweet.embed_code && isTweetMainOtherRetweet && (
-          <div
-            className="my-2 border rounded-xl flex items-center justify-center overflow-hidden [&_iframe]:w-full [&_iframe]:aspect-video"
-            dangerouslySetInnerHTML={{ __html: tweet.embed_code }}
-          />
+          <MediaEmbed url={tweet.embed_code} />
         )}
 
         {/* Medias content */}
@@ -326,10 +324,7 @@ export const TweetItem = ({
 
               {/* Embed Code */}
               {quoteTweet.embed_code && (
-                <div
-                  className="my-2 border rounded-xl flex items-center justify-center overflow-hidden [&_iframe]:w-full [&_iframe]:aspect-video"
-                  dangerouslySetInnerHTML={{ __html: quoteTweet.embed_code }}
-                />
+                <MediaEmbed url={quoteTweet.embed_code} />
               )}
 
               {/* Medias content */}

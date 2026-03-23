@@ -131,7 +131,6 @@ export function ProfilePage() {
 
             <ProfileAction profile={profile!} isOwnProfile={isOwnProfile} />
           </div>
-
           {/* <!-- Name and Username --> */}
           <div className="mb-3">
             <h2 className="text-xl font-bold flex items-center gap-1">
@@ -143,11 +142,10 @@ export function ProfilePage() {
 
           {/* <!-- Bio --> */}
           <div className="mb-3">
-            <p className="leading-relaxed whitespace-break-spaces text-sm md:text-base">
+            <p className="leading-relaxed whitespace-break-spaces text-sm md:text-base bg-sky-50 inline-block">
               {profile?.bio}
             </p>
           </div>
-
           {/* <!-- Location, Website and Join Date --> */}
           <div className="flex space-x-4 text-gray-500 text-sm mb-3 flex-col md:flex-row md:items-center">
             {profile?.location && (
@@ -178,7 +176,6 @@ export function ProfilePage() {
               </span>
             </div>
           </div>
-
           {/* <!-- Following and Followers --> */}
           <div className="flex items-center space-x-4 text-sm mb-4">
             <Link
@@ -197,7 +194,6 @@ export function ProfilePage() {
             </Link>
             <StarPrestige count={profile?.star || 0} />
           </div>
-
           {/* Verify email */}
           {isOwnProfile && isOpenVerify && (
             <div className="mt-4 mb-4 bg-green-100 border border-green-200 rounded-xl p-4 relative">

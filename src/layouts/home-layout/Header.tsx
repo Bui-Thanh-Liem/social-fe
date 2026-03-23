@@ -291,7 +291,7 @@ function AuthHeader() {
 
   return (
     <>
-      <header className="flex gap-x-5 xl:gap-x-7 items-center">
+      <div className="flex gap-x-5 xl:gap-x-7 items-center">
         <SearchAdvancedMobile />
 
         <ButtonMain
@@ -377,7 +377,7 @@ function AuthHeader() {
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
-      </header>
+      </div>
 
       {/*  */}
       <DialogMain

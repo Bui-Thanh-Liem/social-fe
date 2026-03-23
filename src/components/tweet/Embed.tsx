@@ -1,9 +1,8 @@
 import { Check, CodeXml, X } from "lucide-react";
 import { DialogMain } from "../ui/dialog";
 import { useState } from "react";
-import ReactCodeMirror, { EditorView } from "@uiw/react-codemirror";
-import { html } from "@codemirror/lang-html";
 import { WrapIcon } from "../WrapIcon";
+import { Input } from "../ui/input";
 
 export function Embed({
   value,
@@ -28,31 +27,25 @@ export function Embed({
         isLogo={false}
         open={isOpen}
         onOpenChange={setIsOpen}
-        textDesc="Nhập mã nhúng (embed code) từ YouTube, để hiển thị nội dung đa phương tiện trực tiếp trong bài viết của bạn."
+        textDesc="Nhập liên kết từ YouTube/Tiktok/Twitter"
       >
-        <ReactCodeMirror
-          theme="dark"
+        <Input
           value={value}
-          minHeight="80px"
-          maxHeight="400px"
-          onChange={(value) => onChange(value)}
-          extensions={[
-            html(),
-            EditorView.lineWrapping, // 🔥 QUAN TRỌNG
-          ]}
+          placeholder="https://youtu.be/gkFam1iYWf8?si=HxsXnilz08xbuTXz"
+          className="my-1"
+          onChange={(e) => onChange(e.target.value)}
         />
-        <div className="flex justify-end gap-x-2 mt-2 -mb-6 ">
+        <div className="flex justify-end gap-x-2 mt-2 -mb-6">
           <WrapIcon
             onClick={() => {
               onChange("");
               setIsOpen(!isOpen);
             }}
           >
-            {" "}
-            <X color="red" />
+            <X color="red" size={20} />
           </WrapIcon>
           <WrapIcon onClick={() => setIsOpen(false)}>
-            <Check color="#00BCFF" />
+            <Check color="#00BCFF" size={20} />
           </WrapIcon>
         </div>
       </DialogMain>

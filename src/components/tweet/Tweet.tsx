@@ -45,6 +45,7 @@ import { HashtagSuggest } from "./HashtagSuggest";
 import { Mentions } from "./Mentions";
 import { TweetCommunity } from "./TweetCommunity";
 import { Embed } from "./Embed";
+import { MediaEmbed } from "../embed/MediaEmbed";
 
 // Constants
 const DEFAULT_VALUES: CreateTweetDto = {
@@ -415,12 +416,7 @@ export function Tweet({
           <EditorCode codes={codes} onChangeCode={setCodes} />
 
           {/* Embed Code */}
-          {embedCode && (
-            <div
-              className="my-2 border rounded-xl flex items-center justify-center overflow-hidden [&_iframe]:w-full [&_iframe]:aspect-video"
-              dangerouslySetInnerHTML={{ __html: embedCode }}
-            />
-          )}
+          {embedCode && <MediaEmbed url={embedCode} />}
 
           {/* Hashtag Suggest */}
           <HashtagSuggest
