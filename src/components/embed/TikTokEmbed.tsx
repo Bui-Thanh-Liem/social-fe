@@ -22,9 +22,9 @@ export const TikTokEmbed: React.FC<{ url: string }> = ({ url }) => {
       data-video-id={videoId}
       className="tiktok-embed"
       cite={`https://www.tiktok.com/v/${videoId}`}
-      style={{ maxWidth: "605px", minWidth: "325px" }}
+      style={{ maxWidth: "605px" }}
     >
-      <section className="flex h-full justify-center items-center">
+      <section className="flex h-full w-full justify-center items-center">
         <a target="_blank" href={`https://www.tiktok.com/v/${videoId}`}>
           Đang tải video...
         </a>
