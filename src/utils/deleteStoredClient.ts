@@ -7,4 +7,5 @@ export function deleteStoredClient() {
   localStorage.removeItem("notifications");
   localStorage.removeItem("chatBox_storage");
   localStorage.removeItem("trending_storage");
+  localStorage.removeItem("back_link_storage");
 }

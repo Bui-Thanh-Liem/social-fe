@@ -17,6 +17,7 @@ import { useDebounce } from "~/hooks/useDebounce";
 import { cn } from "~/lib/utils";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import { CommunityRow, CommunityRowSkeleton } from "./CommunityRow";
+import { ErrorResponse } from "~/components/state/Error";
 
 export const joined_tab = "joined";
 export const explore_tab = "explore";
@@ -41,7 +42,7 @@ export function CommunitiesPage() {
 
   //
   const { data: cates } = useGetAllCategories();
-  const { data, isLoading } = useGetMultiCommunities({
+  const { data, isLoading, error, refetch } = useGetMultiCommunities({
     qe: cate,
     limit: "10",
     q: searchValDebounce || "",
@@ -129,8 +130,17 @@ export function CommunitiesPage() {
 
         <div>
           {/*  */}
-          {!isLoading && allCommunities.length === 0 && page === 1 && (
-            <NotThing type="search" />
+          {!isLoading &&
+            allCommunities.length === 0 &&
+            page === 1 &&
+            !error && <NotThing type="search" />}
+
+          {error && (
+            <ErrorResponse
+              onRetry={() => {
+                refetch();
+              }}
+            />
           )}
 
           {/* Loading lần đầu */}

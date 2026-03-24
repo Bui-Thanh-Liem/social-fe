@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useGetOutstandingThisWeek } from "~/apis/useFetchTrending";
+import { ErrorResponse } from "~/components/state/Error";
 import { NotThing } from "~/components/state/NotThing";
 import {
   TodayNewsOrOutstandingItem,
@@ -20,7 +21,7 @@ export function OutstandingThisWeek() {
   const countWarning = useRef(0);
 
   //
-  const { data, isLoading } = useGetOutstandingThisWeek(
+  const { data, isLoading, error, refetch } = useGetOutstandingThisWeek(
     {
       page: "1",
       limit: limit.toString(),
@@ -135,7 +136,9 @@ export function OutstandingThisWeek() {
             </div>
           )}
 
-      {!outstanding.length && !isLoading && <NotThing />}
+      {error && <ErrorResponse onRetry={() => refetch()} />}
+
+      {!outstanding.length && !isLoading && !error && <NotThing />}
     </>
   );
 }

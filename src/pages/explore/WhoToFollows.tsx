@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useGetTopFollowedUsers } from "~/apis/useFetchUser";
+import { ErrorResponse } from "~/components/state/Error";
 import { NotThing } from "~/components/state/NotThing";
 import {
   UserToFollowItem,
@@ -15,7 +16,7 @@ export function WhoToFollows() {
   const [users, setUsers] = useState<IUser[]>([]);
 
   const total_page_ref = useRef(0);
-  const { data, isLoading } = useGetTopFollowedUsers({
+  const { data, isLoading, error, refetch } = useGetTopFollowedUsers({
     page: page.toString(),
     limit: "10",
   });
@@ -104,8 +105,10 @@ export function WhoToFollows() {
             </div>
           )}
 
+      {error && <ErrorResponse onRetry={() => refetch()} />}
+
       {/*  */}
-      {!users.length && !isLoading && (
+      {!users.length && !isLoading && !error && (
         <NotThing description="Bạn đã theo dõi hết nhưng người dùng nổi bật" />
       )}
     </>

@@ -19,6 +19,7 @@ import { ProfileLiked } from "./ProfileLiked";
 import { ProfileMedia } from "./ProfileMedia";
 import { ProfileTweets } from "./ProfileTweets";
 import { StarPrestige } from "./Star";
+import { NotThing } from "~/components/state/NotThing";
 
 export function ProfilePage() {
   // Metadata
@@ -31,20 +32,19 @@ export function ProfilePage() {
 
   //
   const navigate = useNavigate();
-
   const { username } = useParams(); // Đặt tên params ở <App />
+
+  //
   const { user } = useUserStore();
   const { trigger } = useTriggerAccessRecentStore();
+
+  //
   const { data, refetch, isLoading, error } = useGetOneByUsername(username!);
+  const profile = data?.metadata;
   const apiResendVerifyEmail = useResendVerifyEmail();
 
   //
   const [isLoadingSendMail, startTransition] = useTransition();
-
-  // Extract profile data to avoid repetitive data?.metadata calls
-  const profile = data?.metadata;
-
-  //
   const [isOpenVerify, setOpenVerify] = useState(false);
 
   // Check if current user is viewing their own profile
@@ -90,6 +90,12 @@ export function ProfilePage() {
       handleResponse(res);
     });
   }
+
+  //
+  if (!profile)
+    return (
+      <NotThing description="Người dùng không tồn tại (hành động của bạn không phải người dùng bình thường)" />
+    );
 
   return (
     <div className="max-h-[calc(100vh-60px)] overflow-y-auto grid grid-cols-12">

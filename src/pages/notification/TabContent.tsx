@@ -6,6 +6,7 @@ import {
   useGetMultiByType,
   useReadNotification,
 } from "~/apis/useFetchNotifications";
+import { ErrorResponse } from "~/components/state/Error";
 import { NotThing } from "~/components/state/NotThing";
 import { AvatarMain } from "~/components/ui/avatar";
 import { WrapIcon } from "~/components/WrapIcon";
@@ -165,7 +166,7 @@ export function TabContent({ type }: { type: ENotificationType }) {
 
   //
   const total_page_ref = useRef(0);
-  const { data, isLoading, refetch } = useGetMultiByType({
+  const { data, isLoading, refetch, error } = useGetMultiByType({
     queries: { page: page.toString(), limit: "20" },
     type,
   });
@@ -256,7 +257,7 @@ export function TabContent({ type }: { type: ENotificationType }) {
         ))}
 
       {/*  */}
-      {!notis.length && !isLoading && (
+      {!notis.length && !isLoading && !error && (
         <NotThing
           description={
             type === ENotificationType.Follow
@@ -269,6 +270,8 @@ export function TabContent({ type }: { type: ENotificationType }) {
           }
         />
       )}
+
+      {error && <ErrorResponse onRetry={() => refetch()} />}
 
       {/*  */}
       {!!notis.length && (

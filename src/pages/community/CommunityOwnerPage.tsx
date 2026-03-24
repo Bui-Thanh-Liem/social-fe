@@ -19,6 +19,7 @@ import {
   CommunityShortRow,
   CommunityShortRowSkeleton,
 } from "./CommunityShortRow";
+import { ErrorResponse } from "~/components/state/Error";
 
 const carouselItems = [
   "Tất cả",
@@ -61,7 +62,7 @@ export function CommunityOwnerPage() {
   }, [api]);
 
   //
-  const { data, isLoading } = useGetMultiCommunitiesOwner({
+  const { data, isLoading, error, refetch } = useGetMultiCommunitiesOwner({
     limit: "20",
     qe: debouncedCarouselVal,
     page: page.toString(),
@@ -150,8 +151,17 @@ export function CommunityOwnerPage() {
 
         <div>
           {/*  */}
-          {!isLoading && allCommunities.length === 0 && page === 1 && (
-            <NotThing />
+          {!isLoading &&
+            allCommunities.length === 0 &&
+            page === 1 &&
+            !error && <NotThing />}
+
+          {error && (
+            <ErrorResponse
+              onRetry={() => {
+                refetch();
+              }}
+            />
           )}
 
           {/* Loading lần đầu */}

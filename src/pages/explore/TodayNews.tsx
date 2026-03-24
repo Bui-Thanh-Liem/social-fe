@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useGetTodayNews } from "~/apis/useFetchTrending";
+import { ErrorResponse } from "~/components/state/Error";
 import { NotThing } from "~/components/state/NotThing";
 import {
   TodayNewsOrOutstandingItem,
@@ -20,7 +21,7 @@ export function TodayNews() {
   const [news, setNews] = useState<IResTodayNewsOrOutstanding[]>([]);
 
   //
-  const { data, isLoading } = useGetTodayNews({
+  const { data, isLoading, error, refetch } = useGetTodayNews({
     page: "1",
     limit: "40",
   });
@@ -105,8 +106,10 @@ export function TodayNews() {
         <CarouselNext className="right-2 disabled:hidden" />
       </Carousel>
 
+      {error && <ErrorResponse onRetry={() => refetch()} />}
+
       {/*  */}
-      {!news.length && !isLoading && <NotThing />}
+      {!news.length && !isLoading && !error && <NotThing />}
     </div>
   );
 }

@@ -19,6 +19,7 @@ import {
   CommunityShortRow,
   CommunityShortRowSkeleton,
 } from "./CommunityShortRow";
+import { ErrorResponse } from "~/components/state/Error";
 
 const carouselItems = [
   "Tất cả",
@@ -60,7 +61,7 @@ export function CommunityJoinedPage() {
     });
   }, [api]);
 
-  const { data, isLoading } = useGetMultiCommunitiesJoined({
+  const { data, isLoading, error, refetch } = useGetMultiCommunitiesJoined({
     limit: "20",
     qe: debouncedCarouselVal,
     page: page.toString(),
@@ -149,8 +150,17 @@ export function CommunityJoinedPage() {
 
         <div>
           {/*  */}
-          {!isLoading && allCommunities.length === 0 && page === 1 && (
-            <NotThing />
+          {!isLoading &&
+            allCommunities.length === 0 &&
+            page === 1 &&
+            !error && <NotThing />}
+
+          {error && (
+            <ErrorResponse
+              onRetry={() => {
+                refetch();
+              }}
+            />
           )}
 
           {/* Loading lần đầu */}

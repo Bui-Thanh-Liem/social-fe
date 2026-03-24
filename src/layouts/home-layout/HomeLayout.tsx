@@ -36,6 +36,7 @@ import { AlgorithmSortPage } from "~/pages/algorithm/algorithm-sort/AlgorithmSor
 import { CommunityPage } from "~/pages/community/Community-page/CommunityPage";
 import { CommunityOwnerPage } from "~/pages/community/CommunityOwnerPage";
 import { CommunityJoinedPage } from "~/pages/community/CommunityJoinedPage";
+import { NotThing } from "~/components/state/NotThing";
 
 export function HomeLayout() {
   const { pathname } = useLocation();
@@ -124,6 +125,8 @@ export function HomeLayout() {
                 path=":username/followers"
                 element={<FollowersFollowing />}
               />
+
+              <Route path="*" element={<NotThing />} />
 
               {/* Nếu truy cập trực tiếp link thì render Detail tại đây */}
               {!backgroundLocation && (

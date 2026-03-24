@@ -2,6 +2,7 @@ import { Annoyed, Ellipsis } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useGetTrending, useReportTrending } from "~/apis/useFetchTrending";
+import { ErrorResponse } from "~/components/state/Error";
 import { NotThing } from "~/components/state/NotThing";
 import {
   DropdownMenu,
@@ -111,7 +112,7 @@ export function Trending() {
   const [trending, setTrending] = useState<ITrending[]>([]);
 
   const total_page_ref = useRef(0);
-  const { data, isLoading } = useGetTrending({
+  const { data, isLoading, error, refetch } = useGetTrending({
     page: page.toString(),
     limit: "20",
   });
@@ -193,7 +194,9 @@ export function Trending() {
               </div>
             )}
 
-        {!trending.length && !isLoading && <NotThing />}
+        {error && <ErrorResponse onRetry={() => refetch()} />}
+
+        {!trending.length && !isLoading && !error && <NotThing />}
       </div>
       <div className="h-2"></div>
     </div>
