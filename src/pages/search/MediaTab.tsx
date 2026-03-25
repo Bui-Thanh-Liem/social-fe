@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useSearchTweets } from "~/apis/useFetchSearch";
 import { ErrorResponse } from "~/components/state/Error";
 import { NotThing } from "~/components/state/NotThing";
@@ -9,6 +9,9 @@ import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 export function MediaTab() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  //
   const q = searchParams.get("q");
   const pf = searchParams.get("pf");
   const f = searchParams.get("f");
@@ -136,7 +139,9 @@ export function MediaTab() {
 
   //
   function onMediaClick(tweet: ITweet) {
-    navigate(`/tweet/${tweet._id}`);
+    navigate(`/tweet/${tweet._id}`, {
+      state: { backgroundLocation: location },
+    });
   }
 
   const loading = isLoading || isFetching;
