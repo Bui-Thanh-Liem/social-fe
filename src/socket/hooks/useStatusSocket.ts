@@ -8,7 +8,7 @@ export const useStatusSocket = (
   //
   useEffect(() => {
     socket.on("connect_error", (err) => {
-      console.error("❌ Socket connect error:", err.message);
+      // console.error("❌ Socket connect error:", err.message);
       socket.disconnect();
 
       if (err.message === "jwt expired") {

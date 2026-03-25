@@ -73,11 +73,9 @@ export function CommunityPage() {
   useEffect(() => {
     if (community?._id) {
       joinCommunity(community._id);
-      console.log("joinCommunity");
     }
     return () => {
       if (community?._id) {
-        console.log("joinCommunity");
         leaveCommunity(community._id);
       }
     };

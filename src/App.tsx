@@ -7,7 +7,7 @@ import { HomeLayout } from "./layouts/home-layout/HomeLayout";
 // Router config
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/*",
     element: <HomeLayout />,
     children: [
       {

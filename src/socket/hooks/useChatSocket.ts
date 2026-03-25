@@ -8,7 +8,7 @@ export const useChatSocket = (onNewMessage: (data: IMessage) => void) => {
   //
   useEffect(() => {
     socket.on("connect_error", (err) => {
-      console.error("❌ Socket connect error:", err.message);
+      // console.error("❌ Socket connect error:", err.message);
       socket.disconnect();
 
       if (err.message === "jwt expired") {
@@ -32,7 +32,7 @@ export const useChatSocket = (onNewMessage: (data: IMessage) => void) => {
   //
   const sendMessage = (data: sendMessageDto) => {
     if (!socket.connected) {
-      console.warn("⚠️ Socket chưa connect, không thể sendMessage");
+      // console.warn("⚠️ Socket chưa connect, không thể sendMessage");
       return;
     }
     socket.emit(CONSTANT_EVENT_NAMES.SEND_MESSAGE, data);

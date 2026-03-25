@@ -2,8 +2,11 @@ import { Bookmark } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useBookmarkTweet } from "~/apis/useFetchBookmark";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
+import { useUserStore } from "~/store/useUserStore";
+import { toastSimple } from "~/utils/toast";
 
 export function ActionBookmarkTweet({ tweet }: { tweet: ITweet }) {
+  const { user } = useUserStore();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const { mutate: toggleBookmark } = useBookmarkTweet();
 
@@ -14,6 +17,13 @@ export function ActionBookmarkTweet({ tweet }: { tweet: ITweet }) {
 
   //
   function handleBookmarked(e: { stopPropagation: () => void }) {
+    //
+    if (!user) {
+      toastSimple("Vui lòng đăng nhập");
+      return;
+    }
+
+    //
     e.stopPropagation();
     toggleBookmark(tweet._id);
     setIsBookmarked(!isBookmarked);

@@ -11,7 +11,7 @@ export const useConversationSocket = (
   //
   useEffect(() => {
     socket.on("connect_error", (err) => {
-      console.error("❌ Socket connect error:", err.message);
+      // console.error("❌ Socket connect error:", err.message);
       socket.disconnect();
 
       if (err.message === "jwt expired") {
@@ -54,7 +54,7 @@ export const useConversationSocket = (
   //
   const joinConversation = (ids: string[]) => {
     if (!socket.connected) {
-      console.warn("⚠️ Socket chưa connect, không thể join conversation");
+      // console.warn("⚠️ Socket chưa connect, không thể join conversation");
       return;
     }
     socket.emit(CONSTANT_EVENT_NAMES.JOIN_CONVERSATION, ids);
@@ -63,7 +63,7 @@ export const useConversationSocket = (
   //
   const leaveConversation = (ids: string[]) => {
     if (!socket.connected) {
-      console.warn("⚠️ Socket chưa connect, không thể leave conversation");
+      // console.warn("⚠️ Socket chưa connect, không thể leave conversation");
       return;
     }
     socket.emit(CONSTANT_EVENT_NAMES.LEAVE_CONVERSATION, ids);

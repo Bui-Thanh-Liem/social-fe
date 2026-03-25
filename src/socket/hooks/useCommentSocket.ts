@@ -7,7 +7,7 @@ export const useCommentSocket = (onNewComment: (tw: ITweet) => void) => {
   //
   useEffect(() => {
     socket.on("connect_error", (err) => {
-      console.error("❌ Socket connect error:", err.message);
+      // console.error("❌ Socket connect error:", err.message);
       socket.disconnect();
 
       if (err.message === "jwt expired") {
@@ -31,7 +31,7 @@ export const useCommentSocket = (onNewComment: (tw: ITweet) => void) => {
   //
   const joinComment = (id: string) => {
     if (!socket.connected) {
-      console.warn("⚠️ Socket chưa connect, không thể join Comment");
+      // console.warn("⚠️ Socket chưa connect, không thể join Comment");
       return;
     }
     socket.emit(CONSTANT_EVENT_NAMES.JOIN_COMMENT, id);
@@ -40,7 +40,7 @@ export const useCommentSocket = (onNewComment: (tw: ITweet) => void) => {
   //
   const leaveComment = (id: string) => {
     if (!socket.connected) {
-      console.warn("⚠️ Socket chưa connect, không thể leave Comment");
+      // console.warn("⚠️ Socket chưa connect, không thể leave Comment");
       return;
     }
     socket.emit(CONSTANT_EVENT_NAMES.LEAVE_COMMENT, id);

@@ -52,7 +52,6 @@ export function AccessRecent() {
 
   //
   useEffect(() => {
-    console.log("AccessRecent - state changed, refetching... State:", state);
     refetch();
   }, [state]);
 
