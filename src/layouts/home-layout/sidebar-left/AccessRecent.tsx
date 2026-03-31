@@ -92,7 +92,7 @@ export function AccessRecent() {
             return (
               <Link
                 key={x._id}
-                to={(ref as IUser).username || ""}
+                to={`/${(ref as IUser).username || ""}`}
                 className={cn(cla, "relative group")}
               >
                 <img
