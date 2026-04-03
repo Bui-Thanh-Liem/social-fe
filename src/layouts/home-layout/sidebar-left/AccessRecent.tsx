@@ -33,7 +33,7 @@ export function AccessRecent() {
   const apiDeleteAllAccessRecent = useDeleteAllAccessRecent();
   const { data, refetch } = useGetMultiAccessRecent({
     page: page.toString(),
-    limit: "5",
+    limit: "4",
   });
 
   // Mỗi lần fetch xong thì append thêm vào state
@@ -84,7 +84,7 @@ export function AccessRecent() {
       <AccordionTrigger className="cursor-pointer">
         Xem gần đây
       </AccordionTrigger>
-      <AccordionContent className="pl-2 max-h-96 overflow-y-auto">
+      <AccordionContent className="pl-2 max-h-60 overflow-y-auto">
         {accessRecent.map((x) => {
           const ref = x.detail;
 

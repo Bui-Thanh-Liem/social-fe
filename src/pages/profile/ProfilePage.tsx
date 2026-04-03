@@ -103,7 +103,7 @@ export function ProfilePage() {
       <div className="col-span-12 xl:col-span-10">
         <div className="pr-3 sticky top-0 z-50 bg-white">
           <div className="flex h-12 items-center gap-4">
-            <div className="flex h-12 items-center gap-4">
+            <div className="flex h-12 items-center gap-2">
               <WrapIcon onClick={() => navigate(-1)}>
                 <ArrowLeft color="#000" />
               </WrapIcon>

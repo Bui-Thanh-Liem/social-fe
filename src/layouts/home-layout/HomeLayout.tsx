@@ -154,7 +154,7 @@ export function HomeLayout() {
         </div>
 
         {/* Messages */}
-        {isOpen && <ChatBox />}
+        {isOpen && Boolean(user?._id) && <ChatBox />}
         <DetailAttachmentDrawer />
 
         {/* Mobile Sidebar */}
