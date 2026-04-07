@@ -34,7 +34,6 @@ import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
 import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
 import { useBackLinkStore } from "~/store/useBackLinkStore";
 import { useChatBoxStore } from "~/store/useChatBoxStore";
-import { useTriggerAccessRecentStore } from "~/store/useTriggerAccessRecentStore";
 import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
 import { useUserStore } from "~/store/useUserStore";
 import { playNotificationSound } from "~/utils/notificationSound";
@@ -116,7 +115,6 @@ function AuthHeader() {
   const logout = useLogout();
 
   //
-  const { trigger } = useTriggerAccessRecentStore();
   const { unread } = useUnreadNotiStore();
   const { open } = useChatBoxStore();
   const { link, setLink } = useBackLinkStore();
@@ -206,7 +204,6 @@ function AuthHeader() {
   async function onLogout() {
     setLink(pathname);
     await logout.mutateAsync();
-    trigger();
   }
 
   //

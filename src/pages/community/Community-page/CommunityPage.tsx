@@ -62,7 +62,7 @@ export function CommunityPage() {
     setCountTweetApprove(count);
   });
 
-  //
+  // Gọi lại API khi slug thay đổi
   useEffect(() => {
     if (slug) {
       trigger(); // Gọi lại API khi slug thay đổi

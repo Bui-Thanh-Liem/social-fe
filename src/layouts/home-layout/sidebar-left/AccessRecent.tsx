@@ -17,6 +17,7 @@ import type { IAccessRecent } from "~/shared/interfaces/schemas/access-recent.in
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useTriggerAccessRecentStore } from "~/store/useTriggerAccessRecentStore";
+import { useUserStore } from "~/store/useUserStore";
 import { handleResponse } from "~/utils/toast";
 
 export function AccessRecent() {
@@ -26,6 +27,7 @@ export function AccessRecent() {
   const total_page_ref = useRef(0);
 
   //
+  const { user } = useUserStore();
   const { state } = useTriggerAccessRecentStore();
 
   //
@@ -76,7 +78,7 @@ export function AccessRecent() {
   }
 
   //
-  if (accessRecent.length === 0) return null;
+  if (accessRecent.length === 0 || !user?._id) return null;
 
   const cla = "flex gap-x-3 p-2 rounded-full hover:bg-gray-100 cursor-pointer";
   return (
