@@ -11,9 +11,9 @@ import {
 } from "~/components/ui/select";
 import { EFeedType } from "~/shared/enums/type.enum";
 import { useReloadStore } from "~/store/useReloadStore";
-import { ListTweets } from "../../components/list-tweets/ListTweets";
+import { TweetsList } from "../../components/list-tweets/TweetsList";
 import { CommunityTweets } from "../community/Community-page/CommunityTweets";
-import { Reels } from "../../components/reel/Reels";
+import { ListReels } from "../../components/reel/ListReels";
 
 export function HomePage() {
   // Metadata
@@ -105,11 +105,11 @@ export function HomePage() {
         </Select>
 
         {/*  */}
-        <Reels />
+        <ListReels />
 
         {/* Scrollable Content */}
         {Object.values(EFeedType).includes(formatTypeText(hash)) ? (
-          <ListTweets feedType={formatTypeText(hash)} />
+          <TweetsList feedType={formatTypeText(hash)} />
         ) : (
           <div className="space-y-4">
             <CommunityTweets community_id={communityId} />

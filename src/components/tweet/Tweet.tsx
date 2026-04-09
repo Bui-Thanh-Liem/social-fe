@@ -33,7 +33,7 @@ import { useReloadStore } from "~/store/useReloadStore";
 import { useUserStore } from "~/store/useUserStore";
 import { handleResponse, toastSimple } from "~/utils/toast";
 import { BgColorTweet } from "./BgColorTweet";
-import { TweetItem } from "../list-tweets/ItemTweet";
+import { TweetItem } from "../list-tweets/TweetItem";
 import { TextColorTweet } from "./TextColorTweet";
 import { AvatarMain } from "../ui/avatar";
 import { ButtonMain } from "../ui/button";

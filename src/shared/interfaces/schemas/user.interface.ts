@@ -18,6 +18,7 @@ export interface IUser extends IBase {
   avatar?: IMediaBare;
   cover_photo?: IMediaBare;
   star?: number; // thể hiện độ uy tín
+  isPinnedReel?: boolean; // có ghim reel lên avatar không
 
   //
   follower_count?: number;

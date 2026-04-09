@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useGetTweetBookmarked } from "~/apis/useFetchTweet";
 import { ErrorResponse } from "~/components/state/Error";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/TweetItem";
 import { NotThing } from "~/components/state/NotThing";
 import { SearchMain } from "~/components/ui/search";
 import { useDebounce } from "~/hooks/useDebounce";

@@ -1,20 +1,18 @@
 import z from "zod";
 import { MediaBareDtoSchema } from "./common/media-bare.dto";
-import {
-  CONSTANT_MAX_LENGTH_CONTENT,
-  CONSTANT_REGEX,
-} from "~/shared/constants";
+import { CONSTANT_REGEX } from "~/shared/constants";
 import { EReelType } from "~/shared/enums/type.enum";
 import { EReelStatus } from "~/shared/enums/status.enum";
+import { CONSTANT_MAX_LENGTH_CONTENT_REEL } from "~/shared/constants/reel.constant";
 
 // Create Reel DTO
 export const CreateReelDtoSchema = z.object({
-  type: z.enum(EReelType),
+  type: z.nativeEnum(EReelType),
   content: z
     .string()
     .max(
-      CONSTANT_MAX_LENGTH_CONTENT,
-      `Nội dung tối đa ${CONSTANT_MAX_LENGTH_CONTENT} kí tự`,
+      CONSTANT_MAX_LENGTH_CONTENT_REEL,
+      `Nội dung tối đa ${CONSTANT_MAX_LENGTH_CONTENT_REEL} kí tự`,
     )
     .trim(),
 
@@ -26,9 +24,15 @@ export const CreateReelDtoSchema = z.object({
       }),
     )
     .optional(),
-  video: z.array(MediaBareDtoSchema).optional(),
-  status: z.enum(EReelStatus),
+  video: MediaBareDtoSchema.optional(),
+  status: z.nativeEnum(EReelStatus),
   isPinAvatar: z.boolean().default(false).optional(),
 });
 
+// Change status reel DTO
+export const ChangeStatusReelDtoSchema = z.object({
+  status: z.nativeEnum(EReelStatus),
+});
+
 export type CreateReelDto = z.infer<typeof CreateReelDtoSchema>;
+export type ChangeStatusReelDto = z.infer<typeof ChangeStatusReelDtoSchema>;

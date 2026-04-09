@@ -29,6 +29,7 @@ import { ForgotPasswordForm } from "~/forms/ForgotPasswordForm";
 import { LoginAccountForm } from "~/forms/LoginAccountForm";
 import { RegisterAccountForm } from "~/forms/RegisterAccountForm";
 import { ResetPasswordForm } from "~/forms/ResetPasswordForm";
+import { cn } from "~/lib/utils";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
 import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
 import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
@@ -351,7 +352,10 @@ function AuthHeader() {
               <AvatarMain
                 alt={user?.name}
                 src={user?.avatar?.url}
-                className="w-10 h-10"
+                className={cn(
+                  "w-10 h-10",
+                  user?.isPinnedReel ? "ring-2 ring-sky-400" : "",
+                )}
               />
             </button>
           </DropdownMenuTrigger>

@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMediaPreviewMulti } from "~/hooks/useMediaPreviewMulti";
 import { useTextareaAutoResize } from "~/hooks/useTextareaAutoResize";
-import { CONSTANT_MAX_LENGTH_CONTENT_REEL } from "~/shared/constants";
 import {
   CreateReelDtoSchema,
   type CreateReelDto,
@@ -24,6 +23,10 @@ import { WrapIcon } from "../WrapIcon";
 import { Plus, Volume2, VolumeX } from "lucide-react";
 import { Card } from "../ui/card";
 import { ButtonMain } from "../ui/button";
+import { CONSTANT_MAX_LENGTH_CONTENT_REEL } from "~/shared/constants/reel.constant";
+import { ReelType } from "./ReelType";
+import { Switch } from "../ui/switch";
+import { Label } from "../ui/label";
 
 // Constants
 const DEFAULT_VALUES: CreateReelDto = {
@@ -67,6 +70,12 @@ export function ReelPost({
   // Hashtag
   const [openHashtag, setOpenHashtag] = useState(false);
   const [searchHashtag, setSearchHashtag] = useState("");
+
+  // Reel type
+  const [type, setType] = useState<EReelType>(EReelType.Reel);
+
+  // Pin avatar
+  const [isPinAvatar, setIsPinAvatar] = useState(false);
 
   // Mentions
   const [mentionIds, setMentionIds] = useState<string[]>([]);
@@ -222,7 +231,7 @@ export function ReelPost({
     async (data: CreateReelDto) => {
       try {
         setIsUploading(true);
-        let medias: IMedia[] = [];
+        let media: IMedia | null = null;
 
         // Upload media first if file is selected and not already uploaded
         if (mediaItem.file) {
@@ -236,7 +245,7 @@ export function ReelPost({
               return;
             }
 
-            medias = resUploadMedia.metadata;
+            media = resUploadMedia.metadata[0];
           } catch (err) {
             toastSimple((err as { message: string }).message, "error");
             return;
@@ -249,15 +258,15 @@ export function ReelPost({
         // Chuẩn bị data để gửi lên API
         const reelData: CreateReelDto = {
           ...data,
+          type,
           hashtags,
-          type: EReelType.Reel,
+          isPinAvatar,
           content: data.content,
           mentions: mentionIds,
-          video:
-            medias.map((m) => ({
-              s3_key: m.s3_key || "",
-              url: m?.url || "",
-            })) || undefined,
+          video: {
+            s3_key: media?.s3_key || "",
+            url: media?.url || "",
+          },
         };
 
         const resCreateReel = await apiCreateReel.mutateAsync(reelData);
@@ -301,7 +310,7 @@ export function ReelPost({
         />
         <label htmlFor={inputId} className="cursor-pointer" title="Thêm video">
           {/*  */}
-          <Card className="p-0 overflow-hidden border-none relative group rounded-xl h-62 w-40 flex bg-gray-100">
+          <Card className="p-0 overflow-hidden border-none relative group rounded-xl h-64 w-40 flex bg-gray-100">
             {mediaItem ? (
               <>
                 <video
@@ -364,7 +373,19 @@ export function ReelPost({
         <div />
       </Mentions>
 
-      <div className="flex justify-end mt-4">
+      <div className="flex justify-between items-center mt-4">
+        <div className="flex items-center space-x-2">
+          <Switch
+            id="show_invite_list_for_mentor"
+            className="cursor-pointer"
+            checked={isPinAvatar}
+            onCheckedChange={(c) => {
+              setIsPinAvatar(c);
+            }}
+          />
+          <Label htmlFor="show_invite_list_for_mentor">Pin ảnh đại diện</Label>
+        </div>
+        <ReelType onChangeType={setType} />
         <ButtonMain
           type="submit"
           loading={isUploading}

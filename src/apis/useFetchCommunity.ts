@@ -400,7 +400,7 @@ export const useChangeStatusTweet = () => {
         method: "POST",
         body: JSON.stringify(payload),
       }),
-    onSuccess: async (_payload, { status }) => {
+    onSuccess: async (_, { status }) => {
       // Invalidate danh sách communities
       if (status !== ETweetStatus.Ready) {
         await queryClient.invalidateQueries({

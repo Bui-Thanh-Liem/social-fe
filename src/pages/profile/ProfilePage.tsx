@@ -20,6 +20,7 @@ import { ProfileMedia } from "./ProfileMedia";
 import { ProfileTweets } from "./ProfileTweets";
 import { StarPrestige } from "./Star";
 import { NotThing } from "~/components/state/NotThing";
+import { ProfileReels } from "./ProfileReels";
 
 export function ProfilePage() {
   // Metadata
@@ -230,33 +231,44 @@ export function ProfilePage() {
         </div>
 
         {/* Tweets and media*/}
-        <Tabs defaultValue={ETweetType.Tweet.toString()}>
+        <Tabs defaultValue="reels">
           <div className="bg-white sticky mt-4 top-12 z-50">
             <TabsList className="w-full">
+              {/*  */}
+              <TabsTrigger
+                className="cursor-pointer line-clamp-2"
+                value="reels"
+              >
+                Bản tin
+              </TabsTrigger>
+
+              {/*  */}
               <TabsTrigger
                 className="cursor-pointer"
                 value={ETweetType.Tweet.toString()}
               >
                 Bài viết
               </TabsTrigger>
+
+              {/*  */}
               <TabsTrigger
                 className="cursor-pointer"
                 value={ETweetType.Retweet.toString()}
               >
                 Đăng lại
               </TabsTrigger>
-              <TabsTrigger
-                className="cursor-pointer line-clamp-2"
-                value={ETweetType.QuoteTweet.toString()}
-              >
-                Đăng lại có trích dẫn
-              </TabsTrigger>
+
+              {/*  */}
               <TabsTrigger className="cursor-pointer" value="highlights">
                 Nổi bật
               </TabsTrigger>
+
+              {/*  */}
               <TabsTrigger className="cursor-pointer" value="media">
                 Hình ảnh/video
               </TabsTrigger>
+
+              {/*  */}
               {isOwnProfile && (
                 <TabsTrigger className="cursor-pointer" value="likes">
                   Đã thích
@@ -267,6 +279,7 @@ export function ProfilePage() {
 
           {/* Tab Content */}
           <div className="pt-0">
+            {/* Tweets Tab */}
             <TabsContent
               value={ETweetType.Tweet.toString()}
               className="px-0 py-4"
@@ -279,6 +292,7 @@ export function ProfilePage() {
               </div>
             </TabsContent>
 
+            {/* Retweets Tab */}
             <TabsContent
               value={ETweetType.Retweet.toString()}
               className="px-0 py-4"
@@ -291,18 +305,14 @@ export function ProfilePage() {
               </div>
             </TabsContent>
 
-            <TabsContent
-              value={ETweetType.QuoteTweet.toString()}
-              className="px-0 py-4"
-            >
+            {/* Reels Tab */}
+            <TabsContent value="reels" className="px-0 py-4">
               <div className="space-y-4">
-                <ProfileTweets
-                  tweetType={ETweetType.QuoteTweet}
-                  profile_id={profile?._id || ""}
-                />
+                <ProfileReels profile_id={profile?._id || ""} />
               </div>
             </TabsContent>
 
+            {/* Highlights Tab */}
             <TabsContent value="highlights" className="px-0 py-4">
               <div className="space-y-4">
                 <ProfileTweets
@@ -313,12 +323,14 @@ export function ProfilePage() {
               </div>
             </TabsContent>
 
+            {/* Media Tab */}
             <TabsContent value="media" className="px-0 py-4">
               <div className="space-y-4">
                 <ProfileMedia profile_id={profile?._id || ""} />
               </div>
             </TabsContent>
 
+            {/* Likes Tab */}
             {isOwnProfile && (
               <TabsContent value="likes" className="px-0 py-4">
                 <div className="space-y-4">

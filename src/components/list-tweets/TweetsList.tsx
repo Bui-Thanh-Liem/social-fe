@@ -11,9 +11,9 @@ import { useUserStore } from "~/store/useUserStore";
 import { ErrorResponse } from "../state/Error";
 import { NotThing } from "../state/NotThing";
 import { ButtonMain } from "../ui/button";
-import { SkeletonTweet, TweetItem } from "./ItemTweet";
+import { SkeletonTweet, TweetItem } from "./TweetItem";
 
-export const ListTweets = ({ feedType }: { feedType: EFeedType }) => {
+export const TweetsList = ({ feedType }: { feedType: EFeedType }) => {
   const { user } = useUserStore();
 
   // State để quản lý pagination và data

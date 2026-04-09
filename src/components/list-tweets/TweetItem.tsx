@@ -173,6 +173,7 @@ export const TweetItem = ({
   const navigate = useNavigate();
   const location = useLocation();
 
+  //
   const {
     _id,
     codes,
@@ -236,7 +237,10 @@ export const TweetItem = ({
         <AvatarMain
           src={author.avatar?.url}
           alt={author.name}
-          className="mr-3"
+          className={cn(
+            "mr-3",
+            author.isPinnedReel ? "ring-2 ring-sky-400" : "",
+          )}
         />
         <div>
           <ShortInfoProfile profile={tweet.user_id as unknown as IUser}>

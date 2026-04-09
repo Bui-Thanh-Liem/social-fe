@@ -7,6 +7,7 @@ import { VerifyIcon } from "./icons/verify";
 import { AvatarMain } from "./ui/avatar";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { StarPrestige } from "~/pages/profile/Star";
+import { cn } from "~/lib/utils";
 
 //
 function NameItemUser({ user }: { user: IUser }) {
@@ -52,7 +53,10 @@ export function ShortInfoProfile({
           <AvatarMain
             src={profile?.avatar?.url}
             alt={profile?.name}
-            className="mr-3 w-16 h-16"
+            className={cn(
+              "mr-3 w-16 h-16",
+              profile?.isPinnedReel ? "ring-3 ring-sky-400" : "",
+            )}
           />
           <StarPrestige count={profile?.star || 0} />
           {!isInfo && (

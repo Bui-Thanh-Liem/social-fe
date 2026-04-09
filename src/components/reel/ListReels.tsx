@@ -1,5 +1,5 @@
 import { Plus, Volume2, VolumeX } from "lucide-react";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "~/components/ui/card";
 import {
@@ -14,26 +14,110 @@ import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import { toastSimple } from "~/utils/toast";
 import { ShortInfoProfile } from "~/components/ShortInfoProfile";
 import { DialogMain } from "~/components/ui/dialog";
-import { ReelPost } from "./reelPost";
 import { useUserStore } from "~/store/useUserStore";
+import { ReelPost } from "./ReelPost";
+import { useGetNewFeeds } from "~/apis/useFetchReel";
+import { ErrorResponse } from "../state/Error";
+import { cn } from "~/lib/utils";
 
-export function Reels() {
-  const reels = Array.from({ length: 6 })?.map(
-    (_, index) =>
-      ({
-        id: `reel-${index}`,
-        video: {
-          url: "/335326.mp4",
-        },
-        user: {
-          avatar: { url: "/no-media.jpg", s3_key: "" },
-          name: "Default User",
-          username: "@liem_bui_thanh",
-        },
-      }) as any as IReel,
-  );
+export function ListReels() {
   //
   const { user } = useUserStore();
+
+  // State để quản lý pagination và data
+  const [page, setPage] = useState(1);
+  const [feeds, setFeeds] = useState<IReel[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  // Ref để theo dõi element cuối cùng
+  const observerRef = useRef<HTMLDivElement>(null);
+  const observerInstanceRef = useRef<IntersectionObserver | null>(null);
+
+  const { data, isLoading, error, refetch } = useGetNewFeeds({
+    page: page.toString(),
+    limit: "10", // Giảm limit để load nhanh hơn
+  });
+
+  // Effect để xử lý khi có data mới
+  useEffect(() => {
+    if (data?.metadata?.items) {
+      const newTweets = data.metadata.items as IReel[];
+
+      const combinedPageData: any[] = [...newTweets];
+
+      if (page === 1) {
+        setFeeds(combinedPageData);
+      } else {
+        setFeeds((prev) => {
+          // Lọc trùng (chỉ lọc Tweet, bỏ qua các object Extra cũ)
+          const existingTweetIds = new Set(
+            prev
+              .filter((item) => !(item as { _isExtra?: boolean })?._isExtra)
+              .map((t) => t._id),
+          );
+
+          const filteredNewData = combinedPageData.filter(
+            (item) => item._isExtra || !existingTweetIds.has(item._id),
+          );
+
+          return [...prev, ...filteredNewData];
+        });
+      }
+
+      if (newTweets.length < 10) setHasMore(false);
+      setIsLoadingMore(false);
+    }
+  }, [data, page]);
+
+  // Callback khi element cuối cùng xuất hiện trên viewport
+  const handleObserver = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const [entry] = entries;
+      console.log("Observer triggered, isIntersecting:", entry.isIntersecting);
+      if (
+        entry.isIntersecting &&
+        hasMore &&
+        !isLoading &&
+        !isLoadingMore &&
+        feeds.length > 0
+      ) {
+        console.log("Loading more tweets...");
+        setIsLoadingMore(true);
+        setPage((prev) => prev + 1);
+      }
+    },
+    [feeds?.length, hasMore, isLoading, isLoadingMore],
+  );
+
+  // Setup Intersection Observer
+  useEffect(() => {
+    const element = observerRef.current;
+    if (!element) {
+      console.error("observerRef is null, check if element is rendered");
+      return;
+    }
+
+    // Cleanup previous observer
+    if (observerInstanceRef.current) {
+      observerInstanceRef.current.disconnect();
+    }
+
+    // Create new observer
+    observerInstanceRef.current = new IntersectionObserver(handleObserver, {
+      threshold: 0, // Trigger when 0% of element is visible
+      rootMargin: "0px", // Start loading 0px before element comes into view
+    });
+
+    observerInstanceRef.current.observe(element);
+
+    // Cleanup function
+    return () => {
+      if (observerInstanceRef.current) {
+        observerInstanceRef.current.disconnect();
+      }
+    };
+  }, [handleObserver]);
 
   //
   const [isOpenAdd, setIsOpenAdd] = useState(false);
@@ -42,6 +126,8 @@ export function Reels() {
   function onClickAdd() {
     setIsOpenAdd(true);
   }
+
+  if (feeds.length === 0 && !isLoading) return null;
 
   return (
     <>
@@ -60,26 +146,49 @@ export function Reels() {
               {user?._id && (
                 <CarouselItem
                   key={"ssss"}
-                  className="basis-1/4 md:basis-1/5 lg:basis-1/6 pt-2 pb-2"
+                  className="basis-1/3 md:basis-1/4 lg:basis-1/5 pt-2 pb-2"
                 >
-                  <Card className="p-0 overflow-hidden border-none relative group rounded-xl h-full bg-gray-100">
+                  <Card className="p-0 overflow-hidden border-none relative group rounded-xl h-full bg-gray-50 border-4">
                     <CardContent
-                      className="h-full flex cursor-pointer"
+                      className="h-full flex cursor-pointer border-2 border-gray-200 m-.5 rounded-xl"
                       onClick={onClickAdd}
                     >
-                      <Plus className="m-auto" size={34} color="#333" />
+                      <Plus className="m-auto" size={34} color="#666" />
                     </CardContent>
                   </Card>
                 </CarouselItem>
               )}
-              {reels?.map((reel, index) => (
+
+              {/* Loading state cho lần load đầu tiên */}
+              {isLoading && page === 1 && <ReelItemSkeleton />}
+
+              {/* Error state */}
+              {error && (
+                <ErrorResponse
+                  onRetry={() => {
+                    setPage(1);
+                    setFeeds([]);
+                    setHasMore(true);
+                    window.location.reload();
+                  }}
+                />
+              )}
+
+              {/*  */}
+              {feeds?.map((reel, index) => (
                 <CarouselItem
                   key={index}
-                  className="basis-1/4 md:basis-1/5 lg:basis-1/6 pt-2 pb-2"
+                  className="basis-1/3 md:basis-1/4 lg:basis-1/5 pt-2 pb-2"
                 >
                   <ReelItem reel={reel} />
                 </CarouselItem>
               ))}
+
+              {/* Loading more indicator */}
+              {isLoadingMore && <ReelItemSkeleton />}
+
+              {/*  */}
+              <div ref={observerRef} className="h-10 w-1" />
             </CarouselContent>
             <CarouselPrevious className="left-2 disabled:hidden" />
             <CarouselNext className="right-2 disabled:hidden" />
@@ -88,13 +197,24 @@ export function Reels() {
       </div>
 
       <DialogMain isLogo={false} open={isOpenAdd} onOpenChange={setIsOpenAdd}>
-        <ReelPost />
+        <ReelPost
+          onSuccess={() => {
+            refetch();
+            setIsOpenAdd(false);
+          }}
+        />
       </DialogMain>
     </>
   );
 }
 
-export function ReelItem({ reel }: { reel: IReel }) {
+export function ReelItem({
+  reel,
+  className,
+}: {
+  reel: IReel;
+  className?: string;
+}) {
   const navigate = useNavigate();
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -122,7 +242,12 @@ export function ReelItem({ reel }: { reel: IReel }) {
   }
 
   return (
-    <Card className="p-0 overflow-hidden border-none relative group rounded-xl bg-gray-100">
+    <Card
+      className={cn(
+        "h-50 p-0 overflow-hidden border-none relative group rounded-xl bg-gray-100",
+        className,
+      )}
+    >
       <video
         ref={videoRef}
         src={reel.video.url}
@@ -131,7 +256,7 @@ export function ReelItem({ reel }: { reel: IReel }) {
         playsInline
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="w-full object-contain transition-all duration-500 ease-out 
+        className="w-full object-contain transition-all duration-500 ease-out my-auto 
                    hover:scale-[1.05] hover:-translate-y-1 cursor-pointer"
         onClick={onClick} // Ví dụ: click để xem chi tiết
       />
@@ -176,7 +301,7 @@ export function ReelItem({ reel }: { reel: IReel }) {
 
 export function ReelItemSkeleton() {
   return (
-    <Card className="p-0 overflow-hidden border-none relative group rounded-xl">
+    <Card className="p-0 h-50 overflow-hidden border-none relative group rounded-xl">
       {/* Video placeholder */}
       <div className="w-full h-[250px] bg-gray-200 animate-pulse relative">
         {/* Overlay nhẹ giống hover */}

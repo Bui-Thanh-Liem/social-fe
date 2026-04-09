@@ -23,7 +23,7 @@ export const useCreateTweet = () => {
   });
 };
 
-// ❌ DELETE - Xóa tweet mới
+// ❌ DELETE - Xóa tweet
 export const useDeleteTweet = () => {
   return useMutation({
     mutationFn: (tweet_id: string) =>

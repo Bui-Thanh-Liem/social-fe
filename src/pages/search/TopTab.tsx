@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useGetMultiCommunities } from "~/apis/useFetchCommunity";
 import { useSearchTweets, useSearchUsers } from "~/apis/useFetchSearch";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/TweetItem";
 import { NotThing } from "~/components/state/NotThing";
 import {
   UserToFollowItem,

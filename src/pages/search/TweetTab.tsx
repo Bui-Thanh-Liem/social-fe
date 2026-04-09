@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSearchTweets } from "~/apis/useFetchSearch";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/TweetItem";
 import { ErrorResponse } from "~/components/state/Error";
 import { NotThing } from "~/components/state/NotThing";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";

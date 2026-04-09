@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/TweetItem";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { WrapIcon } from "~/components/WrapIcon";
 import { useGetTweetsByIds } from "~/apis/useFetchTrending";

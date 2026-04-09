@@ -2,7 +2,7 @@ import { X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetDetailTweet, useGetTweetChildren } from "~/apis/useFetchTweet";
-import { SkeletonTweet, TweetItem } from "~/components/list-tweets/ItemTweet";
+import { SkeletonTweet, TweetItem } from "~/components/list-tweets/TweetItem";
 import { NotThing } from "~/components/state/NotThing";
 import { Tweet } from "~/components/tweet/Tweet";
 import { TypingIndicator } from "~/components/TypingIndicator";
@@ -33,7 +33,7 @@ export function TweetDetailPage() {
   const observerInstanceRef = useRef<IntersectionObserver | null>(null);
 
   //
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const typingTimeoutRef = useRef<any | null>(null);
   const { joinComment, leaveComment } = useCommentSocket((newComment) => {
     if (!newComment) return;
 
