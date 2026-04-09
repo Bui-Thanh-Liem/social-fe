@@ -36,7 +36,7 @@ import { CommunityPage } from "~/pages/public/community/Community-page/community
 import { CommunityOwnerPage } from "~/pages/public/community/community-owner-page";
 import { CommunityJoinedPage } from "~/pages/public/community/community-joined-page";
 import { NotThing } from "~/components/state/not-thing";
-import ChatBox from "~/pages/public/messages/chatbox";
+import ChatBox from "~/pages/public/messages/chat-box";
 
 export function HomeLayout() {
   const { pathname } = useLocation();

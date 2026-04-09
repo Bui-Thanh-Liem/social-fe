@@ -1,8 +1,8 @@
+import { UserPlus } from "lucide-react";
 import { useState } from "react";
-import { AddParticipantsForm } from "~/forms/add-participants-form";
-import { CreateGroupIcon } from "~/components/icons/create-group";
 import { DialogMain } from "~/components/ui/dialog";
 import { WrapIcon } from "~/components/wrap-icon";
+import { AddParticipantsForm } from "~/forms/add-participants-form";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 
 export function AddParticipants({
@@ -15,7 +15,7 @@ export function AddParticipants({
   return (
     <>
       <WrapIcon onClick={() => setIsOpen(true)} className="p-1.5">
-        <CreateGroupIcon size={22} />
+        <UserPlus size={22} />
       </WrapIcon>
 
       {/*  */}

@@ -20,7 +20,6 @@ import { WrapIcon } from "~/components/wrap-icon";
 import { useEmojiInsertion } from "~/hooks/useEmojiInsertion";
 import { useMediaPreviewMulti } from "~/hooks/useMediaPreviewMulti";
 import { useTextareaAutoResize } from "~/hooks/useTextareaAutoResize";
-import { cn } from "~/utils/cn.util";
 import { CONSTANT_MAX_LENGTH_TEXT } from "~/shared/constants";
 import type { IMessage } from "~/shared/interfaces/schemas/message.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
@@ -31,7 +30,8 @@ import { useChatBoxStore } from "~/store/useChatBoxStore";
 import { useOnlStore } from "~/store/useOnlStore";
 import { useUserStore } from "~/store/useUserStore";
 import { checkOnl } from "~/utils/check-onl.util";
-import { ConversationList } from "./conversation-list";
+import { cn } from "~/utils/cn.util";
+import { ConversationsList } from "./conversations-list";
 import { CreateConversation } from "./create-conversation";
 import { MessageItem, PreviewMediaMulti } from "./message-view";
 
@@ -191,7 +191,7 @@ export default function ChatBox() {
       <div className="flex">
         {/*  */}
         <div className="w-82 border-r px-3">
-          <ConversationList onclick={() => {}} className="max-h-[346px]" />
+          <ConversationsList onclick={() => {}} />
         </div>
 
         {/*  */}

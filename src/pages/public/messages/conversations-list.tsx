@@ -19,7 +19,6 @@ import {
 import { SearchMain } from "~/components/ui/search";
 import { WrapIcon } from "~/components/wrap-icon";
 import { useDebounce } from "~/hooks/useDebounce";
-import { cn } from "~/utils/cn.util";
 import { EConversationType } from "~/shared/enums/type.enum";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { IMessage } from "~/shared/interfaces/schemas/message.interface";
@@ -31,6 +30,7 @@ import { useConversationActiveStore } from "~/store/useConversationActiveStore";
 import { useOnlStore } from "~/store/useOnlStore";
 import { useUserStore } from "~/store/useUserStore";
 import { checkOnl } from "~/utils/check-onl.util";
+import { cn } from "~/utils/cn.util";
 import { formatTimeAgo } from "~/utils/date-time";
 
 //
@@ -229,11 +229,9 @@ function ConversationItem({
 }
 
 //
-export function ConversationList({
+export function ConversationsList({
   onclick,
-  className,
 }: {
-  className?: string;
   onclick: (conversation: IConversation | null) => void;
 }) {
   const { user } = useUserStore();
@@ -397,7 +395,11 @@ export function ConversationList({
 
   //
   return (
-    <div>
+    <div
+      className={cn(
+        "overflow-y-auto pt-2 max-h-[calc(100vh-80px)] md:h-96 md:max-h-96",
+      )}
+    >
       {/*  */}
       <div className="mb-3">
         <SearchMain
@@ -421,7 +423,7 @@ export function ConversationList({
         </div>
       )}
 
-      <div className={cn("overflow-y-auto", className)}>
+      <div>
         {/* List conversations */}
         {allConversations.length > 0 && (
           <div>
