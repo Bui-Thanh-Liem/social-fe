@@ -5,6 +5,11 @@ export enum ETweetType {
   QuoteTweet, // đăng lại và thêm được content của mình
 }
 
+export enum EReelType {
+  Reel,
+  Story, // đăng video nhưng chỉ tồn tại 24h
+}
+
 export enum ETokenType {
   AccessToken,
   RefreshToken,

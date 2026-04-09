@@ -54,9 +54,7 @@ export function TodayNewsCard() {
           </div>
         )}
 
-        {!news.length && !isLoading && (
-          <NotThing />
-        )}
+        {!news.length && !isLoading && <NotThing />}
       </CardContent>
     </Card>
   );

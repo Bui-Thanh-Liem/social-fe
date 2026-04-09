@@ -44,6 +44,7 @@ import { ActionRetweetQuoteTweet } from "./ActionRetweetQuoteTweet";
 import { ActionShared } from "./ActionShared";
 import { ContentExpanded } from "./Content";
 import { MediaEmbed } from "../embed/MediaEmbed";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 
 // Component cho Medias (Image hoặc Video)
 export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
@@ -53,7 +54,14 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
 
   return (
     <div className={cn("", tweet ? "cursor-pointer" : "")}>
-      <Carousel className="w-full">
+      <Carousel
+        plugins={[WheelGesturesPlugin()]}
+        opts={{
+          loop: true,
+          align: "start",
+        }}
+        className="w-full"
+      >
         <CarouselContent
           className="h-full cursor-grab"
           onDrag={(e) => {
@@ -102,21 +110,47 @@ export const MediaContent = ({ tweet }: { tweet: ITweet }) => {
 //
 export const SkeletonTweet = ({ count = 1 }: { count?: number }) => {
   return (
-    <div className="animate-pulse px-4 py-2">
+    <div className="flex flex-col gap-4 w-full">
       {Array.from({ length: count }, (_, index) => (
-        <div key={index} className="mb-6">
-          <div className="flex items-center mb-3">
-            <div className="w-10 h-10 bg-gray-200 rounded-full mr-3"></div>
-            <div>
-              <div className="h-4 bg-gray-200 rounded w-32 mb-1"></div>
-              <div className="h-3 bg-gray-200 rounded w-24"></div>
+        <div
+          key={index}
+          className="p-3 border border-gray-100 rounded-xl bg-white shadow-sm animate-pulse"
+        >
+          {/* Header: Avatar & Info */}
+          <div className="flex items-center mb-4">
+            <div className="w-12 h-12 bg-gray-200 rounded-full mr-3 shrink-0"></div>
+            <div className="flex-1 space-y-2">
+              <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+              <div className="h-3 bg-gray-200 rounded w-1/6"></div>
             </div>
+            <div className="w-8 h-8 bg-gray-100 rounded-full"></div>{" "}
+            {/* Nút Action */}
           </div>
-          <div className="w-full aspect-video bg-gray-200 rounded-lg mb-4"></div>
-          <div className="flex space-x-6">
-            <div className="h-3 bg-gray-200 rounded w-12"></div>
-            <div className="h-3 bg-gray-200 rounded w-12"></div>
-            <div className="h-3 bg-gray-200 rounded w-12"></div>
+
+          {/* Content: Text lines */}
+          <div className="space-y-2 mb-4 ml-0 md:ml-15">
+            <div className="h-3 bg-gray-200 rounded w-full"></div>
+            <div className="h-3 bg-gray-200 rounded w-[90%]"></div>
+            <div className="h-3 bg-gray-200 rounded w-[40%]"></div>
+          </div>
+
+          {/* Media Placeholder: Giả lập hình ảnh/video */}
+          <div className="w-full aspect-video bg-gray-200 rounded-2xl mb-4"></div>
+
+          {/* Engagement Bar: Giả lập các nút Like, Share, View */}
+          <div className="flex items-center justify-between pt-3 border-t border-gray-50">
+            <div className="flex space-x-8">
+              <div className="h-4 bg-gray-100 rounded w-8"></div>{" "}
+              {/* Comment */}
+              <div className="h-4 bg-gray-100 rounded w-8"></div>{" "}
+              {/* Retweet */}
+              <div className="h-4 bg-gray-100 rounded w-8"></div> {/* Like */}
+            </div>
+            <div className="flex space-x-4">
+              <div className="h-4 bg-gray-100 rounded w-6"></div>{" "}
+              {/* Bookmark */}
+              <div className="h-4 bg-gray-100 rounded w-6"></div> {/* Share */}
+            </div>
           </div>
         </div>
       ))}

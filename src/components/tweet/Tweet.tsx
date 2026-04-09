@@ -22,7 +22,7 @@ import { ETweetAudience } from "~/shared/enums/common.enum";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type {
   IMedia,
-  PreviewMediaProps,
+  PreviewTweetMediaProps,
 } from "~/shared/interfaces/schemas/media.interface";
 import type {
   ICodesTweet,
@@ -81,8 +81,12 @@ export function Tweet({
   // Hashtag
   const [openHashtag, setOpenHashtag] = useState(false);
   const [searchHashtag, setSearchHashtag] = useState("");
+
+  // Text color & background
   const [bgColor, setBgColor] = useState("");
   const [textColor, setTextColor] = useState("");
+
+  // Code block
   const [codes, setCodes] = useState<ICodesTweet[]>([]);
 
   // Mentions
@@ -439,7 +443,7 @@ export function Tweet({
           </Mentions>
 
           {/* Media preview */}
-          <PreviewMediaMulti
+          <PreviewTweetMediaMulti
             mediaItems={mediaItems}
             removeMedia={removeMedia}
           />
@@ -555,10 +559,10 @@ export function Tweet({
 }
 
 //
-export function PreviewMediaMulti({
+export function PreviewTweetMediaMulti({
   mediaItems,
   removeMedia,
-}: PreviewMediaProps) {
+}: PreviewTweetMediaProps) {
   if (!mediaItems.length) {
     return null;
   }

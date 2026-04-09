@@ -5,6 +5,7 @@ import { useTrendingStore } from "~/store/useTrendingStore";
 import { formatTimeAgo } from "~/utils/dateTime";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
+import { Content } from "./list-tweets/Content";
 
 export function TodayNewsOrOutstandingItemSkeleton({
   shape = "row",
@@ -101,7 +102,7 @@ export function TodayNewsOrOutstandingItem({
               !isMedia ? "line-clamp-1" : "line-clamp-3",
             )}
           >
-            {highlight[0].content}
+            <Content content={highlight[0].content} mentions={[]} />
           </p>
           <div className="flex items-center gap-2 mt-2">
             <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2">
@@ -161,7 +162,7 @@ export function TodayNewsOrOutstandingItem({
       className="relative min-h-48"
     >
       <CardContent className=" cursor-pointer absolute top-24">
-        <CardTitle className="line-clamp-3 text-white mb-2 hover:underline">
+        <CardTitle className="line-clamp-3 text-white mb-2 hover:underline bg-black/20 rounded">
           {highlight[0].content}
         </CardTitle>
         <CardDescription>

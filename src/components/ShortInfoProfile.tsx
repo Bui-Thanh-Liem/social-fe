@@ -30,11 +30,11 @@ function NameItemUser({ user }: { user: IUser }) {
 export function ShortInfoProfile({
   profile,
   children,
-  isInfor = false,
+  isInfo = false,
 }: {
   profile: IUser;
   children: ReactNode;
-  isInfor?: boolean;
+  isInfo?: boolean;
   className?: string;
 }) {
   const { user } = useUserStore();
@@ -55,7 +55,7 @@ export function ShortInfoProfile({
             className="mr-3 w-16 h-16"
           />
           <StarPrestige count={profile?.star || 0} />
-          {!isInfor && (
+          {!isInfo && (
             <div className="-mt-20">
               <ProfileAction
                 isChart={false}

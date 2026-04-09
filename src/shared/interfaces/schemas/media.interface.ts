@@ -15,7 +15,7 @@ export interface IMedia {
 
 export type IMediaBare = Pick<IMedia, "s3_key" | "url">;
 
-export interface PreviewMediaProps {
+export interface PreviewTweetMediaProps {
   mediaItems: MediaItem[];
   removeMedia: (id: string) => void;
 }

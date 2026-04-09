@@ -16,6 +16,11 @@ export enum ETweetStatus {
   Ready = "Sẵn sàng",
 }
 
+export enum EReelStatus {
+  Ready = "Sẵn sàng",
+  Hide = "Ẩn",
+}
+
 export enum EInvitationStatus {
   Pending,
   Accepted,
