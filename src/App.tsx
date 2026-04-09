@@ -2,10 +2,20 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { SidebarProvider } from "./components/sidebar-mobile/sidebar";
-import { HomeLayout } from "./layouts/home-layout/HomeLayout";
+import { AuthLayout } from "./layouts/private/auth/auth-layout";
+import { DashboardLayout } from "./layouts/private/dashboard/dashboard-layout";
+import { HomeLayout } from "./layouts/public/home-layout/home-layout";
 
 // Router config
 const router = createBrowserRouter([
+  {
+    path: "/_login",
+    element: <AuthLayout />,
+  },
+  {
+    path: "/_dashboard",
+    element: <DashboardLayout />,
+  },
   {
     path: "/*",
     element: <HomeLayout />,

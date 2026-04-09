@@ -2,7 +2,7 @@ import * as React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { Check, CircleIcon } from "lucide-react";
 
-import { cn } from "~/lib/utils";
+import { cn } from "~/utils/cn.util";
 
 function RadioGroup({
   className,
@@ -31,7 +31,7 @@ function RadioGroupItem({
         "focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
         // ✅ Khi checked thì border đổi sang sky-400
         "data-[state=checked]:border-sky-500 data-[state=checked]:text-sky-400",
-        className
+        className,
       )}
       {...props}
     >
@@ -61,7 +61,7 @@ function RadioGroupItemMain({
         "data-[state=checked]:bg-sky-400 data-[state=checked]:border-blue-400",
         // disabled
         "disabled:cursor-not-allowed disabled:opacity-50",
-        className
+        className,
       )}
       {...props}
     >

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import * as React from "react";
 
 import { Loader2 } from "lucide-react";
-import { cn } from "~/lib/utils";
+import { cn } from "~/utils/cn.util";
 
 type ButtonSize = "sm" | "md" | "lg";
 
@@ -47,7 +47,7 @@ const buttonVariants = cva(
       variant: "default",
       // size: "default",
     },
-  }
+  },
 );
 
 function Button({
@@ -91,7 +91,7 @@ function ButtonMain({
         classes,
         sizeStyles[size],
         fullWidth && "w-full",
-        className
+        className,
       )}
       disabled={loading}
       {...props}

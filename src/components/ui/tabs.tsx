@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-import { cn } from "~/lib/utils";
+import { cn } from "~/utils/cn.util";
 
 function Tabs({
   className,
@@ -25,7 +25,7 @@ function TabsList({
       data-slot="tabs-list"
       className={cn(
         "text-muted-foreground inline-flex h-12 w-fit items-center justify-center",
-        className
+        className,
       )}
       {...props}
     />
@@ -54,7 +54,7 @@ function TabsTrigger({
          data-[state=active]:after:translate-x-[-50%]
          data-[state=active]:after:h-[4px]
          data-[state=active]:after:bg-blue-400`,
-        className
+        className,
       )}
       {...props}
     />

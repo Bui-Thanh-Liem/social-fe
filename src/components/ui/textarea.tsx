@@ -7,8 +7,8 @@ import {
   type Path,
   type UseFormRegister,
 } from "react-hook-form";
-import { cn } from "~/lib/utils";
-import { getNestedError } from "~/utils/getNestedError";
+import { cn } from "~/utils/cn.util";
+import { getNestedError } from "~/utils/get-nested-error";
 import { Label } from "./label";
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
@@ -17,7 +17,7 @@ function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
       data-slot="textarea"
       className={cn(
         "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        className
+        className,
       )}
       {...props}
     />
@@ -80,7 +80,7 @@ function TextareaMain<T extends object>({
             sizeStyles[sizeInput],
             fullWidth && "w-full",
             errorMessage && "border-red-500 bg-red-50",
-            className
+            className,
           )}
           {...register(name)}
         />

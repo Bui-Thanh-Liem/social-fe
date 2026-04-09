@@ -22,7 +22,7 @@ export const CreateConversationDtoSchema = z
     {
       message: "Cuộc trò chuyện công khai phải có tên.",
       path: ["name"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -34,7 +34,7 @@ export const CreateConversationDtoSchema = z
     {
       message: "Cuộc trò chuyện riêng tư phải có đúng 2 thành viên.",
       path: ["participants"],
-    }
+    },
   )
   .refine(
     (data) => {
@@ -46,7 +46,7 @@ export const CreateConversationDtoSchema = z
     {
       message: "Cuộc trò chuyện công khai phải có ít nhất 3 thành viên.",
       path: ["participants"],
-    }
+    },
   );
 
 export const ConversationIdDtoSchema = z.object({

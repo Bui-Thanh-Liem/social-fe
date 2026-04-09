@@ -1,0 +1,72 @@
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import { WrapIcon } from "~/components/wrap-icon";
+import { useGetOneByUsername } from "~/apis/public/user.api";
+import { FollowersPage } from "./followers-page";
+import { FollowingPage } from "./following-page";
+import { ArrowLeft } from "lucide-react";
+
+export const followers_tab = "followers";
+export const following_tab = "following";
+
+export function FollowersFollowing() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { username } = useParams();
+
+  // ✅ Xác định type theo pathname hiện tại
+  const type = location.pathname.endsWith("/followers")
+    ? followers_tab
+    : following_tab;
+
+  // ✅ Lấy dữ liệu user
+  const { data } = useGetOneByUsername(username!);
+  const profile = data?.metadata;
+
+  // ✅ Khi người dùng đổi tab → điều hướng sang route tương ứng
+  const handleTabChange = (value: string) => {
+    navigate(`/${username}/${value}`);
+  };
+
+  return (
+    <div className="grid grid-cols-12">
+      <div className="col-span-0 xl:col-span-2"></div>
+      <div className="col-span-12 xl:col-span-10">
+        {/* Header */}
+        <div className="px-3 flex justify-between items-center border border-x-0 border-gray-100">
+          <div className="flex h-12 items-center gap-4">
+            <WrapIcon onClick={() => navigate(-1)}>
+              <ArrowLeft color="#000" />
+            </WrapIcon>
+            <div>
+              <p className="font-semibold text-lg">{profile?.name}</p>
+              <p className="text-gray-400 text-xs -mt-0.5">
+                {profile?.username}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Content */}
+        <Tabs value={type} onValueChange={handleTabChange}>
+          <div className="bg-white sticky top-0 z-50">
+            <TabsList className="w-full">
+              <TabsTrigger value={following_tab}>Đang theo dõi</TabsTrigger>
+              <TabsTrigger value={followers_tab}>Người theo dõi</TabsTrigger>
+            </TabsList>
+          </div>
+
+          <div className="pt-0">
+            <TabsContent value={followers_tab} className="px-0">
+              <FollowersPage />
+            </TabsContent>
+
+            <TabsContent value={following_tab} className="px-0">
+              <FollowingPage />
+            </TabsContent>
+          </div>
+        </Tabs>
+      </div>
+    </div>
+  );
+}

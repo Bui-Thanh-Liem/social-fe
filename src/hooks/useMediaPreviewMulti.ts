@@ -4,7 +4,7 @@ import {
   CONSTANT_MAX_SIZE_VIDEO_UPLOAD,
 } from "~/shared/constants";
 import { toastSimple } from "~/utils/toast";
-import { allowedImgTypes, allowedVideoTypes } from "../apis/useFetchUpload";
+import { allowedImgTypes, allowedVideoTypes } from "../apis/public/upload.api";
 
 export const MAX_FILE_COUNT = 5;
 
@@ -39,7 +39,7 @@ export const useMediaPreviewMulti = () => {
         if (newFiles.length > remainingSlots) {
           toastSimple(
             `Chỉ được tải tối đa ${MAX_FILE_COUNT} hình ảnh hoặc video.`,
-            "warning"
+            "warning",
           );
         }
 
@@ -55,7 +55,7 @@ export const useMediaPreviewMulti = () => {
           ) {
             toastSimple(
               "Chỉ hỗ trợ file ảnh (JPEG, PNG, GIF, WebP) và video (MP4, WebM, MOV, AVI)",
-              "warning"
+              "warning",
             );
             continue;
           }
@@ -78,9 +78,9 @@ export const useMediaPreviewMulti = () => {
             //
             toastSimple(
               `${type_vn} không được vượt quá ${sizeLimitText}, ${type_vn} bạn định tải lên: ${formatFileSize(
-                file.size
+                file.size,
               )}`,
-              "warning"
+              "warning",
             );
             continue;
           }
@@ -104,7 +104,7 @@ export const useMediaPreviewMulti = () => {
         return [...prev, ...newMediaItems];
       });
     },
-    [] // ✅ Không cần dependency vì dùng functional update
+    [], // ✅ Không cần dependency vì dùng functional update
   );
 
   const removeMedia = useCallback((id?: string) => {
@@ -127,8 +127,8 @@ export const useMediaPreviewMulti = () => {
   const updateUploadProgress = useCallback((id: string, progress: number) => {
     setMediaItems((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, uploadProgress: progress } : item
-      )
+        item.id === id ? { ...item, uploadProgress: progress } : item,
+      ),
     );
   }, []); // ✅ Không cần dependency
 

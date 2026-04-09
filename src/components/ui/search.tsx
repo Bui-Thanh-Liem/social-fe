@@ -1,5 +1,5 @@
 import { Search, X } from "lucide-react";
-import { cn } from "~/lib/utils";
+import { cn } from "~/utils/cn.util";
 import { Input } from "./input";
 
 type SearchSize = "sm" | "md" | "lg";
