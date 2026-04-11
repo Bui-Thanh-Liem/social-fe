@@ -44,7 +44,7 @@ export function ParticipantList({
   async function removeConversation(participantId: string) {
     const res = await apiRemoveParticipants.mutateAsync({
       payload: { participants: [participantId] },
-      conv_id: conversation._id,
+      id: conversation._id,
     });
 
     // Xoá trước trên client UX tốt
@@ -63,7 +63,7 @@ export function ParticipantList({
   async function promoteUserToMentor(participantId: string) {
     const res = await apiPromoteMentor.mutateAsync({
       payload: { participants: [participantId] },
-      conv_id: conversation._id,
+      id: conversation._id,
     });
 
     // Cập nhật trước trên client UX tốt

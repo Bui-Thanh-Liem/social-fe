@@ -457,7 +457,7 @@ export const useTogglePinCommunity = () => {
 
   return useMutation({
     mutationFn: (payload: PinCommunityDto) =>
-      apiCall<ICommunity>(`/communities/toggle-pin/${payload.community_id}`, {
+      apiCall<ICommunity>(`/communities/pin/${payload.community_id}`, {
         method: "PATCH",
       }),
     onSuccess: async () => {

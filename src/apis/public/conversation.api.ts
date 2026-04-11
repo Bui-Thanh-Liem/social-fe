@@ -44,13 +44,13 @@ export const useAddParticipants = () => {
 
   return useMutation({
     mutationFn: ({
-      conv_id,
+      id,
       payload,
     }: {
-      conv_id: string;
+      id: string;
       payload: AddParticipantsBodyDto;
     }) =>
-      apiCall<IConversation>(`/conversations/add-participants/${conv_id}`, {
+      apiCall<IConversation>(`/conversations/add-participants/${id}`, {
         method: "POST",
         body: JSON.stringify(payload),
       }),
@@ -67,13 +67,13 @@ export const useRemoveParticipants = () => {
 
   return useMutation({
     mutationFn: ({
-      conv_id,
+      id,
       payload,
     }: {
-      conv_id: string;
+      id: string;
       payload: RemoveParticipantsBodyDto;
     }) =>
-      apiCall<IConversation>(`/conversations/remove-participants/${conv_id}`, {
+      apiCall<IConversation>(`/conversations/remove-participants/${id}`, {
         method: "POST",
         body: JSON.stringify(payload),
       }),
@@ -90,13 +90,13 @@ export const usePromoteMentor = () => {
 
   return useMutation({
     mutationFn: ({
-      conv_id,
+      id,
       payload,
     }: {
-      conv_id: string;
+      id: string;
       payload: PromoteMentorBodyDto;
     }) =>
-      apiCall<IConversation>(`/conversations/promote/${conv_id}`, {
+      apiCall<IConversation>(`/conversations/promote/${id}`, {
         method: "POST",
         body: JSON.stringify(payload),
       }),

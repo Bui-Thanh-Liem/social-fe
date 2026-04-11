@@ -132,7 +132,7 @@ export function AddParticipantsForm({
   const onSubmit = async (data: AddParticipantsBodyDto) => {
     const res = await apiAddParticipants.mutateAsync({
       payload: data,
-      conv_id: conversation._id,
+      id: conversation._id,
     });
     handleResponse(res, successForm);
   };

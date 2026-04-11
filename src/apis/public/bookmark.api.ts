@@ -13,7 +13,7 @@ export const useBookmarkTweet = () => {
     mutationFn: async (
       tweetId: string,
     ): Promise<OkResponse<ResToggleBookmark>> => {
-      return apiCall<ResToggleBookmark>(`/bookmarks/toggle/${tweetId}`, {
+      return apiCall<ResToggleBookmark>(`/bookmarks/${tweetId}`, {
         method: "POST",
       });
     },
