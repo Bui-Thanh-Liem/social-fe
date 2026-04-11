@@ -24,11 +24,11 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { ConfirmOtpForm } from "~/forms/confirm-otp-form";
-import { ForgotPasswordForm } from "~/forms/forgot-password-form";
-import { LoginAccountForm } from "~/forms/login-account-form";
-import { RegisterAccountForm } from "~/forms/register-account-form";
-import { ResetPasswordForm } from "~/forms/reset-password-form";
+import { ConfirmOtpForm } from "~/forms/confirm-otp-user";
+import { ForgotPasswordForm } from "~/forms/forgot-password-user";
+import { LoginAccountForm } from "~/forms/login-user";
+import { RegisterAccountForm } from "~/forms/register-user";
+import { ResetPasswordForm } from "~/forms/reset-password-user";
 import { CONSTANT_DEFAULT_TITLE_DOCUMENT } from "~/shared/constants/default-title-document";
 import { ENotificationType, ETweetType } from "~/shared/enums/type.enum";
 import { useConversationSocket } from "~/socket/hooks/useConversationSocket";

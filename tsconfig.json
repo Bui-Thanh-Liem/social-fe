@@ -1,17 +1,16 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
   "compilerOptions": {
-    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler", // Thay đổi ở đây
+    "jsx": "react-jsx", // Sử dụng React 17+ JSX transform
+    "types": ["node", "react", "react-dom"], // Thêm types cho React và Node, tránh lỗi thiếu type khi import các thư viện
     "paths": {
       "~/*": ["./src/*"]
     },
-    "module": "ESNext",
+    "skipLibCheck": true, // Bỏ qua kiểm tra type của thư viện bên thứ 3 để tăng tốc độ biên dịch
     "target": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true
+    "strict": true,
+    "allowImportingTsExtensions": true, // Có thể cần nếu bạn dùng Vite
+    "noEmit": true // Thường dùng khi bundler tự xử lý việc xuất file
   }
 }

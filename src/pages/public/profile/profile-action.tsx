@@ -27,7 +27,7 @@ import {
   DrawerTrigger,
 } from "~/components/ui/drawer";
 import { WrapIcon } from "~/components/wrap-icon";
-import { UpdateMeForm } from "~/forms/update-me-form";
+import { UpdateMeForm } from "~/forms/update-me-user";
 import { EConversationType } from "~/shared/enums/type.enum";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useChatBoxStore } from "~/store/useChatBoxStore";

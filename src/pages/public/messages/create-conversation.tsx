@@ -2,7 +2,7 @@ import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { DialogMain } from "~/components/ui/dialog";
 import { WrapIcon } from "~/components/wrap-icon";
-import { CreateConversationForm } from "~/forms/create-conversation-form";
+import { CreateConversationForm } from "~/forms/create-conversation-user";
 
 export function CreateConversation({
   initialUserIds,

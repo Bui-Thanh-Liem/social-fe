@@ -153,7 +153,7 @@ export const TweetsList = ({ feedType }: { feedType: EFeedType }) => {
 
   // liêm đã đến đây
   return (
-    <div className="min-h-[calc(100vh-120px)]">
+    <div className="max-h-[calc(100vh-120px)]">
       {/* Loading state cho lần load đầu tiên */}
       {isLoading && page === 1 && <SkeletonTweet />}
 

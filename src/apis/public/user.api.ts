@@ -44,6 +44,14 @@ export const useGetMultiForMentions = (username: string, enabled = true) => {
   });
 };
 
+// 🚪 GET - Lấy người dùng khách
+export const useGetGuestUsers = () => {
+  return useQuery({
+    queryKey: ["users", "guests"],
+    queryFn: () => apiCall<IUser[]>(`/users/guests`),
+  });
+};
+
 // 🔐 POST - Verify email
 export const useVerifyEmail = () => {
   const navigate = useNavigate();

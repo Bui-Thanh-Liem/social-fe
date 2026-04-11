@@ -33,7 +33,7 @@ export function NotificationPage() {
   };
 
   return (
-    <div className="grid grid-cols-12 overflow-y-auto h-[calc(100vh-60px)]">
+    <div className="grid grid-cols-12 overflow-y-auto max-h-[calc(100vh-60px)]">
       <div className="col-span-0 xl:col-span-2"></div>
       <div className="col-span-12 xl:col-span-10">
         <Tabs

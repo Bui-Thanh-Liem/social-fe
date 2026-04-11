@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CreateCommunityForm } from "~/forms/create-community-form";
+import { CreateCommunityForm } from "~/forms/create-community-user";
 import { DialogMain } from "~/components/ui/dialog";
 import { Plus } from "lucide-react";
 

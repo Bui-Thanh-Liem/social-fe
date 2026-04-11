@@ -34,7 +34,7 @@ import {
   UserFollower,
   UserFollowerSkeleton,
   UserSelected,
-} from "./create-conversation-form";
+} from "./create-conversation-user";
 
 export function CreateCommunityForm({
   setOpenForm,

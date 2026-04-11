@@ -12,6 +12,9 @@ import { AuthGoogle } from "~/components/auth-google";
 import { Divider } from "~/components/ui/divider";
 import { ButtonMain } from "~/components/ui/button";
 import { InputMain } from "~/components/ui/input";
+import { AvatarMain } from "~/components/ui/avatar";
+import { Logo } from "~/components/logo";
+import { useGetGuestUsers } from "~/apis/public/user.api";
 
 export function LoginAccountForm({
   setOpenForm,
@@ -24,6 +27,8 @@ export function LoginAccountForm({
 }) {
   //
   const apiLogin = useUserLogin();
+  const { data, isLoading } = useGetGuestUsers();
+  const guests = data?.metadata || [];
 
   //
   const {
@@ -58,13 +63,62 @@ export function LoginAccountForm({
       className="flex items-center justify-center"
     >
       <div className="mt-4 space-y-6 w-full md:min-w-[460px]">
-        <AuthGoogle />
-        {/* <AuthFacebook /> */}
+        {/* Guest Login */}
+        <div className="flex justify-center">
+          <Divider className="w-80" text="Tài khoản khách" />
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 justify-center cursor-pointer">
+          {isLoading &&
+            Array.from({ length: 10 }).map((_, i) => (
+              <div
+                key={i}
+                className="bg-gray-100 rounded-2xl flex items-center justify-center h-16 animate-pulse"
+              >
+                <Logo size={40} className="text-gray-400 " />
+              </div>
+            ))}
 
+          {guests.length > 0 &&
+            guests.map((item) => {
+              return (
+                <div
+                  key={item.email}
+                  onClick={() =>
+                    onSubmit({
+                      email: item.email,
+                      password: import.meta.env.VITE_GUEST_USER_PASSWORD,
+                    })
+                  }
+                  className="bg-gray-50 hover:bg-sky-50 rounded-xl flex items-center justify-center h-16"
+                >
+                  <div className="flex gap-x-3 items-center">
+                    {item.avatar ? (
+                      <AvatarMain
+                        alt={item.email}
+                        src={item.avatar.url}
+                        className="w-16 h-16"
+                      />
+                    ) : (
+                      <div className="bg-gray-300 w-full h-full flex items-center justify-center">
+                        <Logo size={40} className="text-gray-400 " />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+
+        {/* Third-Party Login */}
+        <div className="flex justify-center">
+          <Divider className="w-80" text="Bên thứ ba" />
+        </div>
+        <AuthGoogle />
+
+        {/* Local Login */}
         <div className="flex justify-center">
           <Divider className="w-80" />
         </div>
-
         <InputMain
           id="email"
           name="email"

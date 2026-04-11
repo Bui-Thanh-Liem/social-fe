@@ -31,7 +31,7 @@ export function CommunityRow({
     community?.membership_type === EMembershipType.Invite_only;
 
   //
-  const [joined, setJoined] = useState(community?.is_joined);
+  const [isJoined, setIsJoined] = useState(community?.is_joined);
 
   //
   const { mutateAsync: joinMutate, isError: joinError } = useJoinCommunity();
@@ -39,20 +39,20 @@ export function CommunityRow({
 
   //
   useEffect(() => {
-    if (joinError || leaveError) setJoined(!joined);
+    if (joinError || leaveError) setIsJoined(!isJoined);
   }, [joinError, leaveError]);
 
   //
   async function handleToggleJoin() {
-    if (joined) {
+    if (isJoined) {
       // Đang là thành viên, bấm rời khỏi
       const res = await leaveMutate({ community_id: community._id || "" });
-      if (res.statusCode === 200) setJoined(!joined);
+      if (res.statusCode === 200) setIsJoined(!isJoined);
       handleResponse(res);
     } else {
       // Chưa là thành viên, bấm tham gia
       const res = await joinMutate({ community_id: community._id || "" });
-      if (res.statusCode === 200) setJoined(!joined);
+      if ([200, 201].includes(res.statusCode)) setIsJoined(!isJoined);
       handleResponse(res);
     }
   }
@@ -125,14 +125,14 @@ export function CommunityRow({
               variant="outline"
               className={cn(
                 "",
-                !joined
+                !isJoined
                   ? isOnlyInvite
                     ? "pointer-events-none cursor-not-allowed text-gray-300 border-gray-200"
                     : ""
                   : "text-red-400 border-red-200",
               )}
             >
-              {!joined
+              {!isJoined
                 ? isOnlyInvite
                   ? EMembershipType.Invite_only
                   : "Tham gia"

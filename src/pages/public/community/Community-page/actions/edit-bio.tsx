@@ -48,7 +48,7 @@ export function Bio({
           className="w-full resize-none text-sm md:text-base"
         />
       ) : (
-        <p className="leading-relaxed whitespace-break-spaces">
+        <p className="leading-relaxed whitespace-break-spaces bg-sky-50">
           {community?.bio}
         </p>
       )}

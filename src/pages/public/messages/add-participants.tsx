@@ -2,7 +2,7 @@ import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { DialogMain } from "~/components/ui/dialog";
 import { WrapIcon } from "~/components/wrap-icon";
-import { AddParticipantsForm } from "~/forms/add-participants-form";
+import { AddParticipantsForm } from "~/forms/add-participants-user";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 
 export function AddParticipants({
