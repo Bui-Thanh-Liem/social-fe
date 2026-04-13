@@ -34,7 +34,13 @@ export function FollowingPage() {
     total_page_ref.current = total_page || 0;
 
     if (items) {
-      setUsers((prev) => [...prev, ...items]);
+      setUsers((prev) => {
+        const existIds = new Set(prev.map((c) => c._id.toString()));
+        const newItems = items.filter(
+          (item) => !existIds.has(item._id.toString()),
+        );
+        return [...prev, ...newItems];
+      });
     }
   }, [fg?.metadata]);
 
