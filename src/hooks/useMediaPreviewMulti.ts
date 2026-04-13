@@ -4,7 +4,7 @@ import {
   CONSTANT_MAX_SIZE_VIDEO_UPLOAD,
 } from "~/shared/constants";
 import { toastSimple } from "~/utils/toast";
-import { allowedImgTypes, allowedVideoTypes } from "../apis/public/upload.api";
+import { allowedImgTypes, allowedVideoTypes } from "../apis/upload.api";
 
 export const MAX_FILE_COUNT = 5;
 

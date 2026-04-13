@@ -16,7 +16,7 @@ import { ShortInfoProfile } from "~/components/short-info-profile";
 import { DialogMain } from "~/components/ui/dialog";
 import { useUserStore } from "~/store/useUserStore";
 import { ReelPost } from "./reel-post";
-import { useGetNewFeeds } from "~/apis/public/reel.api";
+import { useGetNewFeeds } from "~/apis/reel.api";
 import { ErrorResponse } from "../state/error";
 import { cn } from "~/utils/cn.util";
 

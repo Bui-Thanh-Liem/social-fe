@@ -1,6 +1,6 @@
 import { Repeat2, SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useCreateTweet, useDeleteTweet } from "~/apis/public/tweet.api";
+import { useCreateTweet, useDeleteTweet } from "~/apis/tweet.api";
 import type { CreateTweetDto } from "~/shared/dtos/req/tweet.dto";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { IHashtag } from "~/shared/interfaces/schemas/hashtag.interface";

@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useUserLogin } from "~/apis/public/user-auth.api";
+import { useUserLogin } from "~/apis/user-auth.api";
 import {
   LoginUserDtoSchema,
   type LoginUserDto,
@@ -14,7 +14,7 @@ import { ButtonMain } from "~/components/ui/button";
 import { InputMain } from "~/components/ui/input";
 import { AvatarMain } from "~/components/ui/avatar";
 import { Logo } from "~/components/logo";
-import { useGetGuestUsers } from "~/apis/public/user.api";
+import { useGetGuestUsers } from "~/apis/user.api";
 
 export function LoginAccountForm({
   setOpenForm,

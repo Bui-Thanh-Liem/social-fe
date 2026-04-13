@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useGetTopFollowedUsers } from "~/apis/public/user.api";
+import { useGetTopFollowedUsers } from "~/apis/user.api";
 import { cn } from "~/utils/cn.util";
 import { NotThing } from "../state/not-thing";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useGetTodayNews } from "~/apis/public/trending.api";
+import { useGetTodayNews } from "~/apis/trending.api";
 import { cn } from "~/utils/cn.util";
 import {
   TodayNewsOrOutstandingItem,

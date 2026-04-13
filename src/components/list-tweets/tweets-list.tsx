@@ -1,9 +1,9 @@
 import { ArrowRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetNewFeeds } from "~/apis/public/tweet.api";
+import { useGetNewFeeds } from "~/apis/tweet.api";
 import { cn } from "~/utils/cn.util";
-import { CommunityShortRow } from "~/pages/public/community/community-short-row";
+import { CommunityShortRow } from "~/pages/community/community-short-row";
 import { EFeedType, ETweetType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";

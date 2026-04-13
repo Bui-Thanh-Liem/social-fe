@@ -1,6 +1,6 @@
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useLikeTweet } from "~/apis/public/like.api";
+import { useLikeTweet } from "~/apis/like.api";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimple } from "~/utils/toast";

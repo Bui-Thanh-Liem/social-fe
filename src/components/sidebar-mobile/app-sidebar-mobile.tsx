@@ -1,4 +1,4 @@
-import { SidebarLeft } from "~/layouts/public/home-layout/sidebar-left/sidebar-left";
+import { SidebarLeft } from "~/layouts/home-layout/sidebar-left/sidebar-left";
 import { Sidebar, SidebarContent } from "./sidebar";
 import { Logo } from "../logo";
 

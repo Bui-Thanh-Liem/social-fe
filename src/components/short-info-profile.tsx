@@ -1,7 +1,7 @@
 import { useMemo, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { ProfileAction } from "~/pages/public/profile/profile-action";
-import { StarPrestige } from "~/pages/public/profile/star";
+import { ProfileAction } from "~/pages/profile/profile-action";
+import { StarPrestige } from "~/pages/profile/star";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { cn } from "~/utils/cn.util";

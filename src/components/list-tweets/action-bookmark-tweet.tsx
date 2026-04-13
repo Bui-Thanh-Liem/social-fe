@@ -1,6 +1,6 @@
 import { Bookmark } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useBookmarkTweet } from "~/apis/public/bookmark.api";
+import { useBookmarkTweet } from "~/apis/bookmark.api";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { toastSimple } from "~/utils/toast";

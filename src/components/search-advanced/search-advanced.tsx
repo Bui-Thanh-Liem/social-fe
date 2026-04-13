@@ -1,12 +1,12 @@
 import { Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useSearchPending } from "~/apis/public/search.api";
+import { useSearchPending } from "~/apis/search.api";
 import {
   useCreateSearchHistory,
   useDeleteSearchHistory,
   useGetMultiSearchHistory,
-} from "~/apis/public/search-history.api";
+} from "~/apis/search-history.api";
 import { useDebounce } from "~/hooks/useDebounce";
 import { cn } from "~/utils/cn.util";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";

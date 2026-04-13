@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useDebounce } from "~/hooks/useDebounce";
-import { useGetMultiForMentions } from "~/apis/public/user.api";
+import { useGetMultiForMentions } from "~/apis/user.api";
 import { cn } from "~/utils/cn.util";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { VerifyIcon } from "../icons/verify";

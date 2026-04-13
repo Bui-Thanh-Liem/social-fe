@@ -1,6 +1,6 @@
 import { Check, User, Users } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useGetAllBareCommunities } from "~/apis/public/community.api";
+import { useGetAllBareCommunities } from "~/apis/community.api";
 import {
   DropdownMenu,
   DropdownMenuContent,

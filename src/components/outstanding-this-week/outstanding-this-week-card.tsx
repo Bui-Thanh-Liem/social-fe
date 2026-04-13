@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useGetOutstandingThisWeek } from "~/apis/public/trending.api";
+import { useGetOutstandingThisWeek } from "~/apis/trending.api";
 import { cn } from "~/utils/cn.util";
 import { NotThing } from "../state/not-thing";
 import {

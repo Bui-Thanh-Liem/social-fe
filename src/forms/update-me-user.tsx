@@ -10,8 +10,8 @@ import { handleResponse } from "~/utils/toast";
 
 // UI components - theo cách import của bạn
 import { useNavigate } from "react-router-dom";
-import { useUpdateMe } from "~/apis/public/user-auth.api";
-import { useDeleteMedia, useUploadMedia } from "~/apis/public/upload.api";
+import { useUpdateMe } from "~/apis/user-auth.api";
+import { useDeleteMedia, useUploadMedia } from "~/apis/upload.api";
 import {
   UpdateMeDtoSchema,
   type UpdateMeDto,

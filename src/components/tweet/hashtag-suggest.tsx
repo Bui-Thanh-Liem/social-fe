@@ -1,6 +1,6 @@
 import { useCallback, type ReactNode } from "react";
 import { useDebounce } from "~/hooks/useDebounce";
-import { useGetMultiHashtags } from "~/apis/public/hashtag.api";
+import { useGetMultiHashtags } from "~/apis/hashtag.api";
 import { cn } from "~/utils/cn.util";
 import type { IHashtag } from "~/shared/interfaces/schemas/hashtag.interface";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";

@@ -7,8 +7,8 @@ import {
   Trash,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useReportTweet } from "~/apis/public/report.api";
-import { useDeleteTweet, useGetDetailTweet } from "~/apis/public/tweet.api";
+import { useReportTweet } from "~/apis/report.api";
+import { useDeleteTweet, useGetDetailTweet } from "~/apis/tweet.api";
 import { cn } from "~/utils/cn.util";
 import { ETweetStatus } from "~/shared/enums/status.enum";
 import { ETweetType } from "~/shared/enums/type.enum";

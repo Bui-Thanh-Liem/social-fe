@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useFollowUser } from "~/apis/public/follow.api";
+import { useFollowUser } from "~/apis/follow.api";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { useUserStore } from "~/store/useUserStore";
 import { VerifyIcon } from "../icons/verify";

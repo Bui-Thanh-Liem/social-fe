@@ -4,12 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Upload } from "lucide-react";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import {
-  useCreateCommunity,
-  useGetAllCategories,
-} from "~/apis/public/community.api";
-import { useUploadMedia } from "~/apis/public/upload.api";
-import { useGetFollowedById } from "~/apis/public/user.api";
+import { useCreateCommunity, useGetAllCategories } from "~/apis/community.api";
+import { useUploadMedia } from "~/apis/upload.api";
+import { useGetFollowedById } from "~/apis/user.api";
 import { useDebounce } from "~/hooks/useDebounce";
 import { cn } from "~/utils/cn.util";
 import {
