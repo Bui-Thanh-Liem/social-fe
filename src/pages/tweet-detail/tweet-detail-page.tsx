@@ -187,7 +187,7 @@ export function TweetDetailPage() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 flex justify-center items-center">
+    <div className="fixed inset-0 z-50 bg-black/60 flex justify-center items-center">
       <Card className="relative">
         <WrapIcon
           className="absolute -top-2 -right-2 bg-gray-50 p-1 lg:p-2 lg:-top-4 lg:-right-4"

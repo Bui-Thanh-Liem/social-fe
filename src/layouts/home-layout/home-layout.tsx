@@ -37,6 +37,7 @@ import { CommunityOwnerPage } from "~/pages/community/community-owner-page";
 import { CommunityJoinedPage } from "~/pages/community/community-joined-page";
 import { NotThing } from "~/components/state/not-thing";
 import ChatBox from "~/pages/messages/chat-box";
+import { ReelDetail } from "~/pages/reel-detail";
 
 export function HomeLayout() {
   const { pathname } = useLocation();
@@ -130,16 +131,24 @@ export function HomeLayout() {
 
               {/* Nếu truy cập trực tiếp link thì render Detail tại đây */}
               {!backgroundLocation && (
-                <Route path="tweet/:tweet_id" element={<TweetDetailPage />} />
+                <>
+                  <Route path="tweet/:tweet_id" element={<TweetDetailPage />} />
+                  <Route path="/reel/:reel_id" element={<ReelDetail />} />
+                </>
               )}
             </Routes>
           </main>
 
           {/* Background Location Routes */}
           {backgroundLocation && (
-            <Routes>
-              <Route path="/tweet/:tweet_id" element={<TweetDetailPage />} />
-            </Routes>
+            <>
+              <Routes>
+                <Route path="/tweet/:tweet_id" element={<TweetDetailPage />} />
+              </Routes>
+              <Routes>
+                <Route path="/reel/:reel_id" element={<ReelDetail />} />
+              </Routes>
+            </>
           )}
 
           {/* Sidebar Right */}

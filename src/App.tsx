@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     element: <HomeLayout />,
     children: [
       {
-        path: "*", // Để ModalSwitch tự xử lý tất cả các path con
+        path: "*",
         element: null,
       },
     ],
@@ -36,9 +36,7 @@ export function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <SidebarProvider defaultOpen={false}>
-        {/*  */}
         <main>
-          {/*  */}
           <RouterProvider router={router} />
         </main>
 

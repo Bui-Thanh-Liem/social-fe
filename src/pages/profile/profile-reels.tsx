@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useGetProfileReels } from "~/apis/reel.api";
 import { SkeletonTweet } from "~/components/list-tweets/tweet-item";
-import { ReelItem } from "~/components/reel/reels-List";
+import { ReelItem } from "~/components/reel/reels-list";
 import { ErrorResponse } from "~/components/state/error";
 import { NotThing } from "~/components/state/not-thing";
 import type { IReel } from "~/shared/interfaces/schemas/reel.interface";
@@ -128,8 +128,9 @@ export function ProfileReels({ profile_id }: { profile_id: string }) {
           {allReels.map((reel, index: number) => (
             <ReelItem
               reel={reel}
-              key={reel._id || `${reel._id}-${index}`}
+              isAuth={false}
               className="h-full"
+              key={reel._id || `${reel._id}-${index}`}
             />
           ))}
         </div>

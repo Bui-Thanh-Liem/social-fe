@@ -13,7 +13,7 @@ import { EFeedType } from "~/shared/enums/type.enum";
 import { useReloadStore } from "~/store/useReloadStore";
 import { TweetsList } from "../../components/list-tweets/tweets-list";
 import { CommunityTweets } from "../community/Community-page/community-tweets";
-import { ReelsList } from "../../components/reel/reels-List";
+import { ReelsList } from "../../components/reel/reels-list";
 
 export function HomePage() {
   // Metadata

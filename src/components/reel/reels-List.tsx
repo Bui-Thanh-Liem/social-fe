@@ -1,6 +1,6 @@
 import { Plus, Volume2, VolumeX } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Card, CardContent } from "~/components/ui/card";
 import {
   Carousel,
@@ -11,7 +11,6 @@ import {
 } from "~/components/ui/carousel";
 import type { IReel } from "~/shared/interfaces/schemas/reel.interface";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
-import { toastSimple } from "~/utils/toast";
 import { ShortInfoProfile } from "~/components/short-info-profile";
 import { DialogMain } from "~/components/ui/dialog";
 import { useUserStore } from "~/store/useUserStore";
@@ -210,12 +209,17 @@ export function ReelsList() {
 
 export function ReelItem({
   reel,
+  isAuth = true,
   className,
 }: {
   reel: IReel;
+  isAuth?: boolean;
   className?: string;
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  //
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -237,8 +241,10 @@ export function ReelItem({
   };
 
   //
-  function onClick() {
-    toastSimple("Tính năng đang được phát triển", "info");
+  function onclickReel() {
+    navigate(`/reel/${reel._id}`, {
+      state: { backgroundLocation: location },
+    });
   }
 
   return (
@@ -258,7 +264,7 @@ export function ReelItem({
         onMouseLeave={handleMouseLeave}
         className="w-full object-contain transition-all duration-500 ease-out my-auto 
                    hover:scale-[1.05] hover:-translate-y-1 cursor-pointer"
-        onClick={onClick} // Ví dụ: click để xem chi tiết
+        onClick={onclickReel}
       />
 
       {/* Button để bật/tắt âm thanh */}
@@ -274,24 +280,26 @@ export function ReelItem({
       </button>
 
       {/* Avatar User */}
-      <ShortInfoProfile profile={reel.user}>
-        <div
-          className="absolute top-2 left-2 z-10 
+      {isAuth && (
+        <ShortInfoProfile profile={reel.user}>
+          <div
+            className="absolute top-2 left-2 z-10 
                 transition-all duration-500 ease-in-out
                 opacity-100 group-hover:opacity-30 
                 pointer-events-auto"
-        >
-          <img
-            src={reel.user.avatar?.url || "/default-avatar.png"}
-            alt={reel.user.name}
-            className="w-8 h-8 border-2 border-white rounded-full object-cover cursor-pointer shadow-md"
-            onClick={(e) => {
-              e.stopPropagation(); // Ngăn sự kiện click vào video
-              navigate(`/${reel.user.username}`);
-            }}
-          />
-        </div>
-      </ShortInfoProfile>
+          >
+            <img
+              src={reel.user.avatar?.url || "/default-avatar.png"}
+              alt={reel.user.name}
+              className="w-8 h-8 border-2 border-white rounded-full object-cover cursor-pointer shadow-md"
+              onClick={(e) => {
+                e.stopPropagation(); // Ngăn sự kiện click vào video
+                navigate(`/${reel.user.username}`);
+              }}
+            />
+          </div>
+        </ShortInfoProfile>
+      )}
 
       {/* Hiệu ứng lớp phủ nhẹ khi hover để avatar nổi bật hơn */}
       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500" />

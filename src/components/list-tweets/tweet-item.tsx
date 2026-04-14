@@ -199,21 +199,24 @@ export const TweetItem = ({
   const quoteTweet = data?.metadata ? data?.metadata : ({} as ITweet);
   const quoteTweet_user = quoteTweet.user_id as unknown as IUser;
 
+  //
+  function onclickTweet(e: React.MouseEvent<HTMLDivElement>) {
+    // Nếu click vào nút của Carousel thì không làm gì cả
+    if ((e.target as HTMLElement).closest("button")) return;
+
+    //
+    if (isClickable) {
+      navigate(`/tweet/${_id}`, {
+        state: { backgroundLocation: location },
+      });
+    }
+  }
+
   return (
     <Card
       key={_id}
       className="p-3 pb-2 group bg-gray-50 relative gap-3"
-      onClick={(e) => {
-        // Nếu click vào nút của Carousel thì không làm gì cả
-        if ((e.target as HTMLElement).closest("button")) return;
-
-        //
-        if (isClickable) {
-          navigate(`/tweet/${_id}`, {
-            state: { backgroundLocation: location },
-          });
-        }
-      }}
+      onClick={onclickTweet}
     >
       {/* thông tin cộng đồng */}
       {community?.name && (
