@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useGetProfileReels } from "~/apis/reel.api";
 import { SkeletonTweet } from "~/components/list-tweets/tweet-item";
-import { ReelItem } from "~/components/reel/reels-list";
+import { ReelItem } from "~/components/reel/reel-item";
 import { ErrorResponse } from "~/components/state/error";
 import { NotThing } from "~/components/state/not-thing";
 import type { IReel } from "~/shared/interfaces/schemas/reel.interface";
