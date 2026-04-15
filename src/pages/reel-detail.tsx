@@ -37,6 +37,7 @@ export function ReelDetail() {
   );
 
   const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [isFetchingNextPage, setIsFetchingNextPage] = useState(false);
 
   const { data } = useGetNewFeeds({
@@ -46,20 +47,37 @@ export function ReelDetail() {
 
   // Khi có data mới từ API, nối nó vào mảng feeds cũ thay vì thay thế hoàn toàn
   useEffect(() => {
-    if (data?.metadata?.items) {
-      const newItems = data.metadata.items as IReel[];
-      setFeeds((prev) => {
-        // Lọc trùng ID để đảm bảo an toàn
-        const existingIds = new Set(prev.map((i) => i._id));
-        const filteredNewItems = newItems.filter(
-          (i) => !existingIds.has(i._id),
-        );
-        return [...prev, ...filteredNewItems];
-      });
-      setIsFetchingNextPage(false);
-    }
-  }, [data]);
+    if (!data?.metadata?.items) return;
 
+    const newItems = data.metadata.items as IReel[];
+
+    if (newItems.length < 10) {
+      setHasMore(false);
+    }
+
+    setFeeds((prev) => {
+      // Nếu là trang 1: Xử lý logic chèn Reel từ Store lên đầu
+      if (page === 1) {
+        let finalFirstPage = newItems;
+        if (reel) {
+          const filteredApiFeeds = newItems.filter(
+            (item) => item._id !== reel._id,
+          );
+          finalFirstPage = [reel, ...filteredApiFeeds];
+        }
+        return finalFirstPage;
+      }
+
+      // Nếu là trang > 1: Nối mảng và lọc trùng ID
+      const existingIds = new Set(prev.map((i) => i._id));
+      const filteredNewItems = newItems.filter((i) => !existingIds.has(i._id));
+      return [...prev, ...filteredNewItems];
+    });
+
+    setIsFetchingNextPage(false);
+  }, [data, page, reel]);
+
+  //
   useEffect(() => {
     if (data?.metadata?.items) {
       const apiFeeds = data.metadata.items as IReel[];
@@ -88,42 +106,50 @@ export function ReelDetail() {
     }
   }, [data]);
 
+  // Khi chọn reel mới (chuyển slide), cập nhật URL và quản lý phát video
   useEffect(() => {
-    // Thêm điều kiện feeds.length để đảm bảo data đã load
     if (!api || feeds.length === 0) return;
 
     const onSelect = () => {
-      // 1. Lấy index hiện tại
       const index = api.selectedScrollSnap();
+      currentIndexRef.current = index;
 
-      // 2. Tìm Reel tương ứng trong mảng feeds
+      // 1. Xử lý URL (giữ nguyên)
       const currentReel = feeds[index];
-
-      // 3. Đẩy ID lên URL (Thay /reel/ bằng đường dẫn thực tế của bạn)
       if (currentReel?._id) {
         window.history.replaceState(null, "", `/reel/${currentReel._id}`);
       }
 
-      // --- Logic cũ của bạn giữ nguyên ---
-      const prevVideo = videoRefs.current[currentIndexRef.current];
-      if (prevVideo) {
-        prevVideo.pause();
-        prevVideo.currentTime = 0;
-      }
+      // 2. QUẢN LÝ PHÁT VIDEO:
+      videoRefs.current.forEach((video, i) => {
+        if (!video) return;
+        if (i === index) {
+          // Video hiện tại: Phát
+          video.play().catch((err) => console.log("Autoplay blocked:", err));
+        } else {
+          // Các video khác: Dừng và đưa về đầu
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
 
-      currentIndexRef.current = index;
+      // 3. Logic gọi API trang mới (giữ nguyên)
+      if (index >= feeds.length - 2 && !isFetchingNextPage && hasMore) {
+        setIsFetchingNextPage(true);
+        setPage((prev) => prev + 1);
+      }
     };
 
-    // (Tùy chọn) Gọi onSelect() một lần ngay khi component mount
-    // để set ID của video đầu tiên lên URL ngay lập tức
+    api.on("select", onSelect);
+    // Gọi lần đầu để phát video đầu tiên khi mới mount
     onSelect();
 
-    api.on("select", onSelect);
     return () => {
       api.off("select", onSelect);
     };
-  }, [api, feeds]); // QUAN TRỌNG: Phải thêm feeds vào mảng dependency
+  }, [api, feeds.length, isFetchingNextPage, hasMore]);
 
+  // Nếu không có reel nào để hiển thị
   const handleMouseEnter = (index: number) => {
     const video = videoRefs.current[index];
     if (!video) return;
@@ -134,12 +160,14 @@ export function ReelDetail() {
     setIsMuted(false);
   };
 
+  // Khi click vào video, tạm dừng nó (không ảnh hưởng đến video khác)
   const handleClick = (index: number) => {
     const video = videoRefs.current[index];
     if (!video) return;
     video.pause();
   };
 
+  // Đóng modal khi click ra ngoài
   const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.closest(".not-close")) return;
@@ -196,16 +224,15 @@ export function ReelDetail() {
                 <CarouselItem key={item._id} className="h-screen">
                   <div className="not-close relative bg-gray-50 h-[90vh] rounded-2xl overflow-hidden group">
                     <video
-                      autoPlay
                       loop
+                      muted={isMuted}
+                      src={reel?.video.url}
                       ref={(el) => {
                         videoRefs.current[index] = el;
                       }}
-                      muted={isMuted}
-                      src={reel?.video.url}
-                      onMouseEnter={() => handleMouseEnter(index)}
                       onClick={() => handleClick(index)}
                       className="w-full h-full object-contain"
+                      onMouseEnter={() => handleMouseEnter(index)}
                     />
 
                     <div
