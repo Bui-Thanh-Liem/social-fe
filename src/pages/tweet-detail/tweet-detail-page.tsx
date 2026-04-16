@@ -198,7 +198,7 @@ export function TweetDetailPage() {
         <CardContent className="h-[80vh] overflow-y-auto w-[94vw] lg:w-[54vw] bg-white px-1 lg:px-4">
           {isLoadingDetail && <SkeletonTweet />}
 
-          {(tweetDetail?.statusCode === 404 || !tweet) && <NotThing />}
+          {tweetDetail?.statusCode === 404 && <NotThing />}
 
           {tweetDetail?.statusCode === 403 && (
             <NotThing
