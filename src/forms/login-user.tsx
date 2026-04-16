@@ -15,6 +15,14 @@ import { InputMain } from "~/components/ui/input";
 import { AvatarMain } from "~/components/ui/avatar";
 import { Logo } from "~/components/logo";
 import { useGetGuestUsers } from "~/apis/user.api";
+import { StatusBadge } from "~/pages/profile/profile-page";
+import { cn } from "~/utils/cn.util";
+import { EUserStatus } from "~/shared/enums/status.enum";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
 
 export function LoginAccountForm({
   setOpenForm,
@@ -80,6 +88,7 @@ export function LoginAccountForm({
 
           {guests.length > 0 &&
             guests.map((item) => {
+              const status = item.status?.status;
               return (
                 <div
                   key={item.email}
@@ -91,19 +100,36 @@ export function LoginAccountForm({
                   }
                   className="bg-gray-50 hover:bg-sky-50 rounded-xl flex items-center justify-center h-16"
                 >
-                  <div className="flex gap-x-3 items-center">
-                    {item.avatar ? (
-                      <AvatarMain
-                        alt={item.email}
-                        src={item.avatar.url}
-                        className="w-16 h-16"
-                      />
-                    ) : (
-                      <div className="bg-gray-300 w-full h-full flex items-center justify-center">
-                        <Logo size={40} className="text-gray-400 " />
-                      </div>
-                    )}
-                  </div>
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <button onClick={(e) => e.preventDefault()}>
+                        <div className="flex gap-x-3 items-center relative">
+                          {item.avatar ? (
+                            <AvatarMain
+                              alt={item.email}
+                              src={item.avatar.url}
+                              className="w-16 h-16"
+                            />
+                          ) : (
+                            <div className="bg-gray-300 w-full h-full flex items-center justify-center">
+                              <Logo size={40} className="text-gray-400 " />
+                            </div>
+                          )}
+                          <span
+                            className={cn(
+                              "absolute top-0 right-0 hidden",
+                              status !== EUserStatus.Active && "block",
+                            )}
+                          >
+                            <StatusBadge status={status} />
+                          </span>
+                        </div>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{item.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </div>
               );
             })}

@@ -21,6 +21,32 @@ import { ProfileTweets } from "./profile-tweets";
 import { StarPrestige } from "./star";
 import { NotThing } from "~/components/state/not-thing";
 import { ProfileReels } from "./profile-reels";
+import { Badge } from "~/components/ui/badge";
+import { cn } from "~/utils/cn.util";
+import { EUserStatus } from "~/shared/enums/status.enum";
+import { IUserStatus } from "~/shared/interfaces/schemas/user.interface";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "~/components/ui/tooltip";
+
+export function StatusBadge({ status }: Pick<IUserStatus, "status">) {
+  return (
+    <>
+      <Badge
+        className={cn(
+          "",
+          status === EUserStatus.Active
+            ? "bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300"
+            : "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300",
+        )}
+      >
+        {status}
+      </Badge>
+    </>
+  );
+}
 
 export function ProfilePage() {
   // Metadata
@@ -111,6 +137,16 @@ export function ProfilePage() {
               <p className="font-semibold text-[20px] line-clamp-1">
                 {profile?.name}
               </p>
+              {EUserStatus.Active !== profile?.status.status && (
+                <Tooltip>
+                  <TooltipTrigger>
+                    <StatusBadge status={profile?.status.status} />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{profile?.status.reason}</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
             </div>
           </div>
         </div>

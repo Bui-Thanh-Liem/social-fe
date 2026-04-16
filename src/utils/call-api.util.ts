@@ -89,13 +89,10 @@ export const apiCall = async <T>(
       response = await fetch(`${apiUrl}${endpoint}`, config);
       result = await response.json();
     } else {
-      // If refresh fails, redirect to login or handle accordingly
       deleteStorageClient();
-
-      // You might want to redirect to login page here
-      console.log("Lỗi khi gọi api refresh token:::", resRefreshToken);
-      window.location.href = "/";
     }
+  } else if ([401, 403].includes(result.statusCode)) {
+    deleteStorageClient();
   }
 
   return result;

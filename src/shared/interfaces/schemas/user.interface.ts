@@ -1,12 +1,18 @@
-import { EAuthVerifyStatus } from "~/shared/enums/status.enum";
+import { EAuthVerifyStatus, EUserStatus } from "~/shared/enums/status.enum";
 import type { IBase } from "./base.interface";
 import type { IMediaBare } from "./media.interface";
+
+export interface IUserStatus {
+  status: EUserStatus;
+  reason: string;
+}
 
 export interface IUser extends IBase {
   name: string;
   email: string;
   password: string;
   day_of_birth: Date;
+  status: IUserStatus;
   email_verify_token?: string;
   forgot_password_token?: string;
   verify: EAuthVerifyStatus;
