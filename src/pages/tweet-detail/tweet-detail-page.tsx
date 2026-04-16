@@ -200,6 +200,13 @@ export function TweetDetailPage() {
 
           {(tweetDetail?.statusCode === 404 || !tweet) && <NotThing />}
 
+          {tweetDetail?.statusCode === 403 && (
+            <NotThing
+              title="Bạn chưa tham gia vào cộng đồng"
+              description={tweetDetail?.message}
+            />
+          )}
+
           {/*  */}
           {tweet && (
             <TweetItem
