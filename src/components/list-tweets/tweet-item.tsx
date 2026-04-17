@@ -231,9 +231,9 @@ export const TweetItem = ({
             {community?.name}
           </Link>
           <CornerRightDown className="inline-block ml-2 mt-2" size={14} />
-          <StatusTag status={tweet.status} className="inline-block ml-4" />
         </div>
       )}
+      <StatusTag status={tweet.status} className="inline-block" />
 
       {/* thông tin người dùng */}
       <div className="flex items-center">

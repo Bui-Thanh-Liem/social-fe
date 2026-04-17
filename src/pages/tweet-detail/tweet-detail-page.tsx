@@ -202,7 +202,7 @@ export function TweetDetailPage() {
 
           {tweetDetail?.statusCode === 403 && (
             <NotThing
-              title="Bạn chưa tham gia vào cộng đồng"
+              title="Bài viết này riêng tư"
               description={tweetDetail?.message}
             />
           )}
