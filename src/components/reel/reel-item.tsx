@@ -66,7 +66,7 @@ export function ReelItem({
         playsInline
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className="w-full h-full object-contain transition-all duration-500 ease-out my-auto 
+        className="w-full h-full object-cover transition-all duration-500 ease-out my-auto 
                    hover:scale-[1.05] hover:-translate-y-1 cursor-pointer"
         onClick={onclickReel}
       />
