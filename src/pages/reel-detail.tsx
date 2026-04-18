@@ -106,6 +106,20 @@ export function ReelDetail() {
     }
   }, [data]);
 
+  //
+  useEffect(() => {
+    return () => {
+      // Quét qua tất cả ref và dừng video
+      videoRefs.current.forEach((video) => {
+        if (video) {
+          video.pause();
+          video.removeAttribute("src"); // Quan trọng để dừng triệt để
+          video.load();
+        }
+      });
+    };
+  }, []);
+
   // Khi chọn reel mới (chuyển slide), cập nhật URL và quản lý phát video
   useEffect(() => {
     if (!api || feeds.length === 0) return;
@@ -146,6 +160,8 @@ export function ReelDetail() {
 
     return () => {
       api.off("select", onSelect);
+      // Dừng tất cả video khi effect này bị dọn dẹp hoặc unmount
+      videoRefs.current?.forEach((v) => v?.pause());
     };
   }, [api, feeds.length, isFetchingNextPage, hasMore]);
 
