@@ -10,9 +10,9 @@ import {
 } from "~/apis/conversation.api";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useConversationActiveStore } from "~/store/useConversationActiveStore";
-import { useUserStore } from "~/store/useUserStore";
-import { handleResponse } from "~/utils/toast";
+import { useConversationActiveStore } from "~/storage/use-conversation-active.storage";
+import { useUserStore } from "~/storage/use-user.storage";
+import { handleResponse } from "~/utils/toast.util";
 
 export function ParticipantList({
   conversation,

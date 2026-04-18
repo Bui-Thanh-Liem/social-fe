@@ -12,7 +12,7 @@ import {
 } from "~/components/ui/carousel";
 import { DialogMain } from "~/components/ui/dialog";
 import type { IReel } from "~/shared/interfaces/schemas/reel.interface";
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/storage/use-user.storage";
 import { ErrorResponse } from "../state/error";
 import { ReelItem, ReelItemSkeleton } from "./reel-item";
 import { ReelPost } from "./reel-post";

@@ -1,9 +1,9 @@
 import { Label } from "~/components/ui/label";
 import { RadioGroup, RadioGroupItemMain } from "~/components/ui/radio-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { useAddQuery } from "~/hooks/useAddQuery";
-import { useRemoveQuery } from "~/hooks/useRemoveQuery";
-import { useUpdateQuery } from "~/hooks/useUpdateQuery";
+import { useAddQuery } from "~/hooks/use-add-query";
+import { useRemoveQuery } from "~/hooks/use-remove-query";
+import { useUpdateQuery } from "~/hooks/use-update-query";
 import { CommunityTab } from "./community-tab";
 import { MediaTab } from "./media-tab";
 import { PeopleTab } from "./people-tab";

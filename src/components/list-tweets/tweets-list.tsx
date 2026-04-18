@@ -7,7 +7,7 @@ import { CommunityShortRow } from "~/pages/community/community-short-row";
 import { EFeedType, ETweetType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/storage/use-user.storage";
 import { ErrorResponse } from "../state/error";
 import { NotThing } from "../state/not-thing";
 import { ButtonMain } from "../ui/button";

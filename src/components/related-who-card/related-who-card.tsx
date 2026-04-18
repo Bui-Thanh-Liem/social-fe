@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { cn } from "~/utils/cn.util";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useTrendingStore } from "~/store/useTrendingStore";
+import { useTrendingStore } from "~/storage/use-trending.storage";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { UserToFollowItem } from "../who-to-follow/who-to-follow-item";
 

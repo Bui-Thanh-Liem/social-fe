@@ -7,7 +7,7 @@ import {
   useDeleteSearchHistory,
   useGetMultiSearchHistory,
 } from "~/apis/search-history.api";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { cn } from "~/utils/cn.util";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { ITrending } from "~/shared/interfaces/schemas/trending.interface";

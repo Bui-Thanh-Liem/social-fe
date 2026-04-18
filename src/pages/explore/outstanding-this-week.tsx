@@ -9,7 +9,7 @@ import {
 } from "~/components/today-news-or-outstanding-item";
 import { cn } from "~/utils/cn.util";
 import type { IResTodayNewsOrOutstanding } from "~/shared/dtos/res/trending.dto";
-import { toastSimple } from "~/utils/toast";
+import { toastSimple } from "~/utils/toast.util";
 
 export function OutstandingThisWeek() {
   const location = useLocation();

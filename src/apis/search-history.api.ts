@@ -5,7 +5,7 @@ import type { CreateSearchHistoryDto } from "~/shared/dtos/req/search-history.dt
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { ISearchHistory } from "~/shared/interfaces/schemas/search-history.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
-import { buildQueryString } from "~/utils/build-query-string";
+import { buildQueryString } from "~/utils/build-query-string.util";
 import { apiCall } from "~/utils/call-api.util";
 
 // ➕ POST

@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { useAddParticipants } from "~/apis/conversation.api";
 import { useGetFollowedById } from "~/apis/user.api";
 import { cn } from "~/utils/cn.util";
@@ -13,7 +13,7 @@ import {
 } from "~/shared/dtos/req/conversation.dto";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/storage/use-user.storage";
 import { ButtonMain } from "~/components/ui/button";
 import { Divider } from "~/components/ui/divider";
 import { SearchMain } from "~/components/ui/search";
@@ -22,7 +22,7 @@ import {
   UserFollowerSkeleton,
   UserSelected,
 } from "./create-conversation-user";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 
 export function AddParticipantsForm({
   setOpenForm,

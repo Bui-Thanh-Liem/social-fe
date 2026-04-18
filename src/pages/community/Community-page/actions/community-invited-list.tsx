@@ -16,8 +16,8 @@ import type {
   ICommunityInvitation,
 } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { formatTimeUntil } from "~/utils/date-time";
-import { handleResponse } from "~/utils/toast";
+import { formatTimeUntil } from "~/utils/date-time.util";
+import { handleResponse } from "~/utils/toast.util";
 
 export function CommunityInvitedList({ community }: { community: ICommunity }) {
   //

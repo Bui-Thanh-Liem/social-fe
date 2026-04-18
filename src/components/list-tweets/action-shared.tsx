@@ -1,6 +1,6 @@
 import { Share } from "lucide-react";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { toastSimple } from "~/utils/toast";
+import { toastSimple } from "~/utils/toast.util";
 
 const apiUrl = import.meta.env.VITE_CLIENT_URL;
 

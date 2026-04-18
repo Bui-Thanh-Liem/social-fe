@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useFollowUser } from "~/apis/follow.api";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/storage/use-user.storage";
 import { VerifyIcon } from "../icons/verify";
 import { ShortInfoProfile } from "../short-info-profile";
 import { AvatarMain } from "../ui/avatar";

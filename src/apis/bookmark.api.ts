@@ -4,7 +4,7 @@ import type { ResToggleBookmark } from "~/shared/dtos/res/bookmark.dto";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
 import { apiCall } from "~/utils/call-api.util";
-import { handleResponseOnlyErr } from "~/utils/toast";
+import { handleResponseOnlyErr } from "~/utils/toast.util";
 
 export const useBookmarkTweet = () => {
   const queryClient = useQueryClient();

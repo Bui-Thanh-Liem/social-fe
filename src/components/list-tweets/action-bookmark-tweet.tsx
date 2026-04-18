@@ -2,8 +2,8 @@ import { Bookmark } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useBookmarkTweet } from "~/apis/bookmark.api";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { useUserStore } from "~/store/useUserStore";
-import { toastSimple } from "~/utils/toast";
+import { useUserStore } from "~/storage/use-user.storage";
+import { toastSimple } from "~/utils/toast.util";
 
 export function ActionBookmarkTweet({ tweet }: { tweet: ITweet }) {
   const { user } = useUserStore();

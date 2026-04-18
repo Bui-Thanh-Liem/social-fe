@@ -11,9 +11,9 @@ import type {
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
-import { buildQueryString } from "~/utils/build-query-string";
+import { buildQueryString } from "~/utils/build-query-string.util";
 import { apiCall } from "~/utils/call-api.util";
-import { handleResponseOnlyErr } from "~/utils/toast";
+import { handleResponseOnlyErr } from "~/utils/toast.util";
 
 // ➕ POST
 export const useCreateConversation = () => {

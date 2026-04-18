@@ -4,7 +4,7 @@ import { ErrorResponse } from "~/components/state/error";
 import { SkeletonTweet, TweetItem } from "~/components/list-tweets/tweet-item";
 import { NotThing } from "~/components/state/not-thing";
 import { SearchMain } from "~/components/ui/search";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 
 export function BookmarkPage() {

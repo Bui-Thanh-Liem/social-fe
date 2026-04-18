@@ -8,7 +8,7 @@ import {
   type UseFormRegister,
 } from "react-hook-form";
 import { cn } from "~/utils/cn.util";
-import { getNestedError } from "~/utils/get-nested-error";
+import { getNestedError } from "~/utils/get-nested-error.util";
 import { Label } from "./label";
 
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {

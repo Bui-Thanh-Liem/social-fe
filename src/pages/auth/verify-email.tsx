@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useVerifyEmail } from "~/apis/user.api";
-import { toastSimple } from "~/utils/toast";
+import { toastSimple } from "~/utils/toast.util";
 
 export function VerifyEmail() {
   const [params] = useSearchParams();

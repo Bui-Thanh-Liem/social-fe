@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { useGetMultiForMentions } from "~/apis/user.api";
 import { cn } from "~/utils/cn.util";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";

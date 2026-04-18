@@ -3,7 +3,7 @@ import {
   CONSTANT_MAX_SIZE_IMAGE_UPLOAD,
   CONSTANT_MAX_SIZE_VIDEO_UPLOAD,
 } from "~/shared/constants";
-import { toastSimple } from "~/utils/toast";
+import { toastSimple } from "~/utils/toast.util";
 
 // Custom hook for medias preview and upload
 export const useMediaPreview = () => {
@@ -52,7 +52,7 @@ export const useMediaPreview = () => {
         ) {
           toastSimple(
             "Chỉ hỗ trợ file ảnh (JPEG, PNG, GIF, WebP) và video (MP4, WebM, MOV, AVI)",
-            "warning"
+            "warning",
           );
           return;
         }
@@ -71,9 +71,9 @@ export const useMediaPreview = () => {
             : "5MB";
           toastSimple(
             `${type_vn} không được vượt quá ${sizeLimitText}, ${type_vn} bạn định tải lên: ${formatFileSize(
-              file.size
+              file.size,
             )}`,
-            "warning"
+            "warning",
           );
           return;
         }
@@ -92,7 +92,7 @@ export const useMediaPreview = () => {
         setUploadProgress(0);
       }
     },
-    [previewUrl]
+    [previewUrl],
   );
 
   const removeMedia = useCallback(() => {

@@ -11,8 +11,8 @@ import { WrapIcon } from "~/components/wrap-icon";
 import { ETweetType } from "~/shared/enums/type.enum";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useCommentSocket } from "~/socket/hooks/useCommentSocket";
-import { useUserStore } from "~/store/useUserStore";
+import { useCommentSocket } from "~/socket/hooks/use-comment-socket";
+import { useUserStore } from "~/storage/use-user.storage";
 
 export function TweetDetailPage() {
   //

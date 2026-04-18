@@ -14,7 +14,7 @@ import { WrapIcon } from "~/components/wrap-icon";
 import { cn } from "~/utils/cn.util";
 import type { IHashtag } from "~/shared/interfaces/schemas/hashtag.interface";
 import type { ITrending } from "~/shared/interfaces/schemas/trending.interface";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 
 export function TrendingItemSkeleton() {
   return (

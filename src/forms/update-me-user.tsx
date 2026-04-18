@@ -6,7 +6,7 @@ import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
 // Assuming you have these hooks and schemas
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 
 // UI components - theo cách import của bạn
 import { useNavigate } from "react-router-dom";
@@ -17,8 +17,8 @@ import {
   type UpdateMeDto,
 } from "~/shared/dtos/req/user-auth.dto";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
-import { toastSimple } from "~/utils/toast";
+import { useUserStore } from "~/storage/use-user.storage";
+import { toastSimple } from "~/utils/toast.util";
 import { AvatarMain } from "~/components/ui/avatar";
 import { ButtonMain } from "~/components/ui/button";
 import { CircularProgress } from "~/components/ui/circular-progress";

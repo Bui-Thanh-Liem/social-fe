@@ -1,9 +1,9 @@
-import { useAddQuery } from "~/hooks/useAddQuery";
+import { useAddQuery } from "~/hooks/use-add-query";
 import { cn } from "~/utils/cn.util";
 import { Card, CardContent } from "../ui/card";
 import { Label } from "../ui/label";
 import { RadioGroup, RadioGroupItemMain } from "../ui/radio-group";
-import { useRemoveQuery } from "~/hooks/useRemoveQuery";
+import { useRemoveQuery } from "~/hooks/use-remove-query";
 import { useSearchParams } from "react-router-dom";
 
 export function SearchFilterCard() {

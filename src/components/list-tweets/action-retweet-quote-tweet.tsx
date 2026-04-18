@@ -6,7 +6,7 @@ import { ETweetType } from "~/shared/enums/type.enum";
 import type { IHashtag } from "~/shared/interfaces/schemas/hashtag.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 import { Tweet } from "../tweet/tweet";
 import { DialogMain } from "../ui/dialog";
 import {

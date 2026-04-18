@@ -8,7 +8,7 @@ import {
   RegisterUserDtoSchema,
   type RegisterUserDto,
 } from "~/shared/dtos/req/user-auth.dto";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 import { ButtonMain } from "~/components/ui/button";
 import { DatePicker } from "~/components/ui/date-picker";
 import { InputMain } from "~/components/ui/input";

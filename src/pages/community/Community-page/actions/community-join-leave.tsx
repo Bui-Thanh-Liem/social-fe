@@ -5,8 +5,8 @@ import { WrapIcon } from "~/components/wrap-icon";
 import { useJoinCommunity, useLeaveCommunity } from "~/apis/community.api";
 import { EMembershipType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
-import { handleResponse } from "~/utils/toast";
-import { useUserStore } from "~/store/useUserStore";
+import { handleResponse } from "~/utils/toast.util";
+import { useUserStore } from "~/storage/use-user.storage";
 
 export function CommunityJoinLeave({ community }: { community: ICommunity }) {
   const { user } = useUserStore();

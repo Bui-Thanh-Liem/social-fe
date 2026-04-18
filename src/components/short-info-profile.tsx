@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { ProfileAction } from "~/pages/profile/profile-action";
 import { StarPrestige } from "~/pages/profile/star";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/storage/use-user.storage";
 import { cn } from "~/utils/cn.util";
 import { VerifyIcon } from "./icons/verify";
 import { AvatarMain } from "./ui/avatar";

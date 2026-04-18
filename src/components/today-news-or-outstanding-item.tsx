@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { cn } from "~/utils/cn.util";
 import type { IResTodayNewsOrOutstanding } from "~/shared/dtos/res/trending.dto";
-import { useTrendingStore } from "~/store/useTrendingStore";
-import { formatTimeAgo } from "~/utils/date-time";
+import { useTrendingStore } from "~/storage/use-trending.storage";
+import { formatTimeAgo } from "~/utils/date-time.util";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Card, CardContent, CardDescription, CardTitle } from "./ui/card";
 import { Content } from "./list-tweets/content";

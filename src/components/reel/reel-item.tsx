@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ShortInfoProfile } from "~/components/short-info-profile";
 import { IReel } from "~/shared/interfaces/schemas/reel.interface";
-import { useReelStore } from "~/store/useReelStore";
+import { useReelStore } from "~/storage/use-reel.storage";
 import { cn } from "~/utils/cn.util";
 import { Card } from "../ui/card";
 

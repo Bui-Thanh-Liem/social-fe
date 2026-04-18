@@ -1,5 +1,5 @@
 import { useCallback, type ReactNode } from "react";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { useGetMultiHashtags } from "~/apis/hashtag.api";
 import { cn } from "~/utils/cn.util";
 import type { IHashtag } from "~/shared/interfaces/schemas/hashtag.interface";

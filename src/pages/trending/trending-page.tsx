@@ -5,9 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { WrapIcon } from "~/components/wrap-icon";
 import { useGetTweetsByIds } from "~/apis/trending.api";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { useTrendingStore } from "~/store/useTrendingStore";
+import { useTrendingStore } from "~/storage/use-trending.storage";
 import { Content } from "~/components/list-tweets/content";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/date-time.util";
 import { ArrowLeft } from "lucide-react";
 
 export function TrendingPage() {

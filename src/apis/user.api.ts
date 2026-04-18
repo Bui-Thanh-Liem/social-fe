@@ -5,10 +5,10 @@ import type { EAuthVerifyStatus } from "~/shared/enums/status.enum";
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
-import { useUserStore } from "~/store/useUserStore";
-import { buildQueryString } from "~/utils/build-query-string";
+import { useUserStore } from "~/storage/use-user.storage";
+import { buildQueryString } from "~/utils/build-query-string.util";
 import { apiCall } from "~/utils/call-api.util";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 
 // 🚪 GET - Get User By username
 export const useGetOneByUsername = (username: string, enabled = true) => {

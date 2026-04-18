@@ -14,9 +14,9 @@ import {
 import { WrapIcon } from "~/components/wrap-icon";
 import { IReel } from "~/shared/interfaces/schemas/reel.interface";
 import { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useReelStore } from "~/store/useReelStore";
+import { useReelStore } from "~/storage/use-reel.storage";
 import { cn } from "~/utils/cn.util";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/date-time.util";
 
 export function ReelDetail() {
   const navigate = useNavigate();

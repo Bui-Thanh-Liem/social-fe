@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/date-time.util";
 import { ContentExpanded } from "./content";
 
 export function ActionCommentTweet({ tweet }: { tweet: ITweet }) {

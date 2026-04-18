@@ -4,11 +4,11 @@ import { AppSidebarMobile } from "~/components/sidebar-mobile/app-sidebar-mobile
 import { cn } from "~/utils/cn.util";
 import { DetailAttachmentDrawer } from "~/pages/messages/detail-all-attachments";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
-import { useNotificationSocket } from "~/socket/hooks/useNotificationSocket";
+import { useNotificationSocket } from "~/socket/hooks/use-notification-socket";
 import { socket } from "~/socket/socket";
-import { useChatBoxStore } from "~/store/useChatBoxStore";
-import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
-import { useUserStore } from "~/store/useUserStore";
+import { useChatBoxStore } from "~/storage/use-chat-box.storage";
+import { useUnreadNotiStore } from "~/storage/use-unread-noti.storage";
+import { useUserStore } from "~/storage/use-user.storage";
 import { Header } from "./header";
 import { SidebarLeft } from "./sidebar-left/sidebar-left";
 import { SidebarRight } from "./sidebar-right";

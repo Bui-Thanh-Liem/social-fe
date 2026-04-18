@@ -3,7 +3,7 @@ import type { ENotificationType } from "~/shared/enums/type.enum";
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { INotification } from "~/shared/interfaces/schemas/notification.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
-import { buildQueryString } from "~/utils/build-query-string";
+import { buildQueryString } from "~/utils/build-query-string.util";
 import { apiCall } from "~/utils/call-api.util";
 
 // 📄 GET

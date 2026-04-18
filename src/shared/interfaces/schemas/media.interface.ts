@@ -1,4 +1,4 @@
-import type { MediaItem } from "~/hooks/useMediaPreviewMulti";
+import type { MediaItem } from "~/hooks/use-media-preview-multi";
 import { EMediaStatus } from "~/shared/enums/status.enum";
 
 export interface IMedia {

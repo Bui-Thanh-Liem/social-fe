@@ -1,6 +1,6 @@
 import type { OkResponse } from "~/shared/classes/response.class";
 import type { ResLoginUser } from "~/shared/dtos/res/auth.dto";
-import { useUserStore } from "~/store/useUserStore";
+import { useUserStore } from "~/storage/use-user.storage";
 import { deleteStorageClient } from "./delete-storage-client";
 
 const apiUrl = import.meta.env.VITE_SERVER_API_URL;

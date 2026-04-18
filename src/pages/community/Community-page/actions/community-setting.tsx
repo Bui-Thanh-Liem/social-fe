@@ -20,7 +20,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 import { WrapIcon } from "~/components/wrap-icon";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import {
   useDemoteMentor,
   usePromoteMentor,
@@ -32,8 +32,8 @@ import { CONSTANT_MAX_LENGTH_MENTOR } from "~/shared/constants";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { handleResponse } from "~/utils/toast";
-import { toastSimple } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
+import { toastSimple } from "~/utils/toast.util";
 import { infoMap } from "./community-info";
 
 export function CommunitySetting({ community }: { community: ICommunity }) {

@@ -9,7 +9,7 @@ import {
 
 import { Eye, EyeOff } from "lucide-react";
 import { cn } from "~/utils/cn.util";
-import { getNestedError } from "~/utils/get-nested-error";
+import { getNestedError } from "~/utils/get-nested-error.util";
 import { Label } from "./label";
 import { CircularProgress } from "./circular-progress";
 

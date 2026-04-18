@@ -13,7 +13,7 @@ import {
   CarouselPrevious,
 } from "~/components/ui/carousel";
 import { SearchMain } from "~/components/ui/search";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { cn } from "~/utils/cn.util";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import { CommunityRow, CommunityRowSkeleton } from "./community-row";

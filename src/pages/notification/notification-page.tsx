@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { ENotificationType } from "~/shared/enums/type.enum";
-import { useUnreadNotiStore } from "~/store/useUnreadNotiStore";
+import { useUnreadNotiStore } from "~/storage/use-unread-noti.storage";
 import { TabContent } from "./tab-content";
 
 export function NotificationPage() {

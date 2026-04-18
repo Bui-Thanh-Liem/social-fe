@@ -4,7 +4,7 @@ import type { ResToggleLike } from "~/shared/dtos/res/like.dto";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
 import { apiCall } from "~/utils/call-api.util";
-import { handleResponseOnlyErr } from "~/utils/toast";
+import { handleResponseOnlyErr } from "~/utils/toast.util";
 
 export const useLikeTweet = () => {
   const queryClient = useQueryClient();

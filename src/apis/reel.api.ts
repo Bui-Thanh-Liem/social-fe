@@ -8,7 +8,7 @@ import { EReelStatus } from "~/shared/enums/status.enum";
 import type { IQuery } from "~/shared/interfaces/common/query.interface";
 import type { IReel } from "~/shared/interfaces/schemas/reel.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
-import { buildQueryString } from "~/utils/build-query-string";
+import { buildQueryString } from "~/utils/build-query-string.util";
 import { apiCall } from "~/utils/call-api.util";
 
 // ➕ POST - Tạo reel mới

@@ -14,7 +14,7 @@ import { cn } from "~/utils/cn.util";
 import { EMembershipType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 import { CommunityTag } from "./community-short-row";
 
 export function CommunityRow({

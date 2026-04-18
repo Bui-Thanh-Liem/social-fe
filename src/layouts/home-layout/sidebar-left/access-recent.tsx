@@ -16,9 +16,9 @@ import { cn } from "~/utils/cn.util";
 import type { IAccessRecent } from "~/shared/interfaces/schemas/access-recent.interface";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useTriggerAccessRecentStore } from "~/store/useTriggerAccessRecentStore";
-import { useUserStore } from "~/store/useUserStore";
-import { handleResponse } from "~/utils/toast";
+import { useTriggerAccessRecentStore } from "~/storage/use-trigger-access-recent.storage";
+import { useUserStore } from "~/storage/use-user.storage";
+import { handleResponse } from "~/utils/toast.util";
 
 export function AccessRecent() {
   //

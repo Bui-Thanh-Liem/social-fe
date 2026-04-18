@@ -18,20 +18,20 @@ import {
 } from "~/components/ui/dropdown-menu";
 import { SearchMain } from "~/components/ui/search";
 import { WrapIcon } from "~/components/wrap-icon";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { EConversationType } from "~/shared/enums/type.enum";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
 import type { IMessage } from "~/shared/interfaces/schemas/message.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useConversationSocket } from "~/socket/hooks/useConversationSocket";
-import { useStatusSocket } from "~/socket/hooks/useStatusSocket";
-import { useChatBoxStore } from "~/store/useChatBoxStore";
-import { useConversationActiveStore } from "~/store/useConversationActiveStore";
-import { useOnlStore } from "~/store/useOnlStore";
-import { useUserStore } from "~/store/useUserStore";
+import { useConversationSocket } from "~/socket/hooks/use-conversation-socket";
+import { useStatusSocket } from "~/socket/hooks/use-status-socket";
+import { useChatBoxStore } from "~/storage/use-chat-box.storage";
+import { useConversationActiveStore } from "~/storage/use-conversation-active.storage";
+import { useOnlStore } from "~/storage/use-online.storage";
+import { useUserStore } from "~/storage/use-user.storage";
 import { checkOnl } from "~/utils/check-onl.util";
 import { cn } from "~/utils/cn.util";
-import { formatTimeAgo } from "~/utils/date-time";
+import { formatTimeAgo } from "~/utils/date-time.util";
 
 //
 function ConversationItemSkeleton() {

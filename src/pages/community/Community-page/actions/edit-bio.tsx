@@ -9,7 +9,7 @@ import {
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 import { WrapIcon } from "~/components/wrap-icon";
-import { handleResponse } from "~/utils/toast";
+import { handleResponse } from "~/utils/toast.util";
 
 export function Bio({
   community,

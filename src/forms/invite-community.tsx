@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { useInviteCommunity } from "~/apis/community.api";
 import { useGetFollowedById } from "~/apis/user.api";
 import { cn } from "~/utils/cn.util";
@@ -13,9 +13,9 @@ import {
 } from "~/shared/dtos/req/community.dto";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
-import { handleResponse } from "~/utils/toast";
-import { toastSimple } from "~/utils/toast";
+import { useUserStore } from "~/storage/use-user.storage";
+import { handleResponse } from "~/utils/toast.util";
+import { toastSimple } from "~/utils/toast.util";
 import { ButtonMain } from "~/components/ui/button";
 import { SearchMain } from "~/components/ui/search";
 import {

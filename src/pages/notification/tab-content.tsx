@@ -16,9 +16,9 @@ import type { ICommunity } from "~/shared/interfaces/schemas/community.interface
 import type { INotification } from "~/shared/interfaces/schemas/notification.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useNotificationSocket } from "~/socket/hooks/useNotificationSocket";
-import { formatTimeAgo } from "~/utils/date-time";
-import { handleResponse } from "~/utils/toast";
+import { useNotificationSocket } from "~/socket/hooks/use-notification-socket";
+import { formatTimeAgo } from "~/utils/date-time.util";
+import { handleResponse } from "~/utils/toast.util";
 
 //
 type Props = {

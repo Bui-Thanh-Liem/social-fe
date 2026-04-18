@@ -12,7 +12,7 @@ import type {
 import type { ResPresignedUrl } from "~/shared/dtos/res/upload.dto";
 import type { IMedia } from "~/shared/interfaces/schemas/media.interface";
 import { apiCall } from "~/utils/call-api.util";
-import { toastSimple } from "~/utils/toast";
+import { toastSimple } from "~/utils/toast.util";
 
 const uploadEndpoint = "/uploads/";
 

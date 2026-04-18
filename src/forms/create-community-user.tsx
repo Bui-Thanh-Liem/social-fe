@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { useCreateCommunity, useGetAllCategories } from "~/apis/community.api";
 import { useUploadMedia } from "~/apis/upload.api";
 import { useGetFollowedById } from "~/apis/user.api";
-import { useDebounce } from "~/hooks/useDebounce";
+import { useDebounce } from "~/hooks/use-debounce";
 import { cn } from "~/utils/cn.util";
 import {
   CreateCommunityDtoSchema,
@@ -15,9 +15,9 @@ import {
 } from "~/shared/dtos/req/community.dto";
 import { EMembershipType, EVisibilityType } from "~/shared/enums/type.enum";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useUserStore } from "~/store/useUserStore";
-import { handleResponse } from "~/utils/toast";
-import { toastSimple } from "~/utils/toast";
+import { useUserStore } from "~/storage/use-user.storage";
+import { handleResponse } from "~/utils/toast.util";
+import { toastSimple } from "~/utils/toast.util";
 import { ButtonMain } from "~/components/ui/button";
 import { CircularProgress } from "~/components/ui/circular-progress";
 import { Divider } from "~/components/ui/divider";

@@ -6,7 +6,7 @@ import type { ITrending } from "~/shared/interfaces/schemas/trending.interface";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
 import type { ResMultiType } from "~/shared/types/response.type";
-import { buildQueryString } from "~/utils/build-query-string";
+import { buildQueryString } from "~/utils/build-query-string.util";
 import { apiCall } from "~/utils/call-api.util";
 
 // 📄 GET - dùng trong gợi ý khi gõ trong input search

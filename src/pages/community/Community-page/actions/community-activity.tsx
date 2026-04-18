@@ -19,7 +19,7 @@ import {
 import { WrapIcon } from "~/components/wrap-icon";
 import { EActivityType } from "~/shared/enums/type.enum";
 import type { ICommunity } from "~/shared/interfaces/schemas/community.interface";
-import { toastSimple } from "~/utils/toast";
+import { toastSimple } from "~/utils/toast.util";
 
 const icons = {
   [EActivityType.Invite]: <UserPlus className="size-5 text-green-400" />,

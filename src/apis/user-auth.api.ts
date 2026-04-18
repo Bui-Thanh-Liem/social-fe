@@ -9,8 +9,8 @@ import type {
 } from "~/shared/dtos/req/user-auth.dto";
 import type { ResLoginUser } from "~/shared/dtos/res/auth.dto";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { useBackLinkStore } from "~/store/useBackLinkStore";
-import { useUserStore } from "~/store/useUserStore";
+import { useBackLinkStore } from "~/storage/use-back-link.storage";
+import { useUserStore } from "~/storage/use-user.storage";
 import { apiCall } from "~/utils/call-api.util";
 import { deleteStorageClient } from "~/utils/delete-storage-client";
 

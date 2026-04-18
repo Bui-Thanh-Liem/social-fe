@@ -19,7 +19,7 @@ import {
 } from "~/components/ui/accordion";
 import { cn } from "~/utils/cn.util";
 import { CreateCommunity } from "~/pages/community/create-community";
-import { useReloadStore } from "~/store/useReloadStore";
+import { useReloadStore } from "~/storage/use-reload.storage";
 import { AccessRecent } from "./access-recent";
 import { explore_tab, joined_tab } from "~/pages/community/communities-page";
 
