@@ -23,15 +23,15 @@ import { NotThing } from "~/components/state/not-thing";
 import { ProfileReels } from "./profile-reels";
 import { Badge } from "~/components/ui/badge";
 import { cn } from "~/utils/cn.util";
-import { EUserStatus } from "~/shared/enums/status.enum";
-import { IUserStatus } from "~/shared/interfaces/schemas/user.interface";
+import { EUserStatus, EUserType } from "~/shared/enums/status.enum";
+import { IUser, IUserStatus } from "~/shared/interfaces/schemas/user.interface";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "~/components/ui/tooltip";
 
-export function StatusBadge({ status }: Pick<IUserStatus, "status">) {
+export function UserStatusBadge({ status }: Pick<IUserStatus, "status">) {
   return (
     <>
       <Badge
@@ -43,6 +43,25 @@ export function StatusBadge({ status }: Pick<IUserStatus, "status">) {
         )}
       >
         {status}
+      </Badge>
+    </>
+  );
+}
+
+export function UserTypeBadge({ type }: Pick<IUser, "type">) {
+  return (
+    <>
+      <Badge
+        className={cn(
+          "",
+          type === EUserType.Normal
+            ? "bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300"
+            : type === EUserType.Pro
+              ? "bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300"
+              : "bg-yellow-50 text-yellow-700 dark:bg-yellow-950 dark:text-yellow-300",
+        )}
+      >
+        {type}
       </Badge>
     </>
   );
@@ -140,7 +159,7 @@ export function ProfilePage() {
               {EUserStatus.Active !== profile?.status.status && (
                 <Tooltip>
                   <TooltipTrigger>
-                    <StatusBadge status={profile?.status.status} />
+                    <UserStatusBadge status={profile?.status.status} />
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>{profile?.status.reason}</p>
@@ -225,14 +244,18 @@ export function ProfilePage() {
               to={`/${username}/following`}
               className="hover:underline cursor-pointer"
             >
-              <span className="font-semibold">{profile?.following_count}</span>
+              <span className="font-semibold">
+                {profile?.following_count || 0}
+              </span>
               <span className="text-gray-500"> đang theo dõi</span>
             </Link>
             <Link
               to={`/${username}/followers`}
               className="hover:underline cursor-pointer"
             >
-              <span className="font-semibold">{profile?.follower_count}</span>
+              <span className="font-semibold">
+                {profile?.follower_count || 0}
+              </span>
               <span className="text-gray-500"> người theo dõi</span>
             </Link>
             <StarPrestige count={profile?.star || 0} />

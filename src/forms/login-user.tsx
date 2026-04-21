@@ -15,9 +15,9 @@ import { InputMain } from "~/components/ui/input";
 import { AvatarMain } from "~/components/ui/avatar";
 import { Logo } from "~/components/logo";
 import { useGetGuestUsers } from "~/apis/user.api";
-import { StatusBadge } from "~/pages/profile/profile-page";
+import { UserStatusBadge, UserTypeBadge } from "~/pages/profile/profile-page";
 import { cn } from "~/utils/cn.util";
-import { EUserStatus } from "~/shared/enums/status.enum";
+import { EUserStatus, EUserType } from "~/shared/enums/status.enum";
 import {
   Tooltip,
   TooltipContent,
@@ -121,7 +121,15 @@ export function LoginAccountForm({
                               status !== EUserStatus.Active && "block",
                             )}
                           >
-                            <StatusBadge status={status} />
+                            <UserStatusBadge status={status} />
+                          </span>
+                          <span
+                            className={cn(
+                              "absolute top-0 right-0 hidden",
+                              item.type !== EUserType.Normal && "block",
+                            )}
+                          >
+                            <UserTypeBadge type={item.type} />
                           </span>
                         </div>
                       </button>

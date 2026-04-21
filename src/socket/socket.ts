@@ -20,13 +20,18 @@ export const socket = io(SOCKET_URL, {
 
 // helper kết nối
 export const connectSocket = () => {
-  if (!socket.connected) {
-    socket.auth = { token: getToken() }; // cập nhật token mỗi lần connect
-    socket.connect();
+  try {
+    if (!socket.connected) {
+      socket.auth = { token: getToken() }; // cập nhật token mỗi lần connect
+      socket.connect();
 
-    if (user?._id) {
-      socket.emit(CONSTANT_EVENT_NAMES.JOIN_CONVERSATION, user._id);
+      if (user?._id) {
+        socket.emit(CONSTANT_EVENT_NAMES.JOIN_CONVERSATION, user._id);
+      }
     }
+  } catch (error) {
+    console.log("❌ Socket connect error:", error);
+    disconnectSocket();
   }
 };
 

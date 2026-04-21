@@ -1,4 +1,8 @@
-import { EAuthVerifyStatus, EUserStatus } from "~/shared/enums/status.enum";
+import {
+  EAuthVerifyStatus,
+  EUserStatus,
+  EUserType,
+} from "~/shared/enums/status.enum";
 import type { IBase } from "./base.interface";
 import type { IMediaBare } from "./media.interface";
 
@@ -16,6 +20,9 @@ export interface IUser extends IBase {
   email_verify_token?: string;
   forgot_password_token?: string;
   verify: EAuthVerifyStatus;
+  type: EUserType;
+  follower_count: number;
+  following_count: number;
 
   bio?: string;
   location?: string;
@@ -26,8 +33,5 @@ export interface IUser extends IBase {
   star?: number; // thể hiện độ uy tín
   isPinnedReel?: boolean; // có ghim reel lên avatar không
 
-  //
-  follower_count?: number;
-  following_count?: number;
   isFollow?: boolean; // người đang active và user đang truy vấn
 }

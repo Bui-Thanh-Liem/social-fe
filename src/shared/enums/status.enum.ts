@@ -26,6 +26,12 @@ export enum EInvitationStatus {
   Accepted,
 }
 
+export enum EUserType {
+  Normal = "Bình thường",
+  Pro = "Chuyên nghiệp",
+  Kol = "KOL",
+}
+
 export enum EUserStatus {
   Block = "Đã khoá",
   Hidden = "Đã ẩn", // Người dùng vẫn tồn tại nhưng không hiển thị trên hệ thống

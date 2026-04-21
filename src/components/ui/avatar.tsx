@@ -1,12 +1,19 @@
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import * as React from "react";
+import { IUser } from "~/shared/interfaces/schemas/user.interface";
 import { cn } from "~/utils/cn.util";
 
-type GroupAvatarMainProps = {
+interface GroupAvatarMainProps {
   srcs: string[];
   max?: number; // số avatar hiển thị tối đa
   className?: string;
-};
+}
+
+interface AvatarGroupProps {
+  max?: number;
+  className?: string;
+  users: Pick<IUser, "name" | "avatar">[];
+}
 
 function Avatar({
   className,
@@ -75,7 +82,6 @@ function AvatarMain({
 }
 
 function GroupAvatarMain({ srcs, max = 3 }: GroupAvatarMainProps) {
-  console.log("srcs:::", srcs);
   const visibleUsers = srcs?.slice(0, max);
 
   return (
@@ -100,6 +106,30 @@ function GroupAvatarMain({ srcs, max = 3 }: GroupAvatarMainProps) {
           />
         ))}
       </div>
+    </div>
+  );
+}
+
+export function AvatarGroup({ users, max = 3, className }: AvatarGroupProps) {
+  const visibleUsers = users.slice(0, max);
+  const remaining = users.length - max;
+
+  return (
+    <div className="flex -space-x-3">
+      {visibleUsers.map((user, index) => (
+        <AvatarMain
+          key={index}
+          alt={user.name}
+          src={user.avatar?.url}
+          className={cn("border-2 border-white", className)}
+        />
+      ))}
+
+      {remaining > 0 && (
+        <Avatar className="border-2 border-white">
+          <AvatarFallback>+{remaining}</AvatarFallback>
+        </Avatar>
+      )}
     </div>
   );
 }
