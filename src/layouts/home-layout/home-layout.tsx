@@ -5,7 +5,7 @@ import { cn } from "~/utils/cn.util";
 import { DetailAttachmentDrawer } from "~/pages/messages/detail-all-attachments";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
 import { useNotificationSocket } from "~/socket/hooks/use-notification-socket";
-import { socket } from "~/socket/socket";
+import { connectSocket, disconnectSocket, socket } from "~/socket/socket";
 import { useChatBoxStore } from "~/storage/use-chat-box.storage";
 import { useUnreadNotiStore } from "~/storage/use-unread-noti.storage";
 import { useUserStore } from "~/storage/use-user.storage";
@@ -55,12 +55,9 @@ export function HomeLayout() {
 
   // Một kết nối socket duy nhất cho toàn ứng dụng
   useEffect(() => {
-    socket.connect();
+    connectSocket();
     socket.emit(CONSTANT_EVENT_NAMES.JOIN_CONVERSATION, user?._id);
-
-    return () => {
-      socket.disconnect();
-    };
+    return () => disconnectSocket();
   }, []);
 
   //

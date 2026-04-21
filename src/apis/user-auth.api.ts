@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
+import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
 import type {
   ForgotPasswordDto,
   LoginUserDto,
@@ -9,6 +10,7 @@ import type {
 } from "~/shared/dtos/req/user-auth.dto";
 import type { ResLoginUser } from "~/shared/dtos/res/auth.dto";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
+import { connectSocket, socket } from "~/socket/socket";
 import { useBackLinkStore } from "~/storage/use-back-link.storage";
 import { useUserStore } from "~/storage/use-user.storage";
 import { apiCall } from "~/utils/call-api.util";
@@ -45,6 +47,11 @@ export const useRegister = () => {
           const resGetMe = await getMe.mutateAsync();
           if (resGetMe.statusCode === 200 && resGetMe?.metadata) {
             setUser(resGetMe.metadata);
+            connectSocket();
+            socket.emit(
+              CONSTANT_EVENT_NAMES.JOIN_CONVERSATION,
+              resGetMe.metadata._id,
+            );
           }
         })();
 
@@ -82,6 +89,12 @@ export const useUserLogin = () => {
           const resGetMe = await getMe.mutateAsync();
           if (resGetMe.statusCode === 200 && resGetMe?.metadata) {
             setUser(resGetMe.metadata);
+            connectSocket();
+            socket.emit(
+              CONSTANT_EVENT_NAMES.JOIN_CONVERSATION,
+              resGetMe.metadata._id,
+            );
+            console.log("connectSocket after login");
           }
         })();
 

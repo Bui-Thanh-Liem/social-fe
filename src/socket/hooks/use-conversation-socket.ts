@@ -1,24 +1,24 @@
 import { useEffect } from "react";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
 import type { IConversation } from "~/shared/interfaces/schemas/conversation.interface";
-import { socket } from "~/socket/socket";
+import { connectSocket, disconnectSocket, socket } from "~/socket/socket";
 
 export const useConversationSocket = (
   onNewConversation: (data: IConversation) => void,
   onUnreadCount: (count: number) => void,
-  onChangeConversation: (conversation: IConversation) => void
+  onChangeConversation: (conversation: IConversation) => void,
 ) => {
   //
   useEffect(() => {
     socket.on("connect_error", (err) => {
       // console.error("❌ Socket connect error:", err.message);
-      socket.disconnect();
+      disconnectSocket();
 
       if (err.message === "jwt expired") {
         console.log("Token jwt expired");
         const getToken = () => localStorage.getItem("access_token");
         socket.auth = { token: getToken() };
-        socket.connect();
+        connectSocket();
         console.log("Set token Success");
       }
     });
@@ -38,7 +38,7 @@ export const useConversationSocket = (
     return () => {
       socket.off(
         CONSTANT_EVENT_NAMES.CHANGE_CONVERSATION,
-        onChangeConversation
+        onChangeConversation,
       );
     };
   }, [onChangeConversation]);

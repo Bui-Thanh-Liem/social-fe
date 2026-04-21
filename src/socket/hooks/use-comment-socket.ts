@@ -1,20 +1,20 @@
 import { useEffect } from "react";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
 import type { ITweet } from "~/shared/interfaces/schemas/tweet.interface";
-import { socket } from "~/socket/socket";
+import { connectSocket, disconnectSocket, socket } from "~/socket/socket";
 
 export const useCommentSocket = (onNewComment: (tw: ITweet) => void) => {
   //
   useEffect(() => {
     socket.on("connect_error", (err) => {
       // console.error("❌ Socket connect error:", err.message);
-      socket.disconnect();
+      disconnectSocket();
 
       if (err.message === "jwt expired") {
         console.log("Token jwt expired");
         const getToken = () => localStorage.getItem("access_token");
         socket.auth = { token: getToken() };
-        socket.connect();
+        connectSocket();
         console.log("Set token Success");
       }
     });

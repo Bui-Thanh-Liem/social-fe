@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
-import { socket } from "~/socket/socket";
+import { connectSocket, socket } from "~/socket/socket";
 
 export const useStatusSocket = (
-  onOnl: (val: { _id: string; hasOnline: boolean }) => void
+  onOnl: (val: { _id: string; hasOnline: boolean }) => void,
 ) => {
   //
   useEffect(() => {
@@ -15,7 +15,7 @@ export const useStatusSocket = (
         console.log("Token jwt expired");
         const getToken = () => localStorage.getItem("access_token");
         socket.auth = { token: getToken() };
-        socket.connect();
+        connectSocket();
         console.log("Set token Success");
       }
     });

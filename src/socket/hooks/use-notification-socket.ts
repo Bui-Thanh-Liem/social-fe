@@ -2,24 +2,24 @@ import { useEffect } from "react";
 import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
 import type { ENotificationType } from "~/shared/enums/type.enum";
 import type { INotification } from "~/shared/interfaces/schemas/notification.interface";
-import { socket } from "~/socket/socket";
+import { connectSocket, disconnectSocket, socket } from "~/socket/socket";
 
 export const useNotificationSocket = (
   onNewNotification: (data: INotification) => void,
   onUnreadCount: (count: number) => void,
-  onUnreadCountByType: (val: Record<ENotificationType, number>) => void
+  onUnreadCountByType: (val: Record<ENotificationType, number>) => void,
 ) => {
   // Kết nối socket
   useEffect(() => {
     socket.on("connect_error", (err) => {
       // console.error("❌ Socket connect error:", err.message);
-      socket.disconnect();
+      disconnectSocket();
 
       if (err.message === "jwt expired") {
         console.log("Token jwt expired");
         const getToken = () => localStorage.getItem("access_token");
         socket.auth = { token: getToken() };
-        socket.connect();
+        connectSocket();
         console.log("Set token Success");
       }
     });
@@ -45,12 +45,12 @@ export const useNotificationSocket = (
   useEffect(() => {
     socket.on(
       CONSTANT_EVENT_NAMES.UNREAD_COUNT_NOTIFICATION_BY_TYPE,
-      onUnreadCountByType
+      onUnreadCountByType,
     );
     return () => {
       socket.off(
         CONSTANT_EVENT_NAMES.UNREAD_COUNT_NOTIFICATION_BY_TYPE,
-        onUnreadCountByType
+        onUnreadCountByType,
       );
     };
   }, [onUnreadCountByType]);
