@@ -38,6 +38,7 @@ import { CommunityJoinedPage } from "~/pages/community/community-joined-page";
 import { NotThing } from "~/components/state/not-thing";
 import ChatBox from "~/pages/messages/chat-box";
 import { ReelDetail } from "~/pages/reel-detail";
+import { deleteStorageClient } from "~/utils/delete-storage-client";
 
 export function HomeLayout() {
   const { pathname } = useLocation();
@@ -56,7 +57,15 @@ export function HomeLayout() {
   // Một kết nối socket duy nhất cho toàn ứng dụng
   useEffect(() => {
     connectSocket();
-    socket.emit(CONSTANT_EVENT_NAMES.JOIN_CONVERSATION, user?._id);
+
+    // Lắng nghe sự kiện logout để ngắt kết nối socket
+    socket.on(CONSTANT_EVENT_NAMES.USER_LOGOUT, ({ user_id }) => {
+      if (user_id === user?._id) {
+        disconnectSocket();
+        deleteStorageClient();
+        window.location.reload();
+      }
+    });
     return () => disconnectSocket();
   }, []);
 

@@ -16,8 +16,6 @@ export const useConversationSocket = (
 
       if (err.message === "jwt expired") {
         console.log("Token jwt expired");
-        const getToken = () => localStorage.getItem("access_token");
-        socket.auth = { token: getToken() };
         connectSocket();
         console.log("Set token Success");
       }

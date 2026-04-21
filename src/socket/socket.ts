@@ -1,10 +1,13 @@
 import { io } from "socket.io-client";
+import { CONSTANT_EVENT_NAMES } from "~/shared/constants";
+import { IUser } from "~/shared/interfaces/schemas/user.interface";
 
 // URL backend socket server
 const SOCKET_URL = import.meta.env.VITE_SERVER_SOCKET_URL;
 
-// Lấy token (ví dụ từ localStorage)
+// Lấy token & user
 const getToken = () => localStorage.getItem("access_token");
+const user = (localStorage.getItem("user_storage") || {}) as IUser;
 
 //
 export const socket = io(SOCKET_URL, {
@@ -20,6 +23,10 @@ export const connectSocket = () => {
   if (!socket.connected) {
     socket.auth = { token: getToken() }; // cập nhật token mỗi lần connect
     socket.connect();
+
+    if (user?._id) {
+      socket.emit(CONSTANT_EVENT_NAMES.JOIN_CONVERSATION, user._id);
+    }
   }
 };
 

@@ -10,7 +10,7 @@ import type {
 } from "~/shared/dtos/req/user-auth.dto";
 import type { ResLoginUser } from "~/shared/dtos/res/auth.dto";
 import type { IUser } from "~/shared/interfaces/schemas/user.interface";
-import { connectSocket, socket } from "~/socket/socket";
+import { connectSocket, socket, disconnectSocket } from "~/socket/socket";
 import { useBackLinkStore } from "~/storage/use-back-link.storage";
 import { useUserStore } from "~/storage/use-user.storage";
 import { apiCall } from "~/utils/call-api.util";
@@ -129,6 +129,9 @@ export const useLogout = () => {
 
         // Xóa dữ liệu Store global
         clearUser();
+
+        // Ngắt kết nối socket khi logout
+        disconnectSocket();
 
         //
         navigate(link || "/", { replace: true });
